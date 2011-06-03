@@ -1,0 +1,12 @@
+#: ../templates/default/paypal_form.tpl:37
+msgid "Select an option below, then click 'Pay' to proceed. Once your paiment validated, an entry will be automatically added in the contributions table and staff members will receive a notification mail."
+msgstr ""
+
+#: ../templates/default/paypal_form.tpl:66
+msgid "Amount"
+msgstr ""
+
+#: ../templates/default/paypal_form.tpl:70
+msgid "Proceed"
+msgstr ""
+

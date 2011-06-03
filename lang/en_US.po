@@ -1,0 +1,142 @@
+# Header entry was created by Lokalize.
+#
+# , 2011.
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"PO-Revision-Date: 2011-06-03 16:22+0200\n"
+"Last-Translator: \n"
+"Language-Team: French <kde-i18n-doc@kde.org>\n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Lokalize 1.2\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: ../templates/default/paypal_form.tpl:37
+msgid ""
+"Select an option below, then click 'Pay' to proceed. Once your paiment "
+"validated, an entry will be automatically added in the contributions table "
+"and staff members will receive a notification mail."
+msgstr ""
+"Select an option below, then click 'Pay' to proceed. Once your paiment "
+"validated, an entry will be automatically added in the contributions table "
+"and staff members will receive a notification mail."
+
+#: ../templates/default/paypal_form.tpl:66
+msgid "Amount"
+msgstr "Amount"
+
+#: ../templates/default/paypal_form.tpl:70
+msgid "Proceed"
+msgstr "Proceed"
+
+#~ msgid "fullcard"
+#~ msgstr "fullcard"
+
+#~ msgid "Society"
+#~ msgstr "Society"
+
+#~ msgid "Zip Code"
+#~ msgstr "Zip Code"
+
+#~ msgid "Email adress"
+#~ msgstr "Email adress"
+
+#~ msgid "At "
+#~ msgstr "At "
+
+#~ msgid "Active member"
+#~ msgstr "Active member"
+
+#~ msgid "Miss"
+#~ msgstr "Miss"
+
+#~ msgid "Address"
+#~ msgstr "Address"
+
+#~ msgid "Mister"
+#~ msgstr "Mister"
+
+#~ msgid "Adherent file card"
+#~ msgstr "Adherent file card"
+
+#~ msgid "Signature"
+#~ msgstr "Signature"
+
+#~ msgid "Empty card"
+#~ msgstr "Empty card"
+
+#~ msgid "City"
+#~ msgstr "City"
+
+#~ msgid "** Galette identifier, if applicable"
+#~ msgstr "** Galette identifier, if applicable"
+
+#~ msgid "Benefactor member"
+#~ msgstr "Benefactor member"
+
+#~ msgid "%membername: PDF member card"
+#~ msgstr "%membername: PDF member card"
+
+#~ msgid "Username"
+#~ msgstr "Username"
+
+#~ msgid ""
+#~ "The minimum contribution for each type of membership are defined on the "
+#~ "website of the association. The amount of donations are free to be dcided "
+#~ "by the generous donor."
+#~ msgstr ""
+#~ "The minimum contribution for each type of membership are defined on the "
+#~ "website of the association. The amount of donations are free to be dcided "
+#~ "by the generous donor."
+
+#~ msgid ""
+#~ "Hereby, I agree to comply to %s association's statutes and its rules."
+#~ msgstr ""
+#~ "Hereby, I agree to comply to %s association's statutes and its rules."
+
+#~ msgid "Required membership:"
+#~ msgstr "Required membership:"
+
+#~ msgid "Mrs"
+#~ msgstr "Mrs"
+
+#~ msgid "PDF member card"
+#~ msgstr "PDF member card"
+
+#~ msgid "Name"
+#~ msgstr "Name"
+
+#~ msgid ""
+#~ "Complete the following form and send it with your funds, in order to "
+#~ "complete your subscription."
+#~ msgstr ""
+#~ "Complete the following form and send it with your funds, in order to "
+#~ "complete your subscription."
+
+#~ msgid "Full card"
+#~ msgstr "Full card"
+
+#~ msgid "First name"
+#~ msgstr "First name"
+
+#~ msgid "Politeness"
+#~ msgstr "Politeness"
+
+#~ msgid "Country"
+#~ msgstr "Country"
+
+#~ msgid "* Company names for compagnies"
+#~ msgstr "* Company names for compagnies"
+
+#~ msgid "Generates an empty member card you can print for events, for example"
+#~ msgstr ""
+#~ "Generates an empty member card you can print for events, for example"
+
+#~ msgid "Donation"
+#~ msgstr "Donation"
+
+#~ msgid "On            /            /            "
+#~ msgstr "On            /            /            "
