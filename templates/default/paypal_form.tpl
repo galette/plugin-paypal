@@ -11,20 +11,20 @@
     <input type="hidden" name="no_shipping" value="1"/>
     <input type="hidden" name="bn" value="PP-BuyNowBF:btn_buynowCC_LG.gif:NonHostedGuest"/><!-- notfound :( -->
     <!-- Paypal dialogs -->
-    <input type="hidden" name="return" value=""/><!-- TODO: -->
+    <input type="hidden" name="return" value="{$plugin_url}paypal_success.php"/>
     <input type="hidden" name="rm" value="POST"/>{*Send POST values back to Galette after payment. Will be sent to return url above*}
-    <input type="hidden" name="image_url" value=""/><!-- TODO: -->
-    <input type="hidden" name="cancel_return" value=""/><!-- TODO: -->
-    <input type="hidden" name="notify_url" value=""/><!-- TODO: -->
+    <input type="hidden" name="image_url" value="{$galette_url}picture.php?logo=true"/>
+    <input type="hidden" name="cancel_return" value="{$plugin_url}paypal_form.php?cancelled=true"/>
+    <input type="hidden" name="notify_url" value="{$plugin_url}paypal_notify.php"/>
 
     <p>{_T string="Select an option below, then click 'Payment' to proceed. Once your paiment validated, an entry will be automatically added in the contributions table and staff members will receive a notification mail."}</p>
 
 {if $amounts|@count gt 0}
     <ul>
-    {foreach from=$amounts item=amount}
+    {foreach from=$amounts key=k item=amount}
         <li>
-            <input type="radio" name="item_name" id="in{$amount[1]}" value="{$amount[0]}"/>
-            <label for="in{$amount[1]}">{$amount[0]}
+            <input type="radio" name="item_name" id="in{$k}" value="{$amount[0]}"/>
+            <label for="in{$k}">{$amount[0]}
         {if $amount[2] gt 0}
                 ({$amount[2]|string_format:"%.2f"} €)
         {/if}

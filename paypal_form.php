@@ -55,6 +55,21 @@ $orig_template_path = $tpl->template_dir;
 $tpl->template_dir = 'templates/' . $preferences->pref_theme;
 $tpl->compile_id = PAYPAL_SMARTY_PREFIX;
 $tpl->assign('amounts', $paypal->getAmounts());
+//set util paths
+$plugin_dir = basename(dirname($_SERVER['SCRIPT_NAME']));
+$tpl->assign(
+    'galette_url',
+    'http://' . $_SERVER['HTTP_HOST'] .
+    preg_replace(
+        "/\/plugins\/" . $plugin_dir . '/',
+        "/",
+        dirname($_SERVER['SCRIPT_NAME'])
+    )
+);
+$tpl->assign(
+    'plugin_url',
+    'http://' . $_SERVER['HTTP_HOST'] . dirname($_SERVER['SCRIPT_NAME']) . '/'
+);
 $content = $tpl->fetch('paypal_form.tpl', PAYPAL_SMARTY_PREFIX);
 $tpl->assign('content', $content);
 //Set path to main Galette's template
