@@ -113,7 +113,7 @@ class Paypal {
                 foreach ( $paypals as $paypal ) {
                     if ( $paypal['id_type_cotis'] == $k ) {
                         $_found=true;
-                        $this->_prices[$k][] = (int)$paypal['amount'];
+                        $this->_prices[$k][] = (double)$paypal['amount'];
                         break;
                     }
                 }
@@ -125,7 +125,7 @@ class Paypal {
                   $this->_prices[$k][] = 0;
                   $queries[] = array(
                       'id'      => $k,
-                      'amount'  => 0
+                      'amount'  => (double)0
                   );
                 }
             }
@@ -166,6 +166,16 @@ class Paypal {
 
         $stmt->free();
         return true;
+    }
+
+    /**
+     * Get loaded amounts
+     *
+     * @return array
+     */
+    public function getAmounts()
+    {
+        return $this->_prices;
     }
 
 }

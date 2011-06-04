@@ -19,32 +19,22 @@
 
     <p>{_T string="Select an option below, then click 'Payment' to proceed. Once your paiment validated, an entry will be automatically added in the contributions table and staff members will receive a notification mail."}</p>
 
+{if $amounts|@count gt 0}
     <ul>
+    {foreach from=$amounts item=amount}
         <li>
-            <input type="radio" name="item_name" id="in1" value="Personne physique (réduit)"/>
-            <label for="in1">Personne physique (réduit) €10,00</label>
+            <input type="radio" name="item_name" id="in{$amount[1]}" value="{$amount[0]}"/>
+            <label for="in{$amount[1]}">{$amount[0]}
+        {if $amount[2] gt 0}
+                ({$amount[2]|string_format:"%.2f"} €)
+        {/if}
+            </label>
         </li>
-        <li>
-            <input type="radio" name="item_name" id="in2" checked="checked" value="Personne physique (normal)"/>
-            <label for="in2">Personne physique (normal) €20,00</label>
-        </li>
-        <li>
-            <input type="radio" name="item_name" id="in3" value="Personne physique (bienfaiteur)"/>
-            <label for="in3">Personne physique (bienfaiteur) €80,00</label>
-        </li>
-        <li>
-            <input type="radio" name="item_name" id="in4" value="Association"/>
-            <label for="in4">Association €50,00</label>
-        </li>
-        <li>
-            <input type="radio" name="item_name" id="in5" value="Entreprise"/>
-            <label for="in5">Entreprise €300,00</label>
-        </li>
-        <li>
-            <input type="radio" name="item_name" id="in6" value="Donation"/>
-            <label for="in6">Don</label>
-        </li>
+    {/foreach}
     </ul>
+{else}
+    <p>{_T string="No predefined amounts have been defined yet."}</p>
+{/if}
 
     <p>{_T string="Enter an amount (with a minimum that correspond to the option you've selected below)."}</p>
     <label for="amount">{_T string="Amount"}</label>

@@ -54,6 +54,7 @@ $tpl->assign('business', $preferences->pref_email);
 $orig_template_path = $tpl->template_dir;
 $tpl->template_dir = 'templates/' . $preferences->pref_theme;
 $tpl->compile_id = PAYPAL_SMARTY_PREFIX;
+$tpl->assign('amounts', $paypal->getAmounts());
 $content = $tpl->fetch('paypal_form.tpl', PAYPAL_SMARTY_PREFIX);
 $tpl->assign('content', $content);
 //Set path to main Galette's template
