@@ -61,25 +61,25 @@ class Paypal {
 
     private $_prices = array();
 
+    /**
+    * Default constructor
+    */
     public function __construct()
     {
         $this->load();
-        $this->_checkUpdate();
-        /*$ct = new ContributionsTypes();
-        foreach ( $ct->getCompleteList() as $k=>$v ) {
-            $this->_prices[$k] = null;
-        }*/
     }
 
+    /**
+     * Load amounts from database
+     *
+     * @return void
+     */
     public function load()
     {
         global $mdb, $log;
 
         $ct = new ContributionsTypes();
         $this->_prices = $ct->getCompleteList();
-        /*foreach ( $ct->getCompleteList() as $k=>$v ) {
-            $this->_prices[$k] = null;
-        }*/
 
         $requete = 'SELECT * FROM ' . PREFIX_DB . PAYPAL_PREFIX . self::TABLE;
 
@@ -94,13 +94,9 @@ class Paypal {
             return false;
         }
 
-        print_($result->fetchAll());
+        //print_($result->fetchAll());
+        /** TODO: check if all types currently exists in paypal table, and create them if not (to avoid update resquest failure)*/
 
-    }
-
-    public function _checkUpdate()
-    {
-        global $mdb, $log;
     }
 
 }

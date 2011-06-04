@@ -43,6 +43,9 @@ require_once $base_path . 'includes/galette.inc.php';
 
 //Constants and classes from plugin
 require_once '_config.inc.php';
+require_once 'classes/paypal.class.php';
+
+$paypal = new Paypal();
 
 $tpl->assign('business', $preferences->pref_email);
 
