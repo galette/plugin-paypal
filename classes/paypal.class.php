@@ -94,9 +94,78 @@ class Paypal {
             return false;
         }
 
-        //print_($result->fetchAll());
-        /** TODO: check if all types currently exists in paypal table, and create them if not (to avoid update resquest failure)*/
+        if ( $result->numRows() == 0 ) {
+            $log->log('No contribution type defined in database.', PEAR_LOG_INFO);
+        } else {
+            //check if all types currently exists in paypal table
+            if ( $result->numRows() != count($this->_prices) ) {
+                $log->log(
+                  '[' . get_class($this) . '] There are missing types in ' .
+                  'paypal table, Galette will try to create them.',
+                  PEAR_LOG_INFO
+                );
+            }
+            $paypals = $result->fetchAll(MDB2_FETCHMODE_ASSOC);
+            $queries = array();
+            foreach ( $this->_prices as $k=>$v ) {
+                $_found = false;
+                //for each entry in types, we want to get the associated amount
+                foreach ( $paypals as $paypal ) {
+                    if ( $paypal['id_type_cotis'] == $k ) {
+                        $_found=true;
+                        $this->_prices[$k][] = (int)$paypal['amount'];
+                        break;
+                    }
+                }
+                if ( $_found === false ) {
+                  $log->log(
+                      'The type `' . $v[0] . '` (' . $k . ') does not exist, Galette will attempt to create it.',
+                      PEAR_LOG_INFO
+                  );
+                  $this->_prices[$k][] = 0;
+                  $queries[] = array(
+                      'id'      => $k,
+                      'amount'  => 0
+                  );
+                }
+            }
+            if ( count($queries) > 0 ) {
+                $this->_newEntries($queries);
+            }
+        }
+    }
 
+    /**
+    * Add missing types in paypal table
+    *
+    * @return true on success, false on failure
+    */
+    private function _newEntries($queries)
+    {
+        global $mdb, $log;
+
+        $stmt = $mdb->prepare(
+            'INSERT INTO ' . PREFIX_DB . PAYPAL_PREFIX . self::TABLE . ' (' .
+            self::PK . ', amount) VALUES (:id, :amount)',
+            array('integer', 'double'),
+            MDB2_PREPARE_MANIP
+        );
+
+        $mdb->getDb()->loadModule('Extended', null, false);
+        $mdb->getDb()->extended->executeMultiple($stmt, $queries);
+
+        if ( MDB2::isError($stmt) ) {
+            $this->_error = $stmt;
+            $log->log(
+                'Unable to store missing types in paypal table.' .
+                $stmt->getMessage() . '(' . $stmt->getDebugInfo() . ')',
+                PEAR_LOG_WARNING
+            );
+            return false;
+        }
+
+        $stmt->free();
+        return true;
     }
 
 }
