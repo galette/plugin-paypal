@@ -12,7 +12,7 @@
     <input type="hidden" name="bn" value="PP-BuyNowBF:btn_buynowCC_LG.gif:NonHostedGuest"/><!-- notfound :( -->
     <!-- Paypal dialogs -->
     <input type="hidden" name="return" value=""/><!-- TODO: -->
-    <input type="hidden" name="rm" value="POST"/>{*Send POST values back to Galette after payment. Will be sent to return url above*=
+    <input type="hidden" name="rm" value="POST"/>{*Send POST values back to Galette after payment. Will be sent to return url above*}
     <input type="hidden" name="image_url" value=""/><!-- TODO: -->
     <input type="hidden" name="cancel_return" value=""/><!-- TODO: -->
     <input type="hidden" name="notify_url" value=""/><!-- TODO: -->
