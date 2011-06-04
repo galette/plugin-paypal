@@ -35,5 +35,6 @@
  * @since     Available since 0.7dev - 2011-06-01
  */
 
+define('PAYPAL_PREFIX', 'paypal_');
 define('PAYPAL_SMARTY_PREFIX', 'plugins|paypal');
 ?>
