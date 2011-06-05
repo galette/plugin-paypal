@@ -95,21 +95,26 @@ class Paypal
             return false;
         }
 
-        if ( $result->numRows() == 0 ) {
-            $log->log('No contribution type defined in database.', PEAR_LOG_INFO);
-        } else {
-            //check if all types currently exists in paypal table
-            if ( $result->numRows() != count($this->_prices) ) {
-                $log->log(
-                    '[' . get_class($this) . '] There are missing types in ' .
-                    'paypal table, Galette will try to create them.',
-                    PEAR_LOG_INFO
-                );
-            }
+        //check if all types currently exists in paypal table
+        if ( $result->numRows() != count($this->_prices) ) {
+            $log->log(
+                '[' . get_class($this) . '] There are missing types in ' .
+                'paypal table, Galette will try to create them.',
+                PEAR_LOG_INFO
+            );
+        }
+        if ( $result->numRows() > 0 ) {
             $paypals = $result->fetchAll(MDB2_FETCHMODE_ASSOC);
-            $queries = array();
-            foreach ( $this->_prices as $k=>$v ) {
-                $_found = false;
+        } else {
+            $log->log(
+                'No paypal type amounts defined in database.',
+                PEAR_LOG_INFO
+            );
+        }
+        $queries = array();
+        foreach ( $this->_prices as $k=>$v ) {
+            $_found = false;
+            if ( $result->numRows() > 0 ) {
                 //for each entry in types, we want to get the associated amount
                 foreach ( $paypals as $paypal ) {
                     if ( $paypal['id_type_cotis'] == $k ) {
@@ -118,22 +123,22 @@ class Paypal
                         break;
                     }
                 }
-                if ( $_found === false ) {
-                    $log->log(
-                        'The type `' . $v[0] . '` (' . $k . ') does not exist' .
-                        ', Galette will attempt to create it.',
-                        PEAR_LOG_INFO
-                    );
-                    $this->_prices[$k][] = 0;
-                    $queries[] = array(
-                          'id'      => $k,
-                        'amount'  => (double)0
-                    );
-                }
             }
-            if ( count($queries) > 0 ) {
-                $this->_newEntries($queries);
+            if ( $_found === false ) {
+                $log->log(
+                    'The type `' . $v[0] . '` (' . $k . ') does not exist' .
+                    ', Galette will attempt to create it.',
+                    PEAR_LOG_INFO
+                );
+                $this->_prices[$k][] = null;
+                $queries[] = array(
+                      'id'      => $k,
+                    'amount'  => null
+                );
             }
+        }
+        if ( count($queries) > 0 ) {
+            $this->_newEntries($queries);
         }
     }
 
