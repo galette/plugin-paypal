@@ -11,7 +11,7 @@
  *
  * PHP version 5
  *
- * Copyright © ${year} The Galette Team
+ * Copyright © 2011 The Galette Team
  *
  * This file is part of Galette (http://galette.tuxfamily.org).
  *
@@ -28,14 +28,14 @@
  * You should have received a copy of the GNU General Public License
  * along with Galette. If not, see <http://www.gnu.org/licenses/>.
  *
- * @category
- * @package
+ * @category  Classes
+ * @package   GalettePaypal
  * @author    Johan Cwiklinski <johan@x-tnd.be>
- * @copyright ${year} The Galette Team
+ * @copyright 2011 The Galette Team
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GPL License 3.0 or (at your option) any later version
- * @version   SVN: $$Id$$
+ * @version   SVN: $Id$
  * @link      http://galette.tuxfamily.org
- * @since     Available since 0.7dev - ${date}
+ * @since     Available since 0.7dev - 2011-06-03
  */
 
 /** @ignore */
@@ -48,13 +48,14 @@ require_once WEB_ROOT . 'classes/contributions_types.class.php';
  * @name      Paypal
  * @package   Galette
  * @author    Johan Cwiklinski <johan@x-tnd.be>
- * @copyright ${year} The Galette Team
+ * @copyright 2011 The Galette Team
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GPL License 3.0 or (at your option) any later version
  * @link      http://galette.tuxfamily.org
- * @since     Available since 0.7dev - ${date}
+ * @since     Available since 0.7dev - 2011-06-03
  */
 
-class Paypal {
+class Paypal
+{
 
     const TABLE = 'types_cotisation_prices';
     const PK = ContributionsTypes::PK;
@@ -100,9 +101,9 @@ class Paypal {
             //check if all types currently exists in paypal table
             if ( $result->numRows() != count($this->_prices) ) {
                 $log->log(
-                  '[' . get_class($this) . '] There are missing types in ' .
-                  'paypal table, Galette will try to create them.',
-                  PEAR_LOG_INFO
+                    '[' . get_class($this) . '] There are missing types in ' .
+                    'paypal table, Galette will try to create them.',
+                    PEAR_LOG_INFO
                 );
             }
             $paypals = $result->fetchAll(MDB2_FETCHMODE_ASSOC);
@@ -118,15 +119,16 @@ class Paypal {
                     }
                 }
                 if ( $_found === false ) {
-                  $log->log(
-                      'The type `' . $v[0] . '` (' . $k . ') does not exist, Galette will attempt to create it.',
-                      PEAR_LOG_INFO
-                  );
-                  $this->_prices[$k][] = 0;
-                  $queries[] = array(
-                      'id'      => $k,
-                      'amount'  => (double)0
-                  );
+                    $log->log(
+                        'The type `' . $v[0] . '` (' . $k . ') does not exist' .
+                        ', Galette will attempt to create it.',
+                        PEAR_LOG_INFO
+                    );
+                    $this->_prices[$k][] = 0;
+                    $queries[] = array(
+                          'id'      => $k,
+                        'amount'  => (double)0
+                    );
                 }
             }
             if ( count($queries) > 0 ) {
@@ -137,6 +139,8 @@ class Paypal {
 
     /**
     * Add missing types in paypal table
+    *
+    * @param Array $queries Array of items to insert
     *
     * @return true on success, false on failure
     */
