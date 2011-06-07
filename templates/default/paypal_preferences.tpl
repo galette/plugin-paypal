@@ -34,10 +34,40 @@
 				<p>
 					<label for="paypal_id" class="bline required">{_T string="Paypal identifier:"}</label>
 					<span class="tip">{_T string="Enter here one of your Paypal ID or email adress associated within your paypal account."}</span>
-					<input type="text" name="paypal_id" id="paypal_id" value="{$pref.paypal_id}"/>
+					<input type="text" name="paypal_id" id="paypal_id" value="{$paypal->getId()}"/>
 				</p>
+                <input type="hidden" name="valid" value="1"/>
+{if $paypal->areAmountsLoaded() and $amounts|@count gt 0}
+                <table>
+                    <thead>
+                        <tr>
+                            <th>{_T string="Cotisation type"}</th>
+                            <th>{_T string="Amount"}</th>
+                            <th>{_T string="Inactive"}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+    {foreach from=$amounts key=k item=amount}
+                        <tr>
+                            <td>
+                                <input type="hidden" name="amount_id[]" id="amount_id_{$k}" value="{$k}"/>
+                                <label for="amount_{$k}">{$amount[0]}</label>
+                            </td>
+                            <td>
+                                <input type="text" name="amounts[]" id="amount_{$k}" value="{$amount[2]|string_format:"%.2f"}"/>
+                            </td>
+                            <td>
+                                <input type="checkbox" name="inactives[]" id="inactives_{$k}"{if $paypal->isInactive($k)} checked="checked"{/if}/>
+                            </td>
+                        </tr>
+    {/foreach}
+                    </tbody>
+                </table>
 			</fieldset>
-			<input type="hidden" name="valid" value="1"/>
+{else}
+            <p>{_T string="Error: no predefined amounts found."}</p>
+{/if}
+
 		</div>
 		<div class="button-container">
 			<input type="submit" class="submit" value="{_T string="Save"}"/>

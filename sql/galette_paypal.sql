@@ -32,4 +32,4 @@ CREATE TABLE galette_paypal_preferences (
   PRIMARY KEY  (id_pref)
 ) ENGINE=MyISAM DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
-INSERT INTO galette_paypal_preferences (nom_pref, val_pref) VALUES ('paypal_id', '');
+INSERT INTO galette_paypal_preferences (nom_pref, val_pref) VALUES (('paypal_id', ''), ('paypal_inactives', '4,6,7'));

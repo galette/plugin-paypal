@@ -63,6 +63,7 @@ class Paypal
 
     private $_prices = array();
     private $_id = null;
+    private $_inactives = array();
 
     private $_loaded = false;
     private $_error = null;
@@ -76,6 +77,7 @@ class Paypal
         $this->_loaded = false;
         $this->_error = array();
         $this->_prices = array();
+        $this->_inactives = array();
         $this->_id = null;
         $this->_load();
     }
@@ -104,6 +106,24 @@ class Paypal
                 'debug'     => $result->getDebugInfo()
             );
         } else {
+            $r = $result->fetchAll();
+            foreach ( $r as $row ) {
+                switch ( $row->nom_pref ) {
+                case 'paypal_id':
+                    $this->_id = $row->val_pref;
+                    break;
+                case 'paypal_inactives':
+                    $this->_inactives = explode(',', $row->val_pref);
+                    break;
+                default:
+                    //we've got a preference not intended
+                    $log->log(
+                        '[' . get_class($this) . '] unknown preference `' .
+                        $row->nom_pref . '` in the database.',
+                        PEAR_LOG_WARNING
+                    );
+                }
+            }
             $this->_loaded = true;
             $this->_loadAmounts();
         }
@@ -262,9 +282,46 @@ class Paypal
         return $this->_error;
     }
 
+    /**
+     * Are amounts loaded?
+     *
+     * @return boolean
+     */
     public function areAmountsLoaded()
     {
         return $this->_amounts_loaded;
+    }
+
+    /**
+     * Set paypal identifier
+     *
+     * @param string $id
+     */
+    public function setId($id)
+    {
+        $this->_id = $id;
+    }
+
+    /**
+     * Set new prices
+     *
+     * @param array $ids
+     * @param array $amounts
+     */
+    public function setPrices($ids, $amounts)
+    {
+        foreach ( $ids as $k=>$id) {
+            $this->_prices[$id][2] = $amounts[$k];
+        }
+    }
+
+    /**
+     * Check if the specified contribution is active
+     * @param int $id
+     */
+    public function isInactive($id)
+    {
+        return in_array($id, $this->_inactives);
     }
 }
 ?>

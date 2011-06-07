@@ -56,7 +56,14 @@ require_once 'classes/paypal.class.php';
 
 $paypal = new Paypal();
 
-//$tpl->assign('business', $preferences->pref_email);
+if ( isset($_POST) ) {
+    if ( isset($_POST['paypal_id']) ) {
+        $paypal->setId($_POST['paypal_id']);
+    }
+    if ( isset($_POST['amount_id']) && isset($_POST['amounts']) ) {
+        $paypal->setPrices($_POST['amount_id'], $_POST['amounts']);
+    }
+}
 
 //Set the path to the current plugin's templates,
 //but backup main Galette's template path before
