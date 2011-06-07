@@ -57,7 +57,7 @@
                                 <input type="text" name="amounts[]" id="amount_{$k}" value="{$amount[2]|string_format:"%.2f"}"/>
                             </td>
                             <td>
-                                <input type="checkbox" name="inactives[]" id="inactives_{$k}"{if $paypal->isInactive($k)} checked="checked"{/if}/>
+                                <input type="checkbox" name="inactives[]" id="inactives_{$k}"{if $paypal->isInactive($k)} checked="checked"{/if} value="{$k}"/>
                             </td>
                         </tr>
     {/foreach}

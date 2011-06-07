@@ -66,6 +66,7 @@ if ( isset($_POST) ) {
     if (isset($_POST['inactives']) ) {
         $paypal->setInactives($_POST['inactives']);
     }
+    $stored = $paypal->store();
 }
 
 //Set the path to the current plugin's templates,
@@ -75,6 +76,9 @@ $tpl->template_dir = 'templates/' . $preferences->pref_theme;
 $tpl->compile_id = PAYPAL_SMARTY_PREFIX;
 $tpl->assign('paypal', $paypal);
 $tpl->assign('amounts', $paypal->getAmounts());
+if ( isset($stored) ) {
+    $tpl->assign('stored', $stored);
+}
 $content = $tpl->fetch('paypal_preferences.tpl', PAYPAL_SMARTY_PREFIX);
 $tpl->assign('content', $content);
 //Set path back to main Galette's template

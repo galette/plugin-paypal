@@ -208,6 +208,52 @@ class Paypal
     }
 
     /**
+     * Store values in the database
+     */
+    public function store(){
+        global $mdb, $log;
+
+        /*$requete = 'UPDATE ' . PREFIX_DB . PAYPAL_PREFIX . self::PREFS_TABLE . ' SET nom_pref="paypal_id", val_pref="testouille" WHERE nom_pref="paypal_id"';
+        $stmt = $mdb->query($requete);*/
+        $requete = 'UPDATE ' . PREFIX_DB . PAYPAL_PREFIX . self::PREFS_TABLE . ' SET nom_pref=:nom_pref, val_pref=:val_pref WHERE nom_pref=:nom_pref';
+        $stmt = $mdb->prepare(
+            $requete,
+            array('text', 'text'),
+            MDB2_PREPARE_MANIP
+        );
+
+        $query = array();
+        $query[] = array(
+            'nom_pref'  => 'paypal_id',
+            'val_pref'  => $this->_id
+        );
+        $query[] = array(
+            'nom_pref'  => 'paypal_inactives',
+            'val_pref'  => implode($this->_inactives, ',') //check
+        );
+
+        $mdb->getDb()->loadModule('Extended', null, false);
+        $mdb->getDb()->extended->executeMultiple($stmt, $query);
+
+        if (MDB2::isError($stmt)) {
+            $log->log(
+                '[' . get_class($this) . '] Cannot store paypal preferences' .
+                '` | ' . $stmt->getMessage() . '(' . $stmt->getDebugInfo() . ')',
+                PEAR_LOG_ERR
+            );
+            return false;
+        } else {
+            $log->log(
+                '[' . get_class($this) . '] Paypal preferences were sucessfully stored',
+                PEAR_LOG_INFO
+            );
+            return true;
+        }
+
+        /*$stmt->free();*/
+    }
+
+    /**
     * Add missing types in paypal table
     *
     * @param Array $queries Array of items to insert
@@ -332,5 +378,6 @@ class Paypal
     public function setInactives($inactives) {
         $this->_inactives = $inactives;
     }
+
 }
 ?>
