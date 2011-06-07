@@ -66,6 +66,7 @@ class Paypal
 
     private $_loaded = false;
     private $_error = null;
+    private $_amounts_loaded = false;
 
     /**
     * Default constructor
@@ -181,6 +182,8 @@ class Paypal
             if ( count($queries) > 0 ) {
                 $this->_newEntries($queries);
             }
+            //amounts should be loaded here
+            $this->_amounts_loaded = true;
         }
     }
 
@@ -257,6 +260,11 @@ class Paypal
     public function getError()
     {
         return $this->_error;
+    }
+
+    public function areAmountsLoaded()
+    {
+        return $this->_amounts_loaded;
     }
 }
 ?>

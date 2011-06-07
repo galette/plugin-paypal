@@ -6,12 +6,11 @@
     <p>{_T string="Our apologies for the annoyance :("}</p>
 </div>
 {else}
-    {if $paypal->getError()|@count gt 0}
+    {if !$paypal->areAmountsLoaded()}
 <div id="warningbox">
     <h1>{_T string="- WARNING -"}</h1>
     <p>{_T string="Predefined amounts cannot be loaded, that is not a critical error."}</p>
 </div>
-
     {/if}
 <form action="https://www.sandbox.paypal.com/fr/cgi-bin/webscr" method="post" id="paypal">
 <!--<form action="https://www.paypal.com/cgi-bin/webscr" method="post" id="paypal">--><!-- TODO: switch beetween dev/prod modes-->
@@ -35,7 +34,7 @@
 
     <p>{_T string="Select an option below, then click 'Payment' to proceed. Once your paiment validated, an entry will be automatically added in the contributions table and staff members will receive a notification mail."}</p>
 
-    {if $amounts|@count gt 0}
+    {if $paypal->areAmountsLoaded() and $amounts|@count gt 0}
     <ul>
         {foreach from=$amounts key=k item=amount}
         <li>
@@ -53,7 +52,7 @@
     {/if}
 
     <p>{_T string="Enter an amount."}
-    {if $amounts|@count gt 0}
+    {if $paypal->areAmountsLoaded() and $amounts|@count gt 0}
         <br/><span class="required">{_T string="WARNING: If you enter an amount below, make sure that it is not lower than the amount of the option you've selected."}</span>
     {/if}
     </p>
