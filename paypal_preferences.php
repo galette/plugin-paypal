@@ -33,13 +33,22 @@
  * @author    Johan Cwiklinski <johan@x-tnd.be>
  * @copyright 2011 The Galette Team
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GPL License 3.0 or (at your option) any later version
- * @version   SVN: $Id: owners.php 556 2009-03-13 06:48:49Z trashy $
+ * @version   SVN: $Id$
  * @link      http://galette.tuxfamily.org
- * @since     Available since 0.7dev - 2011-06-02
+ * @since     Available since 0.7dev - 2011-06-05
  */
 
 $base_path = '../../';
 require_once $base_path . 'includes/galette.inc.php';
+
+if ( !$login->isLogged() ) {
+    header('location: ' . $base_path . 'index.php');
+    die();
+}
+if ( !$login->isAdmin() ) {
+    header('location: ' . $base_path . 'voir_adherent.php');
+    die();
+}
 
 //Constants and classes from plugin
 require_once '_config.inc.php';
@@ -47,7 +56,7 @@ require_once 'classes/paypal.class.php';
 
 $paypal = new Paypal();
 
-$tpl->assign('business', $preferences->pref_email);
+//$tpl->assign('business', $preferences->pref_email);
 
 //Set the path to the current plugin's templates,
 //but backup main Galette's template path before
@@ -56,24 +65,10 @@ $tpl->template_dir = 'templates/' . $preferences->pref_theme;
 $tpl->compile_id = PAYPAL_SMARTY_PREFIX;
 $tpl->assign('paypal', $paypal);
 $tpl->assign('amounts', $paypal->getAmounts());
-//set util paths
-$plugin_dir = basename(dirname($_SERVER['SCRIPT_NAME']));
-$tpl->assign(
-    'galette_url',
-    'http://' . $_SERVER['HTTP_HOST'] .
-    preg_replace(
-        "/\/plugins\/" . $plugin_dir . '/',
-        "/",
-        dirname($_SERVER['SCRIPT_NAME'])
-    )
-);
-$tpl->assign(
-    'plugin_url',
-    'http://' . $_SERVER['HTTP_HOST'] . dirname($_SERVER['SCRIPT_NAME']) . '/'
-);
-$content = $tpl->fetch('paypal_form.tpl', PAYPAL_SMARTY_PREFIX);
+$content = $tpl->fetch('paypal_preferences.tpl', PAYPAL_SMARTY_PREFIX);
 $tpl->assign('content', $content);
 //Set path back to main Galette's template
 $tpl->template_dir = $orig_template_path;
 $tpl->display('page.tpl', PAYPAL_SMARTY_PREFIX);
+
 ?>

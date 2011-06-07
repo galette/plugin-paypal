@@ -59,15 +59,53 @@ class Paypal
 
     const TABLE = 'types_cotisation_prices';
     const PK = ContributionsTypes::PK;
+    const PREFS_TABLE = 'preferences';
 
     private $_prices = array();
+    private $_id = null;
+
+    private $_loaded = false;
+    private $_error = null;
 
     /**
     * Default constructor
     */
     public function __construct()
     {
-        $this->load();
+        $this->_loaded = false;
+        $this->_error = array();
+        $this->_prices = array();
+        $this->_id = null;
+        $this->_load();
+    }
+
+    /**
+     * Load preferences form the database and amounts
+     *
+     * @return void
+     */
+    private function _load(){
+        global $mdb, $log;
+
+        $requete = 'SELECT * FROM ' . PREFIX_DB . PAYPAL_PREFIX . self::PREFS_TABLE;
+        $result = $mdb->query($requete);
+
+        if (MDB2::isError($result)) {
+            $log->log(
+                '[' . get_class($this) . '] Cannot load paypal preferences' .
+                '` | ' . $result->getMessage() . '(' . $result->getDebugInfo() . ')',
+                PEAR_LOG_ERR
+            );
+            //consider plugin is not loaded when missing the main preferences (that includes paypal id)
+            $this->_loaded = false;
+            $this->_error = array(
+                'message'   => $result->getMessage(),
+                'debug'     => $result->getDebugInfo()
+            );
+        } else {
+            $this->_loaded = true;
+            $this->_loadAmounts();
+        }
     }
 
     /**
@@ -75,7 +113,7 @@ class Paypal
      *
      * @return void
      */
-    public function load()
+    private function _loadAmounts()
     {
         global $mdb, $log;
 
@@ -90,55 +128,59 @@ class Paypal
             $log->log(
                 '[' . get_class($this) . '] Cannot load paypal amounts' .
                 '` | ' . $result->getMessage() . '(' . $result->getDebugInfo() . ')',
-                PEAR_LOG_WARNING
+                PEAR_LOG_ERR
             );
-            return false;
-        }
-
-        //check if all types currently exists in paypal table
-        if ( $result->numRows() != count($this->_prices) ) {
-            $log->log(
-                '[' . get_class($this) . '] There are missing types in ' .
-                'paypal table, Galette will try to create them.',
-                PEAR_LOG_INFO
+            //missing amounts is not a critical error, user can enter the amount manually :)
+            $this->_error = array(
+                'message'   => $result->getMessage(),
+                'debug'     => $result->getDebugInfo()
             );
-        }
-        if ( $result->numRows() > 0 ) {
-            $paypals = $result->fetchAll(MDB2_FETCHMODE_ASSOC);
         } else {
-            $log->log(
-                'No paypal type amounts defined in database.',
-                PEAR_LOG_INFO
-            );
-        }
-        $queries = array();
-        foreach ( $this->_prices as $k=>$v ) {
-            $_found = false;
-            if ( $result->numRows() > 0 ) {
-                //for each entry in types, we want to get the associated amount
-                foreach ( $paypals as $paypal ) {
-                    if ( $paypal['id_type_cotis'] == $k ) {
-                        $_found=true;
-                        $this->_prices[$k][] = (double)$paypal['amount'];
-                        break;
-                    }
-                }
-            }
-            if ( $_found === false ) {
+            //check if all types currently exists in paypal table
+            if ( $result->numRows() != count($this->_prices) ) {
                 $log->log(
-                    'The type `' . $v[0] . '` (' . $k . ') does not exist' .
-                    ', Galette will attempt to create it.',
+                    '[' . get_class($this) . '] There are missing types in ' .
+                    'paypal table, Galette will try to create them.',
                     PEAR_LOG_INFO
                 );
-                $this->_prices[$k][] = null;
-                $queries[] = array(
-                      'id'      => $k,
-                    'amount'  => null
+            }
+            if ( $result->numRows() > 0 ) {
+                $paypals = $result->fetchAll(MDB2_FETCHMODE_ASSOC);
+            } else {
+                $log->log(
+                    'No paypal type amounts defined in database.',
+                    PEAR_LOG_INFO
                 );
             }
-        }
-        if ( count($queries) > 0 ) {
-            $this->_newEntries($queries);
+            $queries = array();
+            foreach ( $this->_prices as $k=>$v ) {
+                $_found = false;
+                if ( $result->numRows() > 0 ) {
+                    //for each entry in types, we want to get the associated amount
+                    foreach ( $paypals as $paypal ) {
+                        if ( $paypal['id_type_cotis'] == $k ) {
+                            $_found=true;
+                            $this->_prices[$k][] = (double)$paypal['amount'];
+                            break;
+                        }
+                    }
+                }
+                if ( $_found === false ) {
+                    $log->log(
+                        'The type `' . $v[0] . '` (' . $k . ') does not exist' .
+                        ', Galette will attempt to create it.',
+                        PEAR_LOG_INFO
+                    );
+                    $this->_prices[$k][] = null;
+                    $queries[] = array(
+                          'id'      => $k,
+                        'amount'  => null
+                    );
+                }
+            }
+            if ( count($queries) > 0 ) {
+                $this->_newEntries($queries);
+            }
         }
     }
 
@@ -178,6 +220,16 @@ class Paypal
     }
 
     /**
+     * Get Paypal identifier
+     *
+     * @return string
+     */
+    public function getId()
+    {
+        return $this->_id;
+    }
+
+    /**
      * Get loaded amounts
      *
      * @return array
@@ -187,5 +239,24 @@ class Paypal
         return $this->_prices;
     }
 
+    /**
+     * Is the plugin loaded?
+     *
+     * @return boolean
+     */
+    public function isLoaded()
+    {
+        return $this->_loaded;
+    }
+
+    /**
+     * Retrieve informations on error
+     *
+     * @return array
+     */
+    public function getError()
+    {
+        return $this->_error;
+    }
 }
 ?>
