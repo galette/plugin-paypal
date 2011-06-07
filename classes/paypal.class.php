@@ -245,6 +245,48 @@ class Paypal
                 '[' . get_class($this) . '] Paypal preferences were sucessfully stored',
                 PEAR_LOG_INFO
             );
+        }
+
+        $stmt->free();
+        $this->storeAmounts();
+        return true;
+    }
+
+    public function storeAmounts()
+    {
+        global $mdb, $log;
+
+        $requete = "UPDATE " . PREFIX_DB . PAYPAL_PREFIX . self::TABLE . ' SET amount=:amount WHERE ' . self::PK . '=:id';
+
+        $stmt = $mdb->prepare(
+            $requete,
+            array('double', 'int'),
+            MDB2_PREPARE_MANIP
+        );
+
+        $query = array();
+        foreach ( $this->_prices as $k=>$v ) {
+            $query[] = array(
+                'amount'    => $v[2],
+                'id'        => $k
+            );
+        }
+
+        $mdb->getDb()->loadModule('Extended', null, false);
+        $mdb->getDb()->extended->executeMultiple($stmt, $query);
+
+        if (MDB2::isError($stmt)) {
+            $log->log(
+                '[' . get_class($this) . '] Cannot store paypal amounts' .
+                '` | ' . $stmt->getMessage() . '(' . $stmt->getDebugInfo() . ')',
+                PEAR_LOG_ERR
+            );
+            return false;
+        } else {
+            $log->log(
+                '[' . get_class($this) . '] Paypal amounts were sucessfully stored',
+                PEAR_LOG_INFO
+            );
             return true;
         }
 
