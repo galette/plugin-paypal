@@ -323,5 +323,14 @@ class Paypal
     {
         return in_array($id, $this->_inactives);
     }
+
+    /**
+     * Set inactives types
+     *
+     * @param array $inactives
+     */
+    public function setInactives($inactives) {
+        $this->_inactives = $inactives;
+    }
 }
 ?>

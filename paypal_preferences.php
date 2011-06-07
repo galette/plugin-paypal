@@ -63,6 +63,9 @@ if ( isset($_POST) ) {
     if ( isset($_POST['amount_id']) && isset($_POST['amounts']) ) {
         $paypal->setPrices($_POST['amount_id'], $_POST['amounts']);
     }
+    if (isset($_POST['inactives']) ) {
+        $paypal->setInactives($_POST['inactives']);
+    }
 }
 
 //Set the path to the current plugin's templates,
