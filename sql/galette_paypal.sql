@@ -6,7 +6,6 @@ CREATE TABLE galette_paypal_types_cotisation_prices (
   id_type_cotis int(10) unsigned NOT NULL,
   amount double NOT NULL,
   PRIMARY KEY (id_type_cotis),
-  KEY galette_cotisation_price (id_type_cotis),
   CONSTRAINT galette_cotisation_price FOREIGN KEY (id_type_cotis) REFERENCES galette_types_cotisation (id_type_cotis) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
