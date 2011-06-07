@@ -213,8 +213,6 @@ class Paypal
     public function store(){
         global $mdb, $log;
 
-        /*$requete = 'UPDATE ' . PREFIX_DB . PAYPAL_PREFIX . self::PREFS_TABLE . ' SET nom_pref="paypal_id", val_pref="testouille" WHERE nom_pref="paypal_id"';
-        $stmt = $mdb->query($requete);*/
         $requete = 'UPDATE ' . PREFIX_DB . PAYPAL_PREFIX . self::PREFS_TABLE . ' SET nom_pref=:nom_pref, val_pref=:val_pref WHERE nom_pref=:nom_pref';
         $stmt = $mdb->prepare(
             $requete,
@@ -250,7 +248,7 @@ class Paypal
             return true;
         }
 
-        /*$stmt->free();*/
+        $stmt->free();
     }
 
     /**
