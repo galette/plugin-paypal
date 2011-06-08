@@ -339,11 +339,27 @@ class Paypal
     }
 
     /**
-     * Get loaded amounts
+     * Get loaded and active amounts
      *
      * @return array
      */
     public function getAmounts()
+    {
+        $prices = array();
+        foreach ( $this->_prices as $k=>$v ) {
+            if ( !$this->isInactive($k) ) {
+                $prices[$k] = $v;
+            }
+        }
+        return $prices;
+    }
+
+    /**
+     * Get loaded amounts
+     *
+     * @return array
+     */
+    public function getAllAmounts()
     {
         return $this->_prices;
     }

@@ -75,7 +75,7 @@ $orig_template_path = $tpl->template_dir;
 $tpl->template_dir = 'templates/' . $preferences->pref_theme;
 $tpl->compile_id = PAYPAL_SMARTY_PREFIX;
 $tpl->assign('paypal', $paypal);
-$tpl->assign('amounts', $paypal->getAmounts());
+$tpl->assign('amounts', $paypal->getAllAmounts());
 if ( isset($stored) ) {
     $tpl->assign('stored', $stored);
 }
