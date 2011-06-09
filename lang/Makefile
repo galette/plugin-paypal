@@ -5,7 +5,8 @@ PACKAGE = galette_paypal
 MKLANG = ../../../lang/make_lang_l12n.py
 PHP_SOURCES = ../templates/default/paypal_form.tpl \
 ../templates/default/paypal_success.tpl \
-../templates/default/paypal_preferences.tpl
+../templates/default/paypal_preferences.tpl \
+../templates/default/menu.tpl
 
 
 all : messages.po lang
