@@ -16,7 +16,7 @@
 <!--<form action="https://www.paypal.com/cgi-bin/webscr" method="post" id="paypal">--><!-- TODO: switch beetween dev/prod modes-->
     <!-- Paypal required variables -->
     <input type="hidden" name="cmd" value="_xclick"/>
-    <input type="hidden" name="business" value="{$business}"/>{* FIXME: use paypal ID insted of mail adress. alos, main asso adress may differ from paypal adress *}
+    <input type="hidden" name="business" value="{$paypal->getId()}"/>
     <input type="hidden" name="lc" value="FR"/>{*language of the login or sign-up page*}{* FIXME: parameter *}
     <input type="hidden" name="currency_code" value="EUR"/>{*transaction currency*}{* FIXME: parameter? *}
     <input type="hidden" name="button_subtype" value="services"/>
