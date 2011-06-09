@@ -87,10 +87,12 @@ class Paypal
      *
      * @return void
      */
-    private function _load(){
+    private function _load()
+    {
         global $mdb, $log;
 
-        $requete = 'SELECT * FROM ' . PREFIX_DB . PAYPAL_PREFIX . self::PREFS_TABLE;
+        $requete = 'SELECT * FROM ' . PREFIX_DB . PAYPAL_PREFIX .
+        self::PREFS_TABLE;
         $result = $mdb->query($requete);
 
         if (MDB2::isError($result)) {
@@ -99,7 +101,8 @@ class Paypal
                 '` | ' . $result->getMessage() . '(' . $result->getDebugInfo() . ')',
                 PEAR_LOG_ERR
             );
-            //consider plugin is not loaded when missing the main preferences (that includes paypal id)
+            //consider plugin is not loaded when missing the main preferences
+            //(that includes paypal id)
             $this->_loaded = false;
             $this->_error = array(
                 'message'   => $result->getMessage(),
@@ -151,7 +154,8 @@ class Paypal
                 '` | ' . $result->getMessage() . '(' . $result->getDebugInfo() . ')',
                 PEAR_LOG_ERR
             );
-            //missing amounts is not a critical error, user can enter the amount manually :)
+            //missing amounts is not a critical error,
+            //user can enter the amount manually :)
             $this->_error = array(
                 'message'   => $result->getMessage(),
                 'debug'     => $result->getDebugInfo()
@@ -209,11 +213,15 @@ class Paypal
 
     /**
      * Store values in the database
+     *
+     * @return void
      */
-    public function store(){
+    public function store()
+    {
         global $mdb, $log;
 
-        $requete = 'UPDATE ' . PREFIX_DB . PAYPAL_PREFIX . self::PREFS_TABLE . ' SET nom_pref=:nom_pref, val_pref=:val_pref WHERE nom_pref=:nom_pref';
+        $requete = 'UPDATE ' . PREFIX_DB . PAYPAL_PREFIX . self::PREFS_TABLE .
+        ' SET nom_pref=:nom_pref, val_pref=:val_pref WHERE nom_pref=:nom_pref';
         $stmt = $mdb->prepare(
             $requete,
             array('text', 'text'),
@@ -242,7 +250,8 @@ class Paypal
             return false;
         } else {
             $log->log(
-                '[' . get_class($this) . '] Paypal preferences were sucessfully stored',
+                '[' . get_class($this) .
+                '] Paypal preferences were sucessfully stored',
                 PEAR_LOG_INFO
             );
         }
@@ -252,11 +261,17 @@ class Paypal
         return true;
     }
 
+    /**
+     * Store amounts in the database
+     *
+     * @return boolean
+     */
     public function storeAmounts()
     {
         global $mdb, $log;
 
-        $requete = "UPDATE " . PREFIX_DB . PAYPAL_PREFIX . self::TABLE . ' SET amount=:amount WHERE ' . self::PK . '=:id';
+        $requete = "UPDATE " . PREFIX_DB . PAYPAL_PREFIX . self::TABLE .
+        ' SET amount=:amount WHERE ' . self::PK . '=:id';
 
         $stmt = $mdb->prepare(
             $requete,
@@ -397,7 +412,9 @@ class Paypal
     /**
      * Set paypal identifier
      *
-     * @param string $id
+     * @param string $id identifier
+     *
+     * @return void
      */
     public function setId($id)
     {
@@ -407,8 +424,10 @@ class Paypal
     /**
      * Set new prices
      *
-     * @param array $ids
-     * @param array $amounts
+     * @param array $ids     array of identifier
+     * @param array $amounts array of amounts
+     *
+     * @return void
      */
     public function setPrices($ids, $amounts)
     {
@@ -419,7 +438,10 @@ class Paypal
 
     /**
      * Check if the specified contribution is active
-     * @param int $id
+     *
+     * @param int $id type identifier
+     *
+     * @return boolean
      */
     public function isInactive($id)
     {
@@ -429,9 +451,12 @@ class Paypal
     /**
      * Set inactives types
      *
-     * @param array $inactives
+     * @param array $inactives array of inactives types
+     *
+     * @return void
      */
-    public function setInactives($inactives) {
+    public function setInactives($inactives)
+    {
         $this->_inactives = $inactives;
     }
 
