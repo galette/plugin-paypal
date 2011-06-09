@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"PO-Revision-Date: 2011-06-09 17:17+0200\n"
+"PO-Revision-Date: 2011-06-09 17:37+0200\n"
 "Last-Translator: \n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
 "Language: fr\n"
@@ -18,63 +18,15 @@ msgstr ""
 msgid "Paypal payment"
 msgstr "Paypal payment"
 
-#: ../templates/default/paypal_form.tpl:33
-msgid "Go back to %s Website to complete your inscription."
-msgstr "Go back to %s Website to complete your inscription."
-
-#: ../templates/default/paypal_form.tpl:87
-msgid ""
-"The amount you've entered is lower than the minimum amount for the selected "
-"option.\\nPlease choose another option or change the amount."
-msgstr ""
-"The amount you've entered is lower than the minimum amount for the selected "
-"option.\\nPlease choose another option or change the amount."
-
-#: ../templates/default/paypal_form.tpl:12
-msgid "Predefined amounts cannot be loaded, that is not a critical error."
-msgstr "Predefined amounts cannot be loaded, that is not a critical error."
-
-#: ../templates/default/paypal_form.tpl:11
-msgid "- WARNING -"
-msgstr "- WARNING -"
-
-#: ../templates/default/paypal_form.tpl:56
-msgid ""
-"WARNING: If you enter an amount below, make sure that it is not lower than "
-"the amount of the option you've selected."
-msgstr ""
-"WARNING: If you enter an amount below, make sure that it is not lower than "
-"the amount of the option you've selected."
-
-#: ../templates/default/paypal_form.tpl:51
-msgid "No predefined amounts have been defined yet."
-msgstr "No predefined amounts have been defined yet."
-
-#: ../templates/default/paypal_form.tpl:4
-msgid "- ERROR -"
-msgstr "- ERROR -"
+#: ../templates/default/paypal_success.tpl:5
+msgid "Label"
+msgstr "Label"
 
 #: ../templates/default/paypal_form.tpl:59
+#: ../templates/default/paypal_success.tpl:21
+#: ../templates/default/paypal_preferences.tpl:45
 msgid "Amount"
 msgstr "Amount"
-
-#: ../templates/default/paypal_form.tpl:5
-msgid ""
-"<strong>Payment coult not work</strong>: An error occured (that has been "
-"logged) while loading Paypal preferences from database.<br/>Please report "
-"the issue to the staff."
-msgstr ""
-"<strong>Payment coult not work</strong>: An error occured (that has been "
-"logged) while loading Paypal preferences from database.<br/>Please report "
-"the issue to the staff."
-
-#: ../templates/default/paypal_form.tpl:54
-msgid "Enter an amount."
-msgstr "Enter an amount."
-
-#: ../templates/default/paypal_form.tpl:6
-msgid "Our apologies for the annoyance :("
-msgstr "Our apologies for the annoyance :("
 
 #: ../templates/default/paypal_form.tpl:35
 msgid ""
@@ -90,12 +42,134 @@ msgstr ""
 msgid "You have to select an option"
 msgstr "You have to select an option"
 
+#: ../templates/default/paypal_form.tpl:33
+msgid "Go back to %s Website to complete your inscription."
+msgstr "Go back to %s Website to complete your inscription."
+
+#: ../templates/default/paypal_success.tpl:13
+msgid "Payment status"
+msgstr "Payment status"
+
+#: ../templates/default/paypal_form.tpl:87
+msgid ""
+"The amount you've entered is lower than the minimum amount for the selected "
+"option.\\nPlease choose another option or change the amount."
+msgstr ""
+"The amount you've entered is lower than the minimum amount for the selected "
+"option.\\nPlease choose another option or change the amount."
+
+#: ../templates/default/paypal_form.tpl:51
+msgid "No predefined amounts have been defined yet."
+msgstr "No predefined amounts have been defined yet."
+
+#: ../templates/default/paypal_preferences.tpl:36
+msgid ""
+"Enter here one of your Paypal ID or email adress associated within your "
+"paypal account."
+msgstr ""
+"Enter here one of your Paypal ID or email adress associated within your "
+"paypal account."
+
+#: ../templates/default/paypal_preferences.tpl:29
+msgid "Paypal preferences has been saved."
+msgstr "Paypal preferences has been saved."
+
+#: ../templates/default/paypal_preferences.tpl:75
+msgid "red"
+msgstr "red"
+
+#: ../templates/default/paypal_form.tpl:5
+msgid ""
+"<strong>Payment coult not work</strong>: An error occured (that has been "
+"logged) while loading Paypal preferences from database.<br/>Please report "
+"the issue to the staff."
+msgstr ""
+"<strong>Payment coult not work</strong>: An error occured (that has been "
+"logged) while loading Paypal preferences from database.<br/>Please report "
+"the issue to the staff."
+
 #: ../templates/default/paypal_form.tpl:63
 msgid "Payment"
 msgstr "Payment"
 
-#~ msgid "Proceed"
-#~ msgstr "Proceed"
+#: ../templates/default/paypal_success.tpl:1
+msgid "Paypal payment success"
+msgstr "Paypal payment success"
+
+#: ../templates/default/paypal_preferences.tpl:75
+msgid "NB : The mandatory fields are in"
+msgstr "NB : The mandatory fields are in"
+
+#: ../templates/default/paypal_form.tpl:4
+#: ../templates/default/paypal_preferences.tpl:5
+#: ../templates/default/paypal_preferences.tpl:10
+msgid "- ERROR -"
+msgstr "- ERROR -"
+
+#: ../templates/default/paypal_success.tpl:9
+msgid "Payment date"
+msgstr "Payment date"
+
+#: ../templates/default/paypal_preferences.tpl:46
+msgid "Inactive"
+msgstr "Inactive"
+
+#: ../templates/default/paypal_preferences.tpl:33
+msgid "Paypal preferences:"
+msgstr "Paypal preferences:"
+
+#: ../templates/default/paypal_form.tpl:54
+msgid "Enter an amount."
+msgstr "Enter an amount."
+
+#: ../templates/default/paypal_preferences.tpl:44
+msgid "Cotisation type"
+msgstr "Cotisation type"
+
+#: ../templates/default/paypal_form.tpl:11
+#: ../templates/default/paypal_preferences.tpl:20
+msgid "- WARNING -"
+msgstr "- WARNING -"
+
+#: ../templates/default/paypal_form.tpl:12
+msgid "Predefined amounts cannot be loaded, that is not a critical error."
+msgstr "Predefined amounts cannot be loaded, that is not a critical error."
+
+#: ../templates/default/paypal_preferences.tpl:73
+msgid "Save"
+msgstr "Save"
+
+#: ../templates/default/paypal_form.tpl:6
+msgid "Our apologies for the annoyance :("
+msgstr "Our apologies for the annoyance :("
+
+#: ../templates/default/paypal_form.tpl:56
+msgid ""
+"WARNING: If you enter an amount below, make sure that it is not lower than "
+"the amount of the option you've selected."
+msgstr ""
+"WARNING: If you enter an amount below, make sure that it is not lower than "
+"the amount of the option you've selected."
+
+#: ../templates/default/paypal_success.tpl:2
+msgid "Your paypal payment for was successfull. Some details are shown below:"
+msgstr "Your paypal payment for was successfull. Some details are shown below:"
+
+#: ../templates/default/paypal_preferences.tpl:1
+msgid "Paypal Settings"
+msgstr "Paypal Settings"
+
+#: ../templates/default/paypal_success.tpl:17
+msgid "Payment type"
+msgstr "Payment type"
+
+#: ../templates/default/paypal_preferences.tpl:35
+msgid "Paypal identifier:"
+msgstr "Paypal identifier:"
+
+#: ../templates/default/paypal_preferences.tpl:68
+msgid "Error: no predefined amounts found."
+msgstr "Error: no predefined amounts found."
 
 #~ msgid "fullcard"
 #~ msgstr "fullcard"

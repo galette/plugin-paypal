@@ -1,5 +1,5 @@
 <?php
-// This file was automatically generated on Thu Jun  9 15:37:18 2011 (GMT)
+// This file was automatically generated on Thu Jun  9 16:27:11 2011 (GMT)
 // Don't modify it by hand, rather use the target lang from the Makefile.
 
 
@@ -18,11 +18,17 @@ $lang['Label'] = 'Label';
 // ../templates/default/paypal_success.tpl:9 
 $lang['Payment date'] = 'Payment date';
 
+// ../templates/default/menu.tpl:4 
+$lang['Payment form'] = 'Payment form';
+
 // ../templates/default/paypal_preferences.tpl:73 
 $lang['Save'] = 'Save';
 
 // ../templates/default/paypal_success.tpl:1 
 $lang['Paypal payment success'] = 'Paypal payment success';
+
+// ../templates/default/menu.tpl:6 
+$lang['Paypal Preferences'] = 'Paypal Preferences';
 
 // ../templates/default/paypal_preferences.tpl:44 
 $lang['Cotisation type'] = 'Cotisation type';
@@ -32,6 +38,9 @@ $lang['Paypal preferences:'] = 'Paypal preferences:';
 
 // ../templates/default/paypal_preferences.tpl:29 
 $lang['Paypal preferences has been saved.'] = 'Paypal preferences has been saved.';
+
+// ../templates/default/menu.tpl:2 
+$lang['Paypal'] = 'Paypal';
 
 // ../templates/default/paypal_preferences.tpl:75 
 $lang['NB : The mandatory fields are in'] = 'NB : The mandatory fields are in';
