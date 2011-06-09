@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"PO-Revision-Date: 2011-06-09 17:21+0200\n"
+"PO-Revision-Date: 2011-06-09 17:36+0200\n"
 "Last-Translator: \n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
 "Language: fr\n"
@@ -18,9 +18,38 @@ msgstr ""
 msgid "Paypal payment"
 msgstr "Paiement Paypal"
 
+#: ../templates/default/paypal_success.tpl:5
+msgid "Label"
+msgstr "Étiquette"
+
+#: ../templates/default/paypal_form.tpl:59
+#: ../templates/default/paypal_success.tpl:21
+#: ../templates/default/paypal_preferences.tpl:45
+msgid "Amount"
+msgstr "Montant"
+
+#: ../templates/default/paypal_form.tpl:35
+msgid ""
+"Select an option below, then click 'Payment' to proceed. Once your paiment "
+"validated, an entry will be automatically added in the contributions table "
+"and staff members will receive a notification mail."
+msgstr ""
+"Choisissez une option ci-dessous, puis cliquez sur 'Paiement' pour "
+"continuer. Une fois que votre paiement aura été validé, une entrée sera "
+"automatiquement générée dans la table des contributions et les membres du "
+"bureau recevront un message de notification."
+
+#: ../templates/default/paypal_form.tpl:81
+msgid "You have to select an option"
+msgstr "Vous devez sélectionner une option"
+
 #: ../templates/default/paypal_form.tpl:33
 msgid "Go back to %s Website to complete your inscription."
 msgstr "Retour au site de %s pour compléter votre inscription."
+
+#: ../templates/default/paypal_success.tpl:13
+msgid "Payment status"
+msgstr "État du paiement"
 
 #: ../templates/default/paypal_form.tpl:87
 msgid ""
@@ -31,15 +60,92 @@ msgstr ""
 "sléectionnée.\\nVeuillez choisir une autre option ou entrer un nouveau "
 "montant."
 
+#: ../templates/default/paypal_form.tpl:51
+msgid "No predefined amounts have been defined yet."
+msgstr "Aucun montant prédéfini n'existe."
+
+#: ../templates/default/paypal_preferences.tpl:36
+msgid ""
+"Enter here one of your Paypal ID or email adress associated within your "
+"paypal account."
+msgstr ""
+"Entrez ici votre identifiant Paypal ou une adresse email associée à votre "
+"compte paypal."
+
+#: ../templates/default/paypal_preferences.tpl:29
+msgid "Paypal preferences has been saved."
+msgstr "Les préférences Paypal ont été sauvegardées."
+
+#: ../templates/default/paypal_preferences.tpl:75
+msgid "red"
+msgstr "rouge"
+
+#: ../templates/default/paypal_form.tpl:5
+msgid ""
+"<strong>Payment coult not work</strong>: An error occured (that has been "
+"logged) while loading Paypal preferences from database.<br/>Please report "
+"the issue to the staff."
+msgstr ""
+"<strong>Le paiement ne peut fonctionner</strong> : une erreur (qui a été "
+"enregistrée) est survenue lors du chargement des préférences Paypal depuis "
+"la base de données.<br/>Merci de rapporter ce problème aux membres du bureau."
+
+#: ../templates/default/paypal_form.tpl:63
+msgid "Payment"
+msgstr "Paiement"
+
+#: ../templates/default/paypal_success.tpl:1
+msgid "Paypal payment success"
+msgstr "Paiement Paypal effectué"
+
+#: ../templates/default/paypal_preferences.tpl:75
+msgid "NB : The mandatory fields are in"
+msgstr "NB : Les champs requis sont en"
+
+#: ../templates/default/paypal_form.tpl:4
+#: ../templates/default/paypal_preferences.tpl:5
+#: ../templates/default/paypal_preferences.tpl:10
+msgid "- ERROR -"
+msgstr "- ERREUR -"
+
+#: ../templates/default/paypal_success.tpl:9
+msgid "Payment date"
+msgstr "Date de paiement"
+
+#: ../templates/default/paypal_preferences.tpl:46
+msgid "Inactive"
+msgstr "Inactif"
+
+#: ../templates/default/paypal_preferences.tpl:33
+msgid "Paypal preferences:"
+msgstr "Préférence Paypal :"
+
+#: ../templates/default/paypal_form.tpl:54
+msgid "Enter an amount."
+msgstr "Entrez un montant."
+
+#: ../templates/default/paypal_preferences.tpl:44
+msgid "Cotisation type"
+msgstr "Type de cotisation"
+
+#: ../templates/default/paypal_form.tpl:11
+#: ../templates/default/paypal_preferences.tpl:20
+msgid "- WARNING -"
+msgstr "- ATTENTION -"
+
 #: ../templates/default/paypal_form.tpl:12
 msgid "Predefined amounts cannot be loaded, that is not a critical error."
 msgstr ""
 "Les montants prédéfinis n'ont pas pu être chargés, cette erreur n'est pas "
 "crtitique."
 
-#: ../templates/default/paypal_form.tpl:11
-msgid "- WARNING -"
-msgstr "- ATTENTION -"
+#: ../templates/default/paypal_preferences.tpl:73
+msgid "Save"
+msgstr "Sauvegarder"
+
+#: ../templates/default/paypal_form.tpl:6
+msgid "Our apologies for the annoyance :("
+msgstr "Toutes nos excuses pour le désagrément :("
 
 #: ../templates/default/paypal_form.tpl:56
 msgid ""
@@ -49,57 +155,27 @@ msgstr ""
 "ATTENTION : si vous entrez un montant ci-dessous, assurez-vous qu'il ne soit "
 "pas inférieur au montant de l'option que vous avez sélectionnée."
 
-#: ../templates/default/paypal_form.tpl:51
-msgid "No predefined amounts have been defined yet."
-msgstr "Aucun montant prédéfini n'existe."
-
-#: ../templates/default/paypal_form.tpl:4
-msgid "- ERROR -"
-msgstr "- ERREUR -"
-
-#: ../templates/default/paypal_form.tpl:59
-msgid "Amount"
-msgstr "Montant"
-
-#: ../templates/default/paypal_form.tpl:5
-msgid ""
-"<strong>Payment coult not work</strong>: An error occured (that has been "
-"logged) while loading Paypal preferences from database.<br/>Please report "
-"the issue to the staff."
+#: ../templates/default/paypal_success.tpl:2
+msgid "Your paypal payment for was successfull. Some details are shown below:"
 msgstr ""
-"<strong>Le paiement ne peut fonctionner</strong> : une erreur (qui a été "
-"enregistrée) est survenue lors du chargement des préférences Paypal depuis la "
-"base de données.<br/>Merci de rapporter ce problème aux membres du bureau."
+"Votre paiement paypal a été effectué avec succès. Queluqes détails concernant "
+"la transaction sont affichés ci-dessous :"
 
-#: ../templates/default/paypal_form.tpl:54
-msgid "Enter an amount."
-msgstr "Entrez un montant."
+#: ../templates/default/paypal_preferences.tpl:1
+msgid "Paypal Settings"
+msgstr "Préférences Paypal"
 
-#: ../templates/default/paypal_form.tpl:6
-msgid "Our apologies for the annoyance :("
-msgstr "Toutes nos excuses pour le désagrément :("
+#: ../templates/default/paypal_success.tpl:17
+msgid "Payment type"
+msgstr "Type de paiement"
 
-#: ../templates/default/paypal_form.tpl:35
-msgid ""
-"Select an option below, then click 'Payment' to proceed. Once your paiment "
-"validated, an entry will be automatically added in the contributions table "
-"and staff members will receive a notification mail."
-msgstr ""
-"Choisissez une option ci-dessous, puis cliquez sur 'Paiement' pour continuer. "
-"Une fois que votre paiement aura été validé, une entrée sera automatiquement "
-"générée dans la table des contributions et les membres du bureau recevront "
-"un message de notification."
+#: ../templates/default/paypal_preferences.tpl:35
+msgid "Paypal identifier:"
+msgstr "Identifiant Paypal"
 
-#: ../templates/default/paypal_form.tpl:81
-msgid "You have to select an option"
-msgstr "Vous devez sélectionner une option"
-
-#: ../templates/default/paypal_form.tpl:63
-msgid "Payment"
-msgstr "Paiement"
-
-#~ msgid "Proceed"
-#~ msgstr "Payer"
+#: ../templates/default/paypal_preferences.tpl:68
+msgid "Error: no predefined amounts found."
+msgstr "Erreur : aucun montant prédéfini trouvé."
 
 #~ msgid "fullcard"
 #~ msgstr "fullcard"

@@ -3,7 +3,9 @@ INSTALLDIR = .
 LANGUAGES = en_US fr_FR@euro
 PACKAGE = galette_paypal
 MKLANG = ../../../lang/make_lang_l12n.py
-PHP_SOURCES = ../templates/default/paypal_form.tpl
+PHP_SOURCES = ../templates/default/paypal_form.tpl \
+../templates/default/paypal_success.tpl \
+../templates/default/paypal_preferences.tpl
 
 
 all : messages.po lang
