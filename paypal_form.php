@@ -47,8 +47,6 @@ require_once 'classes/paypal.class.php';
 
 $paypal = new Paypal();
 
-$tpl->assign('business', $preferences->pref_email);
-
 //Set the path to the current plugin's templates,
 //but backup main Galette's template path before
 $orig_template_path = $tpl->template_dir;
