@@ -1,12 +1,60 @@
-#: ../templates/default/paypal_form.tpl:37
-msgid "Select an option below, then click 'Pay' to proceed. Once your paiment validated, an entry will be automatically added in the contributions table and staff members will receive a notification mail."
+#: ../templates/default/paypal_form.tpl:1
+msgid "Paypal payment"
 msgstr ""
 
-#: ../templates/default/paypal_form.tpl:66
+#: ../templates/default/paypal_form.tpl:33
+msgid "Go back to %s Website to complete your inscription."
+msgstr ""
+
+#: ../templates/default/paypal_form.tpl:87
+msgid "The amount you've entered is lower than the minimum amount for the selected option.\\nPlease choose another option or change the amount."
+msgstr ""
+
+#: ../templates/default/paypal_form.tpl:12
+msgid "Predefined amounts cannot be loaded, that is not a critical error."
+msgstr ""
+
+#: ../templates/default/paypal_form.tpl:11
+msgid "- WARNING -"
+msgstr ""
+
+#: ../templates/default/paypal_form.tpl:56
+msgid "WARNING: If you enter an amount below, make sure that it is not lower than the amount of the option you've selected."
+msgstr ""
+
+#: ../templates/default/paypal_form.tpl:51
+msgid "No predefined amounts have been defined yet."
+msgstr ""
+
+#: ../templates/default/paypal_form.tpl:4
+msgid "- ERROR -"
+msgstr ""
+
+#: ../templates/default/paypal_form.tpl:59
 msgid "Amount"
 msgstr ""
 
-#: ../templates/default/paypal_form.tpl:70
-msgid "Proceed"
+#: ../templates/default/paypal_form.tpl:5
+msgid "<strong>Payment coult not work</strong>: An error occured (that has been logged) while loading Paypal preferences from database.<br/>Please report the issue to the staff."
+msgstr ""
+
+#: ../templates/default/paypal_form.tpl:54
+msgid "Enter an amount."
+msgstr ""
+
+#: ../templates/default/paypal_form.tpl:6
+msgid "Our apologies for the annoyance :("
+msgstr ""
+
+#: ../templates/default/paypal_form.tpl:35
+msgid "Select an option below, then click 'Payment' to proceed. Once your paiment validated, an entry will be automatically added in the contributions table and staff members will receive a notification mail."
+msgstr ""
+
+#: ../templates/default/paypal_form.tpl:81
+msgid "You have to select an option"
+msgstr ""
+
+#: ../templates/default/paypal_form.tpl:63
+msgid "Payment"
 msgstr ""
 

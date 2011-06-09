@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"PO-Revision-Date: 2011-06-09 17:21+0200\n"
+"PO-Revision-Date: 2011-06-03 16:24+0200\n"
 "Last-Translator: \n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
 "Language: fr\n"
@@ -14,92 +14,24 @@ msgstr ""
 "X-Generator: Lokalize 1.2\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: ../templates/default/paypal_form.tpl:1
-msgid "Paypal payment"
-msgstr "Paiement Paypal"
-
-#: ../templates/default/paypal_form.tpl:33
-msgid "Go back to %s Website to complete your inscription."
-msgstr "Retour au site de %s pour compléter votre inscription."
-
-#: ../templates/default/paypal_form.tpl:87
+#: ../templates/default/paypal_form.tpl:37
 msgid ""
-"The amount you've entered is lower than the minimum amount for the selected "
-"option.\\nPlease choose another option or change the amount."
-msgstr ""
-"Le montant que vous avez entreé est inférieur au montant minimum de l'option "
-"sléectionnée.\\nVeuillez choisir une autre option ou entrer un nouveau "
-"montant."
-
-#: ../templates/default/paypal_form.tpl:12
-msgid "Predefined amounts cannot be loaded, that is not a critical error."
-msgstr ""
-"Les montants prédéfinis n'ont pas pu être chargés, cette erreur n'est pas "
-"crtitique."
-
-#: ../templates/default/paypal_form.tpl:11
-msgid "- WARNING -"
-msgstr "- ATTENTION -"
-
-#: ../templates/default/paypal_form.tpl:56
-msgid ""
-"WARNING: If you enter an amount below, make sure that it is not lower than "
-"the amount of the option you've selected."
-msgstr ""
-"ATTENTION : si vous entrez un montant ci-dessous, assurez-vous qu'il ne soit "
-"pas inférieur au montant de l'option que vous avez sélectionnée."
-
-#: ../templates/default/paypal_form.tpl:51
-msgid "No predefined amounts have been defined yet."
-msgstr "Aucun montant prédéfini n'existe."
-
-#: ../templates/default/paypal_form.tpl:4
-msgid "- ERROR -"
-msgstr "- ERREUR -"
-
-#: ../templates/default/paypal_form.tpl:59
-msgid "Amount"
-msgstr "Montant"
-
-#: ../templates/default/paypal_form.tpl:5
-msgid ""
-"<strong>Payment coult not work</strong>: An error occured (that has been "
-"logged) while loading Paypal preferences from database.<br/>Please report "
-"the issue to the staff."
-msgstr ""
-"<strong>Le paiement ne peut fonctionner</strong> : une erreur (qui a été "
-"enregistrée) est survenue lors du chargement des préférences Paypal depuis la "
-"base de données.<br/>Merci de rapporter ce problème aux membres du bureau."
-
-#: ../templates/default/paypal_form.tpl:54
-msgid "Enter an amount."
-msgstr "Entrez un montant."
-
-#: ../templates/default/paypal_form.tpl:6
-msgid "Our apologies for the annoyance :("
-msgstr "Toutes nos excuses pour le désagrément :("
-
-#: ../templates/default/paypal_form.tpl:35
-msgid ""
-"Select an option below, then click 'Payment' to proceed. Once your paiment "
+"Select an option below, then click 'Pay' to proceed. Once your paiment "
 "validated, an entry will be automatically added in the contributions table "
 "and staff members will receive a notification mail."
 msgstr ""
-"Choisissez une option ci-dessous, puis cliquez sur 'Paiement' pour continuer. "
+"Choisissez une option ci-dessous, puis cliquez sur 'Payer' pour continuer. "
 "Une fois que votre paiement aura été validé, une entrée sera automatiquement "
-"générée dans la table des contributions et les membres du bureau recevront "
-"un message de notification."
+"générée dans la table des contributions et les membres du bureau recevront un "
+"message de notification."
 
-#: ../templates/default/paypal_form.tpl:81
-msgid "You have to select an option"
-msgstr "Vous devez sélectionner une option"
+#: ../templates/default/paypal_form.tpl:66
+msgid "Amount"
+msgstr "Montant"
 
-#: ../templates/default/paypal_form.tpl:63
-msgid "Payment"
-msgstr "Paiement"
-
-#~ msgid "Proceed"
-#~ msgstr "Payer"
+#: ../templates/default/paypal_form.tpl:70
+msgid "Proceed"
+msgstr "Payer"
 
 #~ msgid "fullcard"
 #~ msgstr "fullcard"
