@@ -74,9 +74,3 @@
 		</div>
 		<p>{_T string="NB : The mandatory fields are in"} <span class="required">{_T string="red"}</span></p>
 		</form>
-        <pre>
-{php}
-global $paypal;
-print_r($paypal);
-{/php}
-</pre>
