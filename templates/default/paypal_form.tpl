@@ -12,8 +12,7 @@
     <p>{_T string="Predefined amounts cannot be loaded, that is not a critical error."}</p>
 </div>
     {/if}
-<form action="https://www.sandbox.paypal.com/fr/cgi-bin/webscr" method="post" id="paypal">
-<!--<form action="https://www.paypal.com/cgi-bin/webscr" method="post" id="paypal">--><!-- TODO: switch beetween dev/prod modes-->
+<form action="{if GALETTE_MODE eq 'DEV'}https://www.sandbox.paypal.com/fr/cgi-bin/webscr{else}https://www.paypal.com/cgi-bin/webscr{/if}" method="post" id="paypal">
     <!-- Paypal required variables -->
     <input type="hidden" name="cmd" value="_xclick"/>
     <input type="hidden" name="business" value="{$paypal->getId()}"/>
