@@ -4,7 +4,7 @@
 
 CREATE TABLE galette_paypal_types_cotisation_prices (
   id_type_cotis int(10) unsigned NOT NULL,
-  amount double NOT NULL,
+  amount double NULL,
   PRIMARY KEY (id_type_cotis),
   CONSTRAINT galette_cotisation_price FOREIGN KEY (id_type_cotis) REFERENCES galette_types_cotisation (id_type_cotis) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -29,7 +29,9 @@ CREATE TABLE galette_paypal_preferences (
   id_pref int(10) unsigned NOT NULL auto_increment,
   nom_pref varchar(100) NOT NULL default '',
   val_pref varchar(200) NOT NULL default '',
-  PRIMARY KEY  (id_pref)
+  PRIMARY KEY  (id_pref),
+  UNIQUE KEY(nom_pref)
 ) ENGINE=MyISAM DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
-INSERT INTO galette_paypal_preferences (nom_pref, val_pref) VALUES (('paypal_id', ''), ('paypal_inactives', '4,6,7'));
+INSERT INTO galette_paypal_preferences (nom_pref, val_pref) VALUES ('paypal_id', '');
+INSERT INTO galette_paypal_preferences (nom_pref, val_pref) VALUES ('paypal_inactives', '4,6,7');
