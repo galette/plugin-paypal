@@ -67,10 +67,8 @@
     //<![CDATA[
     $(function() {ldelim}
         $('input[name="item_name"]').change(function(){ldelim}
-            console.log(this);
             var _amount = parseFloat($('#' + this.id + '_amount').text());
-            var _current_amount = parseFloat($('#amount').val());
-            if ( _amount != '' && _current_amount < _amount ) {ldelim}
+            if ( _amount != '' && !isNaN(_amount) ) {ldelim}
                 $('#amount').val(_amount);
             {rdelim}
         {rdelim});
