@@ -1,4 +1,3 @@
-<h1 id="titre">{_T string="Paypal payment"}</h1>
 {if !$paypal->isLoaded()}
 <div id="errorbox">
     <h1>{_T string="- ERROR -"}</h1>
@@ -12,6 +11,7 @@
     <p>{_T string="Predefined amounts cannot be loaded, that is not a critical error."}</p>
 </div>
     {/if}
+    <section>
 <form action="{if GALETTE_MODE eq 'DEV'}https://www.sandbox.paypal.com/fr/cgi-bin/webscr{else}https://www.paypal.com/cgi-bin/webscr{/if}" method="post" id="paypal">
     <!-- Paypal required variables -->
     <input type="hidden" name="cmd" value="_xclick"/>
@@ -31,21 +31,19 @@
     <input type="hidden" name="notify_url" value="{$plugin_url}paypal_notify.php"/>
     <input type="hidden" name="cbt" value="{_T string="Go back to %s Website to complete your inscription."}"/>
 
-    <p>{_T string="Select an option below, then click 'Payment' to proceed. Once your paiment validated, an entry will be automatically added in the contributions table and staff members will receive a notification mail."}</p>
+    <p>{_T string="Select an option below, then click 'Payment' to proceed.<br/>Once your paiment validated, an entry will be automatically added in the contributions table and staff members will receive a notification mail."}</p>
 
     {if $paypal->areAmountsLoaded() and $amounts|@count gt 0}
-    <ul>
-        {foreach from=$amounts key=k item=amount}
-        <li>
-            <input type="radio" name="item_name" id="in{$k}" value="{$amount[0]}"/>
-            <label for="in{$k}">{$amount[0]}
-            {if $amount[2] gt 0}
-                (<span id="in{$k}_amount">{$amount[2]|string_format:"%.2f"}</span> €)
-            {/if}
-            </label>
-        </li>
+    <div id="amounts">
+        {foreach from=$amounts key=k item=amount name=amounts}
+        <input type="radio" name="item_name" id="in{$k}" value="{$amount[0]}"{if $smarty.foreach.amounts.index == 0} checked="checked"{/if}/>
+        <label for="in{$k}">{$amount[0]}
+        {if $amount[2] gt 0}
+            (<span id="in{$k}_amount">{$amount[2]|string_format:"%.2f"}</span> €)
+        {/if}
+        </label>
         {/foreach}
-    </ul>
+    </div>
     {else}
     <p>{_T string="No predefined amounts have been defined yet."}</p>
     {/if}
@@ -55,23 +53,29 @@
         <br/><span class="required">{_T string="WARNING: If you enter an amount below, make sure that it is not lower than the amount of the option you've selected."}</span>
     {/if}
     </p>
-    <label for="amount">{_T string="Amount"}</label>
-    <input type="text" name="amount" id="amount" value="20.00"/>
+    <p>
+        <label for="amount">{_T string="Amount"}</label>
+        <input type="text" name="amount" id="amount" value="20.00"/>
+    </p>
 
     <div class="button-container">
-        <input type="submit" class="submit" name="submit" value="{_T string="Payment"}"/>
+        <input type="submit" name="submit" value="{_T string="Payment"}"/>
     </div>
 </form>
+        </section>
 <script type="text/javascript">
     //<![CDATA[
     $(function() {ldelim}
-        $('input[name="item_name"]').click(function(){ldelim}
+        $('input[name="item_name"]').change(function(){ldelim}
+            console.log(this);
             var _amount = parseFloat($('#' + this.id + '_amount').text());
             var _current_amount = parseFloat($('#amount').val());
             if ( _amount != '' && _current_amount < _amount ) {ldelim}
                 $('#amount').val(_amount);
             {rdelim}
         {rdelim});
+
+        $('#amounts').buttonset();
 
     {if $amounts|@count gt 0}
         $('#paypal').submit(function(){ldelim}

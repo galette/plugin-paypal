@@ -70,7 +70,7 @@
 
 		</div>
 		<div class="button-container">
-			<input type="submit" class="submit" value="{_T string="Save"}"/>
+			<input type="submit" value="{_T string="Save"}"/>
 		</div>
 		<p>{_T string="NB : The mandatory fields are in"} <span class="required">{_T string="red"}</span></p>
 		</form>
