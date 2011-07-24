@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"PO-Revision-Date: 2011-06-09 17:36+0200\n"
+"PO-Revision-Date: 2011-06-09 18:26+0200\n"
 "Last-Translator: \n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
 "Language: fr\n"
@@ -94,6 +94,10 @@ msgstr ""
 msgid "Payment"
 msgstr "Paiement"
 
+#: ../templates/default/menu.tpl:4
+msgid "Payment form"
+msgstr "Formulaire de paiement"
+
 #: ../templates/default/paypal_success.tpl:1
 msgid "Paypal payment success"
 msgstr "Paiement Paypal effectué"
@@ -107,6 +111,10 @@ msgstr "NB : Les champs requis sont en"
 #: ../templates/default/paypal_preferences.tpl:10
 msgid "- ERROR -"
 msgstr "- ERREUR -"
+
+#: ../templates/default/menu.tpl:6
+msgid "Paypal Preferences"
+msgstr "Préférences Paypal"
 
 #: ../templates/default/paypal_success.tpl:9
 msgid "Payment date"
@@ -155,11 +163,15 @@ msgstr ""
 "ATTENTION : si vous entrez un montant ci-dessous, assurez-vous qu'il ne soit "
 "pas inférieur au montant de l'option que vous avez sélectionnée."
 
+#: ../templates/default/menu.tpl:2
+msgid "Paypal"
+msgstr "Paypal"
+
 #: ../templates/default/paypal_success.tpl:2
 msgid "Your paypal payment for was successfull. Some details are shown below:"
 msgstr ""
-"Votre paiement paypal a été effectué avec succès. Queluqes détails concernant "
-"la transaction sont affichés ci-dessous :"
+"Votre paiement paypal a été effectué avec succès. Queluqes détails "
+"concernant la transaction sont affichés ci-dessous :"
 
 #: ../templates/default/paypal_preferences.tpl:1
 msgid "Paypal Settings"
