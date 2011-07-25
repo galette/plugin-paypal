@@ -17,7 +17,8 @@ CREATE TABLE galette_paypal_history (
   `id_paypal` int(11) NOT NULL auto_increment,
   `history_date` datetime NOT NULL,
   `amount` double NOT NULL,
-  `coments` varchar(255)  COLLATE utf8_unicode_ci,
+  `comments` varchar(255)  COLLATE utf8_unicode_ci,
+  `request` text COLLATE utf8_unicode_ci,
   PRIMARY KEY (`id_paypal`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 

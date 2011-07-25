@@ -44,17 +44,33 @@ require_once $base_path . 'includes/galette.inc.php';
 //Constants and classes from plugin
 require_once '_config.inc.php';
 
-$s = null;
-foreach ( $_POST as $k=>$v ) {
-    if ( $s != null ) {
-        $s .= ' | ';
+//if we've received some informations from paypal website, we can proceed
+require_once 'classes/paypal-history.class.php';
+if( isset($_POST) && isset($_POST['mc_gross']) && isset($_POST['item_name'])) {
+    $ph = new PaypalHistory();
+    $ph->add($_POST);
+
+    $log->log(
+        'An entry has been added in paypal history',
+        PEAR_LOG_INFO
+    );
+
+    $s = null;
+    foreach ( $_POST as $k=>$v ) {
+        if ( $s != null ) {
+            $s .= ' | ';
+        }
+        $s .= $k . '=' . $v;
     }
-    $s .= $k . '=' . $v;
+
+    $log->log(
+        $s,
+        PEAR_LOG_DEBUG
+    );
+} else {
+    $log->log(
+        'Paypal notify URL call without required arguments!',
+        PEAR_LOG_WARNING
+    );
 }
-
-$log->log(
-    $s,
-    PEAR_LOG_INFO
-);
-
 ?>

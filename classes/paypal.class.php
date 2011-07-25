@@ -61,6 +61,9 @@ class Paypal
     const PK = ContributionsTypes::PK;
     const PREFS_TABLE = 'preferences';
 
+    const PAYMENT_PENDING = 'Pending';
+    const PAYMENT_COMPLETE = 'Complete';
+
     private $_prices = array();
     private $_id = null;
     private $_inactives = array();
