@@ -1,3 +1,7 @@
+{* So we can display a title when using page.tpl*}
+{if $login->isLogged()}
+<h1 id="titre">{$page_title}</h1>
+{/if}
 {if !$paypal->isLoaded()}
 <div id="errorbox">
     <h1>{_T string="- ERROR -"}</h1>
@@ -67,7 +71,6 @@
 </form>
         </section>
 <script type="text/javascript">
-    //<![CDATA[
     $(function() {ldelim}
         $('input[name="item_name"]').change(function(){ldelim}
             var _amount = parseFloat($('#' + this.id + '_amount').text());
@@ -96,6 +99,5 @@
         {rdelim});
     {/if}
     {rdelim});
-    //]]>
 </script>
 {/if}

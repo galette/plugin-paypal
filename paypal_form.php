@@ -73,10 +73,14 @@ if ( $login->isLogged() && !$login->isAdmin() ) {
     $cust = array();
     $tpl->assign('custom', $login->id);
 }
+$tpl->assign('page_title', _T("Paypal payment"));
 $content = $tpl->fetch('paypal_form.tpl', PAYPAL_SMARTY_PREFIX);
 $tpl->assign('content', $content);
-$tpl->assign('page_title', _T("Paypal payment"));
 //Set path back to main Galette's template
 $tpl->template_dir = $orig_template_path;
-$tpl->display('public_page.tpl', PAYPAL_SMARTY_PREFIX);
+if ( !$login->isLogged() ) {
+    $tpl->display('public_page.tpl', PAYPAL_SMARTY_PREFIX);
+} else {
+    $tpl->display('page.tpl', PAYPAL_SMARTY_PREFIX);
+}
 ?>
