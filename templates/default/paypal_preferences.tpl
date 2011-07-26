@@ -29,21 +29,21 @@
 	<div id="infobox">{_T string="Paypal preferences has been saved."}</div>
 {/if}
 		<div class="bigtable">
-			<fieldset class="cssform" id="general">
+			<fieldset class="cssform paypalprefs">
 				<legend>{_T string="Paypal preferences:"}</legend>
 				<p>
-					<label for="paypal_id" class="bline required">{_T string="Paypal identifier:"}</label>
+					<label for="paypal_id" class="bline">{_T string="Paypal identifier:"}</label>
 					<span class="tip">{_T string="Enter here one of your Paypal ID or email adress associated within your paypal account."}</span>
-					<input type="text" name="paypal_id" id="paypal_id" value="{$paypal->getId()}"/>
+					<input type="text" name="paypal_id" id="paypal_id" value="{$paypal->getId()}" required/>
 				</p>
                 <input type="hidden" name="valid" value="1"/>
 {if $paypal->areAmountsLoaded() and $amounts|@count gt 0}
                 <table>
                     <thead>
                         <tr>
-                            <th>{_T string="Cotisation type"}</th>
-                            <th>{_T string="Amount"}</th>
-                            <th>{_T string="Inactive"}</th>
+                            <th class="listing">{_T string="Cotisation type"}</th>
+                            <th class="listing">{_T string="Amount"}</th>
+                            <th class="listing">{_T string="Inactive"}</th>
                         </tr>
                     </thead>
                     <tbody>
