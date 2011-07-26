@@ -14,6 +14,9 @@
     <section>
 <form action="{if GALETTE_MODE eq 'DEV'}https://www.sandbox.paypal.com/fr/cgi-bin/webscr{else}https://www.paypal.com/cgi-bin/webscr{/if}" method="post" id="paypal">
     <!-- Paypal required variables -->
+    {if $custom}
+    <input type="hidden" name="custom" value="{$custom}"/>
+    {/if}
     <input type="hidden" name="cmd" value="_xclick"/>
     <input type="hidden" name="business" value="{$paypal->getId()}"/>
     <input type="hidden" name="lc" value="FR"/>{*language of the login or sign-up page*}{* FIXME: parameter *}

@@ -69,6 +69,10 @@ $tpl->assign(
     'plugin_url',
     'http://' . $_SERVER['HTTP_HOST'] . dirname($_SERVER['SCRIPT_NAME']) . '/'
 );
+if ( $login->isLogged() && !$login->isAdmin() ) {
+    $cust = array();
+    $tpl->assign('custom', $login->id);
+}
 $content = $tpl->fetch('paypal_form.tpl', PAYPAL_SMARTY_PREFIX);
 $tpl->assign('content', $content);
 $tpl->assign('page_title', _T("Paypal payment"));
