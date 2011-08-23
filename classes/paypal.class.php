@@ -208,47 +208,42 @@ class Paypal
      */
     public function store()
     {
-        global $mdb, $log;
+        global $zdb, $log;
 
-        $requete = 'UPDATE ' . PREFIX_DB . PAYPAL_PREFIX . self::PREFS_TABLE .
-        ' SET nom_pref=:nom_pref, val_pref=:val_pref WHERE nom_pref=:nom_pref';
-        $stmt = $mdb->prepare(
-            $requete,
-            array('text', 'text'),
-            MDB2_PREPARE_MANIP
-        );
-
-        $query = array();
-        $query[] = array(
-            'nom_pref'  => 'paypal_id',
-            'val_pref'  => $this->_id
-        );
-        $query[] = array(
-            'nom_pref'  => 'paypal_inactives',
-            'val_pref'  => implode($this->_inactives, ',') //check
-        );
-
-        $mdb->getDb()->loadModule('Extended', null, false);
-        $mdb->getDb()->extended->executeMultiple($stmt, $query);
-
-        if (MDB2::isError($stmt)) {
-            $log->log(
-                '[' . get_class($this) . '] Cannot store paypal preferences' .
-                '` | ' . $stmt->getMessage() . '(' . $stmt->getDebugInfo() . ')',
-                PEAR_LOG_ERR
+        try {
+            $stmt = $zdb->db->prepare(
+                'UPDATE ' . PREFIX_DB . PAYPAL_PREFIX . self::PREFS_TABLE .
+                ' SET nom_pref=:nom_pref, val_pref=:val_pref ' .
+                'WHERE nom_pref=:nom_pref'
             );
-            return false;
-        } else {
+
+            //store paypal id
+            $stmt->bindValue(':nom_pref', 'paypal_id');
+            $stmt->bindValue(':val_pref', $this->_id);
+            $stmt->execute();
+
+            //store inactives
+            $stmt->bindValue(':nom_pref', 'paypal_inactives');
+            $stmt->bindValue(':val_pref', implode($this->_inactives, ','));
+            $stmt->execute();
+
             $log->log(
                 '[' . get_class($this) .
                 '] Paypal preferences were sucessfully stored',
                 PEAR_LOG_INFO
             );
-        }
 
-        $stmt->free();
-        $this->storeAmounts();
-        return true;
+            $this->storeAmounts();
+            return true;
+        } catch (Exception $e) {
+            $log->log(
+                '[' . get_class($this) . '] Cannot store paypal preferences' .
+                '` | ' . $e->getMessage(),
+                PEAR_LOG_ERR
+            );
+            $this->_error = $e;
+            return false;
+        }
     }
 
     /**
@@ -258,44 +253,35 @@ class Paypal
      */
     public function storeAmounts()
     {
-        global $mdb, $log;
+        global $zdb, $log;
 
-        $requete = "UPDATE " . PREFIX_DB . PAYPAL_PREFIX . self::TABLE .
-        ' SET amount=:amount WHERE ' . self::PK . '=:id';
-
-        $stmt = $mdb->prepare(
-            $requete,
-            array('double', 'int'),
-            MDB2_PREPARE_MANIP
-        );
-
-        $query = array();
-        foreach ( $this->_prices as $k=>$v ) {
-            $query[] = array(
-                'amount'    => $v[2],
-                'id'        => $k
+        try {
+            $stmt = $zdb->db->prepare(
+                'UPDATE ' . PREFIX_DB . PAYPAL_PREFIX . self::TABLE .
+                ' SET amount=:amount WHERE ' . self::PK . '=:id'
             );
-        }
 
-        $mdb->getDb()->loadModule('Extended', null, false);
-        $mdb->getDb()->extended->executeMultiple($stmt, $query);
+            $query = array();
+            foreach ( $this->_prices as $k=>$v ) {
+                $stmt->bindValue(':id', $k);
+                $stmt->bindValue(':amount', $v[2]);
+                $stmt->execute();
+            }
 
-        if (MDB2::isError($stmt)) {
-            $log->log(
-                '[' . get_class($this) . '] Cannot store paypal amounts' .
-                '` | ' . $stmt->getMessage() . '(' . $stmt->getDebugInfo() . ')',
-                PEAR_LOG_ERR
-            );
-            return false;
-        } else {
             $log->log(
                 '[' . get_class($this) . '] Paypal amounts were sucessfully stored',
                 PEAR_LOG_INFO
             );
             return true;
+        } catch (Exception $e) {
+            $log->log(
+                '[' . get_class($this) . '] Cannot store paypal amounts' .
+                '` | ' . $e->getMessage(),
+                PEAR_LOG_ERR
+            );
+            $this->_error = $e;
+            return false;
         }
-
-        $stmt->free();
     }
 
     /**
