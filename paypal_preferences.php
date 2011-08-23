@@ -56,7 +56,7 @@ require_once 'classes/paypal.class.php';
 
 $paypal = new Paypal();
 
-if ( isset($_POST) ) {
+if ( isset($_POST['paypal_id']) ) {
     if ( isset($_POST['paypal_id']) ) {
         $paypal->setId($_POST['paypal_id']);
     }

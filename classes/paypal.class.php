@@ -78,7 +78,7 @@ class Paypal
     public function __construct()
     {
         $this->_loaded = false;
-        $this->_error = array();
+        $this->_error = null;
         $this->_prices = array();
         $this->_inactives = array();
         $this->_id = null;
@@ -92,28 +92,15 @@ class Paypal
      */
     private function _load()
     {
-        global $mdb, $log;
+        global $zdb, $log;
 
-        $requete = 'SELECT * FROM ' . PREFIX_DB . PAYPAL_PREFIX .
-        self::PREFS_TABLE;
-        $result = $mdb->query($requete);
+        try {
+            $select = new Zend_Db_Select($zdb->db);
+            $select->from(PREFIX_DB . PAYPAL_PREFIX . self::PREFS_TABLE);
 
-        if (MDB2::isError($result)) {
-            $log->log(
-                '[' . get_class($this) . '] Cannot load paypal preferences' .
-                '` | ' . $result->getMessage() . '(' . $result->getDebugInfo() . ')',
-                PEAR_LOG_ERR
-            );
-            //consider plugin is not loaded when missing the main preferences
-            //(that includes paypal id)
-            $this->_loaded = false;
-            $this->_error = array(
-                'message'   => $result->getMessage(),
-                'debug'     => $result->getDebugInfo()
-            );
-        } else {
-            $r = $result->fetchAll();
-            foreach ( $r as $row ) {
+            $results = $select->query()->fetchAll();
+
+            foreach ( $results as $row ) {
                 switch ( $row->nom_pref ) {
                 case 'paypal_id':
                     $this->_id = $row->val_pref;
@@ -131,7 +118,17 @@ class Paypal
                 }
             }
             $this->_loaded = true;
-            $this->_loadAmounts();
+            return $this->_loadAmounts();
+        } catch (Exception $e) {
+            $log->log(
+                '[' . get_class($this) . '] Cannot load paypal preferences |' .
+                $e->getMessage(),
+                PEAR_LOG_ERR
+            );
+            //consider plugin is not loaded when missing the main preferences
+            //(that includes paypal id)
+            $this->_loaded = false;
+            $this->_error = $e;
         }
     }
 
@@ -142,53 +139,34 @@ class Paypal
      */
     private function _loadAmounts()
     {
-        global $mdb, $log;
+        global $zdb, $log;
 
         $ct = new ContributionsTypes();
         $this->_prices = $ct->getCompleteList();
 
-        $requete = 'SELECT * FROM ' . PREFIX_DB . PAYPAL_PREFIX . self::TABLE;
+        try {
+            $select = new Zend_Db_Select($zdb->db);
+            $select->from(PREFIX_DB . PAYPAL_PREFIX . self::TABLE);
 
-        $result = $mdb->query($requete);
+            $results = $select->query()->fetchAll();
 
-        if (MDB2::isError($result)) {
-            $log->log(
-                '[' . get_class($this) . '] Cannot load paypal amounts' .
-                '` | ' . $result->getMessage() . '(' . $result->getDebugInfo() . ')',
-                PEAR_LOG_ERR
-            );
-            //missing amounts is not a critical error,
-            //user can enter the amount manually :)
-            $this->_error = array(
-                'message'   => $result->getMessage(),
-                'debug'     => $result->getDebugInfo()
-            );
-        } else {
             //check if all types currently exists in paypal table
-            if ( $result->numRows() != count($this->_prices) ) {
+            if ( count($results) != count($this->_prices) ) {
                 $log->log(
                     '[' . get_class($this) . '] There are missing types in ' .
                     'paypal table, Galette will try to create them.',
                     PEAR_LOG_INFO
                 );
             }
-            if ( $result->numRows() > 0 ) {
-                $paypals = $result->fetchAll(MDB2_FETCHMODE_ASSOC);
-            } else {
-                $log->log(
-                    'No paypal type amounts defined in database.',
-                    PEAR_LOG_INFO
-                );
-            }
-            $queries = array();
+
             foreach ( $this->_prices as $k=>$v ) {
                 $_found = false;
-                if ( $result->numRows() > 0 ) {
+                if ( count($results) > 0 ) {
                     //for each entry in types, we want to get the associated amount
-                    foreach ( $paypals as $paypal ) {
-                        if ( $paypal['id_type_cotis'] == $k ) {
+                    foreach ( $results as $paypal ) {
+                        if ( $paypal->id_type_cotis == $k ) {
                             $_found=true;
-                            $this->_prices[$k][] = (double)$paypal['amount'];
+                            $this->_prices[$k][] = (double)$paypal->amount;
                             break;
                         }
                     }
@@ -201,8 +179,8 @@ class Paypal
                     );
                     $this->_prices[$k][] = null;
                     $queries[] = array(
-                          'id'      => $k,
-                        'amount'  => null
+                          'id'   => $k,
+                        'amount' => null
                     );
                 }
             }
@@ -211,6 +189,15 @@ class Paypal
             }
             //amounts should be loaded here
             $this->_amounts_loaded = true;
+        } catch (Exception $e) {
+            $log->log(
+                '[' . get_class($this) . '] Cannot load paypal amounts' .
+                '` | ' . $e->getMessage(),
+                PEAR_LOG_ERR
+            );
+            //amounts are not loaded at this point
+            $this->_amounts_loaded = false;
+            $this->_error = $e;
         }
     }
 
@@ -320,30 +307,30 @@ class Paypal
     */
     private function _newEntries($queries)
     {
-        global $mdb, $log;
+        global $zdb, $log;
 
-        $stmt = $mdb->prepare(
-            'INSERT INTO ' . PREFIX_DB . PAYPAL_PREFIX . self::TABLE . ' (' .
-            self::PK . ', amount) VALUES (:id, :amount)',
-            array('integer', 'double'),
-            MDB2_PREPARE_MANIP
-        );
+        try {
+            $stmt = $zdb->db->prepare(
+                'INSERT INTO ' . PREFIX_DB . PAYPAL_PREFIX . self::TABLE .
+                ' (' . self::PK . ', amount) VALUES (:id, :amount)'
+            );
 
-        $mdb->getDb()->loadModule('Extended', null, false);
-        $mdb->getDb()->extended->executeMultiple($stmt, $queries);
+            foreach ( $queries as $q ) {
+                $stmt->bindValue(':id', $q['id']);
+                $stmt->bindValue(':amount', $q['amount']);
+                $stmt->execute();
+            }
 
-        if ( MDB2::isError($stmt) ) {
-            $this->_error = $stmt;
+            return true;
+        } catch (Exception $e) {
             $log->log(
                 'Unable to store missing types in paypal table.' .
                 $stmt->getMessage() . '(' . $stmt->getDebugInfo() . ')',
                 PEAR_LOG_WARNING
             );
+            $this->_error = $e;
             return false;
         }
-
-        $stmt->free();
-        return true;
     }
 
     /**
