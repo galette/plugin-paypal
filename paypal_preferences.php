@@ -69,6 +69,8 @@ if ( isset($_POST['paypal_id']) ) {
     $stored = $paypal->store();
 }
 
+$tpl->assign('page_title', _T("Paypal Settings"));
+
 //Set the path to the current plugin's templates,
 //but backup main Galette's template path before
 $orig_template_path = $tpl->template_dir;

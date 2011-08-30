@@ -1,4 +1,3 @@
-		<h1 id="titre">{_T string="Paypal Settings"}</h1>
 		<form action="paypal_preferences.php" method="post" enctype="multipart/form-data">
 {if !$paypal->isLoaded()}
             <div id="errorbox">
@@ -26,11 +25,11 @@
 		</div>
 {/if}
 {if $prefs_stored}
-	<div id="infobox">{_T string="Paypal preferences has been saved."}</div>
+        <div id="infobox">{_T string="Paypal preferences has been saved."}</div>
 {/if}
 		<div class="bigtable">
-			<fieldset class="cssform paypalprefs">
-				<legend>{_T string="Paypal preferences:"}</legend>
+			<fieldset class="cssform paypalprefs ">
+				<legend class="ui-state-active ui-corner-top">{_T string="Paypal preferences:"}</legend>
 				<p>
 					<label for="paypal_id" class="bline">{_T string="Paypal identifier:"}</label>
 					<span class="tip">{_T string="Enter here one of your Paypal ID or email adress associated within your paypal account."}</span>

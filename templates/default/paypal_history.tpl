@@ -1,4 +1,3 @@
-		<h1 id="titre">{_T string="Paypal History"}</h1>
 		<table id="listing">
 			<thead>
 				<tr>

@@ -86,6 +86,8 @@ $orig_template_path = $tpl->template_dir;
 $tpl->template_dir = 'templates/' . $preferences->pref_theme;
 $tpl->compile_id = PAYPAL_SMARTY_PREFIX;
 
+$tpl->assign('page_title', _T("Paypal History"));
+
 $tpl->assign('paypal_history', $paypal_history);
 $tpl->assign('logs', $logs);
 $content = $tpl->fetch('paypal_history.tpl', PAYPAL_SMARTY_PREFIX);
