@@ -69,8 +69,7 @@ $tpl->assign(
     'plugin_url',
     'http://' . $_SERVER['HTTP_HOST'] . dirname($_SERVER['SCRIPT_NAME']) . '/'
 );
-if ( $login->isLogged() && !$login->isAdmin() ) {
-    $cust = array();
+if ( $login->isLogged() && !$login->isSuperAdmin() ) {
     $tpl->assign('custom', $login->id);
 }
 $tpl->assign('page_title', _T("Paypal payment"));
