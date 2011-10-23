@@ -46,7 +46,7 @@ require_once '_config.inc.php';
 
 //if we've received some informations from paypal website, we can proceed
 require_once 'classes/paypal-history.class.php';
-if( isset($_POST) && isset($_POST['mc_gross']) && isset($_POST['item_name'])) {
+if( isset($_POST) && isset($_POST['mc_gross']) && isset($_POST['item_number'])) {
     $ph = new PaypalHistory();
     $ph->add($_POST);
 
@@ -67,6 +67,72 @@ if( isset($_POST) && isset($_POST['mc_gross']) && isset($_POST['item_name'])) {
         $s,
         PEAR_LOG_DEBUG
     );
+
+    //we'll now try to add the relevant cotisation
+    if ( isset($_POST['custom'])
+        && is_numeric($_POST['custom'])
+        && $_POST['payment_status'] == 'Completed'
+    ) {
+        if ( $_POST['payment_status'] == 'Completed' ) {
+            /**
+             * We will use the following parameters:
+             * - mc_gross: the amount
+             * - custom: member id
+             * - item_number: contribution type id
+             */
+            require_once $base_path . 'classes/contribution.class.php';
+
+            $args = array(
+                    'type'  => $_POST['item_number'],
+                    'adh'   => $_POST['custom']
+            );
+            if ( $preferences->pref_membership_ext != '' ) {
+                $args['ext'] = $preferences->pref_membership_ext;
+            }
+            $contrib = new Contribution($args);
+            $contrib->amount = $_POST['mc_gross'];
+
+            //all goes well, we can proceed
+            if ( $contrib->isCotis() ) {
+                // Check that membership fees does not overlap
+                $overlap = $contrib->checkOverlap();
+                if ( $overlap !== true ) {
+                    if ( $overlap === false ) {
+                        $log->log(
+                            'An eror occured checking overlaping fees :(',
+                            PEAR_LOG_ERR
+                        );
+                    } else {
+                        //method directly return erro message
+                        $log->log(
+                            'Error while calculating overlaping fees from paypal payment: ' . $overlap,
+                            PEAR_LOG_ERR
+                        );
+                    }
+                }
+            }
+
+            $store = $contrib->store();
+            if ( $store === true ) {
+                //contribution has been stored :)
+                $log->log(
+                    'Paypal payment has been successfully registered as a contribution',
+                    PEAR_LOG_INFO
+                );
+            } else {
+                //something went wrong :'(
+                $log->log(
+                    'An error occured while storing a new contribution from Paypal payment',
+                    PEAR_LOG_ERR
+                );
+            }
+        } else {
+            $log->log(
+                'A paypal payment notification has been received, but is not completed!',
+                PEAR_LOG_WARNING
+            );
+        }
+    }
 } else {
     $log->log(
         'Paypal notify URL call without required arguments!',
