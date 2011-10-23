@@ -102,49 +102,31 @@ class PaypalHistory extends History
     */
     public function add($request)
     {
-        global $mdb, $log, $login;
+        global $zdb, $log, $login;
 
-        MDB2::loadFile('Date');
+        try {
+            $values = array(
+                'history_date'  => date('Y-m-d H:i:s'),
+                'amount'        => $request['mc_gross'],
+                'comments'      => $request['item_name'],
+                'request'       => serialize($request)
+            );
 
-        $requete = 'INSERT INTO ' .
-            $mdb->quoteIdentifier($this->getTableName()) . ' (';
-        $requete .= implode(', ', $this->_fields);
-        $requete .= ') VALUES (:id, :date, :amount, :comment, :request)';
-
-        $stmt = $mdb->prepare($requete, $this->_types, MDB2_PREPARE_MANIP);
-
-        if (MDB2::isError($stmt)) {
+            $zdb->db->insert($this->getTableName(), $values);
+        } catch (Zend_Db_Adapter_Exception $e) {
             $log->log(
                 'Unable to initialize add log entry into database.' .
-                $stmt->getMessage() . '(' . $stmt->getDebugInfo() . ')',
+                $e->getMessage(),
                 PEAR_LOG_WARNING
             );
             return false;
-        }
-
-        $stmt->execute(
-            array(
-                'id'      => 'NULL',
-                'date'    => MDB2_Date::mdbNow(),
-                'amount'  => $request['mc_gross'],
-                'comment' => $request['item_name'],
-                'request' => serialize($request)
-            )
-        );
-
-        $log->log($stmt, PEAR_LOG_DEBUG);
-
-        if (MDB2::isError($stmt)) {
+        } catch (Exception $e) {
             $log->log(
-                "An error occured trying to add log entry. " . $stmt->getMessage(),
+                "An error occured trying to add log entry. " . $e->getMessage(),
                 PEAR_LOG_ERR
             );
             return false;
-        } else {
-            $log->log('Log entry added', PEAR_LOG_DEBUG);
         }
-
-        $stmt->free();
 
         return true;
     }
