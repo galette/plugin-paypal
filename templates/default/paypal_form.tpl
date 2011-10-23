@@ -25,7 +25,7 @@
     <input type="hidden" name="no_note" value="1"/>
     <input type="hidden" name="no_shipping" value="1"/>
     {*<input type="hidden" name="bn" value="PP-BuyNowBF:btn_buynowCC_LG.gif:NonHostedGuest"/><!-- notfound :( -->*}
-    <input type="hidden" name="item_number " value=""/><!-- TODO: build an identifier we can reuse later -->
+    <input type="hidden" name="item_name" id="item_name" value="{_T string="annual fee"}"/>
     <!-- Paypal dialogs -->
     <input type="hidden" name="return" value="{$plugin_url}paypal_success.php"/>
     <input type="hidden" name="rm" value="POST"/>{*Send POST values back to Galette after payment. Will be sent to return url above*}
@@ -39,8 +39,8 @@
     {if $paypal->areAmountsLoaded() and $amounts|@count gt 0}
     <div id="amounts">
         {foreach from=$amounts key=k item=amount name=amounts}
-        <input type="radio" name="item_name" id="in{$k}" value="{$amount[0]}"{if $smarty.foreach.amounts.index == 0} checked="checked"{/if}/>
-        <label for="in{$k}">{$amount[0]}
+        <input type="radio" name="item_number" id="in{$k}" value="{$k}"{if $smarty.foreach.amounts.index == 0} checked="checked"{/if}/>
+        <label for="in{$k}"><span id="in{$k}_name">{$amount[0]}</span>
         {if $amount[2] gt 0}
             (<span id="in{$k}_amount">{$amount[2]|string_format:"%.2f"}</span> €)
         {/if}
@@ -68,8 +68,10 @@
         </section>
 <script type="text/javascript">
     $(function() {ldelim}
-        $('input[name="item_name"]').change(function(){ldelim}
+        $('input[name="item_number"]').change(function(){ldelim}
             var _amount = parseFloat($('#' + this.id + '_amount').text());
+            var _name = $('#' + this.id + '_name').text();
+            $('#item_name').val(_name);
             if ( _amount != '' && !isNaN(_amount) ) {ldelim}
                 $('#amount').val(_amount);
             {rdelim}
