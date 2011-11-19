@@ -45,7 +45,7 @@ if ( !$login->isLogged() ) {
     header('location: ' . $base_path . 'index.php');
     die();
 }
-if ( !$login->isAdmin() ) {
+if ( !$login->isAdmin() && !$login->isStaff() ) {
     header('location: ' . $base_path . 'voir_adherent.php');
     die();
 }
@@ -56,8 +56,8 @@ require_once 'classes/paypal.class.php';
 
 $paypal = new Paypal();
 
-if ( isset($_POST['paypal_id']) ) {
-    if ( isset($_POST['paypal_id']) ) {
+if ( isset($_POST['amounts']) ) {
+    if ( isset($_POST['paypal_id']) && $login->isAdmin() ) {
         $paypal->setId($_POST['paypal_id']);
     }
     if ( isset($_POST['amount_id']) && isset($_POST['amounts']) ) {
