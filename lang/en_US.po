@@ -62,7 +62,7 @@ msgstr "Go back to %s Website to complete your inscription."
 msgid "Payment status"
 msgstr "Payment status"
 
-#: ../paypal_preferences.php:72
+#: ../paypal_preferences.php:74
 msgid "Paypal Settings"
 msgstr "Paypal Settings"
 

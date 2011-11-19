@@ -1,5 +1,5 @@
 <?php
-// This file was automatically generated on Sat Nov 19 08:43:36 2011 (GMT)
+// This file was automatically generated on Sat Nov 19 17:14:58 2011 (GMT)
 // Don't modify it by hand, rather use the target lang from the Makefile.
 
 
@@ -82,7 +82,7 @@ $lang['Paypal identifier:'] = 'Identifiant Paypal';
 $lang['Error: no predefined amounts found.'] = 'Erreur : aucun montant prédéfini trouvé.';
 
 // ../templates/default/paypal_form.tpl:92 
-$lang['The amount you\'ve entered is lower than the minimum amount for the selected option.\\nPlease choose another option or change the amount.'] = 'Le montant que vous avez entreé est inférieur au montant minimum de l\'option sléectionnée.\\nVeuillez choisir une autre option ou entrer un nouveau montant.';
+$lang['The amount you\'ve entered is lower than the minimum amount for the selected option.\\nPlease choose another option or change the amount.'] = 'Le montant que vous avez entré est inférieur au montant minimum de l\'option sléectionnée.\\nVeuillez choisir une autre option ou entrer un nouveau montant.';
 
 // ../templates/default/paypal_history.tpl:32 
 $lang['Request'] = 'Requête';

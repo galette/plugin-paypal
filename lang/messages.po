@@ -39,7 +39,7 @@ msgstr ""
 msgid "Payment status"
 msgstr ""
 
-#: ../paypal_preferences.php:72
+#: ../paypal_preferences.php:74
 msgid "Paypal Settings"
 msgstr ""
 

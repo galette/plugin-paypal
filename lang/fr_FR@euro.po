@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"PO-Revision-Date: 2011-11-19 09:43+0100\n"
+"PO-Revision-Date: 2011-11-19 18:05+0100\n"
 "Last-Translator: \n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
 "Language: fr\n"
@@ -63,7 +63,7 @@ msgstr "Retour au site de %s pour compléter votre inscription."
 msgid "Payment status"
 msgstr "État du paiement"
 
-#: ../paypal_preferences.php:72
+#: ../paypal_preferences.php:74
 msgid "Paypal Settings"
 msgstr "Préférences Paypal"
 
@@ -168,7 +168,7 @@ msgid ""
 "The amount you've entered is lower than the minimum amount for the selected "
 "option.\\nPlease choose another option or change the amount."
 msgstr ""
-"Le montant que vous avez entreé est inférieur au montant minimum de l'option "
+"Le montant que vous avez entré est inférieur au montant minimum de l'option "
 "sléectionnée.\\nVeuillez choisir une autre option ou entrer un nouveau "
 "montant."
 
