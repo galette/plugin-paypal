@@ -3,10 +3,9 @@ INSTALLDIR = .
 LANGUAGES = en_US fr_FR@euro
 PACKAGE = galette_paypal
 MKLANG = ../../../lang/make_lang_l12n.py
-PHP_SOURCES = ../templates/default/paypal_form.tpl \
-../templates/default/paypal_success.tpl \
-../templates/default/paypal_preferences.tpl \
-../templates/default/menu.tpl
+PHP_SOURCES = $(shell find ../ -maxdepth 1 -name \*.php) \
+              $(shell find ../classes -name \*.php) \
+              $(shell find ../templates -name \*.tpl)
 
 
 all : messages.po lang
@@ -38,7 +37,7 @@ lang :
 	else \
 	  echo "    lang_english.php mis à jour."; \
 	  mv lang_english.php.new lang_english.php; \
-	fi; 
+	fi;
 
 	@echo "  Mise à jour de lang_french.php"
 	@echo "    extraction des chaines..."
@@ -49,7 +48,7 @@ lang :
 	else \
 	  echo "    lang_french.php mis à jour."; \
 	  mv lang_french.php.new lang_french.php; \
-	fi; 
+	fi;
 
 messages.po : ${PHP_SOURCES} Makefile xgettext.py
 	./xgettext.py ${PHP_SOURCES}
@@ -57,7 +56,7 @@ messages.po : ${PHP_SOURCES} Makefile xgettext.py
 check:
 	@for FILE in ${PHP_SOURCES}; do				\
 		test -f $$FILE || echo "Not found $$FILE";	\
-	done 
+	done
 	@for NFILE in ../*.php ../includes/*.php		\
 			../templates/default/*.tpl; do		\
 		for OFILE in ${PHP_SOURCES}; do			\
