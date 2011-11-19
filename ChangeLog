@@ -1,3 +1,7 @@
+* 2011-11-19 - 1.0.2
+- Displays a message when preferences are stored
+- Cannot unset all inactives types
+
 * 2011-11-19 - 1.0.1
 - Update i18n
 
