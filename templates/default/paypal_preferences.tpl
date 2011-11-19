@@ -24,7 +24,7 @@
 			</ul>
 		</div>
 {/if}
-{if $prefs_stored}
+{if $stored}
         <div id="infobox">{_T string="Paypal preferences has been saved."}</div>
 {/if}
 		<div class="bigtable">
