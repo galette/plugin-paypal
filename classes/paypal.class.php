@@ -436,5 +436,14 @@ class Paypal
         $this->_inactives = $inactives;
     }
 
+    /**
+     * Unset inactives types
+     *
+     * @return void
+     */
+    public function unsetInactives()
+    {
+        $this->_inactives = array();
+    }
 }
 ?>

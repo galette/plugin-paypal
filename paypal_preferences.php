@@ -65,6 +65,8 @@ if ( isset($_POST['paypal_id']) ) {
     }
     if (isset($_POST['inactives']) ) {
         $paypal->setInactives($_POST['inactives']);
+    } else {
+        $paypal->unsetInactives();
     }
     $stored = $paypal->store();
 }
