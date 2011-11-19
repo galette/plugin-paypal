@@ -29,7 +29,7 @@
 {/if}
 		<div class="bigtable">
 			<fieldset class="cssform paypalprefs ">
-				<legend class="ui-state-active ui-corner-top">{_T string="Paypal preferences:"}</legend>
+				<legend class="ui-state-active ui-corner-top">{_T string="Paypal preferences"}</legend>
 				<p>
 					<label for="paypal_id" class="bline">{_T string="Paypal identifier:"}</label>
 					<span class="tip">{_T string="Enter here one of your Paypal ID or email adress associated within your paypal account."}</span>
