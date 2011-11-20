@@ -1,5 +1,5 @@
 <?php
-// This file was automatically generated on Sat Nov 19 08:43:36 2011 (GMT)
+// This file was automatically generated on Sun Nov 20 09:06:10 2011 (GMT)
 // Don't modify it by hand, rather use the target lang from the Makefile.
 
 
@@ -99,7 +99,7 @@ $lang['Select an option below, then click \'Payment\' to proceed.<br/>Once your 
 // ../templates/default/paypal_success.tpl:17 
 $lang['Payment type'] = 'Payment type';
 
-// ../paypal_preferences.php:72 
+// ../paypal_preferences.php:74 
 $lang['Paypal Settings'] = 'Paypal Settings';
 
 // ../templates/default/paypal_form.tpl:11 

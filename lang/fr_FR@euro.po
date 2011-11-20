@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"PO-Revision-Date: 2011-11-19 18:05+0100\n"
+"PO-Revision-Date: 2011-11-20 10:05+0100\n"
 "Last-Translator: \n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
 "Language: fr\n"
@@ -18,11 +18,11 @@ msgstr ""
 msgid "Paypal payment"
 msgstr "Paiement Paypal"
 
-#: ../templates/default/paypal_preferences.tpl:72
+#: ../templates/default/paypal_preferences.tpl:74
 msgid "Save"
 msgstr "Sauvegarder"
 
-#: ../templates/default/paypal_preferences.tpl:74
+#: ../templates/default/paypal_preferences.tpl:76
 msgid "red"
 msgstr "rouge"
 
@@ -38,7 +38,7 @@ msgstr ""
 "bureau recevront un message de notification."
 
 #: ../templates/default/paypal_form.tpl:60
-#: ../templates/default/paypal_preferences.tpl:44
+#: ../templates/default/paypal_preferences.tpl:46
 #: ../templates/default/paypal_success.tpl:21
 msgid "Amount"
 msgstr "Montant"
@@ -75,7 +75,7 @@ msgstr "Pages&nbsp;:"
 msgid "No predefined amounts have been defined yet."
 msgstr "Aucun montant prédéfini n'existe."
 
-#: ../templates/default/paypal_preferences.tpl:35
+#: ../templates/default/paypal_preferences.tpl:37
 msgid ""
 "Enter here one of your Paypal ID or email adress associated within your "
 "paypal account."
@@ -117,7 +117,7 @@ msgstr "Paiement Paypal effectué"
 msgid "Change"
 msgstr "Modifier"
 
-#: ../templates/default/paypal_preferences.tpl:74
+#: ../templates/default/paypal_preferences.tpl:76
 msgid "NB : The mandatory fields are in"
 msgstr "NB : Les champs requis sont en"
 
@@ -139,11 +139,11 @@ msgstr "- ERREUR -"
 msgid "Payment date"
 msgstr "Date de paiement"
 
-#: ../templates/default/paypal_preferences.tpl:45
+#: ../templates/default/paypal_preferences.tpl:47
 msgid "Inactive"
 msgstr "Inactif"
 
-#: ../templates/default/paypal_preferences.tpl:34
+#: ../templates/default/paypal_preferences.tpl:36
 msgid "Paypal identifier:"
 msgstr "Identifiant Paypal"
 
@@ -151,7 +151,7 @@ msgstr "Identifiant Paypal"
 msgid "Records per page:"
 msgstr "Enregistrements par page&nbsp;:"
 
-#: ../templates/default/paypal_preferences.tpl:43
+#: ../templates/default/paypal_preferences.tpl:45
 msgid "Cotisation type"
 msgstr "Type de cotisation"
 
@@ -169,7 +169,7 @@ msgid ""
 "option.\\nPlease choose another option or change the amount."
 msgstr ""
 "Le montant que vous avez entré est inférieur au montant minimum de l'option "
-"sléectionnée.\\nVeuillez choisir une autre option ou entrer un nouveau "
+"sélectionnée.\\nVeuillez choisir une autre option ou entrer un nouveau "
 "montant."
 
 #: ../templates/default/paypal_form.tpl:11
@@ -198,7 +198,7 @@ msgstr ""
 msgid "Paypal History"
 msgstr "Historique Paypal"
 
-#: ../templates/default/paypal_preferences.tpl:32
+#: ../templates/default/paypal_preferences.tpl:33
 msgid "Paypal preferences"
 msgstr "Préférences Paypal"
 
@@ -225,7 +225,7 @@ msgstr "- ATTENTION -"
 msgid "Payment type"
 msgstr "Type de paiement"
 
-#: ../templates/default/paypal_preferences.tpl:67
+#: ../templates/default/paypal_preferences.tpl:69
 msgid "Error: no predefined amounts found."
 msgstr "Erreur : aucun montant prédéfini trouvé."
 
