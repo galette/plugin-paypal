@@ -1,4 +1,5 @@
 * 2011-11-19 - 1.0.2
+- Staff members can now change amounts and (in)actives contributions types, but not the paypal ID
 - Displays a message when preferences are stored
 - Cannot unset all inactives types
 
