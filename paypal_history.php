@@ -74,7 +74,7 @@ if ( isset($_GET['tri']) ) {
     $paypal_history->tri = $_GET['tri'];
 }
 
-$_SESSION['galette']['paypal_history'] = serialize($paypal_history);
+$_SESSION['galette'][PREFIX_DB . '_' . NAME_DB]['paypal_history'] = serialize($paypal_history);
 
 //assign pagination variables to the template and add pagination links
 $paypal_history->setSmartyPagination($tpl);
