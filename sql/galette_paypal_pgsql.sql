@@ -1,7 +1,7 @@
 --
 -- Table structure for table galette_paypal_types_cotisation_prices
 --
-
+DROP TABLE IF EXISTS galette_paypal_types_cotisation_prices;
 CREATE TABLE galette_paypal_types_cotisation_prices (
   id_type_cotis integer REFERENCES galette_types_cotisation ON DELETE RESTRICT,
   amount  real DEFAULT '0',
@@ -11,8 +11,7 @@ CREATE TABLE galette_paypal_types_cotisation_prices (
 --
 -- Table structure for table galette_paypal_history
 --
-
-DROP SEQUENCE galette_paypal_history_id_seq;
+DROP SEQUENCE IF EXISTS galette_paypal_history_id_seq;
 CREATE SEQUENCE galette_paypal_history_id_seq
     START 1
     INCREMENT 1
@@ -20,6 +19,7 @@ CREATE SEQUENCE galette_paypal_history_id_seq
     MINVALUE 1
     CACHE 1;
 
+DROP TABLE IF EXISTS galette_paypal_history;
 CREATE TABLE galette_paypal_history (
   id_paypal integer DEFAULT nextval('galette_paypal_history_id_seq'::text) NOT NULL,
   history_date date NOT NULL,
@@ -32,8 +32,7 @@ CREATE TABLE galette_paypal_history (
 --
 -- Table structure for table `galette_paypal_preferences`
 --
-
-DROP SEQUENCE galette_paypal_preferences_id_seq;
+DROP SEQUENCE IF EXISTS galette_paypal_preferences_id_seq;
 CREATE SEQUENCE galette_paypal_preferences_id_seq
     START 1
     INCREMENT 1
@@ -41,6 +40,7 @@ CREATE SEQUENCE galette_paypal_preferences_id_seq
     MINVALUE 1
     CACHE 1;
 
+DROP TABLE IF EXISTS galette_paypal_preferences;
 CREATE TABLE galette_paypal_preferences (
   id_pref integer DEFAULT nextval('galette_paypal_preferences_id_seq'::text) NOT NULL,
   nom_pref character varying(100) NOT NULL default '',

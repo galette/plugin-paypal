@@ -211,21 +211,27 @@ class Paypal
         global $zdb, $log;
 
         try {
-            $stmt = $zdb->db->prepare(
-                'UPDATE ' . PREFIX_DB . PAYPAL_PREFIX . self::PREFS_TABLE .
-                ' SET nom_pref=:nom_pref, val_pref=:val_pref ' .
-                'WHERE nom_pref=:nom_pref'
+            //store paypal id
+            $values = array(
+                'nom_pref' => 'paypal_id',
+                'val_pref' => $this->_id
+            );
+            $edit = $zdb->db->update(
+                PREFIX_DB . PAYPAL_PREFIX . self::PREFS_TABLE,
+                $values,
+                $zdb->db->quoteInto('nom_pref = ?', 'paypal_id')
             );
 
-            //store paypal id
-            $stmt->bindValue(':nom_pref', 'paypal_id');
-            $stmt->bindValue(':val_pref', $this->_id);
-            $stmt->execute();
-
             //store inactives
-            $stmt->bindValue(':nom_pref', 'paypal_inactives');
-            $stmt->bindValue(':val_pref', implode($this->_inactives, ','));
-            $stmt->execute();
+            $values = array(
+                'nom_pref' => 'paypal_inactives',
+                'val_pref' => implode($this->_inactives, ',')
+            );
+            $edit = $zdb->db->update(
+                PREFIX_DB . PAYPAL_PREFIX . self::PREFS_TABLE,
+                $values,
+                $zdb->db->quoteInto('nom_pref = ?', 'paypal_inactives')
+            );
 
             $log->log(
                 '[' . get_class($this) .
@@ -264,7 +270,7 @@ class Paypal
             $query = array();
             foreach ( $this->_prices as $k=>$v ) {
                 $stmt->bindValue(':id', $k);
-                $stmt->bindValue(':amount', $v[2]);
+                $stmt->bindValue(':amount', (float)$v[2]);
                 $stmt->execute();
             }
 
