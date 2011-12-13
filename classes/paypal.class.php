@@ -159,6 +159,7 @@ class Paypal
                 );
             }
 
+            $queries = array();
             foreach ( $this->_prices as $k=>$v ) {
                 $_found = false;
                 if ( count($results) > 0 ) {
@@ -239,8 +240,7 @@ class Paypal
                 PEAR_LOG_INFO
             );
 
-            $this->storeAmounts();
-            return true;
+            return $this->storeAmounts();
         } catch (Exception $e) {
             $log->log(
                 '[' . get_class($this) . '] Cannot store paypal preferences' .

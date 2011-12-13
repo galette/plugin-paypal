@@ -69,6 +69,11 @@ if ( isset($_POST['amounts']) ) {
         $paypal->unsetInactives();
     }
     $stored = $paypal->store();
+    if ( $stored ) {
+        $success_detected[] = _T("Paypal preferences has been saved.");
+    } else {
+        $error_detected[] = _T("An error occured saving paypal preferences :(");
+    }
 }
 
 $tpl->assign('page_title', _T("Paypal Settings"));
@@ -80,9 +85,8 @@ $tpl->template_dir = 'templates/' . $preferences->pref_theme;
 $tpl->compile_id = PAYPAL_SMARTY_PREFIX;
 $tpl->assign('paypal', $paypal);
 $tpl->assign('amounts', $paypal->getAllAmounts());
-if ( isset($stored) ) {
-    $tpl->assign('stored', $stored);
-}
+$tpl->assign('error_detected', $error_detected);
+$tpl->assign('success_detected', $success_detected);
 $content = $tpl->fetch('paypal_preferences.tpl', PAYPAL_SMARTY_PREFIX);
 $tpl->assign('content', $content);
 //Set path back to main Galette's template

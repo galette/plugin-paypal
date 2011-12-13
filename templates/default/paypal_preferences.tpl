@@ -4,29 +4,6 @@
                 <h1>{_T string="- ERROR -"}</h1>
             </div>
 {/if}
-{if $error_detected|@count != 0}
-		<div id="errorbox">
-			<h1>{_T string="- ERROR -"}</h1>
-			<ul>
-{foreach from=$error_detected item=error}
-				<li>{$error}</li>
-{/foreach}
-			</ul>
-		</div>
-{/if}
-{if $warning_detected|@count != 0}
-		<div id="warningbox">
-			<h1>{_T string="- WARNING -"}</h1>
-			<ul>
-{foreach from=$warning_detected item=warning}
-				<li>{$warning}</li>
-{/foreach}
-			</ul>
-		</div>
-{/if}
-{if $stored}
-        <div id="infobox">{_T string="Paypal preferences has been saved."}</div>
-{/if}
 		<div class="bigtable">
             <input type="hidden" name="valid" value="1"/>
 			<fieldset class="cssform paypalprefs ">
