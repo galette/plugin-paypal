@@ -58,7 +58,7 @@
     </p>
     <p>
         <label for="amount">{_T string="Amount"}</label>
-        <input type="text" name="amount" id="amount" value="20.00"/>
+        <input type="text" name="amount" id="amount" value="{if $amounts|@count > 0}{$amounts[1][2]}{else}20{/if}"/>
     </p>
 
     <div class="button-container">
