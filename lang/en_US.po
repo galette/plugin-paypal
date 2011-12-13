@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"PO-Revision-Date: 2011-11-19 09:42+0100\n"
+"PO-Revision-Date: 2011-12-13 05:35+0100\n"
 "Last-Translator: \n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
 "Language: fr\n"
@@ -18,11 +18,11 @@ msgstr ""
 msgid "Paypal payment"
 msgstr "Paypal payment"
 
-#: ../templates/default/paypal_preferences.tpl:74
+#: ../templates/default/paypal_preferences.tpl:51
 msgid "Save"
 msgstr "Save"
 
-#: ../templates/default/paypal_preferences.tpl:76
+#: ../templates/default/paypal_preferences.tpl:53
 msgid "red"
 msgstr "red"
 
@@ -36,11 +36,9 @@ msgstr ""
 "paiment validated, an entry will be automatically added in the contributions "
 "table and staff members will receive a notification mail."
 
-#: ../templates/default/paypal_form.tpl:60
-#: ../templates/default/paypal_preferences.tpl:46
-#: ../templates/default/paypal_success.tpl:21
-msgid "Amount"
-msgstr "Amount"
+#: ../paypal_preferences.php:75
+msgid "An error occured saving paypal preferences :("
+msgstr "An error occured saving paypal preferences :("
 
 #: ../templates/default/paypal_history.tpl:25
 msgid "Descendant"
@@ -62,7 +60,7 @@ msgstr "Go back to %s Website to complete your inscription."
 msgid "Payment status"
 msgstr "Payment status"
 
-#: ../paypal_preferences.php:74
+#: ../paypal_preferences.php:79
 msgid "Paypal Settings"
 msgstr "Paypal Settings"
 
@@ -74,7 +72,7 @@ msgstr "Pages:"
 msgid "No predefined amounts have been defined yet."
 msgstr "No predefined amounts have been defined yet."
 
-#: ../templates/default/paypal_preferences.tpl:37
+#: ../templates/default/paypal_preferences.tpl:14
 msgid ""
 "Enter here one of your Paypal ID or email adress associated within your "
 "paypal account."
@@ -82,7 +80,7 @@ msgstr ""
 "Enter here one of your Paypal ID or email adress associated within your "
 "paypal account."
 
-#: ../templates/default/paypal_preferences.tpl:28
+#: ../paypal_preferences.php:73
 msgid "Paypal preferences has been saved."
 msgstr "Paypal preferences has been saved."
 
@@ -114,7 +112,7 @@ msgstr "Paypal payment success"
 msgid "Change"
 msgstr "Change"
 
-#: ../templates/default/paypal_preferences.tpl:76
+#: ../templates/default/paypal_preferences.tpl:53
 msgid "NB : The mandatory fields are in"
 msgstr "NB : The mandatory fields are in"
 
@@ -128,7 +126,6 @@ msgstr "Paypal Preferences"
 
 #: ../templates/default/paypal_form.tpl:3
 #: ../templates/default/paypal_preferences.tpl:4
-#: ../templates/default/paypal_preferences.tpl:9
 msgid "- ERROR -"
 msgstr "- ERROR -"
 
@@ -136,11 +133,11 @@ msgstr "- ERROR -"
 msgid "Payment date"
 msgstr "Payment date"
 
-#: ../templates/default/paypal_preferences.tpl:47
+#: ../templates/default/paypal_preferences.tpl:24
 msgid "Inactive"
 msgstr "Inactive"
 
-#: ../templates/default/paypal_preferences.tpl:36
+#: ../templates/default/paypal_preferences.tpl:13
 msgid "Paypal identifier:"
 msgstr "Paypal identifier:"
 
@@ -148,13 +145,19 @@ msgstr "Paypal identifier:"
 msgid "Records per page:"
 msgstr "Records per page:"
 
-#: ../templates/default/paypal_preferences.tpl:45
+#: ../templates/default/paypal_preferences.tpl:22
 msgid "Cotisation type"
 msgstr "Cotisation type"
 
 #: ../templates/default/paypal_form.tpl:65
 msgid "Payment"
 msgstr "Payment"
+
+#: ../templates/default/paypal_form.tpl:60
+#: ../templates/default/paypal_preferences.tpl:23
+#: ../templates/default/paypal_success.tpl:21
+msgid "Amount"
+msgstr "Amount"
 
 #: ../templates/default/paypal_form.tpl:28
 msgid "annual fee"
@@ -192,7 +195,7 @@ msgstr ""
 msgid "Paypal History"
 msgstr "Paypal History"
 
-#: ../templates/default/paypal_preferences.tpl:33
+#: ../templates/default/paypal_preferences.tpl:10
 msgid "Paypal preferences"
 msgstr "Paypal preferences"
 
@@ -211,7 +214,6 @@ msgid "Date"
 msgstr "Date"
 
 #: ../templates/default/paypal_form.tpl:10
-#: ../templates/default/paypal_preferences.tpl:19
 msgid "- WARNING -"
 msgstr "- WARNING -"
 
@@ -219,7 +221,7 @@ msgstr "- WARNING -"
 msgid "Payment type"
 msgstr "Payment type"
 
-#: ../templates/default/paypal_preferences.tpl:69
+#: ../templates/default/paypal_preferences.tpl:46
 msgid "Error: no predefined amounts found."
 msgstr "Error: no predefined amounts found."
 

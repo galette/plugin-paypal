@@ -1,5 +1,5 @@
 <?php
-// This file was automatically generated on Sun Nov 20 09:06:11 2011 (GMT)
+// This file was automatically generated on Tue Dec 13 04:35:40 2011 (GMT)
 // Don't modify it by hand, rather use the target lang from the Makefile.
 
 
@@ -30,7 +30,7 @@ $lang['Payment date'] = 'Date de paiement';
 // ../templates/default/menu.tpl:4 
 $lang['Payment form'] = 'Formulaire de paiement';
 
-// ../templates/default/paypal_preferences.tpl:72 
+// ../templates/default/paypal_preferences.tpl:51 
 $lang['Save'] = 'Sauvegarder';
 
 // ../templates/default/paypal_success.tpl:1 
@@ -42,19 +42,19 @@ $lang['Paypal Preferences'] = 'Préférences Paypal';
 // ../templates/default/paypal_history.tpl:53 
 $lang['logs are empty'] = 'l\'historique est vide';
 
-// ../templates/default/paypal_preferences.tpl:43 
+// ../templates/default/paypal_preferences.tpl:22 
 $lang['Cotisation type'] = 'Type de cotisation';
 
-// ../templates/default/paypal_form.tpl:10 ../templates/default/paypal_preferences.tpl:19 
+// ../templates/default/paypal_form.tpl:10 
 $lang['- WARNING -'] = '- ATTENTION -';
 
-// ../templates/default/paypal_preferences.tpl:28 
+// ../paypal_preferences.php:73 
 $lang['Paypal preferences has been saved.'] = 'Les préférences Paypal ont été sauvegardées.';
 
 // ../templates/default/menu.tpl:2 
 $lang['Paypal'] = 'Paypal';
 
-// ../templates/default/paypal_preferences.tpl:74 
+// ../templates/default/paypal_preferences.tpl:53 
 $lang['NB : The mandatory fields are in'] = 'NB : Les champs requis sont en';
 
 // ../paypal_form.php:75 
@@ -75,10 +75,10 @@ $lang['Change'] = 'Modifier';
 // ../templates/default/paypal_history.tpl:25 
 $lang['Descendant'] = 'Décroissant';
 
-// ../templates/default/paypal_preferences.tpl:34 
+// ../templates/default/paypal_preferences.tpl:13 
 $lang['Paypal identifier:'] = 'Identifiant Paypal';
 
-// ../templates/default/paypal_preferences.tpl:67 
+// ../templates/default/paypal_preferences.tpl:46 
 $lang['Error: no predefined amounts found.'] = 'Erreur : aucun montant prédéfini trouvé.';
 
 // ../templates/default/paypal_form.tpl:92 
@@ -90,7 +90,7 @@ $lang['Request'] = 'Requête';
 // ../templates/default/paypal_form.tpl:35 
 $lang['Go back to %s Website to complete your inscription.'] = 'Retour au site de %s pour compléter votre inscription.';
 
-// ../templates/default/paypal_form.tpl:60 ../templates/default/paypal_preferences.tpl:44 ../templates/default/paypal_success.tpl:21 
+// ../templates/default/paypal_form.tpl:60 ../templates/default/paypal_preferences.tpl:23 ../templates/default/paypal_success.tpl:21 
 $lang['Amount'] = 'Montant';
 
 // ../templates/default/paypal_form.tpl:37 
@@ -99,7 +99,10 @@ $lang['Select an option below, then click \'Payment\' to proceed.<br/>Once your 
 // ../templates/default/paypal_success.tpl:17 
 $lang['Payment type'] = 'Type de paiement';
 
-// ../paypal_preferences.php:74 
+// ../paypal_preferences.php:75 
+$lang['An error occured saving paypal preferences :('] = 'Une erreur est survenue lors de l\'enregistrement des préférences paypal :(';
+
+// ../paypal_preferences.php:79 
 $lang['Paypal Settings'] = 'Préférences Paypal';
 
 // ../templates/default/paypal_form.tpl:11 
@@ -108,7 +111,7 @@ $lang['Predefined amounts cannot be loaded, that is not a critical error.'] = 'L
 // ../templates/default/paypal_form.tpl:86 
 $lang['You have to select an option'] = 'Vous devez sélectionner une option';
 
-// ../templates/default/paypal_form.tpl:3 ../templates/default/paypal_preferences.tpl:4 ../templates/default/paypal_preferences.tpl:9 
+// ../templates/default/paypal_form.tpl:3 ../templates/default/paypal_preferences.tpl:4 
 $lang['- ERROR -'] = '- ERREUR -';
 
 // ../templates/default/paypal_form.tpl:5 
@@ -117,10 +120,10 @@ $lang['Our apologies for the annoyance :('] = 'Toutes nos excuses pour le désag
 // ../templates/default/paypal_history.tpl:7 
 $lang['Records per page:'] = 'Enregistrements par page&nbsp;:';
 
-// ../templates/default/paypal_preferences.tpl:45 
+// ../templates/default/paypal_preferences.tpl:24 
 $lang['Inactive'] = 'Inactif';
 
-// ../templates/default/paypal_preferences.tpl:74 
+// ../templates/default/paypal_preferences.tpl:53 
 $lang['red'] = 'rouge';
 
 // ../templates/default/paypal_history.tpl:63 
@@ -132,10 +135,10 @@ $lang['Your paypal payment for was successfull. Some details are shown below:'] 
 // ../templates/default/paypal_form.tpl:28 
 $lang['annual fee'] = 'Cotisation annuelle';
 
-// ../templates/default/paypal_preferences.tpl:35 
+// ../templates/default/paypal_preferences.tpl:14 
 $lang['Enter here one of your Paypal ID or email adress associated within your paypal account.'] = 'Entrez ici votre identifiant Paypal ou une adresse email associée à votre compte paypal.';
 
-// ../templates/default/paypal_preferences.tpl:32 
+// ../templates/default/paypal_preferences.tpl:10 
 $lang['Paypal preferences'] = 'Préférences Paypal';
 
 // ../templates/default/paypal_form.tpl:51 
