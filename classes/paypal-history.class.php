@@ -35,8 +35,10 @@
  * @since     Available since 0.7dev - 2011-07-25
  */
 
+
+use Galette\Core\History;
+
 /** @ignore */
-require_once WEB_ROOT . 'classes/history.class.php';
 require_once 'paypal.class.php';
 
 /**

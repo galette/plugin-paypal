@@ -38,8 +38,7 @@
  * @since     Available since 0.7dev - 2011-06-03
  */
 
-/** @ignore */
-require_once WEB_ROOT . 'classes/contributions_types.class.php';
+use Galette\Entity\ContributionsTypes;
 
  /**
  * Preferences for galette
