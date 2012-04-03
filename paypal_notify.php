@@ -38,6 +38,8 @@
  * @since     Available since 0.7dev - 2011-06-08
  */
 
+use Galette\Entity\Contribution as Contribution;
+
 $base_path = '../../';
 require_once $base_path . 'includes/galette.inc.php';
 
@@ -46,7 +48,9 @@ require_once '_config.inc.php';
 
 //if we've received some informations from paypal website, we can proceed
 require_once 'classes/paypal-history.class.php';
-if( isset($_POST) && isset($_POST['mc_gross']) && isset($_POST['item_number'])) {
+if ( isset($_POST) && isset($_POST['mc_gross'])
+    && isset($_POST['item_number'])
+) {
     $ph = new PaypalHistory();
     $ph->add($_POST);
 
@@ -80,8 +84,6 @@ if( isset($_POST) && isset($_POST['mc_gross']) && isset($_POST['item_number'])) 
              * - custom: member id
              * - item_number: contribution type id
              */
-            require_once $base_path . 'classes/contribution.class.php';
-
             $args = array(
                     'type'  => $_POST['item_number'],
                     'adh'   => $_POST['custom']
