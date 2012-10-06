@@ -35,8 +35,10 @@
  * @since     Available since 0.7dev - 2011-07-25
  */
 
+use Galette\Common\KLogger as KLogger;
+use Galette\Core\History as History;
+
 /** @ignore */
-require_once WEB_ROOT . 'classes/history.class.php';
 require_once 'paypal.class.php';
 
 /**
@@ -117,13 +119,13 @@ class PaypalHistory extends History
             $log->log(
                 'Unable to initialize add log entry into database.' .
                 $e->getMessage(),
-                PEAR_LOG_WARNING
+                KLogger::WARN
             );
             return false;
         } catch (Exception $e) {
             $log->log(
                 "An error occured trying to add log entry. " . $e->getMessage(),
-                PEAR_LOG_ERR
+                KLogger::ERR
             );
             return false;
         }

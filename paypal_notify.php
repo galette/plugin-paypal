@@ -38,6 +38,8 @@
  * @since     Available since 0.7dev - 2011-06-08
  */
 
+use Galette\Entity\Contribution as Contribution;
+
 $base_path = '../../';
 require_once $base_path . 'includes/galette.inc.php';
 
@@ -46,13 +48,15 @@ require_once '_config.inc.php';
 
 //if we've received some informations from paypal website, we can proceed
 require_once 'classes/paypal-history.class.php';
-if( isset($_POST) && isset($_POST['mc_gross']) && isset($_POST['item_number'])) {
+if ( isset($_POST) && isset($_POST['mc_gross'])
+    && isset($_POST['item_number'])
+) {
     $ph = new PaypalHistory();
     $ph->add($_POST);
 
     $log->log(
         'An entry has been added in paypal history',
-        PEAR_LOG_INFO
+        KLogger::INFO
     );
 
     $s = null;
@@ -65,7 +69,7 @@ if( isset($_POST) && isset($_POST['mc_gross']) && isset($_POST['item_number'])) 
 
     $log->log(
         $s,
-        PEAR_LOG_DEBUG
+        KLogger::DEBUG
     );
 
     //we'll now try to add the relevant cotisation
@@ -80,8 +84,6 @@ if( isset($_POST) && isset($_POST['mc_gross']) && isset($_POST['item_number'])) 
              * - custom: member id
              * - item_number: contribution type id
              */
-            require_once $base_path . 'classes/contribution.class.php';
-
             $args = array(
                     'type'  => $_POST['item_number'],
                     'adh'   => $_POST['custom']
@@ -100,13 +102,13 @@ if( isset($_POST) && isset($_POST['mc_gross']) && isset($_POST['item_number'])) 
                     if ( $overlap === false ) {
                         $log->log(
                             'An eror occured checking overlaping fees :(',
-                            PEAR_LOG_ERR
+                            KLogger::ERR
                         );
                     } else {
                         //method directly return erro message
                         $log->log(
                             'Error while calculating overlaping fees from paypal payment: ' . $overlap,
-                            PEAR_LOG_ERR
+                            KLogger::ERR
                         );
                     }
                 }
@@ -117,26 +119,26 @@ if( isset($_POST) && isset($_POST['mc_gross']) && isset($_POST['item_number'])) 
                 //contribution has been stored :)
                 $log->log(
                     'Paypal payment has been successfully registered as a contribution',
-                    PEAR_LOG_INFO
+                    KLogger::INFO
                 );
             } else {
                 //something went wrong :'(
                 $log->log(
                     'An error occured while storing a new contribution from Paypal payment',
-                    PEAR_LOG_ERR
+                    KLogger::ERR
                 );
             }
         } else {
             $log->log(
                 'A paypal payment notification has been received, but is not completed!',
-                PEAR_LOG_WARNING
+                KLogger::WARN
             );
         }
     }
 } else {
     $log->log(
         'Paypal notify URL call without required arguments!',
-        PEAR_LOG_WARNING
+        KLogger::WARN
     );
 }
 ?>

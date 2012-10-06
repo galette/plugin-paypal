@@ -38,8 +38,9 @@
  * @since     Available since 0.7dev - 2011-06-03
  */
 
-/** @ignore */
-require_once WEB_ROOT . 'classes/contributions_types.class.php';
+use Galette\Entity\ContributionsTypes;
+
+use Galette\Common\KLogger as KLogger;
 
  /**
  * Preferences for galette
@@ -113,7 +114,7 @@ class Paypal
                     $log->log(
                         '[' . get_class($this) . '] unknown preference `' .
                         $row->nom_pref . '` in the database.',
-                        PEAR_LOG_WARNING
+                        KLogger::WARN
                     );
                 }
             }
@@ -123,7 +124,7 @@ class Paypal
             $log->log(
                 '[' . get_class($this) . '] Cannot load paypal preferences |' .
                 $e->getMessage(),
-                PEAR_LOG_ERR
+                KLogger::ERR
             );
             //consider plugin is not loaded when missing the main preferences
             //(that includes paypal id)
@@ -155,7 +156,7 @@ class Paypal
                 $log->log(
                     '[' . get_class($this) . '] There are missing types in ' .
                     'paypal table, Galette will try to create them.',
-                    PEAR_LOG_INFO
+                    KLogger::INFO
                 );
             }
 
@@ -176,7 +177,7 @@ class Paypal
                     $log->log(
                         'The type `' . $v[0] . '` (' . $k . ') does not exist' .
                         ', Galette will attempt to create it.',
-                        PEAR_LOG_INFO
+                        KLogger::INFO
                     );
                     $this->_prices[$k][] = null;
                     $queries[] = array(
@@ -194,7 +195,7 @@ class Paypal
             $log->log(
                 '[' . get_class($this) . '] Cannot load paypal amounts' .
                 '` | ' . $e->getMessage(),
-                PEAR_LOG_ERR
+                KLogger::ERR
             );
             //amounts are not loaded at this point
             $this->_amounts_loaded = false;
@@ -237,7 +238,7 @@ class Paypal
             $log->log(
                 '[' . get_class($this) .
                 '] Paypal preferences were sucessfully stored',
-                PEAR_LOG_INFO
+                KLogger::INFO
             );
 
             return $this->storeAmounts();
@@ -245,7 +246,7 @@ class Paypal
             $log->log(
                 '[' . get_class($this) . '] Cannot store paypal preferences' .
                 '` | ' . $e->getMessage(),
-                PEAR_LOG_ERR
+                KLogger::ERR
             );
             $this->_error = $e;
             return false;
@@ -276,14 +277,14 @@ class Paypal
 
             $log->log(
                 '[' . get_class($this) . '] Paypal amounts were sucessfully stored',
-                PEAR_LOG_INFO
+                KLogger::INFO
             );
             return true;
         } catch (Exception $e) {
             $log->log(
                 '[' . get_class($this) . '] Cannot store paypal amounts' .
                 '` | ' . $e->getMessage(),
-                PEAR_LOG_ERR
+                KLogger::ERR
             );
             $this->_error = $e;
             return false;
@@ -318,7 +319,7 @@ class Paypal
             $log->log(
                 'Unable to store missing types in paypal table.' .
                 $stmt->getMessage() . '(' . $stmt->getDebugInfo() . ')',
-                PEAR_LOG_WARNING
+                KLogger::WARN
             );
             $this->_error = $e;
             return false;
