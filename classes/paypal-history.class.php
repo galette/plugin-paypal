@@ -94,18 +94,19 @@ class PaypalHistory extends History
     }
 
     /**
-    * Add a new entry
-    *
-    * @param string $action   the action to log
-    * @param string $argument the arguemnt
-    * @param string $query    the query (if relevant)
-    *
-    * @return bool true if entry was successfully added, false otherwise
-    */
-    public function add($request)
+     * Add a new entry
+     *
+     * @param string $action   the action to log
+     * @param string $argument the argument
+     * @param string $query    the query (if relevant)
+     *
+     * @return bool true if entry was successfully added, false otherwise
+     */
+    public function add($action, $argument = '', $query = '')
     {
         global $zdb, $log, $login;
 
+        $request = $action;
         try {
             $values = array(
                 'history_date'  => date('Y-m-d H:i:s'),
@@ -153,6 +154,11 @@ class PaypalHistory extends History
         return self::PK;
     }
 
+    /**
+     * Gets Paypal history
+     *
+     * @return array
+     */
     public function getPaypalHistory()
     {
         $orig = $this->getHistory();
