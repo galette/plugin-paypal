@@ -163,8 +163,19 @@ class PaypalHistory extends History
     {
         $orig = $this->getHistory();
         $new = array();
+        $dedup = array();
         foreach ( $orig as $o ) {
-            $o['request'] = print_r(unserialize($o['request']), true);
+            $oa = unserialize($o['request']);
+            $oa['first_name'] = utf8_encode($oa['first_name']);
+            $oa['last_name'] = utf8_encode($oa['last_name']);
+            $oa['item_name'] = utf8_encode($oa['item_name']);
+            $o['raw_request'] = print_r($oa, true);
+            $o['request'] = $oa;
+            if ( in_array($oa['verify_sign'], $dedup) ) {
+                $o['duplicate'] = true;
+            } else {
+                $dedup[] = $oa['verify_sign'];
+            }
             $new[] = $o;
         }
         return $new;
