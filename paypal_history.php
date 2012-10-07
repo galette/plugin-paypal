@@ -77,8 +77,8 @@ if ( isset($_GET['tri']) ) {
 $_SESSION['galette'][PREFIX_DB . '_' . NAME_DB]['paypal_history'] = serialize($paypal_history);
 
 //assign pagination variables to the template and add pagination links
-$paypal_history->setSmartyPagination($tpl);
 $logs = $paypal_history->getPaypalHistory();
+$paypal_history->setSmartyPagination($tpl);
 
 //Set the path to the current plugin's templates,
 //but backup main Galette's template path before
