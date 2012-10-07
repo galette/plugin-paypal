@@ -38,6 +38,7 @@
  * @since     Available since 0.7dev - 2011-06-08
  */
 
+use Galette\Common\KLogger as KLogger;
 use Galette\Entity\Contribution as Contribution;
 
 $base_path = '../../';
