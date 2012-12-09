@@ -38,15 +38,15 @@
  * @since     Available since 0.7dev - 2011-06-05
  */
 
-$base_path = '../../';
-require_once $base_path . 'includes/galette.inc.php';
+define('GALETTE_BASE_PATH', '../../');
+require_once GALETTE_BASE_PATH . 'includes/galette.inc.php';
 
 if ( !$login->isLogged() ) {
-    header('location: ' . $base_path . 'index.php');
+    header('location: ' . GALETTE_BASE_PATH . 'index.php');
     die();
 }
 if ( !$login->isAdmin() && !$login->isStaff() ) {
-    header('location: ' . $base_path . 'voir_adherent.php');
+    header('location: ' . GALETTE_BASE_PATH . 'voir_adherent.php');
     die();
 }
 
