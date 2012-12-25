@@ -38,7 +38,7 @@
  * @since     Available since 0.7dev - 2011-06-08
  */
 
-use Galette\Common\KLogger as KLogger;
+use Analog\Analog as Analog;
 use Galette\Entity\Contribution as Contribution;
 
 define('GALETTE_BASE_PATH', '../../');
@@ -55,9 +55,9 @@ if ( isset($_POST) && isset($_POST['mc_gross'])
     $ph = new PaypalHistory();
     $ph->add($_POST);
 
-    $log->log(
+    Analog::log(
         'An entry has been added in paypal history',
-        KLogger::INFO
+        Analog::INFO
     );
 
     $s = null;
@@ -68,9 +68,9 @@ if ( isset($_POST) && isset($_POST['mc_gross'])
         $s .= $k . '=' . $v;
     }
 
-    $log->log(
+    Analog::log(
         $s,
-        KLogger::DEBUG
+        Analog::DEBUG
     );
 
     //we'll now try to add the relevant cotisation
@@ -101,15 +101,15 @@ if ( isset($_POST) && isset($_POST['mc_gross'])
                 $overlap = $contrib->checkOverlap();
                 if ( $overlap !== true ) {
                     if ( $overlap === false ) {
-                        $log->log(
+                        Analog::log(
                             'An eror occured checking overlaping fees :(',
-                            KLogger::ERR
+                            Analog::ERROR
                         );
                     } else {
                         //method directly return erro message
-                        $log->log(
+                        Analog::log(
                             'Error while calculating overlaping fees from paypal payment: ' . $overlap,
-                            KLogger::ERR
+                            Analog::ERROR
                         );
                     }
                 }
@@ -118,28 +118,28 @@ if ( isset($_POST) && isset($_POST['mc_gross'])
             $store = $contrib->store();
             if ( $store === true ) {
                 //contribution has been stored :)
-                $log->log(
+                Analog::log(
                     'Paypal payment has been successfully registered as a contribution',
-                    KLogger::INFO
+                    Analog::INFO
                 );
             } else {
                 //something went wrong :'(
-                $log->log(
+                Analog::log(
                     'An error occured while storing a new contribution from Paypal payment',
-                    KLogger::ERR
+                    Analog::ERROR
                 );
             }
         } else {
-            $log->log(
+            Analog::log(
                 'A paypal payment notification has been received, but is not completed!',
-                KLogger::WARN
+                Analog::WARNING
             );
         }
     }
 } else {
-    $log->log(
+    Analog::log(
         'Paypal notify URL call without required arguments!',
-        KLogger::WARN
+        Analog::WARNING
     );
 }
 ?>

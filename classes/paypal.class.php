@@ -40,7 +40,7 @@
 
 use Galette\Entity\ContributionsTypes;
 
-use Galette\Common\KLogger as KLogger;
+use Analog\Analog as Analog;
 
  /**
  * Preferences for galette
@@ -93,7 +93,7 @@ class Paypal
      */
     private function _load()
     {
-        global $zdb, $log;
+        global $zdb;
 
         try {
             $select = new Zend_Db_Select($zdb->db);
@@ -111,20 +111,20 @@ class Paypal
                     break;
                 default:
                     //we've got a preference not intended
-                    $log->log(
+                    Analog::log(
                         '[' . get_class($this) . '] unknown preference `' .
                         $row->nom_pref . '` in the database.',
-                        KLogger::WARN
+                        Analog::WARNING
                     );
                 }
             }
             $this->_loaded = true;
             return $this->_loadAmounts();
         } catch (Exception $e) {
-            $log->log(
+            Analog::log(
                 '[' . get_class($this) . '] Cannot load paypal preferences |' .
                 $e->getMessage(),
-                KLogger::ERR
+                Analog::ERROR
             );
             //consider plugin is not loaded when missing the main preferences
             //(that includes paypal id)
@@ -140,7 +140,7 @@ class Paypal
      */
     private function _loadAmounts()
     {
-        global $zdb, $log;
+        global $zdb;
 
         $ct = new ContributionsTypes();
         $this->_prices = $ct->getCompleteList();
@@ -153,10 +153,10 @@ class Paypal
 
             //check if all types currently exists in paypal table
             if ( count($results) != count($this->_prices) ) {
-                $log->log(
+                Analog::log(
                     '[' . get_class($this) . '] There are missing types in ' .
                     'paypal table, Galette will try to create them.',
-                    KLogger::INFO
+                    Analog::INFO
                 );
             }
 
@@ -174,10 +174,10 @@ class Paypal
                     }
                 }
                 if ( $_found === false ) {
-                    $log->log(
+                    Analog::log(
                         'The type `' . $v[0] . '` (' . $k . ') does not exist' .
                         ', Galette will attempt to create it.',
-                        KLogger::INFO
+                        Analog::INFO
                     );
                     $this->_prices[$k][] = null;
                     $queries[] = array(
@@ -192,10 +192,10 @@ class Paypal
             //amounts should be loaded here
             $this->_amounts_loaded = true;
         } catch (Exception $e) {
-            $log->log(
+            Analog::log(
                 '[' . get_class($this) . '] Cannot load paypal amounts' .
                 '` | ' . $e->getMessage(),
-                KLogger::ERR
+                Analog::ERROR
             );
             //amounts are not loaded at this point
             $this->_amounts_loaded = false;
@@ -210,7 +210,7 @@ class Paypal
      */
     public function store()
     {
-        global $zdb, $log;
+        global $zdb;
 
         try {
             //store paypal id
@@ -235,18 +235,18 @@ class Paypal
                 $zdb->db->quoteInto('nom_pref = ?', 'paypal_inactives')
             );
 
-            $log->log(
+            Analog::log(
                 '[' . get_class($this) .
                 '] Paypal preferences were sucessfully stored',
-                KLogger::INFO
+                Analog::INFO
             );
 
             return $this->storeAmounts();
         } catch (Exception $e) {
-            $log->log(
+            Analog::log(
                 '[' . get_class($this) . '] Cannot store paypal preferences' .
                 '` | ' . $e->getMessage(),
-                KLogger::ERR
+                Analog::ERROR
             );
             $this->_error = $e;
             return false;
@@ -260,7 +260,7 @@ class Paypal
      */
     public function storeAmounts()
     {
-        global $zdb, $log;
+        global $zdb;
 
         try {
             $stmt = $zdb->db->prepare(
@@ -275,16 +275,16 @@ class Paypal
                 $stmt->execute();
             }
 
-            $log->log(
+            Analog::log(
                 '[' . get_class($this) . '] Paypal amounts were sucessfully stored',
-                KLogger::INFO
+                Analog::INFO
             );
             return true;
         } catch (Exception $e) {
-            $log->log(
+            Analog::log(
                 '[' . get_class($this) . '] Cannot store paypal amounts' .
                 '` | ' . $e->getMessage(),
-                KLogger::ERR
+                Analog::ERROR
             );
             $this->_error = $e;
             return false;
@@ -300,7 +300,7 @@ class Paypal
     */
     private function _newEntries($queries)
     {
-        global $zdb, $log;
+        global $zdb;
 
         try {
             $stmt = $zdb->db->prepare(
@@ -316,10 +316,10 @@ class Paypal
 
             return true;
         } catch (Exception $e) {
-            $log->log(
+            Analog::log(
                 'Unable to store missing types in paypal table.' .
                 $stmt->getMessage() . '(' . $stmt->getDebugInfo() . ')',
-                KLogger::WARN
+                Analog::WARNING
             );
             $this->_error = $e;
             return false;

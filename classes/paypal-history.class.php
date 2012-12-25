@@ -35,7 +35,7 @@
  * @since     Available since 0.7dev - 2011-07-25
  */
 
-use Galette\Common\KLogger as KLogger;
+use Analog\Analog as Analog;
 use Galette\Core\History as History;
 
 /** @ignore */
@@ -104,7 +104,7 @@ class PaypalHistory extends History
      */
     public function add($action, $argument = '', $query = '')
     {
-        global $zdb, $log, $login;
+        global $zdb, $login;
 
         $request = $action;
         try {
@@ -117,16 +117,16 @@ class PaypalHistory extends History
 
             $zdb->db->insert($this->getTableName(), $values);
         } catch (Zend_Db_Adapter_Exception $e) {
-            $log->log(
+            Analog::log(
                 'Unable to initialize add log entry into database.' .
                 $e->getMessage(),
-                KLogger::WARN
+                Analog::WARNING
             );
             return false;
         } catch (Exception $e) {
-            $log->log(
+            Analog::log(
                 "An error occured trying to add log entry. " . $e->getMessage(),
-                KLogger::ERR
+                Analog::ERROR
             );
             return false;
         }
