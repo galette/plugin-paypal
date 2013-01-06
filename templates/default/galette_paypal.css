@@ -5,3 +5,12 @@
 #paypal{
     text-align: center;
 }
+
+.img-dup {
+    float: right;
+}
+
+/* FIXME: should be in galette's css */
+.big_date_row {
+    width: 14em;
+}

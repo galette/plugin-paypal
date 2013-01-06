@@ -1,7 +1,7 @@
         <table id="listing">
             <thead>
                 <tr>
-                    <td colspan="3" class="right">
+                    <td colspan="6" class="right">
                         <form action="paypal_history.php" method="get" id="historyform">
                             <span>
                                 <label for="nbshow">{_T string="Records per page:"}</label>
@@ -15,7 +15,7 @@
                 </tr>
                 <tr>
                     <th class="listing small_head">#</th>
-                    <th class="listing left date_row">
+                    <th class="listing left">
                         <a href="?tri=date_log" class="listing">
                             {_T string="Date"}
                             {if $paypal_history->orderby eq "date_log"}
@@ -27,16 +27,21 @@
                             {/if}
                         </a>
                     </th>
-                    <th class="listing left date_row">
-                        <a href="?tri=ip_log" class="listing">
-                            {_T string="Request"}
-                        </a>
+                    <th class="listing">
+                        {_T string="Name"}
                     </th>
+                    <th class="listing">
+                        {_T string="Subject"}
+                    </th>
+                    <th class="listing">
+                        {_T string="Amount"}
+                    </th>
+                    <th class="listing left actions_row"></th>
                 </tr>
             </thead>
             <tfoot>
                 <tr>
-                    <td colspan="3" class="center">
+                    <td colspan="6" class="center">
                         {_T string="Pages:"}<br/>
                         <ul class="pages">{$pagination}</ul>
                     </td>
@@ -44,13 +49,33 @@
             </tfoot>
             <tbody>
 {foreach from=$logs item=log name=eachlog}
-                <tr class="cotis-never">
+                <tr class="tbl_line_{if $smarty.foreach.eachlog.iteration % 2 eq 0}even{else}odd{/if}">
                     <td class="center">{$smarty.foreach.eachlog.iteration}</td>
-                    <td class="nowrap">{$log.history_date|date_format:"%a %d/%m/%Y - %R"}</td>
-                    <td class="nowrap"><pre class="request">{$log.request}</pre></td>
+                    <td class="nowrap big_date_row">
+                        {if $log.duplicate}<img class="img-dup" src="{$galette_base_path}{$paypal_tpl_dir}images/warning.png" alt="{_T string="duplicate"}"/>{/if}
+                        {$log.history_date|date_format:"%a %d/%m/%Y - %R"}
+                    </td>
+                    <td>
+    {if $log.request.custom}
+                        <a href="{$galette_base_path}voir_adherent.php?id_adh={$log.request.custom}">
+    {/if}
+                        {$log.request.last_name} {$log.request.first_name}
+    {if $log.request.transaction_subject}
+                        </a>
+    {/if}
+                    </td>
+                    <td>
+                        {$log.request.item_name}
+                    </td>
+                    <td>{$log.request.mc_gross}</td>
+                    <td class="nowrap info"></td>
+                </tr>
+                <tr class="request tbl_line_{if $smarty.foreach.eachlog.iteration % 2 eq 0}even{else}odd{/if}">
+                    <th colspan="2">{_T string="Request"}</th>
+                    <td colspan="4"><pre>{$log.raw_request}</pre></td>
                 </tr>
 {foreachelse}
-                <tr><td colspan="3" class="emptylist">{_T string="logs are empty"}</td></tr>
+                <tr><td colspan="6" class="emptylist">{_T string="logs are empty"}</td></tr>
 {/foreach}
             </tbody>
         </table>
@@ -60,10 +85,10 @@
             {rdelim});
 
             $(function() {ldelim}
-                var _elt = $('<img src="../../templates/default/images/info.png" class="reqhide" alt="" title="{_T string="Show full request"}"/>');
-                $('.request').hide().parent().prepend(_elt);
+                var _elt = $('<img src="../../templates/default/images/info.png" class="reqhide" alt="" title="{_T string="Show/hide full request"}"/>');
+                $('.request').hide().prev('tr').find('td.info').prepend(_elt);
                 $('.reqhide').click(function() {ldelim}
-                    $(this).next('.request').show();
+                    $(this).parents('tr').next('.request').toggle();
                 {rdelim});
             {rdelim});
         </script>

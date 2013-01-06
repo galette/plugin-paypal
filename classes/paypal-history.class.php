@@ -7,7 +7,7 @@
  *
  * PHP version 5
  *
- * Copyright © 2011-2012 The Galette Team
+ * Copyright © 2011-2013 The Galette Team
  *
  * This file is part of Galette (http://galette.tuxfamily.org).
  *
@@ -28,14 +28,14 @@
  * @package   Galette
  *
  * @author    Johan Cwiklinski <johan@x-tnd.be>
- * @copyright 2011-2012 The Galette Team
+ * @copyright 2011-2013 The Galette Team
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GPL License 3.0 or (at your option) any later version
  * @version   SVN: $Id$
  * @link      http://galette.tuxfamily.org
  * @since     Available since 0.7dev - 2011-07-25
  */
 
-use Galette\Common\KLogger as KLogger;
+use Analog\Analog as Analog;
 use Galette\Core\History as History;
 
 /** @ignore */
@@ -94,18 +94,19 @@ class PaypalHistory extends History
     }
 
     /**
-    * Add a new entry
-    *
-    * @param string $action   the action to log
-    * @param string $argument the arguemnt
-    * @param string $query    the query (if relevant)
-    *
-    * @return bool true if entry was successfully added, false otherwise
-    */
-    public function add($request)
+     * Add a new entry
+     *
+     * @param string $action   the action to log
+     * @param string $argument the argument
+     * @param string $query    the query (if relevant)
+     *
+     * @return bool true if entry was successfully added, false otherwise
+     */
+    public function add($action, $argument = '', $query = '')
     {
-        global $zdb, $log, $login;
+        global $zdb, $login;
 
+        $request = $action;
         try {
             $values = array(
                 'history_date'  => date('Y-m-d H:i:s'),
@@ -116,16 +117,16 @@ class PaypalHistory extends History
 
             $zdb->db->insert($this->getTableName(), $values);
         } catch (Zend_Db_Adapter_Exception $e) {
-            $log->log(
+            Analog::log(
                 'Unable to initialize add log entry into database.' .
                 $e->getMessage(),
-                KLogger::WARN
+                Analog::WARNING
             );
             return false;
         } catch (Exception $e) {
-            $log->log(
+            Analog::log(
                 "An error occured trying to add log entry. " . $e->getMessage(),
-                KLogger::ERR
+                Analog::ERROR
             );
             return false;
         }
@@ -153,12 +154,28 @@ class PaypalHistory extends History
         return self::PK;
     }
 
+    /**
+     * Gets Paypal history
+     *
+     * @return array
+     */
     public function getPaypalHistory()
     {
         $orig = $this->getHistory();
         $new = array();
+        $dedup = array();
         foreach ( $orig as $o ) {
-            $o['request'] = print_r(unserialize($o['request']), true);
+            $oa = unserialize($o['request']);
+            $oa['first_name'] = utf8_encode($oa['first_name']);
+            $oa['last_name'] = utf8_encode($oa['last_name']);
+            $oa['item_name'] = utf8_encode($oa['item_name']);
+            $o['raw_request'] = print_r($oa, true);
+            $o['request'] = $oa;
+            if ( in_array($oa['verify_sign'], $dedup) ) {
+                $o['duplicate'] = true;
+            } else {
+                $dedup[] = $oa['verify_sign'];
+            }
             $new[] = $o;
         }
         return $new;
