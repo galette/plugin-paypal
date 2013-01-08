@@ -1,58 +1,55 @@
 # Header entry was created by Lokalize.
 #
-# , 2011.
+# , 2013.
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"PO-Revision-Date: 2011-12-13 05:35+0100\n"
+"PO-Revision-Date: 2013-01-08 08:29+0100\n"
 "Last-Translator: \n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 1.2\n"
+"X-Generator: Lokalize 1.5\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #: ../paypal_form.php:75
 msgid "Paypal payment"
 msgstr "Paypal payment"
 
-#: ../templates/default/paypal_preferences.tpl:51
-msgid "Save"
-msgstr "Save"
-
 #: ../templates/default/paypal_preferences.tpl:53
 msgid "red"
 msgstr "red"
 
-#: ../templates/default/paypal_form.tpl:37
-msgid ""
-"Select an option below, then click 'Payment' to proceed.<br/>Once your "
-"paiment validated, an entry will be automatically added in the contributions "
-"table and staff members will receive a notification mail."
-msgstr ""
-"Select an option below, then click 'Payment' to proceed.<br/>Once your "
-"paiment validated, an entry will be automatically added in the contributions "
-"table and staff members will receive a notification mail."
+#: ../templates/default/paypal_form.tpl:43
+msgid "Select an payment reason"
+msgstr "Select an payment reason"
 
-#: ../paypal_preferences.php:75
-msgid "An error occured saving paypal preferences :("
-msgstr "An error occured saving paypal preferences :("
+#: ../templates/default/paypal_preferences.tpl:10
+msgid "Paypal preferences"
+msgstr "Paypal preferences"
+
+#: ../templates/default/paypal_history.tpl:37
+#: ../templates/default/paypal_form.tpl:77
+#: ../templates/default/paypal_preferences.tpl:23
+#: ../templates/default/paypal_success.tpl:21
+msgid "Amount"
+msgstr "Amount"
 
 #: ../templates/default/paypal_history.tpl:25
 msgid "Descendant"
 msgstr "Descendant"
 
-#: ../templates/default/paypal_form.tpl:86
-msgid "You have to select an option"
-msgstr "You have to select an option"
+#: ../templates/default/paypal_history.tpl:55
+msgid "duplicate"
+msgstr "duplicate"
 
-#: ../templates/default/paypal_history.tpl:32
+#: ../templates/default/paypal_history.tpl:74
 msgid "Request"
 msgstr "Request"
 
-#: ../templates/default/paypal_form.tpl:35
+#: ../templates/default/paypal_form.tpl:34
 msgid "Go back to %s Website to complete your inscription."
 msgstr "Go back to %s Website to complete your inscription."
 
@@ -64,13 +61,9 @@ msgstr "Payment status"
 msgid "Paypal Settings"
 msgstr "Paypal Settings"
 
-#: ../templates/default/paypal_history.tpl:40
+#: ../templates/default/paypal_history.tpl:45
 msgid "Pages:"
 msgstr "Pages:"
-
-#: ../templates/default/paypal_form.tpl:51
-msgid "No predefined amounts have been defined yet."
-msgstr "No predefined amounts have been defined yet."
 
 #: ../templates/default/paypal_preferences.tpl:14
 msgid ""
@@ -80,9 +73,17 @@ msgstr ""
 "Enter here one of your Paypal ID or email adress associated within your "
 "paypal account."
 
+#: ../templates/default/paypal_history.tpl:88
+msgid "Show/hide full request"
+msgstr "Show/hide full request"
+
 #: ../paypal_preferences.php:73
 msgid "Paypal preferences has been saved."
 msgstr "Paypal preferences has been saved."
+
+#: ../templates/default/paypal_form.tpl:101
+msgid "You have to select an option"
+msgstr "You have to select an option"
 
 #: ../templates/default/menu.tpl:4
 msgid "Payment form"
@@ -92,15 +93,19 @@ msgstr "Payment form"
 msgid "Label"
 msgstr "Label"
 
-#: ../templates/default/paypal_history.tpl:63
-msgid "Show full request"
-msgstr "Show full request"
-
 #: ../templates/default/paypal_success.tpl:2
 msgid "Your paypal payment for was successfull. Some details are shown below:"
 msgstr "Your paypal payment for was successfull. Some details are shown below:"
 
-#: ../templates/default/paypal_history.tpl:53
+#: ../templates/default/paypal_history.tpl:34
+msgid "Subject"
+msgstr "Subject"
+
+#: ../templates/default/paypal_form.tpl:41
+msgid "Payment reason"
+msgstr "Payment reason"
+
+#: ../templates/default/paypal_history.tpl:78
 msgid "logs are empty"
 msgstr "logs are empty"
 
@@ -115,6 +120,10 @@ msgstr "Change"
 #: ../templates/default/paypal_preferences.tpl:53
 msgid "NB : The mandatory fields are in"
 msgstr "NB : The mandatory fields are in"
+
+#: ../templates/default/paypal_form.tpl:66
+msgid "No predefined amounts have been configured yet."
+msgstr "No predefined amounts have been configured yet."
 
 #: ../templates/default/paypal_history.tpl:23
 msgid "Ascendent"
@@ -149,21 +158,20 @@ msgstr "Records per page:"
 msgid "Cotisation type"
 msgstr "Cotisation type"
 
-#: ../templates/default/paypal_form.tpl:65
-msgid "Payment"
-msgstr "Payment"
+#: ../templates/default/paypal_preferences.tpl:51
+msgid "Save"
+msgstr "Save"
 
-#: ../templates/default/paypal_form.tpl:60
-#: ../templates/default/paypal_preferences.tpl:23
-#: ../templates/default/paypal_success.tpl:21
-msgid "Amount"
-msgstr "Amount"
+#: ../templates/default/paypal_history.tpl:31
+msgid "Name"
+msgstr "Name"
 
-#: ../templates/default/paypal_form.tpl:28
+#: ../templates/default/paypal_form.tpl:50
+#: ../templates/default/paypal_form.tpl:62
 msgid "annual fee"
 msgstr "annual fee"
 
-#: ../templates/default/paypal_form.tpl:92
+#: ../templates/default/paypal_form.tpl:107
 msgid ""
 "The amount you've entered is lower than the minimum amount for the selected "
 "option.\\nPlease choose another option or change the amount."
@@ -183,21 +191,29 @@ msgstr "Paypal"
 msgid "Our apologies for the annoyance :("
 msgstr "Our apologies for the annoyance :("
 
-#: ../templates/default/paypal_form.tpl:56
-msgid ""
-"WARNING: If you enter an amount below, make sure that it is not lower than "
-"the amount of the option you've selected."
-msgstr ""
-"WARNING: If you enter an amount below, make sure that it is not lower than "
-"the amount of the option you've selected."
+#: ../templates/default/paypal_form.tpl:39
+msgid "Enter payment reason"
+msgstr "Enter payment reason"
 
 #: ../paypal_history.php:89 ../templates/default/menu.tpl:6
 msgid "Paypal History"
 msgstr "Paypal History"
 
-#: ../templates/default/paypal_preferences.tpl:10
-msgid "Paypal preferences"
-msgstr "Paypal preferences"
+#: ../templates/default/paypal_form.tpl:61
+msgid "Payment reason:"
+msgstr "Payment reason:"
+
+#: ../templates/default/paypal_preferences.tpl:46
+msgid "Error: no predefined amounts found."
+msgstr "Error: no predefined amounts found."
+
+#: ../templates/default/paypal_form.tpl:83
+msgid "Validate"
+msgstr "Validate"
+
+#: ../paypal_preferences.php:75
+msgid "An error occured saving paypal preferences :("
+msgstr "An error occured saving paypal preferences :("
 
 #: ../templates/default/paypal_form.tpl:4
 msgid ""
@@ -221,13 +237,25 @@ msgstr "- WARNING -"
 msgid "Payment type"
 msgstr "Payment type"
 
-#: ../templates/default/paypal_preferences.tpl:46
-msgid "Error: no predefined amounts found."
-msgstr "Error: no predefined amounts found."
+#: ../templates/default/paypal_form.tpl:72
+msgid ""
+"WARNING: If you enter an amount below, make sure that it is not lower than "
+"the amount of the option you've selected."
+msgstr ""
+"WARNING: If you enter an amount below, make sure that it is not lower than "
+"the amount of the option you've selected."
 
-#: ../templates/default/paypal_form.tpl:54
-msgid "Enter an amount."
-msgstr "Enter an amount."
+#~ msgid ""
+#~ "Select an option below, then click 'Payment' to proceed.<br/>Once your "
+#~ "paiment validated, an entry will be automatically added in the "
+#~ "contributions table and staff members will receive a notification mail."
+#~ msgstr ""
+#~ "Select an option below, then click 'Payment' to proceed.<br/>Once your "
+#~ "paiment validated, an entry will be automatically added in the "
+#~ "contributions table and staff members will receive a notification mail."
+
+#~ msgid "Payment"
+#~ msgstr "Payment"
 
 #~ msgid "fullcard"
 #~ msgstr "fullcard"
@@ -302,9 +330,6 @@ msgstr "Enter an amount."
 
 #~ msgid "PDF member card"
 #~ msgstr "PDF member card"
-
-#~ msgid "Name"
-#~ msgstr "Name"
 
 #~ msgid ""
 #~ "Complete the following form and send it with your funds, in order to "
