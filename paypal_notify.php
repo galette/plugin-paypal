@@ -86,8 +86,9 @@ if ( isset($_POST) && isset($_POST['mc_gross'])
              * - item_number: contribution type id
              */
             $args = array(
-                    'type'  => $_POST['item_number'],
-                    'adh'   => $_POST['custom']
+                    'type'          => $_POST['item_number'],
+                    'adh'           => $_POST['custom'],
+                    'payment_type'  => Contribution::PAYMENT_PAYPAL
             );
             if ( $preferences->pref_membership_ext != '' ) {
                 $args['ext'] = $preferences->pref_membership_ext;
