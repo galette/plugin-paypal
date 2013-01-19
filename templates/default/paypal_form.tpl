@@ -12,7 +12,7 @@
 </div>
     {/if}
     <section>
-<form action="{if GALETTE_MODE eq 'DEV'}https://www.sandbox.paypal.com/fr/cgi-bin/webscr{else}https://www.paypal.com/cgi-bin/webscr{/if}" method="post" id="paypal">
+<form action="{if constant('GALETTE_MODE') eq 'DEV'}https://www.sandbox.paypal.com/fr/cgi-bin/webscr{else}https://www.paypal.com/cgi-bin/webscr{/if}" method="post" id="paypal">
     <!-- Paypal required variables -->
     {if $custom}
     <input type="hidden" name="custom" value="{$custom}"/>
