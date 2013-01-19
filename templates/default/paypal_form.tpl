@@ -13,6 +13,7 @@
     {/if}
     <section>
 <form action="{if constant('GALETTE_MODE') eq 'DEV'}https://www.sandbox.paypal.com/fr/cgi-bin/webscr{else}https://www.paypal.com/cgi-bin/webscr{/if}" method="post" id="paypal">
+    {* To read more about variables, see https://cms.paypal.com/es/cgi-bin/?cmd=_render-content&content_ID=developer/e_howto_html_Appx_websitestandard_htmlvariables#id08A6HI0709B *}
     <!-- Paypal required variables -->
     {if $custom}
     <input type="hidden" name="custom" value="{$custom}"/>
@@ -27,11 +28,12 @@
     {*<input type="hidden" name="bn" value="PP-BuyNowBF:btn_buynowCC_LG.gif:NonHostedGuest"/><!-- notfound :( -->*}
     <!-- Paypal dialogs -->
     <input type="hidden" name="return" value="{$plugin_url}paypal_success.php"/>
-    <input type="hidden" name="rm" value="POST"/>{*Send POST values back to Galette after payment. Will be sent to return url above*}
+    <input type="hidden" name="rm" value="2"/>{*Send POST values back to Galette after payment. Will be sent to return url above*}
+    <input type="hidden" name="charset" value="UTF-8"/>
     <input type="hidden" name="image_url" value="{$galette_url}picture.php?logo=true"/>
     <input type="hidden" name="cancel_return" value="{$plugin_url}paypal_form.php?cancelled=true"/>
     <input type="hidden" name="notify_url" value="{$plugin_url}paypal_notify.php"/>
-    <input type="hidden" name="cbt" value="{_T string="Go back to %s Website to complete your inscription."}"/>
+    <input type="hidden" name="cbt" value="{_T string="Go back to %s's website to complete your inscription." pattern="/%s/" replace=$preferences->pref_nom}"/>
 
     <fieldset id="paypal_form">
         <legend class="ui-state-active ui-corner-top">
