@@ -52,7 +52,7 @@
                 <tr class="{if $smarty.foreach.eachlog.iteration % 2 eq 0}even{else}odd{/if}">
                     <td class="center">{$smarty.foreach.eachlog.iteration}</td>
                     <td class="nowrap big_date_row">
-                        {if $log.duplicate}<img class="img-dup" src="{$galette_base_path}{$paypal_tpl_dir}images/warning.png" alt="{_T string="duplicate"}"/>{/if}
+                        {if isset($log.duplicate)}<img class="img-dup" src="{$galette_base_path}{$paypal_tpl_dir}images/warning.png" alt="{_T string="duplicate"}"/>{/if}
                         {$log.history_date|date_format:"%a %d/%m/%Y - %R"}
                     </td>
                     <td>
@@ -60,7 +60,7 @@
                         <a href="{$galette_base_path}voir_adherent.php?id_adh={$log.request.custom}">
     {/if}
                         {$log.request.last_name} {$log.request.first_name}
-    {if $log.request.transaction_subject}
+    {if isset($log.request.transaction_subject)}
                         </a>
     {/if}
                     </td>

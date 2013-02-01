@@ -15,7 +15,7 @@
 <form action="{if constant('GALETTE_MODE') eq 'DEV'}https://www.sandbox.paypal.com/fr/cgi-bin/webscr{else}https://www.paypal.com/cgi-bin/webscr{/if}" method="post" id="paypal">
     {* To read more about variables, see https://cms.paypal.com/es/cgi-bin/?cmd=_render-content&content_ID=developer/e_howto_html_Appx_websitestandard_htmlvariables#id08A6HI0709B *}
     <!-- Paypal required variables -->
-    {if $custom}
+    {if isset($custom)}
     <input type="hidden" name="custom" value="{$custom}"/>
     {/if}
     <input type="hidden" name="cmd" value="_xclick"/>
