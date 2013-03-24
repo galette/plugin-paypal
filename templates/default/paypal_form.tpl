@@ -49,7 +49,7 @@
     {if $paypal->areAmountsLoaded()}
         <div id="amounts">
         {if $amounts|@count gt 0}
-            <input type="hidden" name="item_name" id="item_name" value="{_T string="annual fee"}"/>
+            <input type="hidden" name="item_name" id="item_name" value="{if $login->isLogged()}{_T string="annual fee"}{else}{_T string="donation in money"}{/if}"/>
             {foreach from=$amounts key=k item=amount name=amounts}
             {if $smarty.foreach.amounts.index != 0}<br/>{/if}
             <input type="radio" name="item_number" id="in{$k}" value="{$k}"{if $smarty.foreach.amounts.index == 0} checked="checked"{/if}/>
@@ -61,7 +61,7 @@
             {/foreach}
         {else}
             <label for="item_name">{_T string="Payment reason:"}</label>
-            <input type="text" name="item_name" id="item_name" value="{_T string="annual fee"}"/>
+            <input type="text" name="item_name" id="item_name" value="{if $login->isLogged()}{_T string="annual fee"}{else}{_T string="donation in money"}{/if}"/>
         {/if}
         </div>
     {else}
