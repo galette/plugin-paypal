@@ -4,6 +4,11 @@
     <p>{_T string="<strong>Payment coult not work</strong>: An error occured (that has been logged) while loading Paypal preferences from database.<br/>Please report the issue to the staff."}</p>
     <p>{_T string="Our apologies for the annoyance :("}</p>
 </div>
+{elseif $paypal->getId() eq null}
+    <div id="errorbox">
+        <h1>{_T string="- ERROR -"}</h1>
+        <p>{_T string="Paypal id has not been defined. Please ask an administrator to add it from plugin preferences."}</p>
+    </div>
 {else}
     {if !$paypal->areAmountsLoaded()}
 <div id="warningbox">
