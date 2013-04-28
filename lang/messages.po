@@ -10,10 +10,6 @@ msgstr ""
 msgid "red"
 msgstr ""
 
-#: ../templates/default/paypal_success.tpl:27
-msgid "Your paypal payment was successfull. You may receive a mail from paypal with details."
-msgstr ""
-
 #: ../templates/default/paypal_form.tpl:50
 msgid "Select an payment reason"
 msgstr ""
@@ -103,6 +99,10 @@ msgstr ""
 msgid "Change"
 msgstr ""
 
+#: ../templates/default/paypal_success.tpl:3
+msgid "Your paypal payment was successful. Some details are shown below:"
+msgstr ""
+
 #: ../templates/default/paypal_preferences.tpl:53
 msgid "NB : The mandatory fields are in"
 msgstr ""
@@ -124,8 +124,8 @@ msgstr ""
 msgid "- ERROR -"
 msgstr ""
 
-#: ../templates/default/paypal_success.tpl:3
-msgid "Your paypal payment was successfull. Some details are shown below:"
+#: ../templates/default/paypal_success.tpl:27
+msgid "Your paypal payment was successful. You may receive a mail from paypal with details."
 msgstr ""
 
 #: ../templates/default/paypal_preferences.tpl:24

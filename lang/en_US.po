@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"PO-Revision-Date: 2013-04-28 11:08+0200\n"
+"PO-Revision-Date: 2013-04-28 11:28+0200\n"
 "Last-Translator: \n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
 "Language: fr\n"
@@ -25,14 +25,6 @@ msgstr "Save"
 #: ../templates/default/paypal_preferences.tpl:53
 msgid "red"
 msgstr "red"
-
-#: ../templates/default/paypal_success.tpl:27
-msgid ""
-"Your paypal payment was successfull. You may receive a mail from paypal with "
-"details."
-msgstr ""
-"Your paypal payment was successfull. You may receive a mail from paypal with "
-"details."
 
 #: ../templates/default/paypal_form.tpl:50
 msgid "Select an payment reason"
@@ -129,6 +121,10 @@ msgstr "Paypal payment success"
 msgid "Change"
 msgstr "Change"
 
+#: ../templates/default/paypal_success.tpl:3
+msgid "Your paypal payment was successful. Some details are shown below:"
+msgstr "Your paypal payment was successful. Some details are shown below:"
+
 #: ../templates/default/paypal_preferences.tpl:53
 msgid "NB : The mandatory fields are in"
 msgstr "NB : The mandatory fields are in"
@@ -151,9 +147,13 @@ msgstr "Paypal Preferences"
 msgid "- ERROR -"
 msgstr "- ERROR -"
 
-#: ../templates/default/paypal_success.tpl:3
-msgid "Your paypal payment was successfull. Some details are shown below:"
-msgstr "Your paypal payment was successfull. Some details are shown below:"
+#: ../templates/default/paypal_success.tpl:27
+msgid ""
+"Your paypal payment was successful. You may receive a mail from paypal with "
+"details."
+msgstr ""
+"Your paypal payment was successful. You may receive a mail from paypal with "
+"details."
 
 #: ../templates/default/paypal_preferences.tpl:24
 msgid "Inactive"

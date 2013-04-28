@@ -1,5 +1,5 @@
 <?php
-// This file was automatically generated on Sun Apr 28 09:09:52 2013 (GMT)
+// This file was automatically generated on Sun Apr 28 09:28:05 2013 (GMT)
 // Don't modify it by hand, rather use the target lang from the Makefile.
 
 
@@ -15,8 +15,8 @@ $lang['Payment status'] = 'Payment status';
 // ../paypal_history.php:89 ../templates/default/menu.tpl:6 
 $lang['Paypal History'] = 'Paypal History';
 
-// ../templates/default/paypal_success.tpl:27 
-$lang['Your paypal payment was successfull. You may receive a mail from paypal with details.'] = 'Your paypal payment was successfull. You may receive a mail from paypal with details.';
+// ../templates/default/paypal_form.tpl:57 ../templates/default/paypal_form.tpl:69 
+$lang['donation in money'] = 'donation in money';
 
 // ../templates/default/paypal_form.tpl:4 
 $lang['<strong>Payment coult not work</strong>: An error occured (that has been logged) while loading Paypal preferences from database.<br/>Please report the issue to the staff.'] = '<strong>Payment coult not work</strong>: An error occured (that has been logged) while loading Paypal preferences from database.<br/>Please report the issue to the staff.';
@@ -63,6 +63,9 @@ $lang['Paypal preferences has been saved.'] = 'Paypal preferences has been saved
 // ../templates/default/menu.tpl:2 
 $lang['Paypal'] = 'Paypal';
 
+// ../templates/default/paypal_success.tpl:27 
+$lang['Your paypal payment was successful. You may receive a mail from paypal with details.'] = 'Your paypal payment was successful. You may receive a mail from paypal with details.';
+
 // ../templates/default/paypal_history.tpl:55 
 $lang['duplicate'] = 'duplicate';
 
@@ -74,9 +77,6 @@ $lang['Paypal payment'] = 'Paypal payment';
 
 // ../templates/default/paypal_form.tpl:5 
 $lang['Our apologies for the annoyance :('] = 'Our apologies for the annoyance :(';
-
-// ../templates/default/paypal_form.tpl:114 
-$lang['The amount you\'ve entered is lower than the minimum amount for the selected option.\\nPlease choose another option or change the amount.'] = 'The amount you\'ve entered is lower than the minimum amount for the selected option.\\nPlease choose another option or change the amount.';
 
 // ../templates/default/paypal_history.tpl:20 
 $lang['Date'] = 'Date';
@@ -99,8 +99,8 @@ $lang['Paypal identifier:'] = 'Paypal identifier:';
 // ../templates/default/paypal_preferences.tpl:46 
 $lang['Error: no predefined amounts found.'] = 'Error: no predefined amounts found.';
 
-// ../templates/default/paypal_success.tpl:3 
-$lang['Your paypal payment was successfull. Some details are shown below:'] = 'Your paypal payment was successfull. Some details are shown below:';
+// ../templates/default/paypal_form.tpl:114 
+$lang['The amount you\'ve entered is lower than the minimum amount for the selected option.\\nPlease choose another option or change the amount.'] = 'The amount you\'ve entered is lower than the minimum amount for the selected option.\\nPlease choose another option or change the amount.';
 
 // ../templates/default/paypal_form.tpl:68 
 $lang['Payment reason:'] = 'Payment reason:';
@@ -150,8 +150,8 @@ $lang['Inactive'] = 'Inactive';
 // ../templates/default/paypal_history.tpl:11 
 $lang['Change'] = 'Change';
 
-// ../templates/default/paypal_form.tpl:57 ../templates/default/paypal_form.tpl:69 
-$lang['donation in money'] = 'donation in money';
+// ../templates/default/paypal_success.tpl:3 
+$lang['Your paypal payment was successful. Some details are shown below:'] = 'Your paypal payment was successful. Some details are shown below:';
 
 // ../templates/default/paypal_form.tpl:79 
 $lang['WARNING: If you enter an amount below, make sure that it is not lower than the amount of the option you\'ve selected.'] = 'WARNING: If you enter an amount below, make sure that it is not lower than the amount of the option you\'ve selected.';

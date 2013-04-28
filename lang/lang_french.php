@@ -1,5 +1,5 @@
 <?php
-// This file was automatically generated on Sun Apr 28 09:09:52 2013 (GMT)
+// This file was automatically generated on Sun Apr 28 09:28:05 2013 (GMT)
 // Don't modify it by hand, rather use the target lang from the Makefile.
 
 
@@ -15,8 +15,8 @@ $lang['Payment status'] = 'État du paiement';
 // ../paypal_history.php:89 ../templates/default/menu.tpl:6 
 $lang['Paypal History'] = 'Historique Paypal';
 
-// ../templates/default/paypal_success.tpl:27 
-$lang['Your paypal payment was successfull. You may receive a mail from paypal with details.'] = 'Votre paiement paypal a été effectué avec succès. Vous devriez recevoir un courriel de paypal en contenant les détails.';
+// ../templates/default/paypal_form.tpl:57 ../templates/default/paypal_form.tpl:69 
+$lang['donation in money'] = 'donation pécuniaire';
 
 // ../templates/default/paypal_form.tpl:4 
 $lang['<strong>Payment coult not work</strong>: An error occured (that has been logged) while loading Paypal preferences from database.<br/>Please report the issue to the staff.'] = '<strong>Le paiement ne peut fonctionner</strong> : une erreur (qui a été enregistrée) est survenue lors du chargement des préférences Paypal depuis la base de données.<br/>Merci de rapporter ce problème aux membres du bureau.';
@@ -63,6 +63,9 @@ $lang['Paypal preferences has been saved.'] = 'Les préférences Paypal ont ét�
 // ../templates/default/menu.tpl:2 
 $lang['Paypal'] = 'Paypal';
 
+// ../templates/default/paypal_success.tpl:27 
+$lang['Your paypal payment was successful. You may receive a mail from paypal with details.'] = 'Votre paiement paypal a été effectué avec succès. Vous devriez recevoir un courriel de paypal en contenant les détails.';
+
 // ../templates/default/paypal_history.tpl:55 
 $lang['duplicate'] = 'duplicat';
 
@@ -74,9 +77,6 @@ $lang['Paypal payment'] = 'Paiement Paypal';
 
 // ../templates/default/paypal_form.tpl:5 
 $lang['Our apologies for the annoyance :('] = 'Toutes nos excuses pour le désagrément :(';
-
-// ../templates/default/paypal_form.tpl:114 
-$lang['The amount you\'ve entered is lower than the minimum amount for the selected option.\\nPlease choose another option or change the amount.'] = 'Le montant que vous avez entré est inférieur au montant minimum de l\'option sélectionnée.\\nVeuillez choisir une autre option ou entrer un nouveau montant.';
 
 // ../templates/default/paypal_history.tpl:20 
 $lang['Date'] = 'Date';
@@ -99,8 +99,8 @@ $lang['Paypal identifier:'] = 'Identifiant Paypal';
 // ../templates/default/paypal_preferences.tpl:46 
 $lang['Error: no predefined amounts found.'] = 'Erreur : aucun montant prédéfini trouvé.';
 
-// ../templates/default/paypal_success.tpl:3 
-$lang['Your paypal payment was successfull. Some details are shown below:'] = 'Votre paiement paypal a été effectué avec succès. Quelques détails concernant la transaction sont affichés ci-dessous :';
+// ../templates/default/paypal_form.tpl:114 
+$lang['The amount you\'ve entered is lower than the minimum amount for the selected option.\\nPlease choose another option or change the amount.'] = 'Le montant que vous avez entré est inférieur au montant minimum de l\'option sélectionnée.\\nVeuillez choisir une autre option ou entrer un nouveau montant.';
 
 // ../templates/default/paypal_form.tpl:68 
 $lang['Payment reason:'] = 'Motif de paiement&nbsp;:';
@@ -150,8 +150,8 @@ $lang['Inactive'] = 'Inactif';
 // ../templates/default/paypal_history.tpl:11 
 $lang['Change'] = 'Modifier';
 
-// ../templates/default/paypal_form.tpl:57 ../templates/default/paypal_form.tpl:69 
-$lang['donation in money'] = 'donation pécuniaire';
+// ../templates/default/paypal_success.tpl:3 
+$lang['Your paypal payment was successful. Some details are shown below:'] = 'Votre paiement paypal a été effectué avec succès. Quelques détails concernant la transaction sont affichés ci-dessous :';
 
 // ../templates/default/paypal_form.tpl:79 
 $lang['WARNING: If you enter an amount below, make sure that it is not lower than the amount of the option you\'ve selected.'] = 'ATTENTION : si vous entrez un montant ci-dessous, assurez-vous qu\'il ne soit pas inférieur au montant de l\'option que vous avez sélectionnée.';
