@@ -4,6 +4,11 @@
     <p>{_T string="<strong>Payment coult not work</strong>: An error occured (that has been logged) while loading Paypal preferences from database.<br/>Please report the issue to the staff."}</p>
     <p>{_T string="Our apologies for the annoyance :("}</p>
 </div>
+{elseif $paypal->getId() eq null}
+    <div id="errorbox">
+        <h1>{_T string="- ERROR -"}</h1>
+        <p>{_T string="Paypal id has not been defined. Please ask an administrator to add it from plugin preferences."}</p>
+    </div>
 {else}
     {if !$paypal->areAmountsLoaded()}
 <div id="warningbox">
@@ -15,7 +20,7 @@
 <form action="{if constant('GALETTE_MODE') eq 'DEV'}https://www.sandbox.paypal.com/fr/cgi-bin/webscr{else}https://www.paypal.com/cgi-bin/webscr{/if}" method="post" id="paypal">
     {* To read more about variables, see https://cms.paypal.com/es/cgi-bin/?cmd=_render-content&content_ID=developer/e_howto_html_Appx_websitestandard_htmlvariables#id08A6HI0709B *}
     <!-- Paypal required variables -->
-    {if $custom}
+    {if isset($custom)}
     <input type="hidden" name="custom" value="{$custom}"/>
     {/if}
     <input type="hidden" name="cmd" value="_xclick"/>
@@ -49,7 +54,7 @@
     {if $paypal->areAmountsLoaded()}
         <div id="amounts">
         {if $amounts|@count gt 0}
-            <input type="hidden" name="item_name" id="item_name" value="{_T string="annual fee"}"/>
+            <input type="hidden" name="item_name" id="item_name" value="{if $login->isLogged()}{_T string="annual fee"}{else}{_T string="donation in money"}{/if}"/>
             {foreach from=$amounts key=k item=amount name=amounts}
             {if $smarty.foreach.amounts.index != 0}<br/>{/if}
             <input type="radio" name="item_number" id="in{$k}" value="{$k}"{if $smarty.foreach.amounts.index == 0} checked="checked"{/if}/>
@@ -61,7 +66,7 @@
             {/foreach}
         {else}
             <label for="item_name">{_T string="Payment reason:"}</label>
-            <input type="text" name="item_name" id="item_name" value="{_T string="annual fee"}"/>
+            <input type="text" name="item_name" id="item_name" value="{if $login->isLogged()}{_T string="annual fee"}{else}{_T string="donation in money"}{/if}"/>
         {/if}
         </div>
     {else}

@@ -343,10 +343,14 @@ class Paypal
      */
     public function getAmounts()
     {
+        global $login;
+
         $prices = array();
         foreach ( $this->_prices as $k=>$v ) {
             if ( !$this->isInactive($k) ) {
-                $prices[$k] = $v;
+                if ( $login->isLogged() || $v[1] == 0 ) {
+                    $prices[$k] = $v;
+                }
             }
         }
         return $prices;

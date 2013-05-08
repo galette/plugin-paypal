@@ -1,5 +1,6 @@
 <h1 id="titre">{_T string="Paypal payment success"}</h1>
-<p>{_T string="Your paypal payment for was successfull. Some details are shown below:"}</p>
+{if $post}
+<p>{_T string="Your paypal payment was successful. Some details are shown below:"}</p>
 <table>
     <tr>
         <th>{_T string="Label"}</th>
@@ -22,3 +23,6 @@
         <td>{$post.mc_gross} {$post.mc_currency}</td>
     </tr>
 </table>
+{else}
+<p>{_T string="Your paypal payment was successful. You may receive a mail from paypal with details."}</p>
+{/if}

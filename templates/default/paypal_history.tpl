@@ -1,4 +1,4 @@
-        <table id="listing">
+        <table class="listing">
             <thead>
                 <tr>
                     <td colspan="6" class="right">
@@ -14,9 +14,9 @@
                     </td>
                 </tr>
                 <tr>
-                    <th class="listing small_head">#</th>
-                    <th class="listing left">
-                        <a href="?tri=date_log" class="listing">
+                    <th class="small_head">#</th>
+                    <th class="left">
+                        <a href="?tri=date_log">
                             {_T string="Date"}
                             {if $paypal_history->orderby eq "date_log"}
                                 {if $paypal_history->getDirection() eq "DESC"}
@@ -27,16 +27,16 @@
                             {/if}
                         </a>
                     </th>
-                    <th class="listing">
+                    <th>
                         {_T string="Name"}
                     </th>
-                    <th class="listing">
+                    <th>
                         {_T string="Subject"}
                     </th>
-                    <th class="listing">
+                    <th>
                         {_T string="Amount"}
                     </th>
-                    <th class="listing left actions_row"></th>
+                    <th class="left actions_row"></th>
                 </tr>
             </thead>
             <tfoot>
@@ -49,10 +49,10 @@
             </tfoot>
             <tbody>
 {foreach from=$logs item=log name=eachlog}
-                <tr class="tbl_line_{if $smarty.foreach.eachlog.iteration % 2 eq 0}even{else}odd{/if}">
+                <tr class="{if $smarty.foreach.eachlog.iteration % 2 eq 0}even{else}odd{/if}">
                     <td class="center">{$smarty.foreach.eachlog.iteration}</td>
                     <td class="nowrap big_date_row">
-                        {if $log.duplicate}<img class="img-dup" src="{$galette_base_path}{$paypal_tpl_dir}images/warning.png" alt="{_T string="duplicate"}"/>{/if}
+                        {if isset($log.duplicate)}<img class="img-dup" src="{$galette_base_path}{$paypal_tpl_dir}images/warning.png" alt="{_T string="duplicate"}"/>{/if}
                         {$log.history_date|date_format:"%a %d/%m/%Y - %R"}
                     </td>
                     <td>
@@ -60,7 +60,7 @@
                         <a href="{$galette_base_path}voir_adherent.php?id_adh={$log.request.custom}">
     {/if}
                         {$log.request.last_name} {$log.request.first_name}
-    {if $log.request.transaction_subject}
+    {if isset($log.request.transaction_subject)}
                         </a>
     {/if}
                     </td>

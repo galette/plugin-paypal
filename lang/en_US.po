@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"PO-Revision-Date: 2013-01-08 08:29+0100\n"
+"PO-Revision-Date: 2013-04-28 11:28+0200\n"
 "Last-Translator: \n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
 "Language: fr\n"
@@ -18,11 +18,15 @@ msgstr ""
 msgid "Paypal payment"
 msgstr "Paypal payment"
 
+#: ../templates/default/paypal_preferences.tpl:51
+msgid "Save"
+msgstr "Save"
+
 #: ../templates/default/paypal_preferences.tpl:53
 msgid "red"
 msgstr "red"
 
-#: ../templates/default/paypal_form.tpl:43
+#: ../templates/default/paypal_form.tpl:50
 msgid "Select an payment reason"
 msgstr "Select an payment reason"
 
@@ -31,9 +35,9 @@ msgid "Paypal preferences"
 msgstr "Paypal preferences"
 
 #: ../templates/default/paypal_history.tpl:37
-#: ../templates/default/paypal_form.tpl:77
+#: ../templates/default/paypal_form.tpl:84
 #: ../templates/default/paypal_preferences.tpl:23
-#: ../templates/default/paypal_success.tpl:21
+#: ../templates/default/paypal_success.tpl:22
 msgid "Amount"
 msgstr "Amount"
 
@@ -49,13 +53,13 @@ msgstr "duplicate"
 msgid "Request"
 msgstr "Request"
 
-#: ../templates/default/paypal_form.tpl:34
-msgid "Go back to %s Website to complete your inscription."
-msgstr "Go back to %s Website to complete your inscription."
-
-#: ../templates/default/paypal_success.tpl:13
+#: ../templates/default/paypal_success.tpl:14
 msgid "Payment status"
 msgstr "Payment status"
+
+#: ../templates/default/paypal_form.tpl:41
+msgid "Go back to %s's website to complete your inscription."
+msgstr "Go back to %s's website to complete your inscription."
 
 #: ../paypal_preferences.php:79
 msgid "Paypal Settings"
@@ -81,7 +85,7 @@ msgstr "Show/hide full request"
 msgid "Paypal preferences has been saved."
 msgstr "Paypal preferences has been saved."
 
-#: ../templates/default/paypal_form.tpl:101
+#: ../templates/default/paypal_form.tpl:108
 msgid "You have to select an option"
 msgstr "You have to select an option"
 
@@ -89,19 +93,19 @@ msgstr "You have to select an option"
 msgid "Payment form"
 msgstr "Payment form"
 
-#: ../templates/default/paypal_success.tpl:5
+#: ../templates/default/paypal_success.tpl:6
 msgid "Label"
 msgstr "Label"
 
-#: ../templates/default/paypal_success.tpl:2
-msgid "Your paypal payment for was successfull. Some details are shown below:"
-msgstr "Your paypal payment for was successfull. Some details are shown below:"
+#: ../templates/default/paypal_success.tpl:10
+msgid "Payment date"
+msgstr "Payment date"
 
 #: ../templates/default/paypal_history.tpl:34
 msgid "Subject"
 msgstr "Subject"
 
-#: ../templates/default/paypal_form.tpl:41
+#: ../templates/default/paypal_form.tpl:48
 msgid "Payment reason"
 msgstr "Payment reason"
 
@@ -117,11 +121,15 @@ msgstr "Paypal payment success"
 msgid "Change"
 msgstr "Change"
 
+#: ../templates/default/paypal_success.tpl:3
+msgid "Your paypal payment was successful. Some details are shown below:"
+msgstr "Your paypal payment was successful. Some details are shown below:"
+
 #: ../templates/default/paypal_preferences.tpl:53
 msgid "NB : The mandatory fields are in"
 msgstr "NB : The mandatory fields are in"
 
-#: ../templates/default/paypal_form.tpl:66
+#: ../templates/default/paypal_form.tpl:73
 msgid "No predefined amounts have been configured yet."
 msgstr "No predefined amounts have been configured yet."
 
@@ -134,13 +142,18 @@ msgid "Paypal Preferences"
 msgstr "Paypal Preferences"
 
 #: ../templates/default/paypal_form.tpl:3
+#: ../templates/default/paypal_form.tpl:9
 #: ../templates/default/paypal_preferences.tpl:4
 msgid "- ERROR -"
 msgstr "- ERROR -"
 
-#: ../templates/default/paypal_success.tpl:9
-msgid "Payment date"
-msgstr "Payment date"
+#: ../templates/default/paypal_success.tpl:27
+msgid ""
+"Your paypal payment was successful. You may receive a mail from paypal with "
+"details."
+msgstr ""
+"Your paypal payment was successful. You may receive a mail from paypal with "
+"details."
 
 #: ../templates/default/paypal_preferences.tpl:24
 msgid "Inactive"
@@ -158,20 +171,24 @@ msgstr "Records per page:"
 msgid "Cotisation type"
 msgstr "Cotisation type"
 
-#: ../templates/default/paypal_preferences.tpl:51
-msgid "Save"
-msgstr "Save"
+#: ../templates/default/paypal_form.tpl:10
+msgid ""
+"Paypal id has not been defined. Please ask an administrator to add it from "
+"plugin preferences."
+msgstr ""
+"Paypal id has not been defined. Please ask an administrator to add it from "
+"plugin preferences."
 
 #: ../templates/default/paypal_history.tpl:31
 msgid "Name"
 msgstr "Name"
 
-#: ../templates/default/paypal_form.tpl:50
-#: ../templates/default/paypal_form.tpl:62
+#: ../templates/default/paypal_form.tpl:57
+#: ../templates/default/paypal_form.tpl:69
 msgid "annual fee"
 msgstr "annual fee"
 
-#: ../templates/default/paypal_form.tpl:107
+#: ../templates/default/paypal_form.tpl:114
 msgid ""
 "The amount you've entered is lower than the minimum amount for the selected "
 "option.\\nPlease choose another option or change the amount."
@@ -179,7 +196,7 @@ msgstr ""
 "The amount you've entered is lower than the minimum amount for the selected "
 "option.\\nPlease choose another option or change the amount."
 
-#: ../templates/default/paypal_form.tpl:11
+#: ../templates/default/paypal_form.tpl:16
 msgid "Predefined amounts cannot be loaded, that is not a critical error."
 msgstr "Predefined amounts cannot be loaded, that is not a critical error."
 
@@ -191,7 +208,7 @@ msgstr "Paypal"
 msgid "Our apologies for the annoyance :("
 msgstr "Our apologies for the annoyance :("
 
-#: ../templates/default/paypal_form.tpl:39
+#: ../templates/default/paypal_form.tpl:46
 msgid "Enter payment reason"
 msgstr "Enter payment reason"
 
@@ -199,7 +216,7 @@ msgstr "Enter payment reason"
 msgid "Paypal History"
 msgstr "Paypal History"
 
-#: ../templates/default/paypal_form.tpl:61
+#: ../templates/default/paypal_form.tpl:68
 msgid "Payment reason:"
 msgstr "Payment reason:"
 
@@ -207,7 +224,7 @@ msgstr "Payment reason:"
 msgid "Error: no predefined amounts found."
 msgstr "Error: no predefined amounts found."
 
-#: ../templates/default/paypal_form.tpl:83
+#: ../templates/default/paypal_form.tpl:90
 msgid "Validate"
 msgstr "Validate"
 
@@ -229,15 +246,20 @@ msgstr ""
 msgid "Date"
 msgstr "Date"
 
-#: ../templates/default/paypal_form.tpl:10
+#: ../templates/default/paypal_form.tpl:15
 msgid "- WARNING -"
 msgstr "- WARNING -"
 
-#: ../templates/default/paypal_success.tpl:17
+#: ../templates/default/paypal_success.tpl:18
 msgid "Payment type"
 msgstr "Payment type"
 
-#: ../templates/default/paypal_form.tpl:72
+#: ../templates/default/paypal_form.tpl:57
+#: ../templates/default/paypal_form.tpl:69
+msgid "donation in money"
+msgstr "donation in money"
+
+#: ../templates/default/paypal_form.tpl:79
 msgid ""
 "WARNING: If you enter an amount below, make sure that it is not lower than "
 "the amount of the option you've selected."
