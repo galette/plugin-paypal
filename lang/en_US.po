@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"PO-Revision-Date: 2013-04-28 11:28+0200\n"
+"PO-Revision-Date: 2013-05-19 08:44+0200\n"
 "Last-Translator: \n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
 "Language: fr\n"
@@ -97,9 +97,9 @@ msgstr "Payment form"
 msgid "Label"
 msgstr "Label"
 
-#: ../templates/default/paypal_success.tpl:10
-msgid "Payment date"
-msgstr "Payment date"
+#: ../templates/default/paypal_form.tpl:114
+msgid "Please enter an amount."
+msgstr "Please enter an amount."
 
 #: ../templates/default/paypal_history.tpl:34
 msgid "Subject"
@@ -147,6 +147,10 @@ msgstr "Paypal Preferences"
 msgid "- ERROR -"
 msgstr "- ERROR -"
 
+#: ../templates/default/paypal_success.tpl:10
+msgid "Payment date"
+msgstr "Payment date"
+
 #: ../templates/default/paypal_success.tpl:27
 msgid ""
 "Your paypal payment was successful. You may receive a mail from paypal with "
@@ -188,7 +192,7 @@ msgstr "Name"
 msgid "annual fee"
 msgstr "annual fee"
 
-#: ../templates/default/paypal_form.tpl:114
+#: ../templates/default/paypal_form.tpl:117
 msgid ""
 "The amount you've entered is lower than the minimum amount for the selected "
 "option.\\nPlease choose another option or change the amount."

@@ -1,5 +1,5 @@
 <?php
-// This file was automatically generated on Sun Apr 28 09:28:05 2013 (GMT)
+// This file was automatically generated on Sun May 19 06:44:44 2013 (GMT)
 // Don't modify it by hand, rather use the target lang from the Makefile.
 
 
@@ -99,7 +99,7 @@ $lang['Paypal identifier:'] = 'Paypal identifier:';
 // ../templates/default/paypal_preferences.tpl:46 
 $lang['Error: no predefined amounts found.'] = 'Error: no predefined amounts found.';
 
-// ../templates/default/paypal_form.tpl:114 
+// ../templates/default/paypal_form.tpl:117 
 $lang['The amount you\'ve entered is lower than the minimum amount for the selected option.\\nPlease choose another option or change the amount.'] = 'The amount you\'ve entered is lower than the minimum amount for the selected option.\\nPlease choose another option or change the amount.';
 
 // ../templates/default/paypal_form.tpl:68 
@@ -134,6 +134,9 @@ $lang['Enter here one of your Paypal ID or email adress associated within your p
 
 // ../templates/default/paypal_form.tpl:3 ../templates/default/paypal_form.tpl:9 ../templates/default/paypal_preferences.tpl:4 
 $lang['- ERROR -'] = '- ERROR -';
+
+// ../templates/default/paypal_form.tpl:114 
+$lang['Please enter an amount.'] = 'Please enter an amount.';
 
 // ../templates/default/paypal_form.tpl:50 
 $lang['Select an payment reason'] = 'Select an payment reason';

@@ -75,8 +75,8 @@ msgstr ""
 msgid "Label"
 msgstr ""
 
-#: ../templates/default/paypal_success.tpl:10
-msgid "Payment date"
+#: ../templates/default/paypal_form.tpl:114
+msgid "Please enter an amount."
 msgstr ""
 
 #: ../templates/default/paypal_history.tpl:34
@@ -124,6 +124,10 @@ msgstr ""
 msgid "- ERROR -"
 msgstr ""
 
+#: ../templates/default/paypal_success.tpl:10
+msgid "Payment date"
+msgstr ""
+
 #: ../templates/default/paypal_success.tpl:27
 msgid "Your paypal payment was successful. You may receive a mail from paypal with details."
 msgstr ""
@@ -156,7 +160,7 @@ msgstr ""
 msgid "annual fee"
 msgstr ""
 
-#: ../templates/default/paypal_form.tpl:114
+#: ../templates/default/paypal_form.tpl:117
 msgid "The amount you've entered is lower than the minimum amount for the selected option.\\nPlease choose another option or change the amount."
 msgstr ""
 
