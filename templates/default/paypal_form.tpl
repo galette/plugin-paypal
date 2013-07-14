@@ -34,7 +34,7 @@
     <!-- Paypal dialogs -->
     <input type="hidden" name="return" value="{$plugin_url}paypal_success.php"/>
     <input type="hidden" name="rm" value="2"/>{*Send POST values back to Galette after payment. Will be sent to return url above*}
-    <input type="hidden" name="charset" value="UTF-8"/>
+    <!--<input type="hidden" name="charset" value="UTF-8"/>-->
     <input type="hidden" name="image_url" value="{$galette_url}picture.php?logo=true"/>
     <input type="hidden" name="cancel_return" value="{$plugin_url}paypal_form.php?cancelled=true"/>
     <input type="hidden" name="notify_url" value="{$plugin_url}paypal_notify.php"/>
