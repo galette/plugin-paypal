@@ -39,7 +39,8 @@
  */
 
 use Analog\Analog as Analog;
-use Galette\Entity\Contribution as Contribution;
+use Galette\Entity\Contribution;
+use Galette\Core\GaletteMail;
 
 define('GALETTE_BASE_PATH', '../../');
 require_once GALETTE_BASE_PATH . 'includes/galette.inc.php';
