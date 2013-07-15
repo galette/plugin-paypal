@@ -49,13 +49,21 @@ require_once '_config.inc.php';
 $orig_template_path = $tpl->template_dir;
 $tpl->template_dir = 'templates/' . $preferences->pref_theme;
 $tpl->compile_id = PAYPAL_SMARTY_PREFIX;
-$tpl->assign('post', $_POST);
+
+$request = $_POST;
+if (isset($request['charset'])) {
+    foreach ($request as $key => $value) {
+        $request[$key] = iconv($request['charset'], 'UTF-8', $value);
+    }
+}
+
+$tpl->assign('post', $request);
 $content = $tpl->fetch('paypal_success.tpl', PAYPAL_SMARTY_PREFIX);
 $tpl->assign('content', $content);
 //Set path back to main Galette's template
 $tpl->template_dir = $orig_template_path;
 $tpl->display('page.tpl', PAYPAL_SMARTY_PREFIX);
-/*print_r($_POST);
+/*print_r($request);
 Array
 (
     [mc_gross] => 10.00

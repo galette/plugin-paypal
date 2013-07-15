@@ -53,8 +53,16 @@ require_once 'classes/paypal-history.class.php';
 if ( isset($_POST) && isset($_POST['mc_gross'])
     && isset($_POST['item_number'])
 ) {
+    $request = $_POST;
+
+    if (isset($request['charset'])) {
+        foreach ($request as $key => $value) {
+            $request[$key] = iconv($request['charset'], 'UTF-8', $value);
+        }
+    }
+
     $ph = new PaypalHistory();
-    $ph->add($_POST);
+    $ph->add($request);
 
     Analog::log(
         'An entry has been added in paypal history',
@@ -62,7 +70,7 @@ if ( isset($_POST) && isset($_POST['mc_gross'])
     );
 
     $s = null;
-    foreach ( $_POST as $k=>$v ) {
+    foreach ( $request as $k=>$v ) {
         if ( $s != null ) {
             $s .= ' | ';
         }
@@ -76,15 +84,15 @@ if ( isset($_POST) && isset($_POST['mc_gross'])
 
     //are we working on a real contribution?
     $real_contrib = false;
-    if ( isset($_POST['custom'])
-        && is_numeric($_POST['custom'])
-        && $_POST['payment_status'] == 'Completed'
+    if ( isset($request['custom'])
+        && is_numeric($request['custom'])
+        && $request['payment_status'] == 'Completed'
     ) {
         $real_contrib = true;
     }
 
     //we'll now try to add the relevant cotisation
-    if ( $_POST['payment_status'] == 'Completed' ) {
+    if ( $request['payment_status'] == 'Completed' ) {
         /**
          * We will use the following parameters:
          * - mc_gross: the amount
@@ -95,15 +103,15 @@ if ( isset($_POST) && isset($_POST['mc_gross'])
          * script, Galette does not handle anonymous contributions
          */
         $args = array(
-            'type'          => $_POST['item_number'],
-            'adh'           => $_POST['custom'],
+            'type'          => $request['item_number'],
+            'adh'           => $request['custom'],
             'payment_type'  => Contribution::PAYMENT_PAYPAL
         );
         if ( $preferences->pref_membership_ext != '' ) {
             $args['ext'] = $preferences->pref_membership_ext;
         }
         $contrib = new Contribution($args);
-        $contrib->amount = $_POST['mc_gross'];
+        $contrib->amount = $request['mc_gross'];
 
         //all goes well, we can proceed
         if ( $contrib->isCotis() && $real_contrib ) {
@@ -145,7 +153,7 @@ if ( isset($_POST) && isset($_POST['mc_gross'])
         //execute post contribution script, if any
         if ( $preferences->pref_new_contrib_script ) {
             $pp_infos = array();
-            foreach ( $_POST as $k=>$v ) {
+            foreach ( $request as $k=>$v ) {
                 $pp_infos['paypal_' . $k] = $v;
             }
             $es = new Galette\IO\ExternalScript($preferences);
