@@ -40,7 +40,7 @@ $this->register(
     'Paypal integration',   //Short description
     'Johan Cwiklinski',     //Author
     '1.4',                  //Version
-    '0.7.4.1',              //Galette compatible version
+    '0.7.5',                //Galette compatible version
     null                    //Permissions needed - not yet implemented
 );
 
