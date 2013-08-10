@@ -3,7 +3,7 @@
 --
 DROP TABLE IF EXISTS galette_paypal_types_cotisation_prices;
 CREATE TABLE galette_paypal_types_cotisation_prices (
-  id_type_cotis integer REFERENCES galette_types_cotisation ON DELETE RESTRICT,
+  id_type_cotis integer REFERENCES galette_types_cotisation ON DELETE CASCADE,
   amount  real DEFAULT '0',
   PRIMARY KEY (id_type_cotis)
 );

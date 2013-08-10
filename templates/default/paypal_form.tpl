@@ -110,8 +110,11 @@
             } else {
                 var _current_amount = parseFloat($('#amount').val());
                 var _amount = parseFloat($('#' + _checked[0].id + '_amount').text());
-                if ( _amount != NaN && _current_amount < _amount ) {
-                    alert("{_T string="The amount you've entered is lower than the minimum amount for the selected option.\\nPlease choose another option or change the amount."}");
+                if ( isNaN(_current_amount) ) {
+                    alert("{_T string="Please enter an amount." escape="js"}");
+                    return false;
+                } else if ( !isNaN(_amount) && _current_amount < _amount ) {
+                    alert("{_T string="The amount you've entered is lower than the minimum amount for the selected option.\\nPlease choose another option or change the amount." escape="js"}");
                     return false;
                 }
             }

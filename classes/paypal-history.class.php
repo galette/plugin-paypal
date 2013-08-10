@@ -166,9 +166,6 @@ class PaypalHistory extends History
         $dedup = array();
         foreach ( $orig as $o ) {
             $oa = unserialize($o['request']);
-            $oa['first_name'] = utf8_encode($oa['first_name']);
-            $oa['last_name'] = utf8_encode($oa['last_name']);
-            $oa['item_name'] = utf8_encode($oa['item_name']);
             $o['raw_request'] = print_r($oa, true);
             $o['request'] = $oa;
             if ( in_array($oa['verify_sign'], $dedup) ) {
