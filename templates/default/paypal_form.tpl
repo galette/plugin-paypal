@@ -58,9 +58,9 @@
             {foreach from=$amounts key=k item=amount name=amounts}
             {if $smarty.foreach.amounts.index != 0}<br/>{/if}
             <input type="radio" name="item_number" id="in{$k}" value="{$k}"{if $smarty.foreach.amounts.index == 0} checked="checked"{/if}/>
-            <label for="in{$k}"><span id="in{$k}_name">{$amount[0]}</span>
-                {if $amount[2] gt 0}
-                (<span id="in{$k}_amount">{$amount[2]|string_format:"%.2f"}</span> €){* TODO: parametize currency *}
+            <label for="in{$k}"><span id="in{$k}_name">{$amount['name']}</span>
+                {if $amount['amount'] gt 0}
+                (<span id="in{$k}_amount">{$amount['amount']|string_format:"%.2f"}</span> €){* TODO: parametize currency *}
                 {/if}
             </label>
             {/foreach}
@@ -82,7 +82,7 @@
         </p>
         <p>
             <label for="amount">{_T string="Amount"}</label>
-            <input type="text" name="amount" id="amount" value="{if $amounts|@count > 0}{$amounts[1][2]}{else}20{/if}"/>
+            <input type="text" name="amount" id="amount" value="{if $amounts|@count > 0}{$amounts[1]['amount']}{else}20{/if}"/>
         </p>
     </fieldset>
 
