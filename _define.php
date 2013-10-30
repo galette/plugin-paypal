@@ -39,7 +39,7 @@ $this->register(
     'Galette Paypal',       //Name
     'Paypal integration',   //Short description
     'Johan Cwiklinski',     //Author
-    '1.4',                  //Version
+    '1.4.1',                //Version
     '0.7.5',                //Galette compatible version
     null                    //Permissions needed - not yet implemented
 );
