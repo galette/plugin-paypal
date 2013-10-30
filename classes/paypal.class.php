@@ -168,18 +168,18 @@ class Paypal
                     foreach ( $results as $paypal ) {
                         if ( $paypal->id_type_cotis == $k ) {
                             $_found=true;
-                            $this->_prices[$k][] = (double)$paypal->amount;
+                            $this->_prices[$k]['amount'] = (double)$paypal->amount;
                             break;
                         }
                     }
                 }
                 if ( $_found === false ) {
                     Analog::log(
-                        'The type `' . $v[0] . '` (' . $k . ') does not exist' .
+                        'The type `' . $v['name'] . '` (' . $k . ') does not exist' .
                         ', Galette will attempt to create it.',
                         Analog::INFO
                     );
-                    $this->_prices[$k][] = null;
+                    $this->_prices[$k]['amount'] = null;
                     $queries[] = array(
                           'id'   => $k,
                         'amount' => null
@@ -271,7 +271,7 @@ class Paypal
             $query = array();
             foreach ( $this->_prices as $k=>$v ) {
                 $stmt->bindValue(':id', $k);
-                $stmt->bindValue(':amount', (float)$v[2]);
+                $stmt->bindValue(':amount', (float)$v['amount']);
                 $stmt->execute();
             }
 
@@ -348,7 +348,7 @@ class Paypal
         $prices = array();
         foreach ( $this->_prices as $k=>$v ) {
             if ( !$this->isInactive($k) ) {
-                if ( $login->isLogged() || $v[1] == 0 ) {
+                if ( $login->isLogged() || $v['extra'] == 0 ) {
                     $prices[$k] = $v;
                 }
             }
@@ -419,7 +419,7 @@ class Paypal
     public function setPrices($ids, $amounts)
     {
         foreach ( $ids as $k=>$id) {
-            $this->_prices[$id][2] = $amounts[$k];
+            $this->_prices[$id]['amount'] = $amounts[$k];
         }
     }
 

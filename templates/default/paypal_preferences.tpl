@@ -29,10 +29,10 @@
                         <tr>
                             <td>
                                 <input type="hidden" name="amount_id[]" id="amount_id_{$k}" value="{$k}"/>
-                                <label for="amount_{$k}">{$amount[0]}</label>
+                                <label for="amount_{$k}">{$amount['name']}</label>
                             </td>
                             <td>
-                                <input type="text" name="amounts[]" id="amount_{$k}" value="{$amount[2]|string_format:"%.2f"}"/>
+                                <input type="text" name="amounts[]" id="amount_{$k}" value="{$amount['amount']|string_format:"%.2f"}"/>
                             </td>
                             <td>
                                 <input type="checkbox" name="inactives[]" id="inactives_{$k}"{if $paypal->isInactive($k)} checked="checked"{/if} value="{$k}"/>
