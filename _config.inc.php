@@ -37,4 +37,4 @@
 
 define('PAYPAL_PREFIX', 'paypal_');
 define('PAYPAL_SMARTY_PREFIX', 'plugins_paypal');
-?>
+

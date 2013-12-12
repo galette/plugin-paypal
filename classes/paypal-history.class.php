@@ -83,11 +83,11 @@ class PaypalHistory extends History
         parent::__construct();
     }
 
-   /**
-    * Returns the field we want to default set order to
-    *
-    * @return string field name
-    */
+    /**
+     * Returns the field we want to default set order to
+     *
+     * @return string field name
+     */
     protected function getDefaultOrder()
     {
         return 'history_date';
@@ -178,4 +178,4 @@ class PaypalHistory extends History
         return $new;
     }
 }
-?>
+

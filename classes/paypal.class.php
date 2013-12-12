@@ -457,4 +457,4 @@ class Paypal
         $this->_inactives = array();
     }
 }
-?>
+

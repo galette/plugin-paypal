@@ -93,4 +93,3 @@ $tpl->assign('content', $content);
 $tpl->template_dir = $orig_template_path;
 $tpl->display('page.tpl', PAYPAL_SMARTY_PREFIX);
 
-?>

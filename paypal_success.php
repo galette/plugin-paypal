@@ -102,4 +102,4 @@ Array
     [merchant_return_link] => Go back to %s Website to complete your inscription. (not tra
 )
 */
-?>
+
