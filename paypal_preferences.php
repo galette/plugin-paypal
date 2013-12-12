@@ -38,6 +38,8 @@
  * @since     Available since 0.7dev - 2011-06-05
  */
 
+use GalettePaypal\Paypal;
+
 define('GALETTE_BASE_PATH', '../../');
 require_once GALETTE_BASE_PATH . 'includes/galette.inc.php';
 
@@ -52,7 +54,6 @@ if ( !$login->isAdmin() && !$login->isStaff() ) {
 
 //Constants and classes from plugin
 require_once '_config.inc.php';
-require_once 'classes/paypal.class.php';
 
 $paypal = new Paypal();
 
