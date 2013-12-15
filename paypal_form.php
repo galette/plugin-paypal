@@ -78,9 +78,5 @@ $content = $tpl->fetch('paypal_form.tpl', PAYPAL_SMARTY_PREFIX);
 $tpl->assign('content', $content);
 //Set path back to main Galette's template
 $tpl->template_dir = $orig_template_path;
-if ( !$login->isLogged() ) {
-    $tpl->display('public_page.tpl', PAYPAL_SMARTY_PREFIX);
-} else {
-    $tpl->display('page.tpl', PAYPAL_SMARTY_PREFIX);
-}
-?>
+$tpl->display('public_page.tpl', PAYPAL_SMARTY_PREFIX);
+

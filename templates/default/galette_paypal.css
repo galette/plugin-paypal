@@ -19,3 +19,10 @@
 .big_date_row {
     width: 14em;
 }
+
+#ppaypal {
+    background-image:url(images/paypal.png), url("jquery-ui/images/ui-bg_glass_75_e6e6e6_1x400.png");
+}
+#ppaypal.ui-state-hover {
+    background-image:url(images/paypal.png), url("jquery-ui/images/ui-bg_glass_75_ffb619_1x400.png");
+}
