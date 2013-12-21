@@ -62,7 +62,7 @@ $content = $tpl->fetch('paypal_success.tpl', PAYPAL_SMARTY_PREFIX);
 $tpl->assign('content', $content);
 //Set path back to main Galette's template
 $tpl->template_dir = $orig_template_path;
-$tpl->display('page.tpl', PAYPAL_SMARTY_PREFIX);
+$tpl->display('public_page.tpl', PAYPAL_SMARTY_PREFIX);
 /*print_r($request);
 Array
 (
@@ -102,4 +102,4 @@ Array
     [merchant_return_link] => Go back to %s Website to complete your inscription. (not tra
 )
 */
-?>
+

@@ -38,9 +38,10 @@
  * @since     Available since 0.7dev - 2011-06-03
  */
 
-use Galette\Entity\ContributionsTypes;
+namespace GalettePaypal;
 
-use Analog\Analog as Analog;
+use Galette\Entity\ContributionsTypes;
+use Analog\Analog;
 
  /**
  * Preferences for galette
@@ -96,7 +97,7 @@ class Paypal
         global $zdb;
 
         try {
-            $select = new Zend_Db_Select($zdb->db);
+            $select = new \Zend_Db_Select($zdb->db);
             $select->from(PREFIX_DB . PAYPAL_PREFIX . self::PREFS_TABLE);
 
             $results = $select->query()->fetchAll();
@@ -120,7 +121,7 @@ class Paypal
             }
             $this->_loaded = true;
             return $this->_loadAmounts();
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             Analog::log(
                 '[' . get_class($this) . '] Cannot load paypal preferences |' .
                 $e->getMessage(),
@@ -146,7 +147,7 @@ class Paypal
         $this->_prices = $ct->getCompleteList();
 
         try {
-            $select = new Zend_Db_Select($zdb->db);
+            $select = new \Zend_Db_Select($zdb->db);
             $select->from(PREFIX_DB . PAYPAL_PREFIX . self::TABLE);
 
             $results = $select->query()->fetchAll();
@@ -191,7 +192,7 @@ class Paypal
             }
             //amounts should be loaded here
             $this->_amounts_loaded = true;
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             Analog::log(
                 '[' . get_class($this) . '] Cannot load paypal amounts' .
                 '` | ' . $e->getMessage(),
@@ -242,7 +243,7 @@ class Paypal
             );
 
             return $this->storeAmounts();
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             Analog::log(
                 '[' . get_class($this) . '] Cannot store paypal preferences' .
                 '` | ' . $e->getMessage(),
@@ -280,7 +281,7 @@ class Paypal
                 Analog::INFO
             );
             return true;
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             Analog::log(
                 '[' . get_class($this) . '] Cannot store paypal amounts' .
                 '` | ' . $e->getMessage(),
@@ -315,7 +316,7 @@ class Paypal
             }
 
             return true;
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             Analog::log(
                 'Unable to store missing types in paypal table.' .
                 $stmt->getMessage() . '(' . $stmt->getDebugInfo() . ')',
@@ -457,4 +458,4 @@ class Paypal
         $this->_inactives = array();
     }
 }
-?>
+

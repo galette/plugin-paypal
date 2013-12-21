@@ -225,4 +225,4 @@ if ( isset($_POST) && isset($_POST['mc_gross'])
         Analog::WARNING
     );
 }
-?>
+

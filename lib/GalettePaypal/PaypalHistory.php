@@ -35,21 +35,20 @@
  * @since     Available since 0.7dev - 2011-07-25
  */
 
-use Analog\Analog as Analog;
-use Galette\Core\History as History;
+namespace GalettePaypal;
 
-/** @ignore */
-require_once 'paypal.class.php';
+use Analog\Analog;
+use Galette\Core\History as History;
 
 /**
  * This class stores and serve the logo.
  * If no custom logo is found, we take galette's default one.
  *
  * @category  Classes
- * @name      Logo
+ * @name      PaypalHistory
  * @package   Galette
  * @author    Johan Cwiklinski <johan@x-tnd.be>
- * @copyright 2009-2011 The Galette Team
+ * @copyright 2009-2013 The Galette Team
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GPL License 3.0 or (at your option) any later version
  * @link      http://galette.tuxfamily.org
  * @since     Available since 0.7dev - 2009-09-13
@@ -76,18 +75,18 @@ class PaypalHistory extends History
     );
 
     /**
-    * Default constructor.
-    */
+     * Default constructor.
+     */
     public function __construct()
     {
         parent::__construct();
     }
 
-   /**
-    * Returns the field we want to default set order to
-    *
-    * @return string field name
-    */
+    /**
+     * Returns the field we want to default set order to
+     *
+     * @return string field name
+     */
     protected function getDefaultOrder()
     {
         return 'history_date';
@@ -116,14 +115,14 @@ class PaypalHistory extends History
             );
 
             $zdb->db->insert($this->getTableName(), $values);
-        } catch (Zend_Db_Adapter_Exception $e) {
+        } catch (\Zend_Db_Adapter_Exception $e) {
             Analog::log(
                 'Unable to initialize add log entry into database.' .
                 $e->getMessage(),
                 Analog::WARNING
             );
             return false;
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             Analog::log(
                 "An error occured trying to add log entry. " . $e->getMessage(),
                 Analog::ERROR
@@ -164,18 +163,20 @@ class PaypalHistory extends History
         $orig = $this->getHistory();
         $new = array();
         $dedup = array();
-        foreach ( $orig as $o ) {
-            $oa = unserialize($o['request']);
-            $o['raw_request'] = print_r($oa, true);
-            $o['request'] = $oa;
-            if ( in_array($oa['verify_sign'], $dedup) ) {
-                $o['duplicate'] = true;
-            } else {
-                $dedup[] = $oa['verify_sign'];
+        if ( count($orig) > 0 ) {
+            foreach ( $orig as $o ) {
+                $oa = unserialize($o['request']);
+                $o['raw_request'] = print_r($oa, true);
+                $o['request'] = $oa;
+                if ( in_array($oa['verify_sign'], $dedup) ) {
+                    $o['duplicate'] = true;
+                } else {
+                    $dedup[] = $oa['verify_sign'];
+                }
+                $new[] = $o;
             }
-            $new[] = $o;
         }
         return $new;
     }
 }
-?>
+

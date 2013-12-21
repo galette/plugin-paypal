@@ -38,12 +38,13 @@
  * @since     Available since 0.7dev - 2011-06-02
  */
 
+use GalettePaypal\Paypal;
+
 define('GALETTE_BASE_PATH', '../../');
 require_once GALETTE_BASE_PATH . 'includes/galette.inc.php';
 
 //Constants and classes from plugin
 require_once '_config.inc.php';
-require_once 'classes/paypal.class.php';
 
 $paypal = new Paypal();
 
@@ -77,9 +78,5 @@ $content = $tpl->fetch('paypal_form.tpl', PAYPAL_SMARTY_PREFIX);
 $tpl->assign('content', $content);
 //Set path back to main Galette's template
 $tpl->template_dir = $orig_template_path;
-if ( !$login->isLogged() ) {
-    $tpl->display('public_page.tpl', PAYPAL_SMARTY_PREFIX);
-} else {
-    $tpl->display('page.tpl', PAYPAL_SMARTY_PREFIX);
-}
-?>
+$tpl->display('public_page.tpl', PAYPAL_SMARTY_PREFIX);
+
