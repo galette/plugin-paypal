@@ -97,10 +97,7 @@ class Paypal
         global $zdb;
 
         try {
-            $select = new \Zend_Db_Select($zdb->db);
-            $select->from(PREFIX_DB . PAYPAL_PREFIX . self::PREFS_TABLE);
-
-            $results = $select->query()->fetchAll();
+            $results = $zdb->selectAll(PAYPAL_PREFIX . self::PREFS_TABLE);
 
             foreach ( $results as $row ) {
                 switch ( $row->nom_pref ) {
@@ -147,10 +144,7 @@ class Paypal
         $this->_prices = $ct->getCompleteList();
 
         try {
-            $select = new \Zend_Db_Select($zdb->db);
-            $select->from(PREFIX_DB . PAYPAL_PREFIX . self::TABLE);
-
-            $results = $select->query()->fetchAll();
+            $results = $zdb->selectAll(PAYPAL_PREFIX . self::TABLE);
 
             //check if all types currently exists in paypal table
             if ( count($results) != count($this->_prices) ) {
@@ -219,22 +213,28 @@ class Paypal
                 'nom_pref' => 'paypal_id',
                 'val_pref' => $this->_id
             );
-            $edit = $zdb->db->update(
-                PREFIX_DB . PAYPAL_PREFIX . self::PREFS_TABLE,
-                $values,
-                $zdb->db->quoteInto('nom_pref = ?', 'paypal_id')
-            );
+            $update = $zdb->update(PAYPAL_PREFIX . self::PREFS_TABLE);
+            $update->set($values)
+                ->where(
+                    array(
+                        'nom_pref' => 'paypal_id'
+                    )
+                );
+
+            $edit = $zdb->execute($update);
 
             //store inactives
             $values = array(
                 'nom_pref' => 'paypal_inactives',
                 'val_pref' => implode($this->_inactives, ',')
             );
-            $edit = $zdb->db->update(
-                PREFIX_DB . PAYPAL_PREFIX . self::PREFS_TABLE,
-                $values,
-                $zdb->db->quoteInto('nom_pref = ?', 'paypal_inactives')
-            );
+            $update = $zdb->update(PAYPAL_PREFIX . self::PREFS_TABLE);
+            $update->set($values)
+                ->where(
+                    array(
+                        'nom_pref' => 'paypal_inactives'
+                    )
+                );
 
             Analog::log(
                 '[' . get_class($this) .
@@ -264,16 +264,23 @@ class Paypal
         global $zdb;
 
         try {
-            $stmt = $zdb->db->prepare(
-                'UPDATE ' . PREFIX_DB . PAYPAL_PREFIX . self::TABLE .
-                ' SET amount=:amount WHERE ' . self::PK . '=:id'
-            );
+            $update = $zdb->update(PAYPAL_PREFIX . self::TABLE);
+            $update->set(
+                array(
+                    'amount'    => ':amount'
+                )
+            )->where->equalTo(self::PK, ':id');
 
-            $query = array();
+            $stmt = $zdb->sql->prepareStatementForSqlObject($update);
+
             foreach ( $this->_prices as $k=>$v ) {
-                $stmt->bindValue(':id', $k);
-                $stmt->bindValue(':amount', (float)$v['amount']);
-                $stmt->execute();
+                /** Why where parameter is named where1 ?? */
+                $stmt->execute(
+                    array(
+                        'amount'    => (float)$v['amount'],
+                        'where1'    => $k
+                    )
+                );
             }
 
             Analog::log(
@@ -304,15 +311,22 @@ class Paypal
         global $zdb;
 
         try {
-            $stmt = $zdb->db->prepare(
-                'INSERT INTO ' . PREFIX_DB . PAYPAL_PREFIX . self::TABLE .
-                ' (' . self::PK . ', amount) VALUES (:id, :amount)'
+            $insert = $zdb->insert(PAYPAL_PREFIX . self::TABLE);
+            $insert->values(
+                array(
+                    self::PK    => ':' . self::PK,
+                    'amount'    => ':amount'
+                )
             );
+            $stmt = $zdb->sql->prepareStatementForSqlObject($insert);
 
             foreach ( $queries as $q ) {
-                $stmt->bindValue(':id', $q['id']);
-                $stmt->bindValue(':amount', $q['amount']);
-                $stmt->execute();
+                $stmt->execute(
+                    array(
+                        self::PK    => $q['id'],
+                        'amount'    => $q['amount']
+                    )
+                );
             }
 
             return true;
