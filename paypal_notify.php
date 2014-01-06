@@ -41,6 +41,7 @@
 use Analog\Analog as Analog;
 use Galette\Entity\Contribution;
 use Galette\Core\GaletteMail;
+use GalettePaypal\PaypalHistory;
 
 define('GALETTE_BASE_PATH', '../../');
 require_once GALETTE_BASE_PATH . 'includes/galette.inc.php';
@@ -49,7 +50,6 @@ require_once GALETTE_BASE_PATH . 'includes/galette.inc.php';
 require_once '_config.inc.php';
 
 //if we've received some informations from paypal website, we can proceed
-require_once 'classes/paypal-history.class.php';
 if ( isset($_POST) && isset($_POST['mc_gross'])
     && isset($_POST['item_number'])
 ) {

@@ -39,6 +39,7 @@ namespace GalettePaypal;
 
 use Analog\Analog;
 use Galette\Core\History as History;
+use Zend\Db\Adapter\Exception as AdapterException;
 
 /**
  * This class stores and serve the logo.
@@ -114,8 +115,10 @@ class PaypalHistory extends History
                 'request'       => serialize($request)
             );
 
-            $zdb->db->insert($this->getTableName(), $values);
-        } catch (\Zend_Db_Adapter_Exception $e) {
+            $insert = $zdb->insert($this->getTableName());
+            $insert->values($values);
+            $zdb->execute($insert);
+        } catch (AdapterException $e) {
             Analog::log(
                 'Unable to initialize add log entry into database.' .
                 $e->getMessage(),
@@ -136,11 +139,17 @@ class PaypalHistory extends History
     /**
      * Get table's name
      *
+     * @param boolean $prefixed Whether table name should be prefixed
+     *
      * @return string
      */
-    protected function getTableName()
+    protected function getTableName($prefixed = false)
     {
-        return PREFIX_DB . PAYPAL_PREFIX . self::TABLE;
+        if ( $prefixed === true ) {
+            return PREFIX_DB . PAYPAL_PREFIX . self::TABLE;
+        } else {
+            return PAYPAL_PREFIX . self::TABLE;
+        }
     }
 
     /**

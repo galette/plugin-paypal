@@ -57,6 +57,7 @@ if (isset($request['charset'])) {
     }
 }
 
+$tpl->assign('page_title', _T("Paypal success"));
 $tpl->assign('post', $request);
 $content = $tpl->fetch('paypal_success.tpl', PAYPAL_SMARTY_PREFIX);
 $tpl->assign('content', $content);
