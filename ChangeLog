@@ -1,3 +1,7 @@
+* 2014-02-07 - 1.4.3
+- Fix include issue in notifications
+- Put back form link in its own menu for non up to date members when public pages are limited
+
 * 2013-12-21 - 1.4.2
 - Galette 0.7.8 compatible
 - Add public page in menu

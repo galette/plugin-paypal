@@ -39,9 +39,9 @@ $this->register(
     'Galette Paypal',       //Name
     'Paypal integration',   //Short description
     'Johan Cwiklinski',     //Author
-    '1.4.2',                //Version
+    '1.4.3',                //Version
     '0.7.8',                //Galette compatible version
-    '2013-12-21',           //Release date
+    '2014-02-07',           //Release date
     null                    //Permissions needed - not yet implemented
 );
 
