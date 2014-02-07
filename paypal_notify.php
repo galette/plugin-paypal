@@ -124,7 +124,7 @@ if ( isset($_POST) && isset($_POST['mc_gross'])
                         Analog::ERROR
                     );
                 } else {
-                    //method directly return erro message
+                    //method directly return error message
                     Analog::log(
                         'Error while calculating overlaping fees from paypal payment: ' . $overlap,
                         Analog::ERROR
