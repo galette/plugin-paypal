@@ -7,7 +7,7 @@
  *
  * PHP version 5
  *
- * Copyright © 2011-2013 The Galette Team
+ * Copyright © 2011-2014 The Galette Team
  *
  * This file is part of Galette (http://galette.tuxfamily.org).
  *
@@ -28,7 +28,7 @@
  * @package   Galette
  *
  * @author    Johan Cwiklinski <johan@x-tnd.be>
- * @copyright 2011-2013 The Galette Team
+ * @copyright 2011-2014 The Galette Team
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GPL License 3.0 or (at your option) any later version
  * @version   SVN: $Id$
  * @link      http://galette.tuxfamily.org
@@ -39,6 +39,7 @@ namespace GalettePaypal;
 
 use Analog\Analog;
 use Galette\Core\History as History;
+use Zend\Db\Adapter\Exception as AdapterException;
 
 /**
  * This class stores and serve the logo.
@@ -48,7 +49,7 @@ use Galette\Core\History as History;
  * @name      PaypalHistory
  * @package   Galette
  * @author    Johan Cwiklinski <johan@x-tnd.be>
- * @copyright 2009-2013 The Galette Team
+ * @copyright 2009-2014 The Galette Team
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GPL License 3.0 or (at your option) any later version
  * @link      http://galette.tuxfamily.org
  * @since     Available since 0.7dev - 2009-09-13
@@ -114,8 +115,10 @@ class PaypalHistory extends History
                 'request'       => serialize($request)
             );
 
-            $zdb->db->insert($this->getTableName(), $values);
-        } catch (\Zend_Db_Adapter_Exception $e) {
+            $insert = $zdb->insert($this->getTableName());
+            $insert->values($values);
+            $zdb->execute($insert);
+        } catch (AdapterException $e) {
             Analog::log(
                 'Unable to initialize add log entry into database.' .
                 $e->getMessage(),
@@ -136,11 +139,17 @@ class PaypalHistory extends History
     /**
      * Get table's name
      *
+     * @param boolean $prefixed Whether table name should be prefixed
+     *
      * @return string
      */
-    protected function getTableName()
+    protected function getTableName($prefixed = false)
     {
-        return PREFIX_DB . PAYPAL_PREFIX . self::TABLE;
+        if ( $prefixed === true ) {
+            return PREFIX_DB . PAYPAL_PREFIX . self::TABLE;
+        } else {
+            return PAYPAL_PREFIX . self::TABLE;
+        }
     }
 
     /**
