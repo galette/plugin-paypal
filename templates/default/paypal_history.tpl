@@ -1,3 +1,5 @@
+{extends file="page.tpl"}
+{block name="content"}
         <table class="listing">
             <thead>
                 <tr>
@@ -52,7 +54,7 @@
                 <tr class="{if $smarty.foreach.eachlog.iteration % 2 eq 0}even{else}odd{/if}">
                     <td class="center">{$smarty.foreach.eachlog.iteration}</td>
                     <td class="nowrap big_date_row">
-                        {if isset($log.duplicate)}<img class="img-dup" src="{$galette_base_path}{$paypal_tpl_dir}images/warning.png" alt="{_T string="duplicate"}"/>{/if}
+                        {if isset($log.duplicate)}<img class="img-dup" src="{path_for name="plugin_res" data=["plugin" => $module_id, "path" => "images/warning.png"]}" alt="{_T string="duplicate" domain="paypal"}"/>{/if}
                         {$log.history_date|date_format:"%a %d/%m/%Y - %R"}
                     </td>
                     <td>
@@ -71,7 +73,7 @@
                     <td class="nowrap info"></td>
                 </tr>
                 <tr class="request tbl_line_{if $smarty.foreach.eachlog.iteration % 2 eq 0}even{else}odd{/if}">
-                    <th colspan="2">{_T string="Request"}</th>
+                    <th colspan="2">{_T string="Request" domain="paypal"}</th>
                     <td colspan="4"><pre>{$log.raw_request}</pre></td>
                 </tr>
 {foreachelse}
@@ -79,16 +81,20 @@
 {/foreach}
             </tbody>
         </table>
-        <script type="text/javascript">
-            $('#nbshow').change(function() {ldelim}
-                this.form.submit();
-            {rdelim});
+{/block}
 
-            $(function() {ldelim}
-                var _elt = $('<img src="../../templates/default/images/info.png" class="reqhide" alt="" title="{_T string="Show/hide full request"}"/>');
+{block name="javascripts"}
+        <script type="text/javascript">
+            $('#nbshow').change(function() {
+                this.form.submit();
+            });
+
+            $(function() {
+                var _elt = $('<img src="{path_for name="plugin_res" data=["plugin" => $module_id, "path" => "images/info.png"]}" class="reqhide" alt="" title="{_T string="Show/hide full request" domain="paypal"}"/>');
                 $('.request').hide().prev('tr').find('td.info').prepend(_elt);
-                $('.reqhide').click(function() {ldelim}
+                $('.reqhide').click(function() {
                     $(this).parents('tr').next('.request').toggle();
-                {rdelim});
-            {rdelim});
+                });
+            });
         </script>
+{/block}

@@ -1,19 +1,21 @@
+{extends file="page.tpl"}
+{block name="content"}
 {if !$paypal->isLoaded()}
 <div id="errorbox">
     <h1>{_T string="- ERROR -"}</h1>
-    <p>{_T string="<strong>Payment coult not work</strong>: An error occured (that has been logged) while loading Paypal preferences from database.<br/>Please report the issue to the staff."}</p>
+    <p>{_T string="<strong>Payment coult not work</strong>: An error occured (that has been logged) while loading Paypal preferences from database.<br/>Please report the issue to the staff." domain="paypal"}</p>
     <p>{_T string="Our apologies for the annoyance :("}</p>
 </div>
 {elseif $paypal->getId() eq null}
     <div id="errorbox">
         <h1>{_T string="- ERROR -"}</h1>
-        <p>{_T string="Paypal id has not been defined. Please ask an administrator to add it from plugin preferences."}</p>
+        <p>{_T string="Paypal id has not been defined. Please ask an administrator to add it from plugin preferences." domain="paypal"}</p>
     </div>
 {else}
     {if !$paypal->areAmountsLoaded()}
 <div id="warningbox">
     <h1>{_T string="- WARNING -"}</h1>
-    <p>{_T string="Predefined amounts cannot be loaded, that is not a critical error."}</p>
+    <p>{_T string="Predefined amounts cannot be loaded, that is not a critical error." domain="paypal"}</p>
 </div>
     {/if}
     <section>
@@ -32,22 +34,22 @@
     <input type="hidden" name="no_shipping" value="1"/>
     {*<input type="hidden" name="bn" value="PP-BuyNowBF:btn_buynowCC_LG.gif:NonHostedGuest"/><!-- notfound :( -->*}
     <!-- Paypal dialogs -->
-    <input type="hidden" name="return" value="{$plugin_url}paypal_success.php"/>
+    <input type="hidden" name="return" value="{$current_url}{path_for name="paypal_success"}"/>
     <input type="hidden" name="rm" value="2"/>{*Send POST values back to Galette after payment. Will be sent to return url above*}
     <input type="hidden" name="charset" value="UTF-8"/>
-    <input type="hidden" name="image_url" value="{$galette_url}picture.php?logo=true"/>
-    <input type="hidden" name="cancel_return" value="{$plugin_url}paypal_form.php?cancelled=true"/>
-    <input type="hidden" name="notify_url" value="{$plugin_url}paypal_notify.php"/>
-    <input type="hidden" name="cbt" value="{_T string="Go back to %s's website to complete your inscription." pattern="/%s/" replace=$preferences->pref_nom}"/>
+    <input type="hidden" name="image_url" value="{$current_url}{path_for name="logo"}"/>
+    <input type="hidden" name="cancel_return" value="{$current_url}{path_for name="paypal_cancelled"}"/>
+    <input type="hidden" name="notify_url" value="{$current_url}{path_for name="paypal_notify"}"/>
+    <input type="hidden" name="cbt" value="{_T string="Go back to %s's website to complete your inscription." domain="paypal" pattern="/%s/" replace=$preferences->pref_nom}"/>
 
     <fieldset id="paypal_form">
         <legend class="ui-state-active ui-corner-top">
     {if $amounts|@count eq 0}
-            {_T string="Enter payment reason"}
+            {_T string="Enter payment reason" domain="paypal"}
     {elseif $amounts|@count eq 1}
-            {_T string="Payment reason"}
+            {_T string="Payment reason" domain="paypal"}
     {elseif $amounts|@count gt 1}
-            {_T string="Select an payment reason"}
+            {_T string="Select an payment reason" domain="paypal"}
     {/if}
         </legend>
 
@@ -65,18 +67,18 @@
             </label>
             {/foreach}
         {else}
-            <label for="item_name">{_T string="Payment reason:"}</label>
+            <label for="item_name">{_T string="Payment reason:" domain="paypal"}</label>
             <input type="text" name="item_name" id="item_name" value="{if $login->isLogged()}{_T string="annual fee"}{else}{_T string="donation in money"}{/if}"/>
         {/if}
         </div>
     {else}
-        <p>{_T string="No predefined amounts have been configured yet."}</p>
+        <p>{_T string="No predefined amounts have been configured yet." domain="paypal"}</p>
     {/if}
 
         <p>
     {if $paypal->areAmountsLoaded() and $amounts|@count gt 0}
             <noscript>
-                <br/><span class="required">{_T string="WARNING: If you enter an amount below, make sure that it is not lower than the amount of the option you've selected."}</span>
+                <br/><span class="required">{_T string="WARNING: If you enter an amount below, make sure that it is not lower than the amount of the option you've selected." domain="paypal"}</span>
             </noscript>
     {/if}
         </p>
@@ -91,6 +93,11 @@
     </div>
 </form>
         </section>
+{/if}
+{/block}
+
+{block name="javascripts"}
+{if $paypal->isLoaded() and $paypal->getId() neq null and $paypal->areAmountsLoaded()}
 <script type="text/javascript">
     $(function() {
         $('input[name="item_number"]').change(function(){
@@ -111,10 +118,10 @@
                 var _current_amount = parseFloat($('#amount').val());
                 var _amount = parseFloat($('#' + _checked[0].id + '_amount').text());
                 if ( isNaN(_current_amount) ) {
-                    alert("{_T string="Please enter an amount." escape="js"}");
+                    alert("{_T string="Please enter an amount." domain="paypal" escape="js"}");
                     return false;
                 } else if ( !isNaN(_amount) && _current_amount < _amount ) {
-                    alert("{_T string="The amount you've entered is lower than the minimum amount for the selected option.\\nPlease choose another option or change the amount." escape="js"}");
+                    alert("{_T string="The amount you've entered is lower than the minimum amount for the selected option.\\nPlease choose another option or change the amount." domain="paypal" escape="js"}");
                     return false;
                 }
             }
@@ -124,3 +131,4 @@
     });
 </script>
 {/if}
+{/block}

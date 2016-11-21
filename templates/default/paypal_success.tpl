@@ -1,10 +1,11 @@
-<h1 id="titre">{_T string="Paypal payment success"}</h1>
+{extends file="page.tpl"}
+{block name="content"}
 {if $post}
-<p>{_T string="Your paypal payment was successful. Some details are shown below:"}</p>
+<p>{_T string="Your paypal payment was successful. Some details are shown below:" domain="paypal"}</p>
 <table>
     <tr>
         <th>{_T string="Label"}</th>
-        <td>{$post.transaction_subject}</td>
+        <td>{$post.item_name}</td>
     </tr>
     <tr>
         <th>{_T string="Payment date"}</th>
@@ -24,5 +25,6 @@
     </tr>
 </table>
 {else}
-<p>{_T string="Your paypal payment was successful. You may receive a mail from paypal with details."}</p>
+<p>{_T string="Your paypal payment was successful. You may receive a mail from paypal with details." domain="paypal"}</p>
 {/if}
+{/block}

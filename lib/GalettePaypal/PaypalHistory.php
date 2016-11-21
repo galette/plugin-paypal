@@ -118,6 +118,11 @@ class PaypalHistory extends History
             $insert = $zdb->insert($this->getTableName());
             $insert->values($values);
             $zdb->execute($insert);
+
+            Analog::log(
+                'An entry has been added in paypal history',
+                Analog::INFO
+            );
         } catch (AdapterException $e) {
             Analog::log(
                 'Unable to initialize add log entry into database.' .
@@ -145,7 +150,7 @@ class PaypalHistory extends History
      */
     protected function getTableName($prefixed = false)
     {
-        if ( $prefixed === true ) {
+        if ($prefixed === true) {
             return PREFIX_DB . PAYPAL_PREFIX . self::TABLE;
         } else {
             return PAYPAL_PREFIX . self::TABLE;
@@ -172,12 +177,12 @@ class PaypalHistory extends History
         $orig = $this->getHistory();
         $new = array();
         $dedup = array();
-        if ( count($orig) > 0 ) {
-            foreach ( $orig as $o ) {
+        if (count($orig) > 0) {
+            foreach ($orig as $o) {
                 $oa = unserialize($o['request']);
                 $o['raw_request'] = print_r($oa, true);
                 $o['request'] = $oa;
-                if ( in_array($oa['verify_sign'], $dedup) ) {
+                if (in_array($oa['verify_sign'], $dedup)) {
                     $o['duplicate'] = true;
                 } else {
                     $dedup[] = $oa['verify_sign'];
@@ -188,4 +193,3 @@ class PaypalHistory extends History
         return $new;
     }
 }
-
