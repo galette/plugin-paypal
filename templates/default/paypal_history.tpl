@@ -59,7 +59,7 @@
                     </td>
                     <td>
     {if $log.request.custom}
-                        <a href="{$galette_base_path}voir_adherent.php?id_adh={$log.request.custom}">
+                        <a href="{path_for name="member" data=["id" => $log.request.custom]}">
     {/if}
                         {$log.request.last_name} {$log.request.first_name}
     {if isset($log.request.transaction_subject)}
