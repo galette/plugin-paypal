@@ -125,7 +125,7 @@ $this->post(
 )->setName('store_paypal_preferences')->add($authenticate);
 
 $this->get(
-    __('/form', 'routes'),
+    __('/form', 'paypal_routes'),
     function ($request, $response) use ($module, $module_id) {
         $paypal = new Paypal($this->zdb);
 
@@ -165,7 +165,7 @@ $this->get(
 )->setName('paypal_form');
 
 $this->get(
-    __('/cancel', 'routes'),
+    __('/cancel'),
     function ($request, $response) {
         $this->flash->addMessage(
             'warning_detected',
@@ -178,7 +178,7 @@ $this->get(
 )->setName('paypal_cancelled');
 
 $this->post(
-    __('/success', 'routes'),
+    __('/success'),
     function ($request, $response) use ($module) {
         $paypal_request = $request->getParsedBody();
         if (isset($paypal_request['charset'])) {
@@ -255,7 +255,7 @@ $this->post(
 )->setName('paypal_success');
 
 $this->post(
-    __('/notify', 'routes'),
+    __('/notify'),
     function ($request, $response) {
         $post = $request->getParsedBody();
 
@@ -435,7 +435,7 @@ $this->post(
 )->setName('paypal_notify');
 
 $this->get(
-    __('/history', 'routes'),
+    __('/history', 'paypal_routes'),
     function ($request, $response) use ($module, $module_id) {
         $paypal_history = new PaypalHistory();
 

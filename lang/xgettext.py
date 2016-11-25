@@ -57,7 +57,7 @@ def handleMatches(matches, repl_quotes=False):
             trans = '"%s"' % trans[1:-1]
 
         #define domain
-        if match[3] != '':
+        if match[3] != '' and match[3] != 'routes':
             cur_domain = match[3]
         else:
             continue
