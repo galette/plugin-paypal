@@ -222,7 +222,7 @@ class Paypal
             //store inactives
             $values = array(
                 'nom_pref' => 'paypal_inactives',
-                'val_pref' => implode($this->inactives, ',')
+                'val_pref' => implode(',', $this->inactives)
             );
             $update = $this->zdb->update(PAYPAL_PREFIX . self::PREFS_TABLE);
             $update->set($values)
@@ -231,6 +231,8 @@ class Paypal
                         'nom_pref' => 'paypal_inactives'
                     )
                 );
+
+            $edit = $zdb->execute($update);
 
             Analog::log(
                 '[' . get_class($this) .
