@@ -44,13 +44,6 @@ use Galette\Entity\Contribution;
 require_once $module['root'] . '/_config.inc.php';
 
 $this->get(
-    '/',
-    function () {
-        echo 'Coucou de Paypal !';
-    }
-)->setName('paypal');
-
-$this->get(
     __('/preferences', 'routes'),
     function ($request, $response, $args) use ($module, $module_id) {
         if ($this->session->paypal !== null) {
