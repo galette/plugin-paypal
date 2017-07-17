@@ -41,23 +41,20 @@
                     <th class="left actions_row"></th>
                 </tr>
             </thead>
-            <tfoot>
-                <tr>
-                    <td colspan="6" class="center">
-                        {_T string="Pages:"}<br/>
-                        <ul class="pages">{$pagination}</ul>
-                    </td>
-                </tr>
-            </tfoot>
             <tbody>
 {foreach from=$logs item=log name=eachlog}
                 <tr class="{if $smarty.foreach.eachlog.iteration % 2 eq 0}even{else}odd{/if}">
-                    <td class="center">{$smarty.foreach.eachlog.iteration}</td>
-                    <td class="nowrap big_date_row">
+                    <td class="center" data-scope="row">
+                        {$smarty.foreach.eachlog.iteration}
+                        <span class="row-title">
+                            {_T string="History entry %id" pattern="/%id/" replace=$smarty.foreach.eachlog.iteration}
+                        </span>
+                    </td>
+                    <td class="nowrap" data-title="{_T string="Data"}">
                         {if isset($log.duplicate)}<img class="img-dup" src="{path_for name="plugin_res" data=["plugin" => $module_id, "path" => "images/warning.png"]}" alt="{_T string="duplicate" domain="paypal"}"/>{/if}
                         {$log.history_date|date_format:"%a %d/%m/%Y - %R"}
                     </td>
-                    <td>
+                    <td data-title="{_T string="Name"}">
     {if is_array($log.request)}
         {if isset($log.request.custom)}
                         <a href="{path_for name="member" data=["id" => $log.request.custom]}">
@@ -70,12 +67,12 @@
         {_T string="No request or unable to read request" domain="paypal"}
     {/if}
                     </td>
-                    <td>
+                    <td data-title="{_T string="Subject"}">
     {if is_array($log.request)}
                         {$log.request.item_name}
     {/if}
                     </td>
-                    <td>
+                    <td data-title="{_T string="Amount"}">
     {if is_array($log.request)}
                         {$log.request.mc_gross}
     {/if}
@@ -91,6 +88,12 @@
 {/foreach}
             </tbody>
         </table>
+{if $logs|@count != 0}
+        <div class="center cright">
+            {_T string="Pages:"}<br/>
+            <ul class="pages">{$pagination}</ul>
+        </div>
+{/if}
 {/block}
 
 {block name="javascripts"}

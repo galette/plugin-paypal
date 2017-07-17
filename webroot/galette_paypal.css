@@ -15,11 +15,6 @@
     margin-right: 20%;
 }
 
-/* FIXME: should be in galette's css */
-.big_date_row {
-    width: 14em;
-}
-
 #ppaypal {
     background-image:url(images/paypal.png), url("../../../../themes/default/jquery-ui/images/ui-bg_glass_75_e6e6e6_1x400.png");
 }
