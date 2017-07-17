@@ -46,6 +46,7 @@ $this->register(
     [   //Permissions needed
         'paypal_preferences'        => 'staff',
         'store_paypal_preferences'  => 'staff',
-        'paypal_history'            => 'staff'
+        'paypal_history'            => 'staff',
+        'filter_paypal_history'     => 'staff'
     ]
 );

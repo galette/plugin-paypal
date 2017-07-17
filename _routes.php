@@ -6,6 +6,7 @@ use Analog\Analog;
 use GalettePaypal\Paypal;
 use GalettePaypal\PaypalHistory;
 use Galette\Entity\Contribution;
+use Galette\Filters\HistoryList;
 
 /**
  * Maps routes
@@ -260,7 +261,7 @@ $this->post(
                 }
             }
 
-            $ph = new PaypalHistory();
+            $ph = new PaypalHistory($this->zdbb, $this->login);
             $ph->add($post);
 
             $s = null;
@@ -428,9 +429,17 @@ $this->post(
 )->setName('paypal_notify');
 
 $this->get(
-    __('/history', 'paypal_routes'),
-    function ($request, $response) use ($module, $module_id) {
-        $paypal_history = new PaypalHistory();
+    __('/logs', 'routes') . '[/{option:' . __('page', 'routes') .'|' .
+        __('order', 'routes') .'|' . __('reset', 'routes') .'}/{value}]',
+    function ($request, $response, $args) use ($module, $module_id) {
+        $paypal_history = new PaypalHistory($this->zdb, $this->login);
+
+        $filters = [];
+        if (isset($this->session->filter_paypal_history)) {
+            $filters = $this->session->filter_paypal_history;
+        } else {
+            $filters = new HistoryList();
+        }
 
         $smarty = $this->view->getSmarty();
         $smarty->addTemplateDir(
@@ -439,28 +448,34 @@ $this->get(
         );
         $smarty->compile_id = PAYPAL_SMARTY_PREFIX;
 
-        if (isset($_GET['reset']) && $_GET['reset'] == 1) {
-            $paypal_history->clean();
-            //reinitialize object after flush
-            $paypal_history = new History();
+        $option = null;
+        if (isset($args['option'])) {
+            $option = $args['option'];
+        }
+        $value = null;
+        if (isset($args['value'])) {
+            $value = $args['value'];
         }
 
-        if (isset($_GET['page']) && is_numeric($_GET['page'])) {
-            $paypal_history->current_page = (int)$_GET['page'];
+        if ($option !== null) {
+            switch ($option) {
+                case __('page', 'routes'):
+                    $filters->current_page = (int)$value;
+                    break;
+                case __('order', 'routes'):
+                    $filters->orderby = $value;
+                    break;
+                case __('reset', 'routes'):
+                    $filters = new HistoryList();
+                    break;
+            }
         }
-
-        if (isset($_GET['nbshow']) && is_numeric($_GET['nbshow'])) {
-            $paypal_history->show = $_GET['nbshow'];
-        }
-
-        if (isset($_GET['tri'])) {
-            $paypal_history->tri = $_GET['tri'];
-        }
-
+        $this->session->filter_paypal_history = $filters;
 
         //assign pagination variables to the template and add pagination links
+        $paypal_history->setFilters($filters);
         $logs = $paypal_history->getPaypalHistory();
-        $paypal_history->setSmartyPagination($this->router, $this->view->getSmarty());
+        $filters->setSmartyPagination($this->router, $this->view->getSmarty());
 
         $params = [
             'page_title'        => _T("Paypal History"),
@@ -468,6 +483,8 @@ $this->get(
             'logs'              => $logs,
             'module_id'         => $module_id
         ];
+
+        $this->session->filter_paypal_history = $filters;
 
         // display page
         $this->view->render(
@@ -478,3 +495,27 @@ $this->get(
         return $response;
     }
 )->setName('paypal_history')->add($authenticate);
+
+//history filtering
+$this->post(
+    __('/history/filter', 'paypal_routes'),
+    function ($request, $response) {
+        $post = $request->getParsedBody();
+
+        //reset history
+        $filters = [];
+        if (isset($post['reset'])) {
+        } else {
+            //number of rows to show
+            if (isset($post['nbshow'])) {
+                $filters['show'] = $post['nbshow'];
+            }
+        }
+
+        $this->session->filter_paypal_history = $filters;
+
+        return $response
+            ->withStatus(301)
+            ->withHeader('Location', $this->router->pathFor('paypal_history'));
+    }
+)->setName('filter_paypal_history')->add($authenticate);
