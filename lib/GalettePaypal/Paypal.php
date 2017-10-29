@@ -232,7 +232,7 @@ class Paypal
                     )
                 );
 
-            $edit = $zdb->execute($update);
+            $edit = $this->zdb->execute($update);
 
             Analog::log(
                 '[' . get_class($this) .
