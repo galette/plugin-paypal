@@ -54,13 +54,6 @@ $this->get(
             $paypal = new Paypal($this->zdb);
         }
 
-        $smarty = $this->view->getSmarty();
-        $smarty->addTemplateDir(
-            $module['root'] . '/templates/' . $this->preferences->pref_theme,
-            $module['route']
-        );
-        $smarty->compile_id = PAYPAL_SMARTY_PREFIX;
-
         $amounts = $paypal->getAllAmounts();
         $params = [
             'page_title'    => _T('Paypal Settings', 'routes'),
@@ -123,13 +116,6 @@ $this->get(
     function ($request, $response) use ($module, $module_id) {
         $paypal = new Paypal($this->zdb);
 
-        $smarty = $this->view->getSmarty();
-        $smarty->addTemplateDir(
-            $module['root'] . '/templates/' . $this->preferences->pref_theme,
-            $module['route']
-        );
-        $smarty->compile_id = PAYPAL_SMARTY_PREFIX;
-
         $current_url = $this->preferences->getURL();
 
         $params = [
@@ -180,13 +166,6 @@ $this->post(
             'page_title'    => _T('Paypal payment success', 'paypal'),
             'post'          => $paypal_request,
         ];
-
-        $smarty = $this->view->getSmarty();
-        $smarty->addTemplateDir(
-            $module['root'] . '/templates/' . $this->preferences->pref_theme,
-            $module['route']
-        );
-        $smarty->compile_id = PAYPAL_SMARTY_PREFIX;
 
         $this->flash->addMessage(
             'success_detected',
@@ -435,13 +414,6 @@ $this->get(
         } else {
             $filters = new HistoryList();
         }
-
-        $smarty = $this->view->getSmarty();
-        $smarty->addTemplateDir(
-            $module['root'] . '/templates/' . $this->preferences->pref_theme,
-            $module['route']
-        );
-        $smarty->compile_id = PAYPAL_SMARTY_PREFIX;
 
         $option = null;
         if (isset($args['option'])) {
