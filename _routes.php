@@ -130,12 +130,7 @@ $this->get(
         );
         $smarty->compile_id = PAYPAL_SMARTY_PREFIX;
 
-        $psr_request = $request->getUri();
-        $current_url = $psr_request
-            ->withPath($this->router->pathFor('slash'))
-            ->withQuery('')
-            ->withUserInfo(null, null)
-            ->__toString();
+        $current_url = $this->preferences->getURL();
 
         $params = [
             'paypal'        => $paypal,
