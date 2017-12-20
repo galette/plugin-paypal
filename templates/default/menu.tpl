@@ -1,8 +1,8 @@
-        <h1 class="nojs">{_T string="Paypal"}</h1>
+        <h1 class="nojs">{_T string="Paypal" domain="paypal"}</h1>
         <ul>
-            <li{if $PAGENAME eq "paypal_form.php" or $PAGENAME eq "paypal_success.php"} class="selected"{/if}><a href="{$galette_base_path}{$galette_galette_paypal_path}paypal_form.php">{_T string="Payment form"}</a></li>
+            <li{if $cur_route eq "paypal_form" or $cur_route eq "paypal_success"} class="selected"{/if}><a href="{path_for name="paypal_form"}">{_T string="Payment form" domain="paypal"}</a></li>
 {if $login->isAdmin() or $login->isStaff()}
-            <li{if $PAGENAME eq "paypal_history.php"} class="selected"{/if}><a href="{$galette_base_path}{$galette_galette_paypal_path}paypal_history.php">{_T string="Paypal History"}</a></li>
-            <li{if $PAGENAME eq "paypal_preferences.php"} class="selected"{/if}><a href="{$galette_base_path}{$galette_galette_paypal_path}paypal_preferences.php">{_T string="Paypal Preferences"}</a></li>
+            <li{if $cur_route eq "paypal_history"} class="selected"{/if}><a href="{path_for name="paypal_history"}">{_T string="Paypal History" domain="paypal"}</a></li>
+            <li{if $cur_route eq "paypal_preferences"} class="selected"{/if}><a href="{path_for name="paypal_preferences"}">{_T string="Preferences"}</a></li>
 {/if}
         </ul>

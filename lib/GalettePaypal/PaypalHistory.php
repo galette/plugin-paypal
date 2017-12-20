@@ -38,7 +38,11 @@
 namespace GalettePaypal;
 
 use Analog\Analog;
-use Galette\Core\History as History;
+
+use Galette\Core\Db;
+use Galette\Core\Login;
+use Galette\Core\History;
+use Galette\Filters\HistoryList;
 use Zend\Db\Adapter\Exception as AdapterException;
 
 /**
@@ -77,20 +81,15 @@ class PaypalHistory extends History
 
     /**
      * Default constructor.
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
-    /**
-     * Returns the field we want to default set order to
      *
-     * @return string field name
+     * @param Db          $zdb     Database
+     * @param Login       $login   Login
+     * @param HistoryList $filters Filtering
      */
-    protected function getDefaultOrder()
+    public function __construct(Db $zdb, Login $login, $filters = null)
     {
-        return 'history_date';
+        $this->with_lists = false;
+        parent::__construct($zdb, $login, $filters);
     }
 
     /**
@@ -104,8 +103,6 @@ class PaypalHistory extends History
      */
     public function add($action, $argument = '', $query = '')
     {
-        global $zdb, $login;
-
         $request = $action;
         try {
             $values = array(
@@ -115,9 +112,14 @@ class PaypalHistory extends History
                 'request'       => serialize($request)
             );
 
-            $insert = $zdb->insert($this->getTableName());
+            $insert = $this->zdb->insert($this->getTableName());
             $insert->values($values);
-            $zdb->execute($insert);
+            $this->zdb->execute($insert);
+
+            Analog::log(
+                'An entry has been added in paypal history',
+                Analog::INFO
+            );
         } catch (AdapterException $e) {
             Analog::log(
                 'Unable to initialize add log entry into database.' .
@@ -145,7 +147,7 @@ class PaypalHistory extends History
      */
     protected function getTableName($prefixed = false)
     {
-        if ( $prefixed === true ) {
+        if ($prefixed === true) {
             return PREFIX_DB . PAYPAL_PREFIX . self::TABLE;
         } else {
             return PAYPAL_PREFIX . self::TABLE;
@@ -172,20 +174,45 @@ class PaypalHistory extends History
         $orig = $this->getHistory();
         $new = array();
         $dedup = array();
-        if ( count($orig) > 0 ) {
-            foreach ( $orig as $o ) {
-                $oa = unserialize($o['request']);
-                $o['raw_request'] = print_r($oa, true);
-                $o['request'] = $oa;
-                if ( in_array($oa['verify_sign'], $dedup) ) {
-                    $o['duplicate'] = true;
-                } else {
-                    $dedup[] = $oa['verify_sign'];
+        if (count($orig) > 0) {
+            foreach ($orig as $o) {
+                try {
+                    $oa = unserialize($o['request']);
+                    $o['raw_request'] = print_r($oa, true);
+                    $o['request'] = $oa;
+                    if (in_array($oa['verify_sign'], $dedup)) {
+                        $o['duplicate'] = true;
+                    } else {
+                        $dedup[] = $oa['verify_sign'];
+                    }
+                } catch (\Exception $e) {
+                    Analog::log(
+                        'Error loading Paypal history entry #' . $o[$this->getPk()] .
+                        ' ' . $e->getMessage(),
+                        Analog::WARNING
+                    );
                 }
                 $new[] = $o;
             }
         }
         return $new;
     }
-}
 
+    /**
+     * Builds the order clause
+     *
+     * @return string SQL ORDER clause
+     */
+    protected function buildOrderClause()
+    {
+        $order = array();
+
+        switch ($this->filters->orderby) {
+            case HistoryList::ORDERBY_DATE:
+                $order[] = 'history_date ' . $this->filters->ordered;
+                break;
+        }
+
+        return $order;
+    }
+}

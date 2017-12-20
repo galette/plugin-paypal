@@ -1,0 +1,8 @@
+#: ../_routes.php:128
+msgid "/form"
+msgstr ""
+
+#: ../_routes.php:438
+msgid "/history"
+msgstr ""
+
