@@ -235,7 +235,7 @@ $this->post(
                 }
             }
 
-            $ph = new PaypalHistory($this->zdbb, $this->login);
+            $ph = new PaypalHistory($this->zdb, $this->login);
             $ph->add($post);
 
             $s = null;
