@@ -1,25 +1,33 @@
-#: ../_routes.php:149
+#: ../_routes.php:125
 msgid "Paypal payment"
 msgstr ""
 
-#: ../templates/default/paypal_preferences.tpl:12
-msgid "Paypal preferences"
+#: ../templates/default/paypal_form.tpl:81
+msgid "WARNING: If you enter an amount below, make sure that it is not lower than the amount of the option you've selected."
 msgstr ""
 
-#: ../_routes.php:116
+#: ../templates/default/paypal_form.tpl:70
+msgid "Payment reason:"
+msgstr ""
+
+#: ../_routes.php:104
 msgid "An error occured saving paypal preferences :("
 msgstr ""
 
-#: ../templates/default/paypal_history.tpl:57
-msgid "duplicate"
+#: ../templates/default/paypal_history.tpl:67
+msgid "No request or unable to read request"
 msgstr ""
 
-#: ../templates/default/paypal_history.tpl:76
+#: ../templates/default/paypal_history.tpl:83
 msgid "Request"
 msgstr ""
 
 #: ../templates/default/paypal_form.tpl:43
 msgid "Go back to %s's website to complete your inscription."
+msgstr ""
+
+#: ../_routes.php:173
+msgid "Your payment has been proceeded!"
 msgstr ""
 
 #: ../templates/default/paypal_form.tpl:124
@@ -30,15 +38,19 @@ msgstr ""
 msgid "Enter here one of your Paypal ID or email adress associated within your paypal account."
 msgstr ""
 
-#: ../templates/default/paypal_history.tpl:93
+#: ../templates/default/paypal_history.tpl:106
 msgid "Show/hide full request"
 msgstr ""
 
-#: ../_routes.php:110
+#: ../_routes.php:98
 msgid "Paypal preferences has been saved."
 msgstr ""
 
-#: ../templates/default/menu.tpl:3 ../templates/default/public_menu.tpl:2
+#: ../templates/default/paypal_history.tpl:54
+msgid "duplicate"
+msgstr ""
+
+#: ../templates/default/public_menu.tpl:4 ../templates/default/menu.tpl:3
 msgid "Payment form"
 msgstr ""
 
@@ -50,11 +62,11 @@ msgstr ""
 msgid "Payment reason"
 msgstr ""
 
-#: ../_routes.php:191
+#: ../_routes.php:167
 msgid "Paypal payment success"
 msgstr ""
 
-#: ../_routes.php:172
+#: ../_routes.php:148
 msgid "Your payment has been aborted!"
 msgstr ""
 
@@ -78,10 +90,6 @@ msgstr ""
 msgid "Paypal id has not been defined. Please ask an administrator to add it from plugin preferences."
 msgstr ""
 
-#: ../_routes.php:204
-msgid "Your payment has been proceeded!"
-msgstr ""
-
 #: ../templates/default/paypal_form.tpl:18
 msgid "Predefined amounts cannot be loaded, that is not a critical error."
 msgstr ""
@@ -98,12 +106,8 @@ msgstr ""
 msgid "Paypal History"
 msgstr ""
 
-#: ../templates/default/paypal_form.tpl:70
-msgid "Payment reason:"
-msgstr ""
-
-#: ../templates/default/paypal_preferences.tpl:48
-msgid "Error: no predefined amounts found."
+#: ../templates/default/paypal_preferences.tpl:12
+msgid "Paypal preferences"
 msgstr ""
 
 #: ../templates/default/paypal_form.tpl:6
@@ -114,7 +118,7 @@ msgstr ""
 msgid "No predefined amounts have been configured yet."
 msgstr ""
 
-#: ../templates/default/paypal_form.tpl:81
-msgid "WARNING: If you enter an amount below, make sure that it is not lower than the amount of the option you've selected."
+#: ../templates/default/paypal_preferences.tpl:48
+msgid "Error: no predefined amounts found."
 msgstr ""
 
