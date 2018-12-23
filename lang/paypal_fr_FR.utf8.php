@@ -1,5 +1,5 @@
 <?php
-// This file was automatically generated on Fri Nov 25 06:00:17 2016 (GMT)
+// This file was automatically generated on Sat Dec 22 20:46:35 2018 (GMT)
 // Don't modify it by hand, rather use the target lang from the Makefile.
 
 
@@ -15,25 +15,25 @@ $lang['paypal']['<strong>Payment coult not work</strong>: An error occured (that
 // ../templates/default/paypal_form.tpl:12 
 $lang['paypal']['Paypal id has not been defined. Please ask an administrator to add it from plugin preferences.'] = 'L\'identifiant Paypal n\'a pas été renseigné. Veuillez demander à un administrateur de l\'ajouter dans les préférences du plugin.';
 
-// ../templates/default/paypal_history.tpl:93 
+// ../templates/default/paypal_history.tpl:106 
 $lang['paypal']['Show/hide full request'] = 'Afficher/Masquer la requête complète';
 
-// ../templates/default/menu.tpl:3 ../templates/default/public_menu.tpl:2 
+// ../templates/default/public_menu.tpl:4 ../templates/default/menu.tpl:3 
 $lang['paypal']['Payment form'] = 'Formulaire de paiement';
 
-// ../_routes.php:191 
+// ../_routes.php:167 
 $lang['paypal']['Paypal payment success'] = 'Paiement Paypal effectué';
 
 // ../templates/default/paypal_form.tpl:50 
 $lang['paypal']['Payment reason'] = 'Motif de paiement';
 
-// ../_routes.php:172 
+// ../_routes.php:148 
 $lang['paypal']['Your payment has been aborted!'] = 'Votre paiement a été annulé !';
 
-// ../_routes.php:110 
+// ../_routes.php:98 
 $lang['paypal']['Paypal preferences has been saved.'] = 'Les préférences Paypal ont été sauvegardées.';
 
-// ../_routes.php:204 
+// ../_routes.php:173 
 $lang['paypal']['Your payment has been proceeded!'] = 'Votre paiement a été effectué !';
 
 // ../templates/default/menu.tpl:1 
@@ -42,10 +42,10 @@ $lang['paypal']['Paypal'] = 'Paypal';
 // ../templates/default/paypal_success.tpl:28 
 $lang['paypal']['Your paypal payment was successful. You may receive a mail from paypal with details.'] = 'Votre paiement paypal a été effectué avec succès. Vous devriez recevoir un courriel de paypal en contenant les détails.';
 
-// ../templates/default/paypal_history.tpl:57 
+// ../templates/default/paypal_history.tpl:54 
 $lang['paypal']['duplicate'] = 'duplicat';
 
-// ../_routes.php:149 
+// ../_routes.php:125 
 $lang['paypal']['Paypal payment'] = 'Paiement Paypal';
 
 // ../templates/default/paypal_preferences.tpl:15 
@@ -60,10 +60,10 @@ $lang['paypal']['The amount you\'ve entered is lower than the minimum amount for
 // ../templates/default/paypal_form.tpl:70 
 $lang['paypal']['Payment reason:'] = 'Motif de paiement&nbsp;:';
 
-// ../templates/default/paypal_history.tpl:76 
+// ../templates/default/paypal_history.tpl:83 
 $lang['paypal']['Request'] = 'Requête';
 
-// ../_routes.php:116 
+// ../_routes.php:104 
 $lang['paypal']['An error occured saving paypal preferences :('] = 'Une erreur est survenue lors de l\'enregistrement des préférences paypal :(';
 
 // ../templates/default/paypal_form.tpl:18 
@@ -78,8 +78,11 @@ $lang['paypal']['Please enter an amount.'] = 'Veuillez entrer un montant.';
 // ../templates/default/paypal_form.tpl:52 
 $lang['paypal']['Select an payment reason'] = 'Sélectionnez un motif de paiement';
 
-// ../templates/default/paypal_form.tpl:43 
-$lang['paypal']['Go back to %s\'s website to complete your inscription.'] = 'Retour au site de %s pour compléter votre inscription.';
+// ../templates/default/paypal_preferences.tpl:12 
+$lang['paypal']['Paypal preferences'] = 'Préférences Paypal';
+
+// ../templates/default/paypal_history.tpl:67 
+$lang['paypal']['No request or unable to read request'] = 'Pas de requête ou impossible de lire la requête';
 
 // ../templates/default/paypal_form.tpl:48 
 $lang['paypal']['Enter payment reason'] = 'Entrez un motif de paiement';
@@ -90,6 +93,6 @@ $lang['paypal']['Your paypal payment was successful. Some details are shown belo
 // ../templates/default/paypal_preferences.tpl:16 
 $lang['paypal']['Enter here one of your Paypal ID or email adress associated within your paypal account.'] = 'Entrez ici votre identifiant Paypal ou une adresse email associée à votre compte paypal.';
 
-// ../templates/default/paypal_preferences.tpl:12 
-$lang['paypal']['Paypal preferences'] = 'Préférences Paypal';
+// ../templates/default/paypal_form.tpl:43 
+$lang['paypal']['Go back to %s\'s website to complete your inscription.'] = 'Retour au site de %s pour compléter votre inscription.';
 

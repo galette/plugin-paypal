@@ -1,5 +1,5 @@
 <?php
-// This file was automatically generated on Fri Nov 25 06:00:17 2016 (GMT)
+// This file was automatically generated on Sat Dec 22 20:46:35 2018 (GMT)
 // Don't modify it by hand, rather use the target lang from the Makefile.
 
 
@@ -15,25 +15,25 @@ $lang['paypal']['<strong>Payment coult not work</strong>: An error occured (that
 // ../templates/default/paypal_form.tpl:12 
 $lang['paypal']['Paypal id has not been defined. Please ask an administrator to add it from plugin preferences.'] = 'Paypal id has not been defined. Please ask an administrator to add it from plugin preferences.';
 
-// ../templates/default/paypal_history.tpl:93 
+// ../templates/default/paypal_history.tpl:106 
 $lang['paypal']['Show/hide full request'] = 'Show/hide full request';
 
-// ../templates/default/menu.tpl:3 ../templates/default/public_menu.tpl:2 
+// ../templates/default/public_menu.tpl:4 ../templates/default/menu.tpl:3 
 $lang['paypal']['Payment form'] = 'Payment form';
 
-// ../_routes.php:191 
+// ../_routes.php:167 
 $lang['paypal']['Paypal payment success'] = 'Paypal payment success';
 
 // ../templates/default/paypal_form.tpl:50 
 $lang['paypal']['Payment reason'] = 'Payment reason';
 
-// ../_routes.php:172 
+// ../_routes.php:148 
 $lang['paypal']['Your payment has been aborted!'] = 'Your payment has been aborted!';
 
-// ../_routes.php:110 
+// ../_routes.php:98 
 $lang['paypal']['Paypal preferences has been saved.'] = 'Paypal preferences has been saved.';
 
-// ../_routes.php:204 
+// ../_routes.php:173 
 $lang['paypal']['Your payment has been proceeded!'] = 'Your payment has been proceeded!';
 
 // ../templates/default/menu.tpl:1 
@@ -42,10 +42,10 @@ $lang['paypal']['Paypal'] = 'Paypal';
 // ../templates/default/paypal_success.tpl:28 
 $lang['paypal']['Your paypal payment was successful. You may receive a mail from paypal with details.'] = 'Your paypal payment was successful. You may receive a mail from paypal with details.';
 
-// ../templates/default/paypal_history.tpl:57 
+// ../templates/default/paypal_history.tpl:54 
 $lang['paypal']['duplicate'] = 'duplicate';
 
-// ../_routes.php:149 
+// ../_routes.php:125 
 $lang['paypal']['Paypal payment'] = 'Paypal payment';
 
 // ../templates/default/paypal_preferences.tpl:15 
@@ -60,10 +60,10 @@ $lang['paypal']['The amount you\'ve entered is lower than the minimum amount for
 // ../templates/default/paypal_form.tpl:70 
 $lang['paypal']['Payment reason:'] = 'Payment reason:';
 
-// ../templates/default/paypal_history.tpl:76 
+// ../templates/default/paypal_history.tpl:83 
 $lang['paypal']['Request'] = 'Request';
 
-// ../_routes.php:116 
+// ../_routes.php:104 
 $lang['paypal']['An error occured saving paypal preferences :('] = 'An error occured saving paypal preferences :(';
 
 // ../templates/default/paypal_form.tpl:18 
@@ -78,8 +78,11 @@ $lang['paypal']['Please enter an amount.'] = 'Please enter an amount.';
 // ../templates/default/paypal_form.tpl:52 
 $lang['paypal']['Select an payment reason'] = 'Select an payment reason';
 
-// ../templates/default/paypal_form.tpl:43 
-$lang['paypal']['Go back to %s\'s website to complete your inscription.'] = 'Go back to %s\'s website to complete your inscription.';
+// ../templates/default/paypal_preferences.tpl:12 
+$lang['paypal']['Paypal preferences'] = 'Paypal preferences';
+
+// ../templates/default/paypal_history.tpl:67 
+$lang['paypal']['No request or unable to read request'] = 'No request or unable to read request';
 
 // ../templates/default/paypal_form.tpl:48 
 $lang['paypal']['Enter payment reason'] = 'Enter payment reason';
@@ -90,6 +93,6 @@ $lang['paypal']['Your paypal payment was successful. Some details are shown belo
 // ../templates/default/paypal_preferences.tpl:16 
 $lang['paypal']['Enter here one of your Paypal ID or email adress associated within your paypal account.'] = 'Enter here one of your Paypal ID or email adress associated within your paypal account.';
 
-// ../templates/default/paypal_preferences.tpl:12 
-$lang['paypal']['Paypal preferences'] = 'Paypal preferences';
+// ../templates/default/paypal_form.tpl:43 
+$lang['paypal']['Go back to %s\'s website to complete your inscription.'] = 'Go back to %s\'s website to complete your inscription.';
 

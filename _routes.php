@@ -7,6 +7,7 @@ use GalettePaypal\Paypal;
 use GalettePaypal\PaypalHistory;
 use Galette\Entity\Contribution;
 use Galette\Filters\HistoryList;
+use Galette\Entity\PaymentType;
 
 /**
  * Maps routes
@@ -274,7 +275,7 @@ $this->post(
                 $args = array(
                     'type'          => $post['item_number'],
                     'adh'           => $post['custom'],
-                    'payment_type'  => Contribution::PAYMENT_PAYPAL
+                    'payment_type'  => PaymentType::PAYPAL
                 );
                 if ($this->preferences->pref_membership_ext != '') {
                     $args['ext'] = $this->preferences->pref_membership_ext;
