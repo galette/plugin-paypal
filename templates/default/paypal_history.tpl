@@ -18,7 +18,7 @@
                 <tr>
                     <th class="small_head">#</th>
                     <th class="left">
-                        <a href="{path_for name="paypal_history" data=["option" => {_T string='order' domain="routes"}, "value" => "Galette\Filters\HistoryList::ORDERBY_DATE"|constant]}">
+                        <a href="{path_for name="paypal_history" data=["option" => "order", "value" => "Galette\Filters\HistoryList::ORDERBY_DATE"|constant]}">
                             {_T string="Date"}
                             {if $paypal_history->filters->orderby eq constant('Galette\Filters\HistoryList::ORDERBY_DATE')}
                                 {if $paypal_history->filters->getDirection() eq constant('Galette\Filters\HistoryList::ORDER_ASC')}
