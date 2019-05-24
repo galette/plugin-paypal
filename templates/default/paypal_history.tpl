@@ -103,7 +103,7 @@
             });
 
             $(function() {
-                var _elt = $('<img src="{path_for name="plugin_res" data=["plugin" => $module_id, "path" => "{$template_subdir}images/info.png"]}" class="reqhide" alt="" title="{_T string="Show/hide full request" domain="paypal"}"/>');
+                var _elt = $('<img src="{base_url}/{$template_subdir}images/info.png" class="reqhide" alt="" title="{_T string="Show/hide full request" domain="paypal"}"/>');
                 $('.request').hide().prev('tr').find('td.info').prepend(_elt);
                 $('.reqhide').click(function() {
                     $(this).parents('tr').next('.request').toggle();
