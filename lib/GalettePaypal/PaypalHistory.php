@@ -43,7 +43,7 @@ use Galette\Core\Db;
 use Galette\Core\Login;
 use Galette\Core\History;
 use Galette\Filters\HistoryList;
-use Zend\Db\Adapter\Exception as AdapterException;
+use Laminas\Db\Adapter\Exception as AdapterException;
 
 /**
  * This class stores and serve the logo.
