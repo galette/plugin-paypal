@@ -7,7 +7,7 @@
 A [Galette](https://galette.eu) plugin to handle paypal payments.
 
 * website: https://galette.eu - https://doc.galette.eu/en/master/plugins/paypal.html
-* bugs and features: http://bugs.galette.eu/projects/paypal
+* bugs and features: http://bugs.galette.eu/projects/galette-plugin-paypa
 * mailing lists:
   * users: https://listengine.tuxfamily.org/lists.galette.eu/users/
   * developpers: https://listengine.tuxfamily.org/lists.galette.eu/devel/
