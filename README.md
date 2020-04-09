@@ -23,7 +23,7 @@ To use Galette Paypal plugin, you'll need a reliable Galette version, and of cou
 Un plugin [Galette](https://galette.eu) pour gérer paiments de cotisation et de dons via Paypal.
 
 * site web : https://galette.eu - https://doc.galette.eu/fr/master/plugins/paypal.html
-* bogues et fonctionnalités : http://bugs.galette.eu/projects/paypal
+* bogues et fonctionnalités : http://bugs.galette.eu/projects/galette-plugin-paypa
 * liste de diffusion :
   * utilisateurs : https://listengine.tuxfamily.org/lists.galette.eu/users/
   * développeurs : https://listengine.tuxfamily.org/lists.galette.eu/devel/
