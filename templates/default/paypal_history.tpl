@@ -18,7 +18,7 @@
                 <tr>
                     <th class="small_head">#</th>
                     <th class="left">
-                        <a href="{path_for name="paypal_history" data=["option" => {_T string='order' domain="routes"}, "value" => "Galette\Filters\HistoryList::ORDERBY_DATE"|constant]}">
+                        <a href="{path_for name="paypal_history" data=["option" => "order", "value" => "Galette\Filters\HistoryList::ORDERBY_DATE"|constant]}">
                             {_T string="Date"}
                             {if $paypal_history->filters->orderby eq constant('Galette\Filters\HistoryList::ORDERBY_DATE')}
                                 {if $paypal_history->filters->getDirection() eq constant('Galette\Filters\HistoryList::ORDER_ASC')}
@@ -103,7 +103,7 @@
             });
 
             $(function() {
-                var _elt = $('<img src="{path_for name="plugin_res" data=["plugin" => $module_id, "path" => "{$template_subdir}images/info.png"]}" class="reqhide" alt="" title="{_T string="Show/hide full request" domain="paypal"}"/>');
+                var _elt = $('<img src="{base_url}/{$template_subdir}images/info.png" class="reqhide" alt="" title="{_T string="Show/hide full request" domain="paypal"}"/>');
                 $('.request').hide().prev('tr').find('td.info').prepend(_elt);
                 $('.reqhide').click(function() {
                     $(this).parents('tr').next('.request').toggle();

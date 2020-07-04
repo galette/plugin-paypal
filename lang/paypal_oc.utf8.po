@@ -1,3 +1,21 @@
+# Weblate <noreply@weblate.org>, 2020.
+# Quentin PAGÈS <quentinantonin@free.fr>, 2020.
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: translations@galette.eu\n"
+"POT-Creation-Date: 2020-06-29 16:04+0200\n"
+"PO-Revision-Date: 2020-06-30 21:03+0000\n"
+"Last-Translator: Quentin PAGÈS <quentinantonin@free.fr>\n"
+"Language-Team: Occitan <https://hosted.weblate.org/projects/galette/"
+"paypal-plugin/oc/>\n"
+"Language: oc\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 4.2-dev\n"
+
 #: ../_routes.php:60
 msgid "Paypal Settings"
 msgstr ""
@@ -44,7 +62,7 @@ msgstr ""
 
 #: ../templates/default/menu.tpl:1
 msgid "Paypal"
-msgstr ""
+msgstr "Paypal"
 
 #: ../templates/default/menu.tpl:3 ../templates/default/public_menu.tpl:4
 msgid "Payment form"
@@ -125,4 +143,3 @@ msgstr ""
 #: ../templates/default/paypal_form.tpl:124
 msgid "The amount you've entered is lower than the minimum amount for the selected option.\\nPlease choose another option or change the amount."
 msgstr ""
-

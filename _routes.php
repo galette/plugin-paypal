@@ -46,7 +46,7 @@ use Galette\Entity\PaymentType;
 require_once $module['root'] . '/_config.inc.php';
 
 $this->get(
-    __('/preferences', 'routes'),
+    '/preferences',
     function ($request, $response, $args) use ($module, $module_id) {
         if ($this->session->paypal !== null) {
             $paypal = $this->session->paypal;
@@ -57,7 +57,7 @@ $this->get(
 
         $amounts = $paypal->getAllAmounts();
         $params = [
-            'page_title'    => _T('Paypal Settings', 'routes'),
+            'page_title'    => _T('Paypal Settings', 'paypal'),
             'paypal'        => $paypal,
             'amounts'       => $amounts
         ];
@@ -73,7 +73,7 @@ $this->get(
 )->setName('paypal_preferences')->add($authenticate);
 
 $this->post(
-    __('/preferences', 'routes'),
+    '/preferences',
     function ($request, $response, $args) use ($module, $module_id) {
         $post = $request->getParsedBody();
         $paypal = new Paypal($this->zdb);
@@ -113,7 +113,7 @@ $this->post(
 )->setName('store_paypal_preferences')->add($authenticate);
 
 $this->get(
-    __('/form', 'paypal_routes'),
+    '/form',
     function ($request, $response) use ($module, $module_id) {
         $paypal = new Paypal($this->zdb);
 
@@ -141,7 +141,7 @@ $this->get(
 )->setName('paypal_form');
 
 $this->get(
-    __('/cancel', 'paypal_routes'),
+    '/cancel',
     function ($request, $response) {
         $this->flash->addMessage(
             'warning_detected',
@@ -154,7 +154,7 @@ $this->get(
 )->setName('paypal_cancelled');
 
 $this->post(
-    __('/success', 'paypal_routes'),
+    '/success',
     function ($request, $response) use ($module) {
         $paypal_request = $request->getParsedBody();
         if (isset($paypal_request['charset'])) {
@@ -224,7 +224,7 @@ $this->post(
 )->setName('paypal_success');
 
 $this->post(
-    __('/notify', 'paypal_routes'),
+    '/notify',
     function ($request, $response) {
         $post = $request->getParsedBody();
 
@@ -404,8 +404,7 @@ $this->post(
 )->setName('paypal_notify');
 
 $this->get(
-    __('/logs', 'routes') . '[/{option:' . __('page', 'routes') .'|' .
-        __('order', 'routes') .'|' . __('reset', 'routes') .'}/{value}]',
+    '/logs[/{option:|order|reset}/{value}]',
     function ($request, $response, $args) use ($module, $module_id) {
         $paypal_history = new PaypalHistory($this->zdb, $this->login);
 
@@ -427,13 +426,13 @@ $this->get(
 
         if ($option !== null) {
             switch ($option) {
-                case __('page', 'routes'):
+                case 'page':
                     $filters->current_page = (int)$value;
                     break;
-                case __('order', 'routes'):
+                case 'order':
                     $filters->orderby = $value;
                     break;
-                case __('reset', 'routes'):
+                case 'reset':
                     $filters = new HistoryList();
                     break;
             }
@@ -466,7 +465,7 @@ $this->get(
 
 //history filtering
 $this->post(
-    __('/history/filter', 'paypal_routes'),
+    '/history/filter',
     function ($request, $response) {
         $post = $request->getParsedBody();
 
