@@ -1,11 +1,12 @@
 # peter9811 <petercuevas.6@gmail.com>, 2020.
+# Andrea Capuselli <andrea@proz.com>, 2020.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: translations@galette.eu\n"
 "POT-Creation-Date: 2020-06-19 05:47+0200\n"
-"PO-Revision-Date: 2020-08-30 19:36+0000\n"
-"Last-Translator: peter9811 <petercuevas.6@gmail.com>\n"
+"PO-Revision-Date: 2020-09-15 14:36+0000\n"
+"Last-Translator: Andrea Capuselli <andrea@proz.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/galette/"
 "paypal-plugin/es/>\n"
 "Language: es\n"
@@ -13,7 +14,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.2.1-dev\n"
+"X-Generator: Weblate 4.3-dev\n"
 
 #: ../_routes.php:60
 msgid "Paypal Settings"
@@ -41,15 +42,15 @@ msgstr "Éxito del pago de Paypal"
 
 #: ../_routes.php:173
 msgid "Your payment has been proceeded!"
-msgstr ""
+msgstr "¡Tu pago ha sido procesado!"
 
 #: ../templates/default/paypal_preferences.tpl:12
 msgid "Paypal preferences"
-msgstr ""
+msgstr "Preferencias de Paypal"
 
 #: ../templates/default/paypal_preferences.tpl:15
 msgid "Paypal identifier:"
-msgstr ""
+msgstr "Identificador de Paypal:"
 
 #: ../templates/default/paypal_preferences.tpl:16
 msgid ""
