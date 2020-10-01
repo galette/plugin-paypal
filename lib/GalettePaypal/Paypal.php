@@ -60,12 +60,12 @@ use Galette\Entity\ContributionsTypes;
 
 class Paypal
 {
-    const TABLE = 'types_cotisation_prices';
-    const PK = ContributionsTypes::PK;
-    const PREFS_TABLE = 'preferences';
+    public const TABLE = 'types_cotisation_prices';
+    public const PK = ContributionsTypes::PK;
+    public const PREFS_TABLE = 'preferences';
 
-    const PAYMENT_PENDING = 'Pending';
-    const PAYMENT_COMPLETE = 'Complete';
+    public const PAYMENT_PENDING = 'Pending';
+    public const PAYMENT_COMPLETE = 'Complete';
 
     private $zdb;
 

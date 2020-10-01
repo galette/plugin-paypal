@@ -60,8 +60,8 @@ use Laminas\Db\Adapter\Exception as AdapterException;
  */
 class PaypalHistory extends History
 {
-    const TABLE = 'history';
-    const PK = 'id_paypal';
+    public const TABLE = 'history';
+    public const PK = 'id_paypal';
 
     protected $_types = array(
         'text',
