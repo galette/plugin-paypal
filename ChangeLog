@@ -1,3 +1,6 @@
+* 2020-10-29 - 1.8.1
+- Fix history issues with Galette 0.9.4
+
 * 2020-07-04 - 1.8.0
 - Galette 0.9.4 compatible
 - Add translations in available core languages (see https://hosted.weblate.org/projects/galette)
