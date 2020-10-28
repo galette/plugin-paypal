@@ -236,7 +236,7 @@ $this->post(
                 }
             }
 
-            $ph = new PaypalHistory($this->zdb, $this->login);
+            $ph = new PaypalHistory($this->zdb, $this->login, $this->preferences);
             $ph->add($post);
 
             $s = null;
@@ -406,7 +406,7 @@ $this->post(
 $this->get(
     '/logs[/{option:|order|reset}/{value}]',
     function ($request, $response, $args) use ($module, $module_id) {
-        $paypal_history = new PaypalHistory($this->zdb, $this->login);
+        $paypal_history = new PaypalHistory($this->zdb, $this->login, $this->preferences);
 
         $filters = [];
         if (isset($this->session->filter_paypal_history)) {
