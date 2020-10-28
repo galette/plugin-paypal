@@ -38,10 +38,10 @@
 namespace GalettePaypal;
 
 use Analog\Analog;
-
 use Galette\Core\Db;
 use Galette\Core\Login;
 use Galette\Core\History;
+use Galette\Core\Preferences;
 use Galette\Filters\HistoryList;
 use Laminas\Db\Adapter\Exception as AdapterException;
 
