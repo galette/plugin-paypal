@@ -38,10 +38,10 @@
 namespace GalettePaypal;
 
 use Analog\Analog;
-
 use Galette\Core\Db;
 use Galette\Core\Login;
 use Galette\Core\History;
+use Galette\Core\Preferences;
 use Galette\Filters\HistoryList;
 use Laminas\Db\Adapter\Exception as AdapterException;
 
@@ -82,14 +82,15 @@ class PaypalHistory extends History
     /**
      * Default constructor.
      *
-     * @param Db          $zdb     Database
-     * @param Login       $login   Login
-     * @param HistoryList $filters Filtering
+     * @param Db          $zdb         Database
+     * @param Login       $login       Login
+     * @param Preferences $preferences Preferences
+     * @param HistoryList $filters     Filtering
      */
-    public function __construct(Db $zdb, Login $login, $filters = null)
+    public function __construct(Db $zdb, Login $login, Preferences $preferences, $filters = null)
     {
         $this->with_lists = false;
-        parent::__construct($zdb, $login, $filters);
+        parent::__construct($zdb, $login, $preferences, $filters);
     }
 
     /**
