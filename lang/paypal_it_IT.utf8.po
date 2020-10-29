@@ -1,78 +1,83 @@
+# Giacomo Alessandroni <g.alessandroni@gmail.com>, 2020.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: translations@galette.eu\n"
 "POT-Creation-Date: 2020-06-19 05:47+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
-"Language: it\n"
+"PO-Revision-Date: 2020-08-19 15:32+0000\n"
+"Last-Translator: Giacomo Alessandroni <g.alessandroni@gmail.com>\n"
+"Language-Team: Italian <https://hosted.weblate.org/projects/galette/"
+"paypal-plugin/it/>\n"
+"Language: it_IT\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Translate Toolkit 3.0.0\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.2-dev\n"
 
 #: ../_routes.php:60
 msgid "Paypal Settings"
-msgstr ""
+msgstr "Impostazioni Paypal"
 
 #: ../_routes.php:98
 msgid "Paypal preferences has been saved."
-msgstr ""
+msgstr "Le preferenze Paypal sono state salvate."
 
 #: ../_routes.php:104
 msgid "An error occured saving paypal preferences :("
-msgstr ""
+msgstr "Errore durante il salvataggio delle preferenze Paypal :("
 
 #: ../_routes.php:125
 msgid "Paypal payment"
-msgstr ""
+msgstr "Pagamento Paypal"
 
 #: ../_routes.php:148
 msgid "Your payment has been aborted!"
-msgstr ""
+msgstr "Il tuo pagamento non è andato a buon fine!"
 
 #: ../_routes.php:167
 msgid "Paypal payment success"
-msgstr ""
+msgstr "Pagamento Paypal effettuato"
 
 #: ../_routes.php:173
 msgid "Your payment has been proceeded!"
-msgstr ""
+msgstr "Il tuo pagamento è stato elaborato!"
 
 #: ../templates/default/paypal_preferences.tpl:12
 msgid "Paypal preferences"
-msgstr ""
+msgstr "Preferenze Paypal"
 
 #: ../templates/default/paypal_preferences.tpl:15
 msgid "Paypal identifier:"
-msgstr ""
+msgstr "Identificativo Paypal:"
 
 #: ../templates/default/paypal_preferences.tpl:16
 msgid ""
 "Enter here one of your Paypal ID or email adress associated within your "
 "paypal account."
 msgstr ""
+"Inserisci qui un tuo Paypal ID o l'indirizzo email associato al tuo account "
+"paypal."
 
 #: ../templates/default/paypal_preferences.tpl:48
 msgid "Error: no predefined amounts found."
-msgstr ""
+msgstr "Errore: importi predefiniti non trovati."
 
 #: ../templates/default/menu.tpl:1
 msgid "Paypal"
-msgstr ""
+msgstr "Paypal"
 
 #: ../templates/default/menu.tpl:3 ../templates/default/public_menu.tpl:4
 msgid "Payment form"
-msgstr ""
+msgstr "Modulo di pagamento"
 
 #: ../templates/default/menu.tpl:5
 msgid "Paypal History"
-msgstr ""
+msgstr "Cronologia Paypal"
 
 #: ../templates/default/paypal_history.tpl:54
 msgid "duplicate"
-msgstr ""
+msgstr "duplicato"
 
 #: ../templates/default/paypal_history.tpl:67
 msgid "No request or unable to read request"
@@ -89,12 +94,16 @@ msgstr ""
 #: ../templates/default/paypal_success.tpl:4
 msgid "Your paypal payment was successful. Some details are shown below:"
 msgstr ""
+"Il tuo pagamento paypal è stato eseguito. Alcuni dettagli sono mostrati di "
+"seguito:"
 
 #: ../templates/default/paypal_success.tpl:28
 msgid ""
 "Your paypal payment was successful. You may receive a mail from paypal with "
 "details."
 msgstr ""
+"Il tuo pagamento paypal è stato eseguito. Riceverai una mail da paypal con i "
+"dettagli."
 
 #: ../templates/default/paypal_form.tpl:6
 msgid ""
@@ -102,53 +111,65 @@ msgid ""
 "logged) while loading Paypal preferences from database.<br/>Please report "
 "the issue to the staff."
 msgstr ""
+"<strong>Il pagamento non funziona</strong>: si è verificato un errore (che è "
+"stato registrato) durante il caricamento delle preferenze di Paypal dal "
+"database.<br/> Si prega di segnalare il problema allo staff."
 
 #: ../templates/default/paypal_form.tpl:12
 msgid ""
 "Paypal id has not been defined. Please ask an administrator to add it from "
 "plugin preferences."
 msgstr ""
+"L'ID Paypal non è stato definito. Chiedi a un amministratore di aggiungerlo "
+"dalle preferenze del plugin."
 
 #: ../templates/default/paypal_form.tpl:18
 msgid "Predefined amounts cannot be loaded, that is not a critical error."
 msgstr ""
+"Gli importi predefiniti non possono essere caricati, questo non è un errore "
+"critico."
 
 #: ../templates/default/paypal_form.tpl:43
 msgid "Go back to %s's website to complete your inscription."
-msgstr ""
+msgstr "Ritorna al sito di %s per completare la tua iscrizione."
 
 #: ../templates/default/paypal_form.tpl:48
 msgid "Enter payment reason"
-msgstr ""
+msgstr "Inserisci la causale del pagamento"
 
 #: ../templates/default/paypal_form.tpl:50
 msgid "Payment reason"
-msgstr ""
+msgstr "Causale del pagamento"
 
 #: ../templates/default/paypal_form.tpl:52
 msgid "Select an payment reason"
-msgstr ""
+msgstr "Seleziona una causale del pagamento"
 
 #: ../templates/default/paypal_form.tpl:70
 msgid "Payment reason:"
-msgstr ""
+msgstr "Causale del pagamento:"
 
 #: ../templates/default/paypal_form.tpl:75
 msgid "No predefined amounts have been configured yet."
-msgstr ""
+msgstr "Non sono stati ancora configurati importi predefiniti."
 
 #: ../templates/default/paypal_form.tpl:81
 msgid ""
 "WARNING: If you enter an amount below, make sure that it is not lower than "
 "the amount of the option you've selected."
 msgstr ""
+"ATTENZIONE: se inserisci un importo minore, assicurati che non sia inferiore "
+"all'importo dell'opzione selezionata."
 
 #: ../templates/default/paypal_form.tpl:121
 msgid "Please enter an amount."
-msgstr ""
+msgstr "Per favore, inserisci un importo."
 
 #: ../templates/default/paypal_form.tpl:124
 msgid ""
 "The amount you've entered is lower than the minimum amount for the selected "
 "option.\\nPlease choose another option or change the amount."
 msgstr ""
+"L'importo inserito è inferiore all'importo minimo per l'opzione selezionata."
+"\\n"
+"Scegli un'altra opzione o modifica l'importo."
