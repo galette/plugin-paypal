@@ -2,19 +2,12 @@
 
 /* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4: */
 
-use Analog\Analog;
-use GalettePaypal\Paypal;
-use GalettePaypal\PaypalHistory;
-use Galette\Entity\Contribution;
-use Galette\Filters\HistoryList;
-use Galette\Entity\PaymentType;
-
 /**
- * Maps routes
+ * Paypal routes
  *
  * PHP version 5
  *
- * Copyright © 2015 The Galette Team
+ * Copyright © 2016-2020 The Galette Team
  *
  * This file is part of Galette (http://galette.tuxfamily.org).
  *
@@ -35,12 +28,19 @@ use Galette\Entity\PaymentType;
  * @package   GalettePaypal
  *
  * @author    Johan Cwiklinski <johan@x-tnd.be>
- * @copyright 2016 The Galette Team
+ * @copyright 2016-2020 The Galette Team
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GPL License 3.0 or (at your option) any later version
  * @version   SVN: $Id$
  * @link      http://galette.tuxfamily.org
  * @since     0.9dev 2016-11-20
  */
+
+use Analog\Analog;
+use GalettePaypal\Paypal;
+use GalettePaypal\PaypalHistory;
+use Galette\Entity\Contribution;
+use Galette\Filters\HistoryList;
+use Galette\Entity\PaymentType;
 
 //Constants and classes from plugin
 require_once $module['root'] . '/_config.inc.php';
@@ -254,7 +254,8 @@ $this->post(
 
             //are we working on a real contribution?
             $real_contrib = false;
-            if (isset($post['custom'])
+            if (
+                isset($post['custom'])
                 && is_numeric($post['custom'])
                 && $post['payment_status'] == 'Completed'
             ) {
