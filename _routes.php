@@ -2,19 +2,12 @@
 
 /* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4: */
 
-use Analog\Analog;
-use GalettePaypal\Paypal;
-use GalettePaypal\PaypalHistory;
-use Galette\Entity\Contribution;
-use Galette\Filters\HistoryList;
-use Galette\Entity\PaymentType;
-
 /**
- * Maps routes
+ * Paypal routes
  *
  * PHP version 5
  *
- * Copyright © 2015 The Galette Team
+ * Copyright © 2016-2020 The Galette Team
  *
  * This file is part of Galette (http://galette.tuxfamily.org).
  *
@@ -35,12 +28,19 @@ use Galette\Entity\PaymentType;
  * @package   GalettePaypal
  *
  * @author    Johan Cwiklinski <johan@x-tnd.be>
- * @copyright 2016 The Galette Team
+ * @copyright 2016-2020 The Galette Team
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GPL License 3.0 or (at your option) any later version
  * @version   SVN: $Id$
  * @link      http://galette.tuxfamily.org
  * @since     0.9dev 2016-11-20
  */
+
+use Analog\Analog;
+use GalettePaypal\Paypal;
+use GalettePaypal\PaypalHistory;
+use Galette\Entity\Contribution;
+use Galette\Filters\HistoryList;
+use Galette\Entity\PaymentType;
 
 //Constants and classes from plugin
 require_once $module['root'] . '/_config.inc.php';
@@ -254,7 +254,8 @@ $this->post(
 
             //are we working on a real contribution?
             $real_contrib = false;
-            if (isset($post['custom'])
+            if (
+                isset($post['custom'])
                 && is_numeric($post['custom'])
                 && $post['payment_status'] == 'Completed'
             ) {
@@ -317,75 +318,6 @@ $this->post(
                             'An error occured while storing a new contribution from Paypal payment',
                             Analog::ERROR
                         );
-                    }
-                }
-
-                //execute post contribution script, if any
-                if ($this->preferences->pref_new_contrib_script) {
-                    $pp_infos = array();
-                    foreach ($post as $k => $v) {
-                        $pp_infos['paypal_' . $k] = $v;
-                    }
-                    $es = new Galette\IO\ExternalScript($this->preferences);
-                    $res = $contrib->executePostScript($es, null, $pp_infos);
-
-                    if ($res !== true) {
-                        //send admin a mail with all details
-                        if ($this->preferences->pref_mail_method > GaletteMail::METHOD_DISABLED) {
-                            $mail = new GaletteMail();
-                            $mail->setSubject(
-                                _T("Post contribution script failed")
-                            );
-                            /** TODO: only super-admin is contacted here. We should send
-                            *  a message to all admins, or propose them a chekbox if
-                            *  they don't want to get bored
-                            */
-                            $mail->setRecipients(
-                                array(
-                                    $this->preferences->pref_email_newadh => str_replace(
-                                        '%asso',
-                                        $this->preferences->pref_name,
-                                        _T("%asso Galette's admin")
-                                    )
-                                )
-                            );
-
-                            $message = _T("The configured post contribution script has failed.");
-                            $message .= "\n" . _T("You can find contribution information and script output below.");
-                            $message .= "\n\n";
-                            $message .= $res;
-
-                            $mail->setMessage($message);
-                            $sent = $mail->send();
-
-                            if (!$sent) {
-                                $txt = preg_replace(
-                                    array('/%name/', '/%email/'),
-                                    array($adh->sname, $adh->email),
-                                    _T("A problem happened while sending to admin post contribution notification for user %name (%email) contribution")
-                                );
-                                $hist->add($txt);
-
-                                $this->flash->addMessage(
-                                    'success_detected',
-                                    $txt
-                                );
-
-                                //Mails are disabled... We log (not safe, but)...
-                                Analog::log(
-                                    'Post contribution script has failed. Here was the data: ' .
-                                    "\n" . print_r($res, true),
-                                    Analog::ERROR
-                                );
-                            }
-                        } else {
-                            //Mails are disabled... We log (not safe, but)...
-                            Analog::log(
-                                'Post contribution script has failed. Here was the data: ' .
-                                "\n" . print_r($res, true),
-                                Analog::ERROR
-                            );
-                        }
                     }
                 }
             } else {
