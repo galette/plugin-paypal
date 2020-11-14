@@ -269,11 +269,10 @@ class Paypal
             $stmt = $this->zdb->sql->prepareStatementForSqlObject($update);
 
             foreach ($this->prices as $k => $v) {
-                /** Why where parameter is named where1 ?? */
                 $stmt->execute(
                     array(
                         'amount'    => (float)$v['amount'],
-                        'where1'    => $k
+                        'id'        => $k
                     )
                 );
             }
