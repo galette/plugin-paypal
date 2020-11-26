@@ -1,24 +1,28 @@
+# Woodyx <shiposhouyou@gmail.com>, 2020.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: translations@galette.eu\n"
 "POT-Creation-Date: 2020-06-19 05:47+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2020-11-27 13:29+0000\n"
+"Last-Translator: Woodyx <shiposhouyou@gmail.com>\n"
+"Language-Team: Arabic <https://hosted.weblate.org/projects/galette/"
+"paypal-plugin/ar/>\n"
 "Language: ar\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Translate Toolkit 3.0.0\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
+"&& n%100<=10 ? 3 : n%100>=11 ? 4 : 5;\n"
+"X-Generator: Weblate 4.4-dev\n"
 
 #: ../_routes.php:60
 msgid "Paypal Settings"
-msgstr ""
+msgstr "إعدادات بايبال"
 
 #: ../_routes.php:98
 msgid "Paypal preferences has been saved."
-msgstr ""
+msgstr "اعدادات بايبال تم حفظها"
 
 #: ../_routes.php:104
 msgid "An error occured saving paypal preferences :("
