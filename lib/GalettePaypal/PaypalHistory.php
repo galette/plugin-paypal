@@ -43,7 +43,6 @@ use Galette\Core\Login;
 use Galette\Core\History;
 use Galette\Core\Preferences;
 use Galette\Filters\HistoryList;
-use Laminas\Db\Adapter\Exception as AdapterException;
 
 /**
  * This class stores and serve the logo.
@@ -121,13 +120,6 @@ class PaypalHistory extends History
                 'An entry has been added in paypal history',
                 Analog::INFO
             );
-        } catch (AdapterException $e) {
-            Analog::log(
-                'Unable to initialize add log entry into database.' .
-                $e->getMessage(),
-                Analog::WARNING
-            );
-            return false;
         } catch (\Exception $e) {
             Analog::log(
                 "An error occured trying to add log entry. " . $e->getMessage(),

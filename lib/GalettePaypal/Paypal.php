@@ -161,7 +161,7 @@ class Paypal
                     //for each entry in types, we want to get the associated amount
                     foreach ($results as $paypal) {
                         if ($paypal->id_type_cotis == $k) {
-                            $_found=true;
+                            $_found = true;
                             $this->prices[$k]['amount'] = (double)$paypal->amount;
                             break;
                         }
