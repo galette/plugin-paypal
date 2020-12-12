@@ -167,20 +167,40 @@ class PaypalHistory extends History
             foreach ($orig as $o) {
                 try {
                     $oa = unserialize($o['request']);
-                    $o['raw_request'] = print_r($oa, true);
-                    $o['request'] = $oa;
-                    if (in_array($oa['verify_sign'], $dedup)) {
-                        $o['duplicate'] = true;
-                    } else {
-                        $dedup[] = $oa['verify_sign'];
-                    }
+                } catch (\ErrorException $err) {
+                    Analog::log(
+                        'Error loading Paypal history entry #' . $o[$this->getPk()] .
+                        ' ' . $err->getMessage(),
+                        Analog::WARNING
+                    );
+
+                    //maybe an unserialization issue, try to fix
+                    $data = preg_replace_callback(
+                        '!s:(\d+):"(.*?)";!',
+                        function ($match) {
+                            return ($match[1] == strlen($match[2])) ?
+                                $match[0] : 's:' . strlen($match[2]) . ':"' . $match[2] . '";';
+                        },
+                        $o['request']
+                    );
+                    $oa = unserialize($data);
                 } catch (\Exception $e) {
                     Analog::log(
                         'Error loading Paypal history entry #' . $o[$this->getPk()] .
                         ' ' . $e->getMessage(),
                         Analog::WARNING
                     );
+                    throw $e;
                 }
+
+                $o['raw_request'] = print_r($oa, true);
+                $o['request'] = $oa;
+                if (in_array($oa['verify_sign'], $dedup)) {
+                    $o['duplicate'] = true;
+                } else {
+                    $dedup[] = $oa['verify_sign'];
+                }
+
                 $new[] = $o;
             }
         }
