@@ -62,21 +62,14 @@ class PaypalHistory extends History
     public const TABLE = 'history';
     public const PK = 'id_paypal';
 
-    protected $_types = array(
-        'text',
-        'date',
-        'float',
-        'text',
-        'text'
-    );
+    public const STATE_NONE = 0;
+    public const STATE_PROCESSED = 1;
+    public const STATE_DONE = 2;
+    public const STATE_ERROR = 3;
+    public const STATE_INCOMPLETE = 4;
+    public const STATE_ALREADYDONE = 5;
 
-    protected $_fields = array(
-        'id_paypal',
-        'history_date',
-        'amount',
-        'comments',
-        'request'
-    );
+    private $id;
 
     /**
      * Default constructor.
@@ -109,12 +102,15 @@ class PaypalHistory extends History
                 'history_date'  => date('Y-m-d H:i:s'),
                 'amount'        => $request['mc_gross'],
                 'comments'      => $request['item_name'],
-                'request'       => serialize($request)
+                'request'       => serialize($request),
+                'signature'     => $request['verify_sign'],
+                'state'         => self::STATE_NONE
             );
 
             $insert = $this->zdb->insert($this->getTableName());
             $insert->values($values);
             $this->zdb->execute($insert);
+            $this->id = $this->zdb->getLastGeneratedValue($this);
 
             Analog::log(
                 'An entry has been added in paypal history',
@@ -207,5 +203,49 @@ class PaypalHistory extends History
         }
 
         return $order;
+    }
+
+    /**
+     * Is payment already processed?
+     *
+     * @param string $sign Verify sign paypal parameter
+     *
+     * @return boolean
+     */
+    public function isProcessed(string $sign): bool
+    {
+        $select = $this->zdb->select($this->getTableName());
+        $select->where([
+            'signature' => $sign,
+            'state'     => self::STATE_PROCESSED
+        ]);
+        $results = $this->zdb->execute($select);
+
+        return (count($results) > 0);
+    }
+
+    /**
+     * Set payment state
+     *
+     * @param integer $state State, one of self::STATE_ constants
+     *
+     * @return boolean
+     */
+    public function setState(int $state): bool
+    {
+        try {
+            $update = $this->zdb->update($this->getTableName());
+            $update
+                ->set(['state' => $state])
+                ->where([self::PK => $this->id]);
+            $this->zdb->execute($update);
+            return true;
+        } catch (\Exception $e) {
+            Analog::log(
+                'An error occurred when updating state field | ' . $e->getMessage(),
+                Analog::ERROR
+            );
+        }
+        return false;
     }
 }

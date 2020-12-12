@@ -14,11 +14,13 @@ CREATE TABLE galette_paypal_types_cotisation_prices (
 --
 
 CREATE TABLE galette_paypal_history (
-  `id_paypal` int(11) NOT NULL auto_increment,
-  `history_date` datetime NOT NULL,
-  `amount` double NOT NULL,
-  `comments` varchar(255)  COLLATE utf8_unicode_ci,
-  `request` text COLLATE utf8_unicode_ci,
+  id_paypal int(11) NOT NULL auto_increment,
+  history_date datetime NOT NULL,
+  amount double NOT NULL,
+  comments varchar(255)  COLLATE utf8_unicode_ci,
+  request text COLLATE utf8_unicode_ci,
+  signature varchar(255) NOT NULL,
+  state tinyint(4) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id_paypal`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 

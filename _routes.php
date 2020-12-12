@@ -262,69 +262,80 @@ $this->post(
                 $real_contrib = true;
             }
 
-            //we'll now try to add the relevant cotisation
-            if ($post['payment_status'] == 'Completed') {
-                /**
-                * We will use the following parameters:
-                * - mc_gross: the amount
-                * - custom: member id
-                * - item_number: contribution type id
-                *
-                * If no member id is provided, we only send to post contribution
-                * script, Galette does not handle anonymous contributions
-                */
-                $args = array(
-                    'type'          => $post['item_number'],
-                    'adh'           => $post['custom'],
-                    'payment_type'  => PaymentType::PAYPAL
-                );
-                if ($this->preferences->pref_membership_ext != '') {
-                    $args['ext'] = $this->preferences->pref_membership_ext;
-                }
-                $contrib = new Contribution($this->zdb, $this->login, $args);
-                $contrib->amount = $post['mc_gross'];
-
-                //all goes well, we can proceed
-                if ($contrib->isCotis() && $real_contrib) {
-                    // Check that membership fees does not overlap
-                    $overlap = $contrib->checkOverlap();
-                    if ($overlap !== true) {
-                        if ($overlap === false) {
-                            Analog::log(
-                                'An eror occured checking overlaping fees :(',
-                                Analog::ERROR
-                            );
-                        } else {
-                            //method directly return error message
-                            Analog::log(
-                                'Error while calculating overlaping fees from paypal payment: ' . $overlap,
-                                Analog::ERROR
-                            );
-                        }
-                    }
-                }
-
-                if ($real_contrib) {
-                    $store = $contrib->store();
-                    if ($store === true) {
-                        //contribution has been stored :)
-                        Analog::log(
-                            'Paypal payment has been successfully registered as a contribution',
-                            Analog::INFO
-                        );
-                    } else {
-                        //something went wrong :'(
-                        Analog::log(
-                            'An error occured while storing a new contribution from Paypal payment',
-                            Analog::ERROR
-                        );
-                    }
-                }
-            } else {
+            if ($ph->isProcessed($post['verify_sign'])) {
                 Analog::log(
-                    'A paypal payment notification has been received, but is not completed!',
+                    'A paypal payment notification has been received, but it is already processed!',
                     Analog::WARNING
                 );
+                $ph->setState(PaypalHistory::STATE_ALREADYDONE);
+            } else {
+                //we'll now try to add the relevant cotisation
+                if ($post['payment_status'] == 'Completed') {
+                    /**
+                    * We will use the following parameters:
+                    * - mc_gross: the amount
+                    * - custom: member id
+                    * - item_number: contribution type id
+                    *
+                    * If no member id is provided, we only send to post contribution
+                    * script, Galette does not handle anonymous contributions
+                    */
+                    $args = array(
+                        'type'          => $post['item_number'],
+                        'adh'           => $post['custom'],
+                        'payment_type'  => PaymentType::PAYPAL
+                    );
+                    if ($this->preferences->pref_membership_ext != '') {
+                        $args['ext'] = $this->preferences->pref_membership_ext;
+                    }
+                    $contrib = new Contribution($this->zdb, $this->login, $args);
+                    $contrib->amount = $post['mc_gross'];
+
+                    //all goes well, we can proceed
+                    if ($contrib->isCotis() && $real_contrib) {
+                        // Check that membership fees does not overlap
+                        $overlap = $contrib->checkOverlap();
+                        if ($overlap !== true) {
+                            if ($overlap === false) {
+                                Analog::log(
+                                    'An eror occured checking overlaping fees :(',
+                                    Analog::ERROR
+                                );
+                            } else {
+                                //method directly return error message
+                                Analog::log(
+                                    'Error while calculating overlaping fees from paypal payment: ' . $overlap,
+                                    Analog::ERROR
+                                );
+                            }
+                        }
+                    }
+
+                    if ($real_contrib) {
+                        $store = $contrib->store();
+                        if ($store === true) {
+                            //contribution has been stored :)
+                            Analog::log(
+                                'Paypal payment has been successfully registered as a contribution',
+                                Analog::INFO
+                            );
+                            $ph->setState(PaypalHistory::STATE_PROCESSED);
+                        } else {
+                            //something went wrong :'(
+                            Analog::log(
+                                'An error occured while storing a new contribution from Paypal payment',
+                                Analog::ERROR
+                            );
+                            $ph->setState(PaypalHistory::STATE_ERROR);
+                        }
+                    }
+                } else {
+                    Analog::log(
+                        'A paypal payment notification has been received, but is not completed!',
+                        Analog::WARNING
+                    );
+                    $ph->setState(PaypalHistory::STATE_INCOMPLETE);
+                }
             }
         } else {
             Analog::log(
