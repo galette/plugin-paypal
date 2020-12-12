@@ -35,6 +35,7 @@
  * @since     0.9dev 2016-11-20
  */
 
+use GaletteMaps\Controllers\PaypalController;
 use Analog\Analog;
 use GalettePaypal\Paypal;
 use GalettePaypal\PaypalHistory;
@@ -347,7 +348,7 @@ $this->post(
 )->setName('paypal_notify');
 
 $this->get(
-    '/logs[/{option:|order|reset}/{value}]',
+    '/logs[/{option:|order|reset|page}/{value}]',
     function ($request, $response, $args) use ($module, $module_id) {
         $paypal_history = new PaypalHistory($this->zdb, $this->login, $this->preferences);
 
