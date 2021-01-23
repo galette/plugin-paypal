@@ -1,13 +1,14 @@
 # peter9811 <petercuevas.6@gmail.com>, 2020.
 # Andrea Capuselli <andrea@proz.com>, 2020.
 # Joaquin Gonzalez <cpjags@gmail.com>, 2021.
+# Nicolás S. Gómez <nicogomfor@gmail.com>, 2021.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: translations@galette.eu\n"
 "POT-Creation-Date: 2020-06-19 05:47+0200\n"
-"PO-Revision-Date: 2021-01-12 14:32+0000\n"
-"Last-Translator: Joaquin Gonzalez <cpjags@gmail.com>\n"
+"PO-Revision-Date: 2021-01-24 22:32+0000\n"
+"Last-Translator: Nicolás S. Gómez <nicogomfor@gmail.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/galette/"
 "paypal-plugin/es/>\n"
 "Language: es\n"
@@ -15,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.4.1-dev\n"
+"X-Generator: Weblate 4.5-dev\n"
 
 #: ../_routes.php:60
 msgid "Paypal Settings"
@@ -61,53 +62,64 @@ msgstr ""
 "Ingresa tu Paypal ID o tu dirección de email asociada a tu cuenta de Paypal."
 
 #: ../templates/default/paypal_preferences.tpl:48
+#, fuzzy
 msgid "Error: no predefined amounts found."
-msgstr ""
+msgstr "Error: no se han encontrado cantidades predefinidas."
 
 #: ../templates/default/menu.tpl:1
 msgid "Paypal"
-msgstr ""
+msgstr "Paypal"
 
 #: ../templates/default/menu.tpl:3 ../templates/default/public_menu.tpl:4
 msgid "Payment form"
-msgstr ""
+msgstr "Método de pago"
 
 #: ../templates/default/menu.tpl:5
+#, fuzzy
 msgid "Paypal History"
-msgstr ""
+msgstr "Historial de Paypal"
 
 #: ../templates/default/paypal_history.tpl:54
 msgid "duplicate"
 msgstr ""
 
 #: ../templates/default/paypal_history.tpl:67
+#, fuzzy
 msgid "No request or unable to read request"
-msgstr ""
+msgstr "No hay solicitud o no se pudo leer la solicitud"
 
 #: ../templates/default/paypal_history.tpl:83
 msgid "Request"
-msgstr ""
+msgstr "Solicitud"
 
 #: ../templates/default/paypal_history.tpl:106
+#, fuzzy
 msgid "Show/hide full request"
-msgstr ""
+msgstr "Mostrar/ocultar la solicitud completa"
 
 #: ../templates/default/paypal_success.tpl:4
 msgid "Your paypal payment was successful. Some details are shown below:"
 msgstr ""
 
 #: ../templates/default/paypal_success.tpl:28
+#, fuzzy
 msgid ""
 "Your paypal payment was successful. You may receive a mail from paypal with "
 "details."
 msgstr ""
+"Tu pago por paypal fue exitoso. Puede que reciba un correo de paypal con los "
+"detalles."
 
 #: ../templates/default/paypal_form.tpl:6
+#, fuzzy
 msgid ""
 "<strong>Payment coult not work</strong>: An error occured (that has been "
 "logged) while loading Paypal preferences from database.<br/>Please report "
 "the issue to the staff."
 msgstr ""
+"<strong> El pago no pudo funcionar </strong>: Se produjo un error (que se ha "
+"sido registrado) mientras se carcaban las preferencias de Paypal desde la "
+"base de datos. <br> Informe el problema al personal."
 
 #: ../templates/default/paypal_form.tpl:12
 msgid ""
@@ -122,28 +134,31 @@ msgid "Predefined amounts cannot be loaded, that is not a critical error."
 msgstr ""
 
 #: ../templates/default/paypal_form.tpl:43
+#, fuzzy
 msgid "Go back to %s's website to complete your inscription."
-msgstr ""
+msgstr "Vuelva a la página web de %s para completar su inscripción."
 
 #: ../templates/default/paypal_form.tpl:48
+#, fuzzy
 msgid "Enter payment reason"
-msgstr ""
+msgstr "Introduzca el motivo del pago"
 
 #: ../templates/default/paypal_form.tpl:50
 msgid "Payment reason"
-msgstr ""
+msgstr "Razón del pago"
 
 #: ../templates/default/paypal_form.tpl:52
 msgid "Select an payment reason"
-msgstr ""
+msgstr "Seleccione un motivo de pago"
 
 #: ../templates/default/paypal_form.tpl:70
 msgid "Payment reason:"
-msgstr ""
+msgstr "Razón del pago:"
 
 #: ../templates/default/paypal_form.tpl:75
+#, fuzzy
 msgid "No predefined amounts have been configured yet."
-msgstr ""
+msgstr "Aún no se ha configurado una cantidad predefinida."
 
 #: ../templates/default/paypal_form.tpl:81
 msgid ""
@@ -155,7 +170,7 @@ msgstr ""
 
 #: ../templates/default/paypal_form.tpl:121
 msgid "Please enter an amount."
-msgstr ""
+msgstr "Por favor, introduzca una cantidad."
 
 #: ../templates/default/paypal_form.tpl:124
 msgid ""
