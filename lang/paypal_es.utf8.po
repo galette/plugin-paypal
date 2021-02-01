@@ -2,13 +2,14 @@
 # Andrea Capuselli <andrea@proz.com>, 2020.
 # Joaquin Gonzalez <cpjags@gmail.com>, 2021.
 # Nicolás S. Gómez <nicogomfor@gmail.com>, 2021.
+# Berto Te <Bertote@3fpj.com>, 2021.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: translations@galette.eu\n"
 "POT-Creation-Date: 2020-06-19 05:47+0200\n"
-"PO-Revision-Date: 2021-01-24 22:32+0000\n"
-"Last-Translator: Nicolás S. Gómez <nicogomfor@gmail.com>\n"
+"PO-Revision-Date: 2021-02-01 07:30+0000\n"
+"Last-Translator: Berto Te <Bertote@3fpj.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/galette/"
 "paypal-plugin/es/>\n"
 "Language: es\n"
@@ -62,7 +63,6 @@ msgstr ""
 "Ingresa tu Paypal ID o tu dirección de email asociada a tu cuenta de Paypal."
 
 #: ../templates/default/paypal_preferences.tpl:48
-#, fuzzy
 msgid "Error: no predefined amounts found."
 msgstr "Error: no se han encontrado cantidades predefinidas."
 
@@ -75,16 +75,14 @@ msgid "Payment form"
 msgstr "Método de pago"
 
 #: ../templates/default/menu.tpl:5
-#, fuzzy
 msgid "Paypal History"
-msgstr "Historial de Paypal"
+msgstr "Historico de Paypal"
 
 #: ../templates/default/paypal_history.tpl:54
 msgid "duplicate"
-msgstr ""
+msgstr "duplicado"
 
 #: ../templates/default/paypal_history.tpl:67
-#, fuzzy
 msgid "No request or unable to read request"
 msgstr "No hay solicitud o no se pudo leer la solicitud"
 
@@ -93,33 +91,32 @@ msgid "Request"
 msgstr "Solicitud"
 
 #: ../templates/default/paypal_history.tpl:106
-#, fuzzy
 msgid "Show/hide full request"
 msgstr "Mostrar/ocultar la solicitud completa"
 
 #: ../templates/default/paypal_success.tpl:4
 msgid "Your paypal payment was successful. Some details are shown below:"
 msgstr ""
+"Tu pago con PayPal se realizó correctamente. A continuación se muestran "
+"algunos detalles:"
 
 #: ../templates/default/paypal_success.tpl:28
-#, fuzzy
 msgid ""
 "Your paypal payment was successful. You may receive a mail from paypal with "
 "details."
 msgstr ""
-"Tu pago por paypal fue exitoso. Puede que reciba un correo de paypal con los "
-"detalles."
+"Tu pago por paypal fue exitoso. Puede que recibas un correo de paypal con "
+"los detalles."
 
 #: ../templates/default/paypal_form.tpl:6
-#, fuzzy
 msgid ""
 "<strong>Payment coult not work</strong>: An error occured (that has been "
 "logged) while loading Paypal preferences from database.<br/>Please report "
 "the issue to the staff."
 msgstr ""
-"<strong> El pago no pudo funcionar </strong>: Se produjo un error (que se ha "
-"sido registrado) mientras se carcaban las preferencias de Paypal desde la "
-"base de datos. <br> Informe el problema al personal."
+"<strong>Payment coult not work</strong>: Se produjo un error (que se ha "
+"registrado) al cargar las preferencias de Paypal desde database.<br>Informe "
+"el problema al personal."
 
 #: ../templates/default/paypal_form.tpl:12
 msgid ""
@@ -132,14 +129,13 @@ msgstr ""
 #: ../templates/default/paypal_form.tpl:18
 msgid "Predefined amounts cannot be loaded, that is not a critical error."
 msgstr ""
+"No se pueden cargar cantidades predefinidas. Esto no es un error crítico."
 
 #: ../templates/default/paypal_form.tpl:43
-#, fuzzy
 msgid "Go back to %s's website to complete your inscription."
 msgstr "Vuelva a la página web de %s para completar su inscripción."
 
 #: ../templates/default/paypal_form.tpl:48
-#, fuzzy
 msgid "Enter payment reason"
 msgstr "Introduzca el motivo del pago"
 
@@ -156,7 +152,6 @@ msgid "Payment reason:"
 msgstr "Razón del pago:"
 
 #: ../templates/default/paypal_form.tpl:75
-#, fuzzy
 msgid "No predefined amounts have been configured yet."
 msgstr "Aún no se ha configurado una cantidad predefinida."
 
