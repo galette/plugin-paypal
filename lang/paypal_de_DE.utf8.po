@@ -1,13 +1,14 @@
 # Johan Cwiklinski <trasher@x-tnd.be>, 2020.
 # moppinator <thomas.wittchen@googlemail.com>, 2020.
 # Matthias Schmitt <male.schmitt@posteo.de>, 2021.
+# Tony Leichsenring <tony.leichsenring@googlemail.com>, 2021.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: translations@galette.eu\n"
 "POT-Creation-Date: 2020-06-19 05:47+0200\n"
-"PO-Revision-Date: 2021-01-06 21:29+0000\n"
-"Last-Translator: Matthias Schmitt <male.schmitt@posteo.de>\n"
+"PO-Revision-Date: 2021-02-10 22:50+0000\n"
+"Last-Translator: Tony Leichsenring <tony.leichsenring@googlemail.com>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/galette/"
 "paypal-plugin/de/>\n"
 "Language: de_DE\n"
@@ -15,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.4.1-dev\n"
+"X-Generator: Weblate 4.5-dev\n"
 
 #: ../_routes.php:60
 msgid "Paypal Settings"
@@ -48,7 +49,7 @@ msgstr "Ihre Zahlung wurde verarbeitet!"
 
 #: ../templates/default/paypal_preferences.tpl:12
 msgid "Paypal preferences"
-msgstr ""
+msgstr "PayPal Einstellungen"
 
 #: ../templates/default/paypal_preferences.tpl:15
 msgid "Paypal identifier:"
@@ -74,11 +75,11 @@ msgstr ""
 
 #: ../templates/default/menu.tpl:5
 msgid "Paypal History"
-msgstr ""
+msgstr "PayPal Historie"
 
 #: ../templates/default/paypal_history.tpl:54
 msgid "duplicate"
-msgstr ""
+msgstr "Duplikat"
 
 #: ../templates/default/paypal_history.tpl:67
 msgid "No request or unable to read request"
@@ -125,19 +126,19 @@ msgstr ""
 
 #: ../templates/default/paypal_form.tpl:48
 msgid "Enter payment reason"
-msgstr ""
+msgstr "Bezahlgrund eingeben"
 
 #: ../templates/default/paypal_form.tpl:50
 msgid "Payment reason"
-msgstr ""
+msgstr "Bezahlgrund"
 
 #: ../templates/default/paypal_form.tpl:52
 msgid "Select an payment reason"
-msgstr ""
+msgstr "Wähle einen Bezahlgrund"
 
 #: ../templates/default/paypal_form.tpl:70
 msgid "Payment reason:"
-msgstr ""
+msgstr "Bezahlgrund:"
 
 #: ../templates/default/paypal_form.tpl:75
 msgid "No predefined amounts have been configured yet."
