@@ -38,7 +38,9 @@ namespace GalettePaypal\Controllers;
 
 use Analog\Analog;
 use Galette\Controllers\AbstractPluginController;
+use Galette\Entity\Adherent;
 use Galette\Entity\Contribution;
+use Galette\Entity\ContributionsTypes;
 use Galette\Entity\PaymentType;
 use Galette\Filters\HistoryList;
 use GalettePaypal\Paypal;
@@ -425,29 +427,27 @@ class PaypalController extends AbstractPluginController
                         $args['ext'] = $this->preferences->pref_membership_ext;
                     }
                     $contrib = new Contribution($this->zdb, $this->login, $args);
-                    $contrib->amount = $post['mc_gross'];
+                    $post = [
+                        ContributionsTypes::PK  => $post['item_number'],
+                        Adherent::PK            => $post['custom'],
+                        'type_paiement_cotis'   => PaymentType::PAYPAL,
+                        'montant_cotis'         => $post['mc_gross']
+                    ];
 
                     //all goes well, we can proceed
-                    if ($real_contrib && $contrib->isCotis()) {
-                        // Check that membership fees does not overlap
-                        $overlap = $contrib->checkOverlap();
-                        if ($overlap !== true) {
-                            if ($overlap === false) {
-                                Analog::log(
-                                    'An error occurred checking overlapping fees :(',
-                                    Analog::ERROR
-                                );
-                            } else {
-                                //method directly return error message
-                                Analog::log(
-                                    'Error while calculating overlapping fees from paypal payment: ' . $overlap,
-                                    Analog::ERROR
-                                );
-                            }
-                        }
-                    }
-
                     if ($real_contrib) {
+                        $store = false;
+                        $valid = $contrib->check($post, [], []);
+                        if ($valid !== true) {
+                            Analog::log(
+                                'An error occurred while storing a new contribution from Paypal payment:' .
+                                implode("\n   ", $valid),
+                                Analog::ERROR
+                            );
+                            $ph->setState(PaypalHistory::STATE_ERROR);
+                            return $response->withStatus(500, 'Internal error');
+                        }
+
                         $store = $contrib->store();
                         if ($store === true) {
                             //contribution has been stored :)
