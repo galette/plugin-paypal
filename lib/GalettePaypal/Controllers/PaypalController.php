@@ -38,7 +38,9 @@ namespace GalettePaypal\Controllers;
 
 use Analog\Analog;
 use Galette\Controllers\AbstractPluginController;
+use Galette\Entity\Adherent;
 use Galette\Entity\Contribution;
+use Galette\Entity\ContributionsTypes;
 use Galette\Entity\PaymentType;
 use Galette\Filters\HistoryList;
 use GalettePaypal\Paypal;
