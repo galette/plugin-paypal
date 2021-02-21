@@ -1,12 +1,13 @@
 # Giacomo Alessandroni <g.alessandroni@gmail.com>, 2020.
 # Luca De Filippo <luca.defilippo@translationcommons.org>, 2021.
+# Lory ~ <dury.lorenzo@gmail.com>, 2021.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: translations@galette.eu\n"
 "POT-Creation-Date: 2020-06-19 05:47+0200\n"
-"PO-Revision-Date: 2021-01-12 14:32+0000\n"
-"Last-Translator: Luca De Filippo <luca.defilippo@translationcommons.org>\n"
+"PO-Revision-Date: 2021-02-22 12:50+0000\n"
+"Last-Translator: Lory ~ <dury.lorenzo@gmail.com>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/galette/"
 "paypal-plugin/it/>\n"
 "Language: it_IT\n"
@@ -14,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.4.1-dev\n"
+"X-Generator: Weblate 4.5\n"
 
 #: ../_routes.php:60
 msgid "Paypal Settings"
@@ -82,7 +83,7 @@ msgstr "duplicato"
 
 #: ../templates/default/paypal_history.tpl:67
 msgid "No request or unable to read request"
-msgstr "Nessuna richiesta o impossibile esaminare la richiesta."
+msgstr "Nessuna richiesta o impossibile esaminare la richiesta"
 
 #: ../templates/default/paypal_history.tpl:83
 msgid "Request"
@@ -114,7 +115,7 @@ msgid ""
 msgstr ""
 "<strong>Il pagamento non è andato a buon fine</strong>: si è verificato un "
 "errore (che è stato registrato) durante il caricamento delle preferenze di "
-"Paypal dal database.<br> Si prega di segnalare il problema allo staff."
+"Paypal dal database.<br>Si prega di segnalare il problema allo staff."
 
 #: ../templates/default/paypal_form.tpl:12
 msgid ""
