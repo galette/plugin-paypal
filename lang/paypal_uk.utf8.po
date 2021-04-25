@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: translations@galette.eu\n"
 "POT-Creation-Date: 2020-06-19 05:47+0200\n"
-"PO-Revision-Date: 2021-04-12 14:26+0000\n"
+"PO-Revision-Date: 2021-04-26 22:31+0000\n"
 "Last-Translator: Tymofij Lytvynenko <till.svit@gmail.com>\n"
 "Language-Team: Ukrainian <https://hosted.weblate.org/projects/galette/"
 "paypal-plugin/uk/>\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 4.6-dev\n"
+"X-Generator: Weblate 4.7-dev\n"
 
 #: ../_routes.php:60
 msgid "Paypal Settings"
@@ -23,45 +23,47 @@ msgstr "Налаштування Paypal"
 
 #: ../_routes.php:98
 msgid "Paypal preferences has been saved."
-msgstr ""
+msgstr "Налаштування Paypal збережено."
 
 #: ../_routes.php:104
 msgid "An error occured saving paypal preferences :("
-msgstr ""
+msgstr "Під час збереження налаштувань PayPal сталася помилка :("
 
 #: ../_routes.php:125
 msgid "Paypal payment"
-msgstr ""
+msgstr "Платіж PayPal"
 
 #: ../_routes.php:148
 msgid "Your payment has been aborted!"
-msgstr ""
+msgstr "Ваш платіж перервано!"
 
 #: ../_routes.php:167
 msgid "Paypal payment success"
-msgstr ""
+msgstr "Платіж Paypal виконано успішно"
 
 #: ../_routes.php:173
 msgid "Your payment has been proceeded!"
-msgstr ""
+msgstr "Ваш платіж продовжено!"
 
 #: ../templates/default/paypal_preferences.tpl:12
 msgid "Paypal preferences"
-msgstr ""
+msgstr "Налаштування PayPal"
 
 #: ../templates/default/paypal_preferences.tpl:15
 msgid "Paypal identifier:"
-msgstr ""
+msgstr "Ідентифікатор PayPal:"
 
 #: ../templates/default/paypal_preferences.tpl:16
 msgid ""
 "Enter here one of your Paypal ID or email adress associated within your "
 "paypal account."
 msgstr ""
+"Уведіть тут один з ваших Paypal ID або адресу е-пошти, пов'язаний з вашим "
+"рахунком Paypal."
 
 #: ../templates/default/paypal_preferences.tpl:48
 msgid "Error: no predefined amounts found."
-msgstr ""
+msgstr "Помилка: заздалегідь визначені суми не знайдені."
 
 #: ../templates/default/menu.tpl:1
 msgid "Paypal"
@@ -69,37 +71,39 @@ msgstr "Paypal"
 
 #: ../templates/default/menu.tpl:3 ../templates/default/public_menu.tpl:4
 msgid "Payment form"
-msgstr ""
+msgstr "Форма платежу"
 
 #: ../templates/default/menu.tpl:5
 msgid "Paypal History"
-msgstr ""
+msgstr "Історія Paypal"
 
 #: ../templates/default/paypal_history.tpl:54
 msgid "duplicate"
-msgstr ""
+msgstr "подвоєння"
 
 #: ../templates/default/paypal_history.tpl:67
 msgid "No request or unable to read request"
-msgstr ""
+msgstr "Немає запиту або неможливо прочитати запит"
 
 #: ../templates/default/paypal_history.tpl:83
 msgid "Request"
-msgstr ""
+msgstr "Запит"
 
 #: ../templates/default/paypal_history.tpl:106
 msgid "Show/hide full request"
-msgstr ""
+msgstr "Показ/ховання повного запиту"
 
 #: ../templates/default/paypal_success.tpl:4
 msgid "Your paypal payment was successful. Some details are shown below:"
-msgstr ""
+msgstr "Ваш платіж PayPal був успішним. Деякі подробиці наведені нижче:"
 
 #: ../templates/default/paypal_success.tpl:28
 msgid ""
 "Your paypal payment was successful. You may receive a mail from paypal with "
 "details."
 msgstr ""
+"Ваш платіж PayPal був успішним. Ви можете отримати лист із PayPal із "
+"подробицями."
 
 #: ../templates/default/paypal_form.tpl:6
 msgid ""
