@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: translations@galette.eu\n"
 "POT-Creation-Date: 2020-06-19 05:47+0200\n"
-"PO-Revision-Date: 2021-04-26 22:31+0000\n"
+"PO-Revision-Date: 2021-04-28 06:06+0000\n"
 "Last-Translator: Tymofij Lytvynenko <till.svit@gmail.com>\n"
 "Language-Team: Ukrainian <https://hosted.weblate.org/projects/galette/"
 "paypal-plugin/uk/>\n"
@@ -67,7 +67,7 @@ msgstr "Помилка: заздалегідь визначені суми не 
 
 #: ../templates/default/menu.tpl:1
 msgid "Paypal"
-msgstr "Paypal"
+msgstr "PayPal"
 
 #: ../templates/default/menu.tpl:3 ../templates/default/public_menu.tpl:4
 msgid "Payment form"
@@ -111,53 +111,62 @@ msgid ""
 "logged) while loading Paypal preferences from database.<br/>Please report "
 "the issue to the staff."
 msgstr ""
+"<strong>Платіж не спрацював</strong>: Сталася помилка (яка була записана в "
+"журнал) під час завантаження параметрів Paypal з бази даних. Повідомте про "
+"проблему співробітникам."
 
 #: ../templates/default/paypal_form.tpl:12
 msgid ""
 "Paypal id has not been defined. Please ask an administrator to add it from "
 "plugin preferences."
 msgstr ""
+"Ідентифікатор Paypal не визначено. Будь ласка, попросіть адміністратора "
+"додати його з налаштувань розширення."
 
 #: ../templates/default/paypal_form.tpl:18
 msgid "Predefined amounts cannot be loaded, that is not a critical error."
-msgstr ""
+msgstr "Зумовлені суми не можуть бути завантажені, що не є критичною помилкою."
 
 #: ../templates/default/paypal_form.tpl:43
 msgid "Go back to %s's website to complete your inscription."
-msgstr ""
+msgstr "Поверніться на сайт %s, щоб заповнити своє написання."
 
 #: ../templates/default/paypal_form.tpl:48
 msgid "Enter payment reason"
-msgstr ""
+msgstr "Уведіть причину платежу"
 
 #: ../templates/default/paypal_form.tpl:50
 msgid "Payment reason"
-msgstr ""
+msgstr "Причина платежу"
 
 #: ../templates/default/paypal_form.tpl:52
 msgid "Select an payment reason"
-msgstr ""
+msgstr "Оберіть причину платежу"
 
 #: ../templates/default/paypal_form.tpl:70
 msgid "Payment reason:"
-msgstr ""
+msgstr "Причина платежу:"
 
 #: ../templates/default/paypal_form.tpl:75
 msgid "No predefined amounts have been configured yet."
-msgstr ""
+msgstr "Попередньо визначені суми ще не налаштовано."
 
 #: ../templates/default/paypal_form.tpl:81
 msgid ""
 "WARNING: If you enter an amount below, make sure that it is not lower than "
 "the amount of the option you've selected."
 msgstr ""
+"УВАГА: Якщо ви введете суму нижче, переконайтеся, що вона не менша за "
+"кількість вибраного варіанту."
 
 #: ../templates/default/paypal_form.tpl:121
 msgid "Please enter an amount."
-msgstr ""
+msgstr "Уведіть суму."
 
 #: ../templates/default/paypal_form.tpl:124
 msgid ""
 "The amount you've entered is lower than the minimum amount for the selected "
 "option.\\nPlease choose another option or change the amount."
 msgstr ""
+"Уведена сума нижча за мінімальну для обраного варіанту.\\n"
+" Виберіть інший варіант або змініть суму."
