@@ -7,8 +7,8 @@ msgstr ""
 "POT-Creation-Date: 2020-06-29 16:04+0200\n"
 "PO-Revision-Date: 2020-06-30 21:03+0000\n"
 "Last-Translator: Quentin PAGÈS <quentinantonin@free.fr>\n"
-"Language-Team: Occitan <https://hosted.weblate.org/projects/galette/"
-"paypal-plugin/oc/>\n"
+"Language-Team: Occitan <https://hosted.weblate.org/projects/galette/paypal-"
+"plugin/oc/>\n"
 "Language: oc\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -53,7 +53,9 @@ msgid "Paypal identifier:"
 msgstr ""
 
 #: ../templates/default/paypal_preferences.tpl:16
-msgid "Enter here one of your Paypal ID or email adress associated within your paypal account."
+msgid ""
+"Enter here one of your Paypal ID or email adress associated within your "
+"paypal account."
 msgstr ""
 
 #: ../templates/default/paypal_preferences.tpl:48
@@ -93,15 +95,22 @@ msgid "Your paypal payment was successful. Some details are shown below:"
 msgstr ""
 
 #: ../templates/default/paypal_success.tpl:28
-msgid "Your paypal payment was successful. You may receive a mail from paypal with details."
+msgid ""
+"Your paypal payment was successful. You may receive a mail from paypal with "
+"details."
 msgstr ""
 
 #: ../templates/default/paypal_form.tpl:6
-msgid "<strong>Payment coult not work</strong>: An error occured (that has been logged) while loading Paypal preferences from database.<br/>Please report the issue to the staff."
+msgid ""
+"<strong>Payment coult not work</strong>: An error occured (that has been "
+"logged) while loading Paypal preferences from database.<br/>Please report "
+"the issue to the staff."
 msgstr ""
 
 #: ../templates/default/paypal_form.tpl:12
-msgid "Paypal id has not been defined. Please ask an administrator to add it from plugin preferences."
+msgid ""
+"Paypal id has not been defined. Please ask an administrator to add it from "
+"plugin preferences."
 msgstr ""
 
 #: ../templates/default/paypal_form.tpl:18
@@ -133,7 +142,9 @@ msgid "No predefined amounts have been configured yet."
 msgstr ""
 
 #: ../templates/default/paypal_form.tpl:81
-msgid "WARNING: If you enter an amount below, make sure that it is not lower than the amount of the option you've selected."
+msgid ""
+"WARNING: If you enter an amount below, make sure that it is not lower than "
+"the amount of the option you've selected."
 msgstr ""
 
 #: ../templates/default/paypal_form.tpl:121
@@ -141,5 +152,7 @@ msgid "Please enter an amount."
 msgstr ""
 
 #: ../templates/default/paypal_form.tpl:124
-msgid "The amount you've entered is lower than the minimum amount for the selected option.\\nPlease choose another option or change the amount."
+msgid ""
+"The amount you've entered is lower than the minimum amount for the selected "
+"option.\\nPlease choose another option or change the amount."
 msgstr ""

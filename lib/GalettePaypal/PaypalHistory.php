@@ -43,7 +43,6 @@ use Galette\Core\Login;
 use Galette\Core\History;
 use Galette\Core\Preferences;
 use Galette\Filters\HistoryList;
-use Laminas\Db\Adapter\Exception as AdapterException;
 
 /**
  * This class stores and serve the logo.
@@ -63,21 +62,14 @@ class PaypalHistory extends History
     public const TABLE = 'history';
     public const PK = 'id_paypal';
 
-    protected $_types = array(
-        'text',
-        'date',
-        'float',
-        'text',
-        'text'
-    );
+    public const STATE_NONE = 0;
+    public const STATE_PROCESSED = 1;
+    public const STATE_DONE = 2;
+    public const STATE_ERROR = 3;
+    public const STATE_INCOMPLETE = 4;
+    public const STATE_ALREADYDONE = 5;
 
-    protected $_fields = array(
-        'id_paypal',
-        'history_date',
-        'amount',
-        'comments',
-        'request'
-    );
+    private $id;
 
     /**
      * Default constructor.
@@ -110,24 +102,20 @@ class PaypalHistory extends History
                 'history_date'  => date('Y-m-d H:i:s'),
                 'amount'        => $request['mc_gross'],
                 'comments'      => $request['item_name'],
-                'request'       => serialize($request)
+                'request'       => serialize($request),
+                'signature'     => $request['verify_sign'],
+                'state'         => self::STATE_NONE
             );
 
             $insert = $this->zdb->insert($this->getTableName());
             $insert->values($values);
             $this->zdb->execute($insert);
+            $this->id = $this->zdb->getLastGeneratedValue($this);
 
             Analog::log(
                 'An entry has been added in paypal history',
                 Analog::INFO
             );
-        } catch (AdapterException $e) {
-            Analog::log(
-                'Unable to initialize add log entry into database.' .
-                $e->getMessage(),
-                Analog::WARNING
-            );
-            return false;
         } catch (\Exception $e) {
             Analog::log(
                 "An error occured trying to add log entry. " . $e->getMessage(),
@@ -179,20 +167,40 @@ class PaypalHistory extends History
             foreach ($orig as $o) {
                 try {
                     $oa = unserialize($o['request']);
-                    $o['raw_request'] = print_r($oa, true);
-                    $o['request'] = $oa;
-                    if (in_array($oa['verify_sign'], $dedup)) {
-                        $o['duplicate'] = true;
-                    } else {
-                        $dedup[] = $oa['verify_sign'];
-                    }
+                } catch (\ErrorException $err) {
+                    Analog::log(
+                        'Error loading Paypal history entry #' . $o[$this->getPk()] .
+                        ' ' . $err->getMessage(),
+                        Analog::WARNING
+                    );
+
+                    //maybe an unserialization issue, try to fix
+                    $data = preg_replace_callback(
+                        '!s:(\d+):"(.*?)";!',
+                        function ($match) {
+                            return ($match[1] == strlen($match[2])) ?
+                                $match[0] : 's:' . strlen($match[2]) . ':"' . $match[2] . '";';
+                        },
+                        $o['request']
+                    );
+                    $oa = unserialize($data);
                 } catch (\Exception $e) {
                     Analog::log(
                         'Error loading Paypal history entry #' . $o[$this->getPk()] .
                         ' ' . $e->getMessage(),
                         Analog::WARNING
                     );
+                    throw $e;
                 }
+
+                $o['raw_request'] = print_r($oa, true);
+                $o['request'] = $oa;
+                if (in_array($oa['verify_sign'], $dedup)) {
+                    $o['duplicate'] = true;
+                } else {
+                    $dedup[] = $oa['verify_sign'];
+                }
+
                 $new[] = $o;
             }
         }
@@ -215,5 +223,49 @@ class PaypalHistory extends History
         }
 
         return $order;
+    }
+
+    /**
+     * Is payment already processed?
+     *
+     * @param string $sign Verify sign paypal parameter
+     *
+     * @return boolean
+     */
+    public function isProcessed(string $sign): bool
+    {
+        $select = $this->zdb->select($this->getTableName());
+        $select->where([
+            'signature' => $sign,
+            'state'     => self::STATE_PROCESSED
+        ]);
+        $results = $this->zdb->execute($select);
+
+        return (count($results) > 0);
+    }
+
+    /**
+     * Set payment state
+     *
+     * @param integer $state State, one of self::STATE_ constants
+     *
+     * @return boolean
+     */
+    public function setState(int $state): bool
+    {
+        try {
+            $update = $this->zdb->update($this->getTableName());
+            $update
+                ->set(['state' => $state])
+                ->where([self::PK => $this->id]);
+            $this->zdb->execute($update);
+            return true;
+        } catch (\Exception $e) {
+            Analog::log(
+                'An error occurred when updating state field | ' . $e->getMessage(),
+                Analog::ERROR
+            );
+        }
+        return false;
     }
 }

@@ -1,12 +1,14 @@
 # Johan Cwiklinski <trasher@x-tnd.be>, 2020.
 # moppinator <thomas.wittchen@googlemail.com>, 2020.
+# Matthias Schmitt <male.schmitt@posteo.de>, 2021.
+# Tony Leichsenring <tony.leichsenring@googlemail.com>, 2021.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: translations@galette.eu\n"
 "POT-Creation-Date: 2020-06-19 05:47+0200\n"
-"PO-Revision-Date: 2020-07-07 19:43+0000\n"
-"Last-Translator: moppinator <thomas.wittchen@googlemail.com>\n"
+"PO-Revision-Date: 2021-02-20 14:50+0000\n"
+"Last-Translator: Tony Leichsenring <tony.leichsenring@googlemail.com>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/galette/"
 "paypal-plugin/de/>\n"
 "Language: de_DE\n"
@@ -14,39 +16,40 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.2-dev\n"
+"X-Generator: Weblate 4.5\n"
 
 #: ../_routes.php:60
 msgid "Paypal Settings"
-msgstr ""
+msgstr "PayPal Einstellungen"
 
 #: ../_routes.php:98
 msgid "Paypal preferences has been saved."
-msgstr ""
+msgstr "PayPal Einstellungen wurden gespeichert."
 
 #: ../_routes.php:104
 msgid "An error occured saving paypal preferences :("
 msgstr ""
+"Während dem Speichern der PayPal Einstellungen ist ein Fehler aufgetreten :("
 
 #: ../_routes.php:125
 msgid "Paypal payment"
-msgstr ""
+msgstr "PayPal Zahlung"
 
 #: ../_routes.php:148
 msgid "Your payment has been aborted!"
-msgstr ""
+msgstr "Ihre Bezahlung wurde abgebrochen!"
 
 #: ../_routes.php:167
 msgid "Paypal payment success"
-msgstr ""
+msgstr "PayPal Bezahlung erfolgreich"
 
 #: ../_routes.php:173
 msgid "Your payment has been proceeded!"
-msgstr ""
+msgstr "Ihre Zahlung wurde verarbeitet!"
 
 #: ../templates/default/paypal_preferences.tpl:12
 msgid "Paypal preferences"
-msgstr ""
+msgstr "PayPal Einstellungen"
 
 #: ../templates/default/paypal_preferences.tpl:15
 msgid "Paypal identifier:"
@@ -72,11 +75,11 @@ msgstr ""
 
 #: ../templates/default/menu.tpl:5
 msgid "Paypal History"
-msgstr ""
+msgstr "PayPal Historie"
 
 #: ../templates/default/paypal_history.tpl:54
 msgid "duplicate"
-msgstr ""
+msgstr "Duplikat"
 
 #: ../templates/default/paypal_history.tpl:67
 msgid "No request or unable to read request"
@@ -88,11 +91,12 @@ msgstr "Anfrage"
 
 #: ../templates/default/paypal_history.tpl:106
 msgid "Show/hide full request"
-msgstr ""
+msgstr "Komplette Anfrage anzeigen/ausblenden"
 
 #: ../templates/default/paypal_success.tpl:4
 msgid "Your paypal payment was successful. Some details are shown below:"
 msgstr ""
+"Ihre PayPal Bezahlung war erfolgreich. Details dazu werden unten angezeigt:"
 
 #: ../templates/default/paypal_success.tpl:28
 msgid ""
@@ -123,19 +127,19 @@ msgstr ""
 
 #: ../templates/default/paypal_form.tpl:48
 msgid "Enter payment reason"
-msgstr ""
+msgstr "Bezahlgrund eingeben"
 
 #: ../templates/default/paypal_form.tpl:50
 msgid "Payment reason"
-msgstr ""
+msgstr "Bezahlgrund"
 
 #: ../templates/default/paypal_form.tpl:52
 msgid "Select an payment reason"
-msgstr ""
+msgstr "Wähle einen Bezahlgrund"
 
 #: ../templates/default/paypal_form.tpl:70
 msgid "Payment reason:"
-msgstr ""
+msgstr "Bezahlgrund:"
 
 #: ../templates/default/paypal_form.tpl:75
 msgid "No predefined amounts have been configured yet."

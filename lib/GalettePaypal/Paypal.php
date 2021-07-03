@@ -161,7 +161,7 @@ class Paypal
                     //for each entry in types, we want to get the associated amount
                     foreach ($results as $paypal) {
                         if ($paypal->id_type_cotis == $k) {
-                            $_found=true;
+                            $_found = true;
                             $this->prices[$k]['amount'] = (double)$paypal->amount;
                             break;
                         }
@@ -269,11 +269,10 @@ class Paypal
             $stmt = $this->zdb->sql->prepareStatementForSqlObject($update);
 
             foreach ($this->prices as $k => $v) {
-                /** Why where parameter is named where1 ?? */
                 $stmt->execute(
                     array(
                         'amount'    => (float)$v['amount'],
-                        'where1'    => $k
+                        'id'        => $k
                     )
                 );
             }

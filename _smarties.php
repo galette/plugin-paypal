@@ -39,4 +39,3 @@ $_tpl_assignments = array(
     'paypal_tpl_dir' => '__plugin_templates_dir__',
     'paypal_dir'     => '__plugin_dir__'
 );
-

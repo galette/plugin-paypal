@@ -26,6 +26,8 @@ CREATE TABLE galette_paypal_history (
   amount real NOT NULL,
   comments character varying(255),
   request text,
+  signature character varying(255),
+  state smallint DEFAULT 0 NOT NULL,
   PRIMARY KEY (id_paypal)
 );
 
