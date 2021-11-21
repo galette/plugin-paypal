@@ -1,22 +1,22 @@
 # Header entry was created by Lokalize.
 #
 # , 2013.
-# Johan Cwiklinski <trasher@x-tnd.be>, 2020.
+# Johan Cwiklinski <trasher@x-tnd.be>, 2020, 2021.
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: translations@galette.eu\n"
 "POT-Creation-Date: 2021-11-21 22:11+0100\n"
-"PO-Revision-Date: 2020-12-12 18:26+0000\n"
+"PO-Revision-Date: 2021-11-21 21:14+0000\n"
 "Last-Translator: Johan Cwiklinski <trasher@x-tnd.be>\n"
-"Language-Team: French <https://hosted.weblate.org/projects/galette/paypal-"
-"plugin/fr/>\n"
+"Language-Team: French <https://hosted.weblate.org/projects/galette/"
+"paypal-plugin/fr/>\n"
 "Language: fr_FR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 4.4-dev\n"
+"X-Generator: Weblate 4.10-dev\n"
 
 #: ../lib/GalettePaypal/Controllers/PaypalController.php:89
 msgid "Paypal payment"
@@ -31,8 +31,6 @@ msgid "Paypal preferences has been saved."
 msgstr "Les préférences Paypal ont été sauvegardées."
 
 #: ../lib/GalettePaypal/Controllers/PaypalController.php:255
-#, fuzzy
-#| msgid "An error occured saving paypal preferences :("
 msgid "An error occurred saving paypal preferences :("
 msgstr ""
 "Une erreur est survenue lors de l'enregistrement des préférences paypal :("
@@ -173,18 +171,14 @@ msgid "Please enter an amount."
 msgstr "Veuillez entrer un montant."
 
 #: ../templates/default/paypal_form.tpl:124
-#, fuzzy
-#| msgid ""
-#| "The amount you've entered is lower than the minimum amount for the "
-#| "selected option.\\nPlease choose another option or change the amount."
 msgid ""
 "The amount you've entered is lower than the minimum amount for the selected "
 "option.\n"
 "Please choose another option or change the amount."
 msgstr ""
 "Le montant que vous avez entré est inférieur au montant minimum de l'option "
-"sélectionnée.\\nVeuillez choisir une autre option ou entrer un nouveau "
-"montant."
+"sélectionnée.\n"
+"Veuillez choisir une autre option ou entrer un nouveau montant."
 
 #~ msgid "Save"
 #~ msgstr "Sauvegarder"
