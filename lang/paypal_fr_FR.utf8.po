@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"Report-Msgid-Bugs-To: translations@galette.eu\n"
-"POT-Creation-Date: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-11-21 22:11+0100\n"
 "PO-Revision-Date: 2020-12-12 18:26+0000\n"
 "Last-Translator: Johan Cwiklinski <trasher@x-tnd.be>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/galette/paypal-"
@@ -18,32 +18,34 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
 "X-Generator: Weblate 4.4-dev\n"
 
-#: ../_routes.php:60
-msgid "Paypal Settings"
-msgstr "Préférences Paypal"
-
-#: ../_routes.php:98
-msgid "Paypal preferences has been saved."
-msgstr "Les préférences Paypal ont été sauvegardées."
-
-#: ../_routes.php:104
-msgid "An error occured saving paypal preferences :("
-msgstr ""
-"Une erreur est survenue lors de l'enregistrement des préférences paypal :("
-
-#: ../_routes.php:125
+#: ../lib/GalettePaypal/Controllers/PaypalController.php:89
 msgid "Paypal payment"
 msgstr "Paiement Paypal"
 
-#: ../_routes.php:148
+#: ../lib/GalettePaypal/Controllers/PaypalController.php:205
+msgid "Paypal Settings"
+msgstr "Préférences Paypal"
+
+#: ../lib/GalettePaypal/Controllers/PaypalController.php:249
+msgid "Paypal preferences has been saved."
+msgstr "Les préférences Paypal ont été sauvegardées."
+
+#: ../lib/GalettePaypal/Controllers/PaypalController.php:255
+#, fuzzy
+#| msgid "An error occured saving paypal preferences :("
+msgid "An error occurred saving paypal preferences :("
+msgstr ""
+"Une erreur est survenue lors de l'enregistrement des préférences paypal :("
+
+#: ../lib/GalettePaypal/Controllers/PaypalController.php:277
 msgid "Your payment has been aborted!"
 msgstr "Votre paiement a été annulé !"
 
-#: ../_routes.php:167
+#: ../lib/GalettePaypal/Controllers/PaypalController.php:302
 msgid "Paypal payment success"
 msgstr "Paiement Paypal effectué"
 
-#: ../_routes.php:173
+#: ../lib/GalettePaypal/Controllers/PaypalController.php:308
 msgid "Your payment has been proceeded!"
 msgstr "Votre paiement a été effectué !"
 
@@ -79,19 +81,19 @@ msgstr "Formulaire de paiement"
 msgid "Paypal History"
 msgstr "Historique Paypal"
 
-#: ../templates/default/paypal_history.tpl:54
+#: ../templates/default/paypal_history.tpl:55
 msgid "duplicate"
 msgstr "dupliquer"
 
-#: ../templates/default/paypal_history.tpl:67
+#: ../templates/default/paypal_history.tpl:68
 msgid "No request or unable to read request"
 msgstr "Pas de requête ou impossible de lire la requête"
 
-#: ../templates/default/paypal_history.tpl:83
+#: ../templates/default/paypal_history.tpl:84
 msgid "Request"
 msgstr "Requête"
 
-#: ../templates/default/paypal_history.tpl:106
+#: ../templates/default/paypal_history.tpl:107
 msgid "Show/hide full request"
 msgstr "Afficher/Masquer la requête complète"
 
@@ -134,6 +136,7 @@ msgstr ""
 "crtitique."
 
 #: ../templates/default/paypal_form.tpl:43
+#, php-format
 msgid "Go back to %s's website to complete your inscription."
 msgstr "Retour au site de %s pour compléter votre inscription."
 
@@ -170,9 +173,14 @@ msgid "Please enter an amount."
 msgstr "Veuillez entrer un montant."
 
 #: ../templates/default/paypal_form.tpl:124
+#, fuzzy
+#| msgid ""
+#| "The amount you've entered is lower than the minimum amount for the "
+#| "selected option.\\nPlease choose another option or change the amount."
 msgid ""
 "The amount you've entered is lower than the minimum amount for the selected "
-"option.\\nPlease choose another option or change the amount."
+"option.\n"
+"Please choose another option or change the amount."
 msgstr ""
 "Le montant que vous avez entré est inférieur au montant minimum de l'option "
 "sélectionnée.\\nVeuillez choisir une autre option ou entrer un nouveau "

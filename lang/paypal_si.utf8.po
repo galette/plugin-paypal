@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-20 20:22+0200\n"
+"POT-Creation-Date: 2021-11-21 22:11+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -12,31 +12,31 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Translate Toolkit 3.3.6\n"
 
-#: ../_routes.php:60
-msgid "Paypal Settings"
-msgstr ""
-
-#: ../_routes.php:98
-msgid "Paypal preferences has been saved."
-msgstr ""
-
-#: ../_routes.php:104
-msgid "An error occured saving paypal preferences :("
-msgstr ""
-
-#: ../_routes.php:125
+#: ../lib/GalettePaypal/Controllers/PaypalController.php:89
 msgid "Paypal payment"
 msgstr ""
 
-#: ../_routes.php:148
+#: ../lib/GalettePaypal/Controllers/PaypalController.php:205
+msgid "Paypal Settings"
+msgstr ""
+
+#: ../lib/GalettePaypal/Controllers/PaypalController.php:249
+msgid "Paypal preferences has been saved."
+msgstr ""
+
+#: ../lib/GalettePaypal/Controllers/PaypalController.php:255
+msgid "An error occurred saving paypal preferences :("
+msgstr ""
+
+#: ../lib/GalettePaypal/Controllers/PaypalController.php:277
 msgid "Your payment has been aborted!"
 msgstr ""
 
-#: ../_routes.php:167
+#: ../lib/GalettePaypal/Controllers/PaypalController.php:302
 msgid "Paypal payment success"
 msgstr ""
 
-#: ../_routes.php:173
+#: ../lib/GalettePaypal/Controllers/PaypalController.php:308
 msgid "Your payment has been proceeded!"
 msgstr ""
 
@@ -49,7 +49,9 @@ msgid "Paypal identifier:"
 msgstr ""
 
 #: ../templates/default/paypal_preferences.tpl:16
-msgid "Enter here one of your Paypal ID or email adress associated within your paypal account."
+msgid ""
+"Enter here one of your Paypal ID or email adress associated within your "
+"paypal account."
 msgstr ""
 
 #: ../templates/default/paypal_preferences.tpl:48
@@ -68,19 +70,19 @@ msgstr ""
 msgid "Paypal History"
 msgstr ""
 
-#: ../templates/default/paypal_history.tpl:54
+#: ../templates/default/paypal_history.tpl:55
 msgid "duplicate"
 msgstr ""
 
-#: ../templates/default/paypal_history.tpl:67
+#: ../templates/default/paypal_history.tpl:68
 msgid "No request or unable to read request"
 msgstr ""
 
-#: ../templates/default/paypal_history.tpl:83
+#: ../templates/default/paypal_history.tpl:84
 msgid "Request"
 msgstr ""
 
-#: ../templates/default/paypal_history.tpl:106
+#: ../templates/default/paypal_history.tpl:107
 msgid "Show/hide full request"
 msgstr ""
 
@@ -89,15 +91,22 @@ msgid "Your paypal payment was successful. Some details are shown below:"
 msgstr ""
 
 #: ../templates/default/paypal_success.tpl:28
-msgid "Your paypal payment was successful. You may receive a mail from paypal with details."
+msgid ""
+"Your paypal payment was successful. You may receive a mail from paypal with "
+"details."
 msgstr ""
 
 #: ../templates/default/paypal_form.tpl:6
-msgid "<strong>Payment coult not work</strong>: An error occured (that has been logged) while loading Paypal preferences from database.<br/>Please report the issue to the staff."
+msgid ""
+"<strong>Payment coult not work</strong>: An error occured (that has been "
+"logged) while loading Paypal preferences from database.<br/>Please report "
+"the issue to the staff."
 msgstr ""
 
 #: ../templates/default/paypal_form.tpl:12
-msgid "Paypal id has not been defined. Please ask an administrator to add it from plugin preferences."
+msgid ""
+"Paypal id has not been defined. Please ask an administrator to add it from "
+"plugin preferences."
 msgstr ""
 
 #: ../templates/default/paypal_form.tpl:18
@@ -105,6 +114,7 @@ msgid "Predefined amounts cannot be loaded, that is not a critical error."
 msgstr ""
 
 #: ../templates/default/paypal_form.tpl:43
+#, php-format
 msgid "Go back to %s's website to complete your inscription."
 msgstr ""
 
@@ -129,7 +139,9 @@ msgid "No predefined amounts have been configured yet."
 msgstr ""
 
 #: ../templates/default/paypal_form.tpl:81
-msgid "WARNING: If you enter an amount below, make sure that it is not lower than the amount of the option you've selected."
+msgid ""
+"WARNING: If you enter an amount below, make sure that it is not lower than "
+"the amount of the option you've selected."
 msgstr ""
 
 #: ../templates/default/paypal_form.tpl:121
@@ -137,5 +149,8 @@ msgid "Please enter an amount."
 msgstr ""
 
 #: ../templates/default/paypal_form.tpl:124
-msgid "The amount you've entered is lower than the minimum amount for the selected option.\\nPlease choose another option or change the amount."
+msgid ""
+"The amount you've entered is lower than the minimum amount for the selected "
+"option.\n"
+"Please choose another option or change the amount."
 msgstr ""

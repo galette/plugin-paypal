@@ -3,8 +3,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"Report-Msgid-Bugs-To: translations@galette.eu\n"
-"POT-Creation-Date: 2020-06-29 16:04+0200\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-11-21 22:11+0100\n"
 "PO-Revision-Date: 2020-06-30 21:03+0000\n"
 "Last-Translator: Quentin PAGÈS <quentinantonin@free.fr>\n"
 "Language-Team: Occitan <https://hosted.weblate.org/projects/galette/paypal-"
@@ -16,31 +16,31 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
 "X-Generator: Weblate 4.2-dev\n"
 
-#: ../_routes.php:60
-msgid "Paypal Settings"
-msgstr ""
-
-#: ../_routes.php:98
-msgid "Paypal preferences has been saved."
-msgstr ""
-
-#: ../_routes.php:104
-msgid "An error occured saving paypal preferences :("
-msgstr ""
-
-#: ../_routes.php:125
+#: ../lib/GalettePaypal/Controllers/PaypalController.php:89
 msgid "Paypal payment"
 msgstr ""
 
-#: ../_routes.php:148
+#: ../lib/GalettePaypal/Controllers/PaypalController.php:205
+msgid "Paypal Settings"
+msgstr ""
+
+#: ../lib/GalettePaypal/Controllers/PaypalController.php:249
+msgid "Paypal preferences has been saved."
+msgstr ""
+
+#: ../lib/GalettePaypal/Controllers/PaypalController.php:255
+msgid "An error occurred saving paypal preferences :("
+msgstr ""
+
+#: ../lib/GalettePaypal/Controllers/PaypalController.php:277
 msgid "Your payment has been aborted!"
 msgstr ""
 
-#: ../_routes.php:167
+#: ../lib/GalettePaypal/Controllers/PaypalController.php:302
 msgid "Paypal payment success"
 msgstr ""
 
-#: ../_routes.php:173
+#: ../lib/GalettePaypal/Controllers/PaypalController.php:308
 msgid "Your payment has been proceeded!"
 msgstr ""
 
@@ -74,19 +74,19 @@ msgstr ""
 msgid "Paypal History"
 msgstr ""
 
-#: ../templates/default/paypal_history.tpl:54
+#: ../templates/default/paypal_history.tpl:55
 msgid "duplicate"
 msgstr ""
 
-#: ../templates/default/paypal_history.tpl:67
+#: ../templates/default/paypal_history.tpl:68
 msgid "No request or unable to read request"
 msgstr ""
 
-#: ../templates/default/paypal_history.tpl:83
+#: ../templates/default/paypal_history.tpl:84
 msgid "Request"
 msgstr ""
 
-#: ../templates/default/paypal_history.tpl:106
+#: ../templates/default/paypal_history.tpl:107
 msgid "Show/hide full request"
 msgstr ""
 
@@ -118,6 +118,7 @@ msgid "Predefined amounts cannot be loaded, that is not a critical error."
 msgstr ""
 
 #: ../templates/default/paypal_form.tpl:43
+#, php-format
 msgid "Go back to %s's website to complete your inscription."
 msgstr ""
 
@@ -154,5 +155,6 @@ msgstr ""
 #: ../templates/default/paypal_form.tpl:124
 msgid ""
 "The amount you've entered is lower than the minimum amount for the selected "
-"option.\\nPlease choose another option or change the amount."
+"option.\n"
+"Please choose another option or change the amount."
 msgstr ""
