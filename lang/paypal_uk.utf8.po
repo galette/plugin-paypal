@@ -1,12 +1,13 @@
 # Prosta4okua <danyavdele@gmail.com>, 2020.
 # Tymofij Lytvynenko <till.svit@gmail.com>, 2021.
+# Johan Cwiklinski <trasher@x-tnd.be>, 2021.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: translations@galette.eu\n"
-"POT-Creation-Date: 2020-06-19 05:47+0200\n"
-"PO-Revision-Date: 2021-04-28 06:06+0000\n"
-"Last-Translator: Tymofij Lytvynenko <till.svit@gmail.com>\n"
+"POT-Creation-Date: 2021-11-21 22:11+0100\n"
+"PO-Revision-Date: 2021-11-21 21:15+0000\n"
+"Last-Translator: Johan Cwiklinski <trasher@x-tnd.be>\n"
 "Language-Team: Ukrainian <https://hosted.weblate.org/projects/galette/"
 "paypal-plugin/uk/>\n"
 "Language: uk\n"
@@ -15,33 +16,33 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 4.7-dev\n"
+"X-Generator: Weblate 4.10-dev\n"
 
-#: ../_routes.php:60
-msgid "Paypal Settings"
-msgstr "Налаштування Paypal"
-
-#: ../_routes.php:98
-msgid "Paypal preferences has been saved."
-msgstr "Налаштування Paypal збережено."
-
-#: ../_routes.php:104
-msgid "An error occured saving paypal preferences :("
-msgstr "Під час збереження налаштувань PayPal сталася помилка :("
-
-#: ../_routes.php:125
+#: ../lib/GalettePaypal/Controllers/PaypalController.php:89
 msgid "Paypal payment"
 msgstr "Платіж PayPal"
 
-#: ../_routes.php:148
+#: ../lib/GalettePaypal/Controllers/PaypalController.php:205
+msgid "Paypal Settings"
+msgstr "Налаштування Paypal"
+
+#: ../lib/GalettePaypal/Controllers/PaypalController.php:249
+msgid "Paypal preferences has been saved."
+msgstr "Налаштування Paypal збережено."
+
+#: ../lib/GalettePaypal/Controllers/PaypalController.php:255
+msgid "An error occurred saving paypal preferences :("
+msgstr "Під час збереження налаштувань PayPal сталася помилка :("
+
+#: ../lib/GalettePaypal/Controllers/PaypalController.php:277
 msgid "Your payment has been aborted!"
 msgstr "Ваш платіж перервано!"
 
-#: ../_routes.php:167
+#: ../lib/GalettePaypal/Controllers/PaypalController.php:302
 msgid "Paypal payment success"
 msgstr "Платіж Paypal виконано успішно"
 
-#: ../_routes.php:173
+#: ../lib/GalettePaypal/Controllers/PaypalController.php:308
 msgid "Your payment has been proceeded!"
 msgstr "Ваш платіж продовжено!"
 
@@ -77,19 +78,19 @@ msgstr "Форма платежу"
 msgid "Paypal History"
 msgstr "Історія Paypal"
 
-#: ../templates/default/paypal_history.tpl:54
+#: ../templates/default/paypal_history.tpl:55
 msgid "duplicate"
 msgstr "подвоєння"
 
-#: ../templates/default/paypal_history.tpl:67
+#: ../templates/default/paypal_history.tpl:68
 msgid "No request or unable to read request"
 msgstr "Немає запиту або неможливо прочитати запит"
 
-#: ../templates/default/paypal_history.tpl:83
+#: ../templates/default/paypal_history.tpl:84
 msgid "Request"
 msgstr "Запит"
 
-#: ../templates/default/paypal_history.tpl:106
+#: ../templates/default/paypal_history.tpl:107
 msgid "Show/hide full request"
 msgstr "Показ/ховання повного запиту"
 
@@ -128,6 +129,7 @@ msgid "Predefined amounts cannot be loaded, that is not a critical error."
 msgstr "Зумовлені суми не можуть бути завантажені, що не є критичною помилкою."
 
 #: ../templates/default/paypal_form.tpl:43
+#, php-format
 msgid "Go back to %s's website to complete your inscription."
 msgstr "Поверніться на сайт %s, щоб заповнити своє написання."
 
@@ -166,7 +168,8 @@ msgstr "Уведіть суму."
 #: ../templates/default/paypal_form.tpl:124
 msgid ""
 "The amount you've entered is lower than the minimum amount for the selected "
-"option.\\nPlease choose another option or change the amount."
+"option.\n"
+"Please choose another option or change the amount."
 msgstr ""
-"Уведена сума нижча за мінімальну для обраного варіанту.\\n"
-" Виберіть інший варіант або змініть суму."
+"Уведена сума нижча за мінімальну для обраного варіанту.\n"
+"Виберіть інший варіант або змініть суму."

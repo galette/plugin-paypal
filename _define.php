@@ -38,10 +38,10 @@ $this->register(
     'Galette Paypal',       //Name
     'Paypal integration',   //Short description
     'Johan Cwiklinski',     //Author
-    '1.9.1',                //Version
-    '0.9.5',                //Galette compatible version
+    '1.10.0',               //Version
+    '0.9.6',                //Galette compatible version
     'paypal',               //routing name and translation domain
-    '2021-10-23',           //Release date
+    '2021-11-29',           //Release date
     [   //Permissions needed
         'paypal_preferences'        => 'staff',
         'store_paypal_preferences'  => 'staff',
