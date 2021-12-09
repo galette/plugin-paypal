@@ -1,100 +1,109 @@
+# Carmella Andrews <26andrewsc@harriscountyschools.org>, 2021.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: translations@galette.eu\n"
 "POT-Creation-Date: 2021-11-21 22:11+0100\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2021-12-11 01:54+0000\n"
+"Last-Translator: Carmella Andrews <26andrewsc@harriscountyschools.org>\n"
+"Language-Team: Catalan <https://hosted.weblate.org/projects/galette/"
+"paypal-plugin/ca/>\n"
 "Language: ca\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Translate Toolkit 3.0.0\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.10-dev\n"
 
 #: ../lib/GalettePaypal/Controllers/PaypalController.php:89
 msgid "Paypal payment"
-msgstr ""
+msgstr "pagament Paypal"
 
 #: ../lib/GalettePaypal/Controllers/PaypalController.php:205
 msgid "Paypal Settings"
-msgstr ""
+msgstr "Configuració de Paypal"
 
 #: ../lib/GalettePaypal/Controllers/PaypalController.php:249
 msgid "Paypal preferences has been saved."
-msgstr ""
+msgstr "Les preferències de Paypal s'han desat."
 
 #: ../lib/GalettePaypal/Controllers/PaypalController.php:255
 msgid "An error occurred saving paypal preferences :("
-msgstr ""
+msgstr "S'ha produït un error en desar les preferències de PayPal :("
 
 #: ../lib/GalettePaypal/Controllers/PaypalController.php:277
 msgid "Your payment has been aborted!"
-msgstr ""
+msgstr "El vostre pagament s'ha cancel·lat!"
 
 #: ../lib/GalettePaypal/Controllers/PaypalController.php:302
 msgid "Paypal payment success"
-msgstr ""
+msgstr "Pagament amb PayPal correcte"
 
 #: ../lib/GalettePaypal/Controllers/PaypalController.php:308
 msgid "Your payment has been proceeded!"
-msgstr ""
+msgstr "S'ha fet el pagament!"
 
 #: ../templates/default/paypal_preferences.tpl:12
 msgid "Paypal preferences"
-msgstr ""
+msgstr "Preferències de Paypal"
 
 #: ../templates/default/paypal_preferences.tpl:15
 msgid "Paypal identifier:"
-msgstr ""
+msgstr "Identificador de Paypal:"
 
 #: ../templates/default/paypal_preferences.tpl:16
 msgid ""
 "Enter here one of your Paypal ID or email adress associated within your "
 "paypal account."
 msgstr ""
+"Introduïu aquí un dels vostres ID de Paypal o adreces de correu electrònic "
+"associades al vostre compte de Paypal."
 
 #: ../templates/default/paypal_preferences.tpl:48
 msgid "Error: no predefined amounts found."
-msgstr ""
+msgstr "Error: no s'han trobat quantitats predefinides."
 
 #: ../templates/default/menu.tpl:1
 msgid "Paypal"
-msgstr ""
+msgstr "Paypale"
 
 #: ../templates/default/menu.tpl:3 ../templates/default/public_menu.tpl:4
 msgid "Payment form"
-msgstr ""
+msgstr "Formulari de pagament"
 
 #: ../templates/default/menu.tpl:5
 msgid "Paypal History"
-msgstr ""
+msgstr "Història de Paypal"
 
 #: ../templates/default/paypal_history.tpl:55
 msgid "duplicate"
-msgstr ""
+msgstr "duplicar"
 
 #: ../templates/default/paypal_history.tpl:68
 msgid "No request or unable to read request"
-msgstr ""
+msgstr "No hi ha cap sol·licitud o no es pot llegir la sol·licitud"
 
 #: ../templates/default/paypal_history.tpl:84
 msgid "Request"
-msgstr ""
+msgstr "petició"
 
 #: ../templates/default/paypal_history.tpl:107
 msgid "Show/hide full request"
-msgstr ""
+msgstr "Mostra / amaga l'aplicació completa"
 
 #: ../templates/default/paypal_success.tpl:4
 msgid "Your paypal payment was successful. Some details are shown below:"
 msgstr ""
+"El vostre pagament amb PayPal s'ha realitzat correctament. A continuació es "
+"mostren alguns detalls:"
 
 #: ../templates/default/paypal_success.tpl:28
 msgid ""
 "Your paypal payment was successful. You may receive a mail from paypal with "
 "details."
 msgstr ""
+"El vostre pagament amb PayPal s'ha realitzat correctament. És possible que "
+"rebeu un correu de paypal amb els detalls."
 
 #: ../templates/default/paypal_form.tpl:6
 msgid ""
@@ -102,51 +111,59 @@ msgid ""
 "logged) while loading Paypal preferences from database.<br/>Please report "
 "the issue to the staff."
 msgstr ""
+"<strong>El pagament no ha pogut funcionar</strong>: s'ha produït un error ("
+"que s'ha registrat) en carregar les preferències de Paypal des de la base de "
+"dades.<br>Si us plau, informeu el problema al personal."
 
 #: ../templates/default/paypal_form.tpl:12
 msgid ""
 "Paypal id has not been defined. Please ask an administrator to add it from "
 "plugin preferences."
 msgstr ""
+"L'identificador de Paypal no s'ha definit. Si us plau, demaneu a un "
+"administrador que l'afegeixi des de les preferències del connector."
 
 #: ../templates/default/paypal_form.tpl:18
 msgid "Predefined amounts cannot be loaded, that is not a critical error."
 msgstr ""
+"No es poden carregar quantitats predefinides, això no és un error crític."
 
 #: ../templates/default/paypal_form.tpl:43
 #, php-format
 msgid "Go back to %s's website to complete your inscription."
-msgstr ""
+msgstr "Torneu al lloc web de %s per completar la vostra inscripció."
 
 #: ../templates/default/paypal_form.tpl:48
 msgid "Enter payment reason"
-msgstr ""
+msgstr "Introduïu el motiu del pagament"
 
 #: ../templates/default/paypal_form.tpl:50
 msgid "Payment reason"
-msgstr ""
+msgstr "Motiu del pagament"
 
 #: ../templates/default/paypal_form.tpl:52
 msgid "Select an payment reason"
-msgstr ""
+msgstr "Seleccioneu un motiu de pagament"
 
 #: ../templates/default/paypal_form.tpl:70
 msgid "Payment reason:"
-msgstr ""
+msgstr "Motiu de pagament:"
 
 #: ../templates/default/paypal_form.tpl:75
 msgid "No predefined amounts have been configured yet."
-msgstr ""
+msgstr "Encara no s'ha configurat cap import predefinit."
 
 #: ../templates/default/paypal_form.tpl:81
 msgid ""
 "WARNING: If you enter an amount below, make sure that it is not lower than "
 "the amount of the option you've selected."
 msgstr ""
+"ADVERTIMENT: Si introduïu un import a continuació, assegureu-vos que no "
+"sigui inferior a l'import de l'opció que heu seleccionat."
 
 #: ../templates/default/paypal_form.tpl:121
 msgid "Please enter an amount."
-msgstr ""
+msgstr "Introduïu una quantitat."
 
 #: ../templates/default/paypal_form.tpl:124
 msgid ""
@@ -154,3 +171,6 @@ msgid ""
 "option.\n"
 "Please choose another option or change the amount."
 msgstr ""
+"L'import que heu introduït és inferior a l'import mínim de l'opció "
+"seleccionada.\n"
+"Si us plau, trieu una altra opció o canvieu l'import."
