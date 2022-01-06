@@ -1,11 +1,12 @@
 # Carmella Andrews <26andrewsc@harriscountyschools.org>, 2021.
+# Arnau Isern <arnauisern84@gmail.com>, 2022.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: translations@galette.eu\n"
 "POT-Creation-Date: 2021-11-21 22:11+0100\n"
-"PO-Revision-Date: 2021-12-11 01:54+0000\n"
-"Last-Translator: Carmella Andrews <26andrewsc@harriscountyschools.org>\n"
+"PO-Revision-Date: 2022-01-07 10:56+0000\n"
+"Last-Translator: Arnau Isern <arnauisern84@gmail.com>\n"
 "Language-Team: Catalan <https://hosted.weblate.org/projects/galette/"
 "paypal-plugin/ca/>\n"
 "Language: ca\n"
@@ -13,11 +14,11 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.10-dev\n"
+"X-Generator: Weblate 4.10.1\n"
 
 #: ../lib/GalettePaypal/Controllers/PaypalController.php:89
 msgid "Paypal payment"
-msgstr "pagament Paypal"
+msgstr "Pagament Paypal"
 
 #: ../lib/GalettePaypal/Controllers/PaypalController.php:205
 msgid "Paypal Settings"
