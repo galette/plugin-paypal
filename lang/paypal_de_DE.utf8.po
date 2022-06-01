@@ -2,13 +2,14 @@
 # moppinator <thomas.wittchen@googlemail.com>, 2020.
 # Matthias Schmitt <male.schmitt@posteo.de>, 2021.
 # Tony Leichsenring <tony.leichsenring@googlemail.com>, 2021.
+# Glax <gfreak70@gmail.com>, 2022.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: translations@galette.eu\n"
 "POT-Creation-Date: 2021-11-21 22:11+0100\n"
-"PO-Revision-Date: 2021-11-21 21:15+0000\n"
-"Last-Translator: Johan Cwiklinski <trasher@x-tnd.be>\n"
+"PO-Revision-Date: 2022-06-01 03:23+0000\n"
+"Last-Translator: Glax <gfreak70@gmail.com>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/galette/"
 "paypal-plugin/de/>\n"
 "Language: de_DE\n"
@@ -16,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.10-dev\n"
+"X-Generator: Weblate 4.13-dev\n"
 
 #: ../lib/GalettePaypal/Controllers/PaypalController.php:89
 msgid "Paypal payment"
@@ -83,7 +84,7 @@ msgstr "Duplikat"
 
 #: ../templates/default/paypal_history.tpl:68
 msgid "No request or unable to read request"
-msgstr ""
+msgstr "Keine Anfrage oder Anfrage nicht lesbar"
 
 #: ../templates/default/paypal_history.tpl:84
 msgid "Request"
@@ -103,6 +104,8 @@ msgid ""
 "Your paypal payment was successful. You may receive a mail from paypal with "
 "details."
 msgstr ""
+"Ihr Bezahlung mit Paypal war erfolgreich. Sie erhalten eine E-Mail von "
+"Paypal mit den Details."
 
 #: ../templates/default/paypal_form.tpl:6
 msgid ""
