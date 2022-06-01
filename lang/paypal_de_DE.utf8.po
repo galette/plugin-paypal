@@ -3,13 +3,14 @@
 # Matthias Schmitt <male.schmitt@posteo.de>, 2021.
 # Tony Leichsenring <tony.leichsenring@googlemail.com>, 2021.
 # Glax <gfreak70@gmail.com>, 2022.
+# Der_Unterhaendler <Lukas.Engelschalk@gmx.de>, 2022.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: translations@galette.eu\n"
 "POT-Creation-Date: 2021-11-21 22:11+0100\n"
 "PO-Revision-Date: 2022-06-01 03:23+0000\n"
-"Last-Translator: Glax <gfreak70@gmail.com>\n"
+"Last-Translator: Der_Unterhaendler <Lukas.Engelschalk@gmx.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/galette/"
 "paypal-plugin/de/>\n"
 "Language: de_DE\n"
@@ -72,13 +73,14 @@ msgstr "Paypal"
 
 #: ../templates/default/menu.tpl:3 ../templates/default/public_menu.tpl:4
 msgid "Payment form"
-msgstr ""
+msgstr "Zahlungsform"
 
 #: ../templates/default/menu.tpl:5
 msgid "Paypal History"
 msgstr "PayPal Historie"
 
 #: ../templates/default/paypal_history.tpl:55
+#, fuzzy
 msgid "duplicate"
 msgstr "Duplikat"
 
@@ -96,8 +98,7 @@ msgstr "Komplette Anfrage anzeigen/ausblenden"
 
 #: ../templates/default/paypal_success.tpl:4
 msgid "Your paypal payment was successful. Some details are shown below:"
-msgstr ""
-"Ihre PayPal Bezahlung war erfolgreich. Details dazu werden unten angezeigt:"
+msgstr "Ihre PayPal Zahlung war erfolgreich. Details werden unten angezeigt:"
 
 #: ../templates/default/paypal_success.tpl:28
 msgid ""
