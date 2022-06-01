@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: translations@galette.eu\n"
 "POT-Creation-Date: 2021-11-21 22:11+0100\n"
-"PO-Revision-Date: 2022-06-01 03:26+0000\n"
-"Last-Translator: Glax <gfreak70@gmail.com>\n"
+"PO-Revision-Date: 2022-06-01 03:31+0000\n"
+"Last-Translator: Der_Unterhaendler <Lukas.Engelschalk@gmx.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/galette/"
 "paypal-plugin/de/>\n"
 "Language: de_DE\n"
@@ -129,7 +129,8 @@ msgstr ""
 #: ../templates/default/paypal_form.tpl:18
 msgid "Predefined amounts cannot be loaded, that is not a critical error."
 msgstr ""
-"Vordefinierte Werte konnten nicht geladen werden. Dies ist nicht kritisch."
+"Vordefinierte Werte konnten nicht geladen werden. Dies ist kein kritischer "
+"Fehler."
 
 #: ../templates/default/paypal_form.tpl:43
 #, php-format
@@ -138,29 +139,32 @@ msgstr ""
 
 #: ../templates/default/paypal_form.tpl:48
 msgid "Enter payment reason"
-msgstr "Bezahlgrund eingeben"
+msgstr "Zahlgrund eingeben"
 
 #: ../templates/default/paypal_form.tpl:50
 msgid "Payment reason"
-msgstr "Bezahlgrund"
+msgstr "Zahlgrund"
 
 #: ../templates/default/paypal_form.tpl:52
 msgid "Select an payment reason"
-msgstr "Wähle einen Bezahlgrund"
+msgstr "Wähle einen Zahlgrund"
 
 #: ../templates/default/paypal_form.tpl:70
 msgid "Payment reason:"
-msgstr "Bezahlgrund:"
+msgstr "Zahlgrund:"
 
 #: ../templates/default/paypal_form.tpl:75
 msgid "No predefined amounts have been configured yet."
-msgstr ""
+msgstr "Vorgefertigte Werte wurden noch nicht eingegeben."
 
 #: ../templates/default/paypal_form.tpl:81
+#, fuzzy
 msgid ""
 "WARNING: If you enter an amount below, make sure that it is not lower than "
 "the amount of the option you've selected."
 msgstr ""
+"WARNUNG: Falls sie unten eine Anzahl eingeben, stellen sie sicher dass er "
+"nicht unter dem Wert des ausgewählten Angebot liegt."
 
 #: ../templates/default/paypal_form.tpl:121
 msgid "Please enter an amount."
