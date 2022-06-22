@@ -97,7 +97,7 @@ class PaypalController extends AbstractPluginController
         // display page
         $this->view->render(
             $response,
-            'file:[' . $this->getModuleRoute() . ']paypal_form.tpl',
+            $this->getTemplate('paypal_form'),
             $params
         );
         return $response;
@@ -137,7 +137,7 @@ class PaypalController extends AbstractPluginController
         //assign pagination variables to the template and add pagination links
         $paypal_history->setFilters($filters);
         $logs = $paypal_history->getPaypalHistory();
-        $filters->setSmartyPagination($this->router, $this->view->getSmarty());
+        $filters->setViewPagination($this->router, $this->view);
 
         $params = [
             'page_title' => _T("Paypal History"),
@@ -151,7 +151,7 @@ class PaypalController extends AbstractPluginController
         // display page
         $this->view->render(
             $response,
-            'file:[' . $this->getModuleRoute() . ']paypal_history.tpl',
+            $this->getTemplate('paypal_history'),
             $params
         );
         return $response;
@@ -210,7 +210,7 @@ class PaypalController extends AbstractPluginController
         // display page
         $this->view->render(
             $response,
-            'file:[' . $this->getModuleRoute() . ']paypal_preferences.tpl',
+            $this->getTemplate('paypal_preferences'),
             $params
         );
         return $response;
@@ -351,7 +351,7 @@ class PaypalController extends AbstractPluginController
         // display page
         $this->view->render(
             $response,
-            'file:[' . $this->getModuleRoute() . ']paypal_success.tpl',
+            $this->getTemplate('paypal_success'),
             $params
         );
         return $response;

@@ -1,0 +1,31 @@
+{% extends 'page.html.twig' %}
+
+{% block content %}
+    {% if post %}
+        <p>{{ _T("Your paypal payment was successful. Some details are shown below:", "paypal") }}</p>
+        <table>
+            <tr>
+                <th>{{ _T("Label") }}</th>
+                <td>{{ post.item_name }}</td>
+            </tr>
+            <tr>
+                <th>{{ _T("Payment date") }}</th>
+                <td>{{ post.payment_date }}</td>
+            </tr>
+            <tr>
+                <th>{{ _T("Payment status") }}</th>
+                <td>{{ post.payment_status }}</td>
+            </tr>
+            <tr>
+                <th>{{ _T("Payment type") }}</th>
+                <td>{{ post.payment_type }}</td>
+            </tr>
+            <tr>
+                <th>{{ _T("Amount") }}</th>
+                <td>{{ post.mc_gross }} {{ post.mc_currency }}</td>
+            </tr>
+        </table>
+    {% else %}
+        <p>{{ _T("Your paypal payment was successful. You may receive a mail from paypal with details.", "paypal") }}</p>
+    {% endif %}
+{% endblock %}
