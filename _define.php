@@ -49,3 +49,7 @@ $this->register(
         'filter_paypal_history'     => 'staff'
     ]
 );
+
+$this->setCsrfExclusions([
+    '/paypal_(success|notify|cancelled)/',
+]);
