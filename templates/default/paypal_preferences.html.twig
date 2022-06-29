@@ -1,25 +1,30 @@
 {% extends 'page.html.twig' %}
 
 {% block content %}
-    <form action="{{ path_for("store_paypal_preferences") }}" method="post" enctype="multipart/form-data">
+    <form action="{{ path_for("store_paypal_preferences") }}" method="post" enctype="multipart/form-data" class="ui form">
     {% if not paypal.isLoaded() %}
             <div id="errorbox">
                 <h1>{{ _T("- ERROR -") }}</h1>
             </div>
     {% endif %}
-        <div class="bigtable">
-            <input type="hidden" name="valid" value="1"/>
-            <fieldset class="cssform paypalprefs ">
-                <legend class="ui-state-active ui-corner-top">{{ _T("Paypal preferences", "paypal") }}</legend>
+        <div class="ui styled fluid accordion field">
+            <div class="active title">
+                <i class="icon dropdown"></i>
+                {{ _T("Paypal preferences", "paypal") }}
+            </div>
+            <div class="active content">
     {% if login.isAdmin() %}
-                <p>
-                    <label for="paypal_id" class="bline">{{ _T("Paypal identifier:", "paypal") }}</label>
-                    <span class="tip">{{ _T("Enter here one of your Paypal ID or email adress associated within your paypal account.", "paypal") }}</span>
-                    <input type="text" name="paypal_id" id="paypal_id" value="{{ paypal.getId() }}" required/>
-                </p>
+                {% include "components/forms/text.html.twig" with {
+                    id: 'paypal_id',
+                    value: paypal.getId(),
+                    label: _T("Paypal identifier:", "paypal"),
+                    required: true,
+                    tip: _T("Enter here one of your Paypal ID or email adress associated within your paypal account.", "paypal")
+                } %}
     {% endif %}
+
     {% if paypal.areAmountsLoaded() and amounts|length > 0 %}
-                <table>
+                <table class="listing ui celled table">
                     <thead>
                         <tr>
                             <th class="listing">{{ _T("Contribution type") }}</th>
@@ -44,14 +49,17 @@
         {% endfor %}
                     </tbody>
                 </table>
-            </fieldset>
     {% else %}
-            <p>{{ _T("Error: no predefined amounts found.", "paypal") }}</p>
+                <p>{{ _T("Error: no predefined amounts found.", "paypal") }}</p>
     {% endif %}
-
+            </div>
         </div>
-        <div class="button-container">
-            <input type="submit" value="{{ _T("Save") }}"/>
+
+        <div class="ui basic center aligned segment">
+            <button type="submit" class="ui labeled icon primary button action">
+                <i class="save icon"></i> {{ _T("Save") }}
+            </button>
+            <input type="hidden" name="valid" value="1"/>
             {% include "components/forms/csrf.html.twig" %}
         </div>
     </form>
