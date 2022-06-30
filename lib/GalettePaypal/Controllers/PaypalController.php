@@ -94,7 +94,31 @@ class PaypalController extends AbstractPluginController
             $params['custom'] = $this->login->id;
         }
 
-        // display page
+        if (!$paypal->isLoaded()) {
+            $this->flash->addMessageNow(
+                'error',
+                _T("<strong>Payment could not work</strong>: An error occurred (that has been logged) while loading Paypal preferences from database.<br/>Please report the issue to the staff.", "paypal") .
+                '<br/>' . _T("Our apologies for the annoyance :(", "paypal")
+
+            );
+        }
+
+        if ($paypal->getId() == null) {
+            $this->flash->addMessageNow(
+                'error',
+                _T("Paypal id has not been defined. Please ask an administrator to add it from plugin preferences.", "paypal")
+            );
+        }
+
+        if (!$paypal->areAmountsLoaded()) {
+            $this->flash->addMessageNow(
+                'warning',
+                _T("Predefined amounts cannot be loaded, that is not a critical error.", "paypal")
+            );
+
+        }
+
+            // display page
         $this->view->render(
             $response,
             $this->getTemplate('paypal_form'),
