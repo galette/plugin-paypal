@@ -99,7 +99,6 @@ class PaypalController extends AbstractPluginController
                 'error',
                 _T("<strong>Payment could not work</strong>: An error occurred (that has been logged) while loading Paypal preferences from database.<br/>Please report the issue to the staff.", "paypal") .
                 '<br/>' . _T("Our apologies for the annoyance :(", "paypal")
-
             );
         }
 
@@ -115,7 +114,6 @@ class PaypalController extends AbstractPluginController
                 'warning',
                 _T("Predefined amounts cannot be loaded, that is not a critical error.", "paypal")
             );
-
         }
 
             // display page
