@@ -1,2 +1,3 @@
 *.exvim*
 dist/
+tempcache/
