@@ -5,12 +5,12 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"Report-Msgid-Bugs-To: translations@galette.eu\n"
-"POT-Creation-Date: 2021-11-21 22:11+0100\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-07-04 09:11+0200\n"
 "PO-Revision-Date: 2021-11-21 21:15+0000\n"
 "Last-Translator: Johan Cwiklinski <trasher@x-tnd.be>\n"
-"Language-Team: Italian <https://hosted.weblate.org/projects/galette/"
-"paypal-plugin/it/>\n"
+"Language-Team: Italian <https://hosted.weblate.org/projects/galette/paypal-"
+"plugin/it/>\n"
 "Language: it_IT\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -22,95 +22,14 @@ msgstr ""
 msgid "Paypal payment"
 msgstr "Pagamento Paypal"
 
-#: ../lib/GalettePaypal/Controllers/PaypalController.php:205
-msgid "Paypal Settings"
-msgstr "Impostazioni Paypal"
-
-#: ../lib/GalettePaypal/Controllers/PaypalController.php:249
-msgid "Paypal preferences has been saved."
-msgstr "Le preferenze Paypal sono state salvate."
-
-#: ../lib/GalettePaypal/Controllers/PaypalController.php:255
-msgid "An error occurred saving paypal preferences :("
-msgstr "Errore durante il salvataggio delle preferenze Paypal :("
-
-#: ../lib/GalettePaypal/Controllers/PaypalController.php:277
-msgid "Your payment has been aborted!"
-msgstr "Il tuo pagamento non è andato a buon fine!"
-
-#: ../lib/GalettePaypal/Controllers/PaypalController.php:302
-msgid "Paypal payment success"
-msgstr "Pagamento Paypal effettuato"
-
-#: ../lib/GalettePaypal/Controllers/PaypalController.php:308
-msgid "Your payment has been proceeded!"
-msgstr "Il tuo pagamento è stato elaborato!"
-
-#: ../templates/default/paypal_preferences.tpl:12
-msgid "Paypal preferences"
-msgstr "Preferenze Paypal"
-
-#: ../templates/default/paypal_preferences.tpl:15
-msgid "Paypal identifier:"
-msgstr "Identificativo Paypal:"
-
-#: ../templates/default/paypal_preferences.tpl:16
+#: ../lib/GalettePaypal/Controllers/PaypalController.php:100
+#, fuzzy
+#| msgid ""
+#| "<strong>Payment coult not work</strong>: An error occured (that has been "
+#| "logged) while loading Paypal preferences from database.<br/>Please report "
+#| "the issue to the staff."
 msgid ""
-"Enter here one of your Paypal ID or email adress associated within your "
-"paypal account."
-msgstr ""
-"Inserisci qui un tuo Paypal ID o l'indirizzo email associato al tuo account "
-"paypal."
-
-#: ../templates/default/paypal_preferences.tpl:48
-msgid "Error: no predefined amounts found."
-msgstr "Errore: importi predefiniti non trovati."
-
-#: ../templates/default/menu.tpl:1
-msgid "Paypal"
-msgstr "Paypal"
-
-#: ../templates/default/menu.tpl:3 ../templates/default/public_menu.tpl:4
-msgid "Payment form"
-msgstr "Modulo di pagamento"
-
-#: ../templates/default/menu.tpl:5
-msgid "Paypal History"
-msgstr "Cronologia Paypal"
-
-#: ../templates/default/paypal_history.tpl:55
-msgid "duplicate"
-msgstr "duplicato"
-
-#: ../templates/default/paypal_history.tpl:68
-msgid "No request or unable to read request"
-msgstr "Nessuna richiesta o impossibile esaminare la richiesta"
-
-#: ../templates/default/paypal_history.tpl:84
-msgid "Request"
-msgstr "Richiesta"
-
-#: ../templates/default/paypal_history.tpl:107
-msgid "Show/hide full request"
-msgstr "Mostra/nascondi richiesta completa"
-
-#: ../templates/default/paypal_success.tpl:4
-msgid "Your paypal payment was successful. Some details are shown below:"
-msgstr ""
-"Il tuo pagamento paypal è stato eseguito. Alcuni dettagli sono mostrati di "
-"seguito:"
-
-#: ../templates/default/paypal_success.tpl:28
-msgid ""
-"Your paypal payment was successful. You may receive a mail from paypal with "
-"details."
-msgstr ""
-"Il tuo pagamento paypal è stato eseguito. Riceverai una mail da paypal con i "
-"dettagli."
-
-#: ../templates/default/paypal_form.tpl:6
-msgid ""
-"<strong>Payment coult not work</strong>: An error occured (that has been "
+"<strong>Payment could not work</strong>: An error occurred (that has been "
 "logged) while loading Paypal preferences from database.<br/>Please report "
 "the issue to the staff."
 msgstr ""
@@ -118,7 +37,11 @@ msgstr ""
 "errore (che è stato registrato) durante il caricamento delle preferenze di "
 "Paypal dal database.<br>Si prega di segnalare il problema allo staff."
 
-#: ../templates/default/paypal_form.tpl:12
+#: ../lib/GalettePaypal/Controllers/PaypalController.php:101
+msgid "Our apologies for the annoyance :("
+msgstr ""
+
+#: ../lib/GalettePaypal/Controllers/PaypalController.php:108
 msgid ""
 "Paypal id has not been defined. Please ask an administrator to add it from "
 "plugin preferences."
@@ -126,55 +49,142 @@ msgstr ""
 "L'ID Paypal non è stato definito. Chiedi a un amministratore di aggiungerlo "
 "dalle preferenze del plugin."
 
-#: ../templates/default/paypal_form.tpl:18
+#: ../lib/GalettePaypal/Controllers/PaypalController.php:115
 msgid "Predefined amounts cannot be loaded, that is not a critical error."
 msgstr ""
 "Gli importi predefiniti non possono essere caricati, questo non è un errore "
 "critico."
 
-#: ../templates/default/paypal_form.tpl:43
+#: ../lib/GalettePaypal/Controllers/PaypalController.php:227
+msgid "Paypal Settings"
+msgstr "Impostazioni Paypal"
+
+#: ../lib/GalettePaypal/Controllers/PaypalController.php:271
+msgid "Paypal preferences has been saved."
+msgstr "Le preferenze Paypal sono state salvate."
+
+#: ../lib/GalettePaypal/Controllers/PaypalController.php:277
+msgid "An error occurred saving paypal preferences :("
+msgstr "Errore durante il salvataggio delle preferenze Paypal :("
+
+#: ../lib/GalettePaypal/Controllers/PaypalController.php:299
+msgid "Your payment has been aborted!"
+msgstr "Il tuo pagamento non è andato a buon fine!"
+
+#: ../lib/GalettePaypal/Controllers/PaypalController.php:324
+msgid "Paypal payment success"
+msgstr "Pagamento Paypal effettuato"
+
+#: ../lib/GalettePaypal/Controllers/PaypalController.php:330
+msgid "Your payment has been proceeded!"
+msgstr "Il tuo pagamento è stato elaborato!"
+
+#: ../lib/GalettePaypal/PluginGalettePaypal.php:71
+msgid "Paypal"
+msgstr "Paypal"
+
+#: ../lib/GalettePaypal/PluginGalettePaypal.php:75
+#: ../lib/GalettePaypal/PluginGalettePaypal.php:76
+msgid "Paypal History"
+msgstr "Cronologia Paypal"
+
+#: ../lib/GalettePaypal/PluginGalettePaypal.php:104
+#: ../lib/GalettePaypal/PluginGalettePaypal.php:105
+msgid "Payment form"
+msgstr "Modulo di pagamento"
+
+#: ../tempcache/paypal_success.html.twig:54
+msgid "Your paypal payment was successful. Some details are shown below:"
+msgstr ""
+"Il tuo pagamento paypal è stato eseguito. Alcuni dettagli sono mostrati di "
+"seguito:"
+
+#: ../tempcache/paypal_success.html.twig:114
+msgid ""
+"Your paypal payment was successful. You may receive a mail from paypal with "
+"details."
+msgstr ""
+"Il tuo pagamento paypal è stato eseguito. Riceverai una mail da paypal con i "
+"dettagli."
+
+#: ../tempcache/paypal_preferences.html.twig:71
+msgid "Paypal preferences"
+msgstr "Preferenze Paypal"
+
+#: ../tempcache/paypal_preferences.html.twig:81
+msgid "Paypal identifier:"
+msgstr "Identificativo Paypal:"
+
+#: ../tempcache/paypal_preferences.html.twig:81
+msgid ""
+"Enter here one of your Paypal ID or email adress associated within your "
+"paypal account."
+msgstr ""
+"Inserisci qui un tuo Paypal ID o l'indirizzo email associato al tuo account "
+"paypal."
+
+#: ../tempcache/paypal_preferences.html.twig:163
+msgid "Error: no predefined amounts found."
+msgstr "Errore: importi predefiniti non trovati."
+
+#: ../tempcache/paypal_form.html.twig:67
+msgid "Enter payment reason"
+msgstr "Inserisci la causale del pagamento"
+
+#: ../tempcache/paypal_form.html.twig:74
+msgid "Payment reason"
+msgstr "Causale del pagamento"
+
+#: ../tempcache/paypal_form.html.twig:81
+msgid "Select an payment reason"
+msgstr "Seleziona una causale del pagamento"
+
+#: ../tempcache/paypal_form.html.twig:177
+msgid "Payment reason:"
+msgstr "Causale del pagamento:"
+
+#: ../tempcache/paypal_form.html.twig:194
+msgid "No predefined amounts have been configured yet."
+msgstr "Non sono stati ancora configurati importi predefiniti."
+
+#: ../tempcache/paypal_form.html.twig:269
 #, php-format
 msgid "Go back to %s's website to complete your inscription."
 msgstr "Ritorna al sito di %s per completare la tua iscrizione."
 
-#: ../templates/default/paypal_form.tpl:48
-msgid "Enter payment reason"
-msgstr "Inserisci la causale del pagamento"
-
-#: ../templates/default/paypal_form.tpl:50
-msgid "Payment reason"
-msgstr "Causale del pagamento"
-
-#: ../templates/default/paypal_form.tpl:52
-msgid "Select an payment reason"
-msgstr "Seleziona una causale del pagamento"
-
-#: ../templates/default/paypal_form.tpl:70
-msgid "Payment reason:"
-msgstr "Causale del pagamento:"
-
-#: ../templates/default/paypal_form.tpl:75
-msgid "No predefined amounts have been configured yet."
-msgstr "Non sono stati ancora configurati importi predefiniti."
-
-#: ../templates/default/paypal_form.tpl:81
-msgid ""
-"WARNING: If you enter an amount below, make sure that it is not lower than "
-"the amount of the option you've selected."
-msgstr ""
-"ATTENZIONE: se inserisci un importo minore, assicurati che non sia inferiore "
-"all'importo dell'opzione selezionata."
-
-#: ../templates/default/paypal_form.tpl:121
+#: ../tempcache/paypal_form.html.twig:314
 msgid "Please enter an amount."
 msgstr "Per favore, inserisci un importo."
 
-#: ../templates/default/paypal_form.tpl:124
+#: ../tempcache/paypal_form.html.twig:320
 msgid ""
 "The amount you've entered is lower than the minimum amount for the selected "
 "option.\n"
 "Please choose another option or change the amount."
 msgstr ""
-"L'importo inserito è inferiore all'importo minimo per l'opzione selezionata."
-"\n"
+"L'importo inserito è inferiore all'importo minimo per l'opzione "
+"selezionata.\n"
 "Scegli un'altra opzione o modifica l'importo."
+
+#: ../tempcache/paypal_history.html.twig:131
+msgid "duplicate"
+msgstr "duplicato"
+
+#: ../tempcache/paypal_history.html.twig:173
+msgid "No request or unable to read request"
+msgstr "Nessuna richiesta o impossibile esaminare la richiesta"
+
+#: ../tempcache/paypal_history.html.twig:217
+msgid "Request"
+msgstr "Richiesta"
+
+#: ../tempcache/paypal_history.html.twig:260
+msgid "Show/hide full request"
+msgstr "Mostra/nascondi richiesta completa"
+
+#~ msgid ""
+#~ "WARNING: If you enter an amount below, make sure that it is not lower "
+#~ "than the amount of the option you've selected."
+#~ msgstr ""
+#~ "ATTENZIONE: se inserisci un importo minore, assicurati che non sia "
+#~ "inferiore all'importo dell'opzione selezionata."

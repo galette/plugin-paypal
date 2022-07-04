@@ -4,12 +4,12 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"Report-Msgid-Bugs-To: translations@galette.eu\n"
-"POT-Creation-Date: 2021-11-21 22:11+0100\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-07-04 09:11+0200\n"
 "PO-Revision-Date: 2021-11-21 21:15+0000\n"
 "Last-Translator: Johan Cwiklinski <trasher@x-tnd.be>\n"
-"Language-Team: Arabic <https://hosted.weblate.org/projects/galette/"
-"paypal-plugin/ar/>\n"
+"Language-Team: Arabic <https://hosted.weblate.org/projects/galette/paypal-"
+"plugin/ar/>\n"
 "Language: ar\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -22,82 +22,70 @@ msgstr ""
 msgid "Paypal payment"
 msgstr "الدفع عبر بايبال"
 
-#: ../lib/GalettePaypal/Controllers/PaypalController.php:205
+#: ../lib/GalettePaypal/Controllers/PaypalController.php:100
+msgid ""
+"<strong>Payment could not work</strong>: An error occurred (that has been "
+"logged) while loading Paypal preferences from database.<br/>Please report "
+"the issue to the staff."
+msgstr ""
+
+#: ../lib/GalettePaypal/Controllers/PaypalController.php:101
+msgid "Our apologies for the annoyance :("
+msgstr ""
+
+#: ../lib/GalettePaypal/Controllers/PaypalController.php:108
+msgid ""
+"Paypal id has not been defined. Please ask an administrator to add it from "
+"plugin preferences."
+msgstr ""
+
+#: ../lib/GalettePaypal/Controllers/PaypalController.php:115
+msgid "Predefined amounts cannot be loaded, that is not a critical error."
+msgstr ""
+
+#: ../lib/GalettePaypal/Controllers/PaypalController.php:227
 msgid "Paypal Settings"
 msgstr "إعدادات بايبال"
 
-#: ../lib/GalettePaypal/Controllers/PaypalController.php:249
+#: ../lib/GalettePaypal/Controllers/PaypalController.php:271
 msgid "Paypal preferences has been saved."
 msgstr "تم حفظ تفضيلات بايبال."
 
-#: ../lib/GalettePaypal/Controllers/PaypalController.php:255
+#: ../lib/GalettePaypal/Controllers/PaypalController.php:277
 msgid "An error occurred saving paypal preferences :("
 msgstr "حدث خطأ اثناء حفظ تفضيلات بايبال :("
 
-#: ../lib/GalettePaypal/Controllers/PaypalController.php:277
+#: ../lib/GalettePaypal/Controllers/PaypalController.php:299
 msgid "Your payment has been aborted!"
 msgstr "تم إبطال عملية الدفع!"
 
-#: ../lib/GalettePaypal/Controllers/PaypalController.php:302
+#: ../lib/GalettePaypal/Controllers/PaypalController.php:324
 msgid "Paypal payment success"
 msgstr "الدفع عبر بايبال تم بنجاح"
 
-#: ../lib/GalettePaypal/Controllers/PaypalController.php:308
+#: ../lib/GalettePaypal/Controllers/PaypalController.php:330
 msgid "Your payment has been proceeded!"
 msgstr "تمت معالجة الدفع!"
 
-#: ../templates/default/paypal_preferences.tpl:12
-msgid "Paypal preferences"
-msgstr "تفضيلات بايبال"
-
-#: ../templates/default/paypal_preferences.tpl:15
-msgid "Paypal identifier:"
-msgstr "معرف بايبال:"
-
-#: ../templates/default/paypal_preferences.tpl:16
-msgid ""
-"Enter here one of your Paypal ID or email adress associated within your "
-"paypal account."
-msgstr ""
-"ادخل هنا هوية بايبال او بريدك الالكتروني المرتبط بحساب بايبال الخاص بك."
-
-#: ../templates/default/paypal_preferences.tpl:48
-msgid "Error: no predefined amounts found."
-msgstr "خطأ: لم يتم ايجاد مقدار محدد مسبقاً."
-
-#: ../templates/default/menu.tpl:1
+#: ../lib/GalettePaypal/PluginGalettePaypal.php:71
 msgid "Paypal"
 msgstr "بايبال"
 
-#: ../templates/default/menu.tpl:3 ../templates/default/public_menu.tpl:4
-msgid "Payment form"
-msgstr "إستمارة الدفع"
-
-#: ../templates/default/menu.tpl:5
+#: ../lib/GalettePaypal/PluginGalettePaypal.php:75
+#: ../lib/GalettePaypal/PluginGalettePaypal.php:76
 msgid "Paypal History"
 msgstr "تاريخ بايبال"
 
-#: ../templates/default/paypal_history.tpl:55
-msgid "duplicate"
-msgstr "مكرر"
+#: ../lib/GalettePaypal/PluginGalettePaypal.php:104
+#: ../lib/GalettePaypal/PluginGalettePaypal.php:105
+msgid "Payment form"
+msgstr "إستمارة الدفع"
 
-#: ../templates/default/paypal_history.tpl:68
-msgid "No request or unable to read request"
-msgstr "لا يوجد طلب او تعذر قراءة الطلب"
-
-#: ../templates/default/paypal_history.tpl:84
-msgid "Request"
-msgstr "طلب"
-
-#: ../templates/default/paypal_history.tpl:107
-msgid "Show/hide full request"
-msgstr "إظهار/إخفاء الطلب كاملاً"
-
-#: ../templates/default/paypal_success.tpl:4
+#: ../tempcache/paypal_success.html.twig:54
 msgid "Your paypal payment was successful. Some details are shown below:"
 msgstr "الدفع عبر بايبال تم بنجاح. أدناه بعض التفاصيل:"
 
-#: ../templates/default/paypal_success.tpl:28
+#: ../tempcache/paypal_success.html.twig:114
 msgid ""
 "Your paypal payment was successful. You may receive a mail from paypal with "
 "details."
@@ -105,61 +93,73 @@ msgstr ""
 "الدفع عبر بايبال تم بنجاح. قد تستلم بريداً الكترونياً من بايبال متضمناً "
 "التفاصيل."
 
-#: ../templates/default/paypal_form.tpl:6
+#: ../tempcache/paypal_preferences.html.twig:71
+msgid "Paypal preferences"
+msgstr "تفضيلات بايبال"
+
+#: ../tempcache/paypal_preferences.html.twig:81
+msgid "Paypal identifier:"
+msgstr "معرف بايبال:"
+
+#: ../tempcache/paypal_preferences.html.twig:81
 msgid ""
-"<strong>Payment coult not work</strong>: An error occured (that has been "
-"logged) while loading Paypal preferences from database.<br/>Please report "
-"the issue to the staff."
+"Enter here one of your Paypal ID or email adress associated within your "
+"paypal account."
+msgstr ""
+"ادخل هنا هوية بايبال او بريدك الالكتروني المرتبط بحساب بايبال الخاص بك."
+
+#: ../tempcache/paypal_preferences.html.twig:163
+msgid "Error: no predefined amounts found."
+msgstr "خطأ: لم يتم ايجاد مقدار محدد مسبقاً."
+
+#: ../tempcache/paypal_form.html.twig:67
+msgid "Enter payment reason"
 msgstr ""
 
-#: ../templates/default/paypal_form.tpl:12
-msgid ""
-"Paypal id has not been defined. Please ask an administrator to add it from "
-"plugin preferences."
+#: ../tempcache/paypal_form.html.twig:74
+msgid "Payment reason"
 msgstr ""
 
-#: ../templates/default/paypal_form.tpl:18
-msgid "Predefined amounts cannot be loaded, that is not a critical error."
+#: ../tempcache/paypal_form.html.twig:81
+msgid "Select an payment reason"
 msgstr ""
 
-#: ../templates/default/paypal_form.tpl:43
+#: ../tempcache/paypal_form.html.twig:177
+msgid "Payment reason:"
+msgstr ""
+
+#: ../tempcache/paypal_form.html.twig:194
+msgid "No predefined amounts have been configured yet."
+msgstr ""
+
+#: ../tempcache/paypal_form.html.twig:269
 #, php-format
 msgid "Go back to %s's website to complete your inscription."
 msgstr ""
 
-#: ../templates/default/paypal_form.tpl:48
-msgid "Enter payment reason"
-msgstr ""
-
-#: ../templates/default/paypal_form.tpl:50
-msgid "Payment reason"
-msgstr ""
-
-#: ../templates/default/paypal_form.tpl:52
-msgid "Select an payment reason"
-msgstr ""
-
-#: ../templates/default/paypal_form.tpl:70
-msgid "Payment reason:"
-msgstr ""
-
-#: ../templates/default/paypal_form.tpl:75
-msgid "No predefined amounts have been configured yet."
-msgstr ""
-
-#: ../templates/default/paypal_form.tpl:81
-msgid ""
-"WARNING: If you enter an amount below, make sure that it is not lower than "
-"the amount of the option you've selected."
-msgstr ""
-
-#: ../templates/default/paypal_form.tpl:121
+#: ../tempcache/paypal_form.html.twig:314
 msgid "Please enter an amount."
 msgstr ""
 
-#: ../templates/default/paypal_form.tpl:124
+#: ../tempcache/paypal_form.html.twig:320
 msgid ""
 "The amount you've entered is lower than the minimum amount for the selected "
 "option.\n"
 "Please choose another option or change the amount."
 msgstr ""
+
+#: ../tempcache/paypal_history.html.twig:131
+msgid "duplicate"
+msgstr "مكرر"
+
+#: ../tempcache/paypal_history.html.twig:173
+msgid "No request or unable to read request"
+msgstr "لا يوجد طلب او تعذر قراءة الطلب"
+
+#: ../tempcache/paypal_history.html.twig:217
+msgid "Request"
+msgstr "طلب"
+
+#: ../tempcache/paypal_history.html.twig:260
+msgid "Show/hide full request"
+msgstr "إظهار/إخفاء الطلب كاملاً"
