@@ -1,13 +1,14 @@
 # Prosta4okua <danyavdele@gmail.com>, 2020.
 # Tymofij Lytvynenko <till.svit@gmail.com>, 2021.
 # Johan Cwiklinski <trasher@x-tnd.be>, 2021, 2022.
+# Artem <artem@molotov.work>, 2022.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: translations@galette.eu\n"
 "POT-Creation-Date: 2022-07-04 09:11+0200\n"
-"PO-Revision-Date: 2022-07-04 07:18+0000\n"
-"Last-Translator: Johan Cwiklinski <trasher@x-tnd.be>\n"
+"PO-Revision-Date: 2022-07-29 14:15+0000\n"
+"Last-Translator: Artem <artem@molotov.work>\n"
 "Language-Team: Ukrainian <https://hosted.weblate.org/projects/galette/"
 "paypal-plugin/uk/>\n"
 "Language: uk\n"
@@ -16,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 4.13.1-dev\n"
+"X-Generator: Weblate 4.14-dev\n"
 
 #: ../lib/GalettePaypal/Controllers/PaypalController.php:89
 msgid "Paypal payment"
@@ -34,7 +35,7 @@ msgstr ""
 
 #: ../lib/GalettePaypal/Controllers/PaypalController.php:101
 msgid "Our apologies for the annoyance :("
-msgstr ""
+msgstr "Наші вибачення за прикрість :("
 
 #: ../lib/GalettePaypal/Controllers/PaypalController.php:108
 msgid ""
