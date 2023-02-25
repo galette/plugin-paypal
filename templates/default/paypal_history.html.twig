@@ -40,13 +40,13 @@
                 </span>
             </td>
             <td class="nowrap" data-title="{{ _T("Data") }}">
-                {% if log.duplicate is defined %}<img class="img-dup" src="{{ path_for("plugin_res", {"plugin": module_id, "path": "images/warning.png"}) }}" alt="{{ _T("duplicate", "paypal") }}"/>{% endif %}
+                {% if log.duplicate is defined %}<img class="img-dup" src="{{ url_for("plugin_res", {"plugin": module_id, "path": "images/warning.png"}) }}" alt="{{ _T("duplicate", "paypal") }}"/>{% endif %}
                 {{ log.history_date|date(_T("Y-m-d H:i:s")) }}
             </td>
             <td data-title="{{ _T("Name") }}">
         {% if log.request is iterable %}
             {% if log.request.custom is defined %}
-                <a href="{{ path_for("member", {"id": log.request.custom}) }}">
+                <a href="{{ url_for("member", {"id": log.request.custom}) }}">
             {% endif %}
                 {{ log.request.last_name }} {{ log.request.first_name }}
             {% if log.request.custom is defined%}

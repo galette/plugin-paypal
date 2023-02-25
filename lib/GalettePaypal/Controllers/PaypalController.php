@@ -159,7 +159,7 @@ class PaypalController extends AbstractPluginController
         //assign pagination variables to the template and add pagination links
         $paypal_history->setFilters($filters);
         $logs = $paypal_history->getPaypalHistory();
-        $filters->setViewPagination($this->router, $this->view);
+        $filters->setViewPagination($this->routeparser, $this->view);
 
         $params = [
             'page_title' => _T("Paypal History"),
@@ -202,7 +202,7 @@ class PaypalController extends AbstractPluginController
 
         return $response
             ->withStatus(301)
-            ->withHeader('Location', $this->router->pathFor('paypal_history'));
+            ->withHeader('Location', $this->routeparser->urlFor('paypal_history'));
     }
 
     /**
@@ -281,7 +281,7 @@ class PaypalController extends AbstractPluginController
 
         return $response
             ->withStatus(301)
-            ->withHeader('Location', $this->router->pathFor('paypal_preferences'));
+            ->withHeader('Location', $this->routeparser->urlFor('paypal_preferences'));
     }
 
     /**
@@ -300,7 +300,7 @@ class PaypalController extends AbstractPluginController
         );
         return $response
             ->withStatus(301)
-            ->withHeader('Location', $this->router->pathFor('paypal_form'));
+            ->withHeader('Location', $this->routeparser->urlFor('paypal_form'));
     }
 
     /**

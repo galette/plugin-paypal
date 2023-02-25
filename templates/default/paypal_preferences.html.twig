@@ -1,7 +1,7 @@
 {% extends 'page.html.twig' %}
 
 {% block content %}
-    <form action="{{ path_for("store_paypal_preferences") }}" method="post" enctype="multipart/form-data" class="ui form">
+    <form action="{{ url_for("store_paypal_preferences") }}" method="post" enctype="multipart/form-data" class="ui form">
     {% if not paypal.isLoaded() %}
             <div id="errorbox">
                 <h1>{{ _T("- ERROR -") }}</h1>

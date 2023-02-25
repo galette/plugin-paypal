@@ -63,12 +63,12 @@
                 <input type="hidden" name="no_shipping" value="1"/>
                 {# <input type="hidden" name="bn" value="PP-BuyNowBF:btn_buynowCC_LG.gif:NonHostedGuest"/><!-- notfound :( --> #}
                 <!-- Paypal dialogs -->
-                <input type="hidden" name="return" value="{{ current_url }}{{ path_for("paypal_success") }}"/>
+                <input type="hidden" name="return" value="{{ current_url }}{{ url_for("paypal_success") }}"/>
                 <input type="hidden" name="rm" value="2"/>{# Send POST values back to Galette after payment. Will be sent to return url above #}
                 <input type="hidden" name="charset" value="UTF-8"/>
-                <input type="hidden" name="image_url" value="{{ current_url }}{{ path_for("logo") }}"/>
-                <input type="hidden" name="cancel_return" value="{{ current_url }}{{ path_for("paypal_cancelled") }}"/>
-                <input type="hidden" name="notify_url" value="{{ current_url }}{{ path_for("paypal_notify") }}"/>
+                <input type="hidden" name="image_url" value="{{ current_url }}{{ url_for("logo") }}"/>
+                <input type="hidden" name="cancel_return" value="{{ current_url }}{{ url_for("paypal_cancelled") }}"/>
+                <input type="hidden" name="notify_url" value="{{ current_url }}{{ url_for("paypal_notify") }}"/>
                 <input type="hidden" name="cbt" value="{{ _T("Go back to %s's website to complete your inscription.", "paypal")|replace({'%s': preferences.pref_nom}) }}"/>
             </div>
         </div>
