@@ -11,7 +11,7 @@
  *
  * PHP version 5
  *
- * Copyright © 2011-2014 The Galette Team
+ * Copyright © 2011-2023 The Galette Team
  *
  * This file is part of Galette (http://galette.tuxfamily.org).
  *
@@ -31,7 +31,7 @@
  * @category  Classes
  * @package   GalettePaypal
  * @author    Johan Cwiklinski <johan@x-tnd.be>
- * @copyright 2011-2014 The Galette Team
+ * @copyright 2011-2023 The Galette Team
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GPL License 3.0 or (at your option) any later version
  * @version   SVN: $Id$
  * @link      http://galette.tuxfamily.org
@@ -52,7 +52,7 @@ use Galette\Entity\ContributionsTypes;
  * @name      Paypal
  * @package   Galette
  * @author    Johan Cwiklinski <johan@x-tnd.be>
- * @copyright 2011-2014 The Galette Team
+ * @copyright 2011-2023 The Galette Team
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GPL License 3.0 or (at your option) any later version
  * @link      http://galette.tuxfamily.org
  * @since     Available since 0.7dev - 2011-06-03
@@ -144,6 +144,7 @@ class Paypal
 
         try {
             $results = $this->zdb->selectAll(PAYPAL_PREFIX . self::TABLE);
+            $results = $results->toArray();
 
             //check if all types currently exists in paypal table
             if (count($results) != count($this->prices)) {
@@ -160,9 +161,9 @@ class Paypal
                 if (count($results) > 0) {
                     //for each entry in types, we want to get the associated amount
                     foreach ($results as $paypal) {
-                        if ($paypal->id_type_cotis == $k) {
+                        if ($paypal['id_type_cotis'] == $k) {
                             $_found = true;
-                            $this->prices[$k]['amount'] = (double)$paypal->amount;
+                            $this->prices[$k]['amount'] = (double)$paypal['amount'];
                             break;
                         }
                     }

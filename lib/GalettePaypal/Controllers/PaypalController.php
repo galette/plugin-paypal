@@ -7,7 +7,7 @@
  *
  * PHP version 5
  *
- * Copyright © 2020 The Galette Team
+ * Copyright © 2020-2023 The Galette Team
  *
  * This file is part of Galette (http://galette.tuxfamily.org).
  *
@@ -28,7 +28,7 @@
  * @package   GalettePaypal
  *
  * @author    Johan Cwiklinski <johan@x-tnd.be>
- * @copyright 2020 The Galette Team
+ * @copyright 2020-2023 The Galette Team
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GPL License 3.0 or (at your option) any later version
  * @link      http://galette.tuxfamily.org
  * @since     2020-12-12
@@ -37,6 +37,7 @@
 namespace GalettePaypal\Controllers;
 
 use Analog\Analog;
+use DI\Attribute\Inject;
 use Galette\Controllers\AbstractPluginController;
 use Galette\Entity\Adherent;
 use Galette\Entity\Contribution;
@@ -45,8 +46,8 @@ use Galette\Entity\PaymentType;
 use Galette\Filters\HistoryList;
 use GalettePaypal\Paypal;
 use GalettePaypal\PaypalHistory;
-use Slim\Http\Request;
-use Slim\Http\Response;
+use Slim\Psr7\Request;
+use Slim\Psr7\Response;
 
 /**
  * Galette paypal plugin controller
@@ -55,7 +56,7 @@ use Slim\Http\Response;
  * @name      PaypalController
  * @package   Galette
  * @author    Johan Cwiklinski <johan@x-tnd.be>
- * @copyright 2020 The Galette Team
+ * @copyright 2020-2023 The Galette Team
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GPL License 3.0 or (at your option) any later version
  * @link      http://galette.tuxfamily.org
  * @since     2020-12-12
@@ -64,9 +65,9 @@ use Slim\Http\Response;
 class PaypalController extends AbstractPluginController
 {
     /**
-     * @Inject("Plugin Galette Paypal")
-     * @var integer
+     * @var array
      */
+    #[Inject("Plugin Galette Paypal")]
     protected $module_info;
 
     /**
