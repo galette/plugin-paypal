@@ -71,7 +71,6 @@
                 <input type="hidden" name="notify_url" value="{{ current_url }}{{ url_for("paypal_notify") }}"/>
                 <input type="hidden" name="cbt" value="{{ _T("Go back to %s's website to complete your inscription.", "paypal")|replace({'%s': preferences.pref_nom}) }}"/>
             </div>
-        </div>
         </form>
     {% endif %}
 {% endblock %}
