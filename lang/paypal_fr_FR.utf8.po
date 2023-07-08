@@ -1,13 +1,13 @@
 # Header entry was created by Lokalize.
 #
 # , 2013.
-# Johan Cwiklinski <trasher@x-tnd.be>, 2020, 2021, 2022.
+# Johan Cwiklinski <trasher@x-tnd.be>, 2020, 2021, 2022, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: translations@galette.eu\n"
 "POT-Creation-Date: 2022-07-04 09:11+0200\n"
-"PO-Revision-Date: 2022-07-04 07:18+0000\n"
+"PO-Revision-Date: 2023-07-08 06:13+0000\n"
 "Last-Translator: Johan Cwiklinski <trasher@x-tnd.be>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/galette/"
 "paypal-plugin/fr/>\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 4.13.1-dev\n"
+"X-Generator: Weblate 5.0-dev\n"
 
 #: ../lib/GalettePaypal/Controllers/PaypalController.php:89
 msgid "Paypal payment"
@@ -109,7 +109,7 @@ msgstr "Préférences Paypal"
 
 #: ../tempcache/paypal_preferences.html.twig:81
 msgid "Paypal identifier:"
-msgstr "Identifiant Paypal&nbsp;:"
+msgstr "Identifiant Paypal :"
 
 #: ../tempcache/paypal_preferences.html.twig:81
 msgid ""
@@ -137,7 +137,7 @@ msgstr "Sélectionnez un motif de paiement"
 
 #: ../tempcache/paypal_form.html.twig:177
 msgid "Payment reason:"
-msgstr "Motif de paiement&nbsp;:"
+msgstr "Motif de paiement :"
 
 #: ../tempcache/paypal_form.html.twig:194
 msgid "No predefined amounts have been configured yet."
