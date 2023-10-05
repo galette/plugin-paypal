@@ -1,4 +1,4 @@
-{% extends 'public_page.html.twig' %}
+{% extends not login.isLogged() ? "public_page.html.twig" : "page.html.twig" %}
 
 {% block content %}
     {% if paypal.isLoaded() and paypal.getId() != null %}
