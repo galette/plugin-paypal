@@ -39,11 +39,11 @@
                     {{ _T("History entry %id")|replace({'%id': loop.index}) }}
                 </span>
             </td>
-            <td class="nowrap" data-title="{{ _T("Data") }}">
+            <td class="nowrap" data-col-label="{{ _T("Data") }}">
                 {% if log.duplicate is defined %}<img class="img-dup" src="{{ url_for("plugin_res", {"plugin": module_id, "path": "images/warning.png"}) }}" alt="{{ _T("duplicate", "paypal") }}"/>{% endif %}
                 {{ log.history_date|date(_T("Y-m-d H:i:s")) }}
             </td>
-            <td data-title="{{ _T("Name") }}">
+            <td data-col-label="{{ _T("Name") }}">
         {% if log.request is iterable %}
             {% if log.request.custom is defined %}
                 <a href="{{ url_for("member", {"id": log.request.custom}) }}">
@@ -56,12 +56,12 @@
                 {{ _T("No request or unable to read request", "paypal") }}
         {% endif %}
             </td>
-            <td data-title="{{ _T("Subject") }}">
+            <td data-col-label="{{ _T("Subject") }}">
         {% if log.request is iterable %}
                 {{ log.request.item_name }}
         {% endif %}
             </td>
-            <td data-title="{{ _T("Amount") }}">
+            <td data-col-label="{{ _T("Amount") }}">
         {% if log.request is iterable%}
                 {{ log.request.mc_gross }}
         {% endif %}
