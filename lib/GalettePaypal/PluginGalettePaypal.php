@@ -73,14 +73,12 @@ class PluginGalettePaypal extends GalettePlugin
                 'items' => [
                     [
                         'label' => _T("Paypal History", "paypal"),
-                        'title' => _T("Paypal History", "paypal"),
                         'route' => [
                             'name' => 'paypal_history'
                         ]
                     ],
                     [
                         'label' => _T("Preferences"),
-                        'title' => _T("Preferences"),
                         'route' => [
                             'name' => 'paypal_preferences'
                         ]
@@ -102,7 +100,6 @@ class PluginGalettePaypal extends GalettePlugin
         return [
             [
                 'label' => _T("Payment form", "paypal"),
-                'title' => _T("Payment form", "paypal"),
                 'route' => [
                     'name' => 'paypal_form'
                 ],
