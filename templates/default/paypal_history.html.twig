@@ -1,0 +1,94 @@
+{% extends 'elements/list.html.twig' %}
+
+{% set nb = logs|length %}
+{% set filters = paypal_history.filters %}
+
+{% set form = {
+    'order': {
+        'name': "paypal_history"
+    }
+} %}
+
+{% block infoline %}
+    {% set infoline = {
+        'label': _Tn("%count entry", "%count entries", nb)|replace({"%count": nb}),
+        'route': {
+            'name': 'filter_paypal_history'
+        }
+    } %}
+    {{ parent() }}
+{% endblock %}
+
+{% block header %}
+    {% set columns = [
+        {'label': '#'},
+        {'label': _T("Date"), 'order': constant("Galette\\Filters\\HistoryList::ORDERBY_DATE")},
+        {'label': _T("Name")},
+        {'label': _T("Subject")},
+        {'label': _T("Amount")}
+    ] %}
+    {{ parent() }}
+{% endblock %}
+
+{% block body %}
+    {% for log in logs %}
+        <tr class="{if $smarty.foreach.eachlog.iteration % 2 eq 0}even{else}odd{/if}">
+            <td class="center" data-scope="row">
+                {{ loop.index }}
+                <span class="row-title">
+                    {{ _T("History entry %id")|replace({'%id': loop.index}) }}
+                </span>
+            </td>
+            <td class="nowrap" data-col-label="{{ _T("Data") }}">
+                {% if log.duplicate is defined %}<img class="img-dup" src="{{ url_for("plugin_res", {"plugin": module_id, "path": "images/warning.png"}) }}" alt="{{ _T("duplicate", "paypal") }}"/>{% endif %}
+                {{ log.history_date|date(_T("Y-m-d H:i:s")) }}
+            </td>
+            <td data-col-label="{{ _T("Name") }}">
+        {% if log.request is iterable %}
+            {% if log.request.custom is defined %}
+                <a href="{{ url_for("member", {"id": log.request.custom}) }}">
+            {% endif %}
+                {{ log.request.last_name }} {{ log.request.first_name }}
+            {% if log.request.custom is defined%}
+                </a>
+            {% endif %}
+        {% else %}
+                {{ _T("No request or unable to read request", "paypal") }}
+        {% endif %}
+            </td>
+            <td data-col-label="{{ _T("Subject") }}">
+        {% if log.request is iterable %}
+                {{ log.request.item_name }}
+        {% endif %}
+            </td>
+            <td data-col-label="{{ _T("Amount") }}">
+        {% if log.request is iterable%}
+                {{ log.request.mc_gross }}
+        {% endif %}
+                    </td>
+                    <td class="nowrap info"></td>
+                </tr>
+                <tr class="request {{ loop.index is odd ? 'odd' : 'even' }}">
+                    <th colspan="2">{{ _T("Request", "paypal") }}</th>
+                    <td colspan="4"><pre>{{ log.raw_request }}</pre></td>
+                </tr>
+    {% else %}
+                <tr><td colspan="6" class="emptylist">{{ _T("logs are empty") }}</td></tr>
+    {% endfor %}
+{% endblock %}
+
+{% block javascripts %}
+        <script type="text/javascript">
+            $('#nbshow').change(function() {
+                this.form.submit();
+            });
+
+            $(function() {
+                var _elt = $('<i class="circular small inverted primary link icon info tooltip reqhide" data-html="{{ _T("Show/hide full request", "paypal")|e('js') }}"></i>');
+                $('.request').hide().prev('tr').find('td.info').prepend(_elt);
+                $('.reqhide').click(function() {
+                    $(this).parents('tr').next('.request').toggle();
+                });
+            });
+        </script>
+{% endblock %}

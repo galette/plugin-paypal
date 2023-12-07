@@ -1,0 +1,66 @@
+{% extends 'page.html.twig' %}
+
+{% block content %}
+    <form action="{{ url_for("store_paypal_preferences") }}" method="post" enctype="multipart/form-data" class="ui form">
+    {% if not paypal.isLoaded() %}
+            <div id="errorbox">
+                <h1>{{ _T("- ERROR -") }}</h1>
+            </div>
+    {% endif %}
+        <div class="ui styled fluid accordion field">
+            <div class="active title">
+                <i class="icon dropdown"></i>
+                {{ _T("Paypal preferences", "paypal") }}
+            </div>
+            <div class="active content">
+    {% if login.isAdmin() %}
+                {% include "components/forms/text.html.twig" with {
+                    id: 'paypal_id',
+                    value: paypal.getId(),
+                    label: _T("Paypal identifier:", "paypal"),
+                    required: true,
+                    tip: _T("Enter here one of your Paypal ID or email adress associated within your paypal account.", "paypal")
+                } %}
+    {% endif %}
+
+    {% if paypal.areAmountsLoaded() and amounts|length > 0 %}
+                <table class="listing ui celled striped table">
+                    <thead>
+                        <tr>
+                            <th class="listing">{{ _T("Contribution type") }}</th>
+                            <th class="listing">{{ _T("Amount") }}</th>
+                            <th class="listing">{{ _T("Inactive") }}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+        {% for k, amount in amounts %}
+                        <tr>
+                            <td>
+                                <input type="hidden" name="amount_id[]" id="amount_id_{{ k }}" value="{{ k }}"/>
+                                <label for="amount_{{ k }}">{{ amount['name'] }}</label>
+                            </td>
+                            <td>
+                                <input type="text" name="amounts[]" id="amount_{{ k }}" value="{{ amount['amount']|number_format(2, ',', '') }}"/>
+                            </td>
+                            <td>
+                                <input type="checkbox" name="inactives[]" id="inactives_{{ k }}"{% if paypal.isInactive(k) %} checked="checked"{% endif %} value="{{ k }}"/>
+                            </td>
+                        </tr>
+        {% endfor %}
+                    </tbody>
+                </table>
+    {% else %}
+                <p>{{ _T("Error: no predefined amounts found.", "paypal") }}</p>
+    {% endif %}
+            </div>
+        </div>
+
+        <div class="ui basic center aligned segment">
+            <button type="submit" class="ui labeled icon primary button action">
+                <i class="save icon"></i> {{ _T("Save") }}
+            </button>
+            <input type="hidden" name="valid" value="1"/>
+            {% include "components/forms/csrf.html.twig" %}
+        </div>
+    </form>
+{% endblock %}

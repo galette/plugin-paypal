@@ -1,0 +1,113 @@
+{% extends not login.isLogged() ? "public_page.html.twig" : "page.html.twig" %}
+
+{% block content %}
+    {% if paypal.isLoaded() and paypal.getId() != null %}
+        <form action="{% if constant('GALETTE_MODE') == 'DEV' %}https://www.sandbox.paypal.com/fr/cgi-bin/webscr{% else %}https://www.paypal.com/cgi-bin/webscr{% endif %}" method="post" id="paypalform" class="ui form">
+            <div class="ui top attached accordion-styled header">
+                {% if amounts|length == 0 %}
+                    {{ _T("Enter payment reason", "paypal") }}
+                {% elseif amounts|length == 1%}
+                    {{ _T("Payment reason", "paypal") }}
+                {% elseif amounts|length > 1 %}
+                    {{ _T("Select an payment reason", "paypal") }}
+                {% endif %}
+            </div>
+            <div class="ui bottom attached accordion-styled segment">
+                <div class="active content field">
+                    <div class="field inline">
+                        {% if paypal.areAmountsLoaded() %}
+                            {% if amounts|length > 0 %}
+                                <input type="hidden" name="item_name" id="item_name" value="{% if login.isLogged() %}{{ _T("annual fee") }}{% else %}{{ _T("donation in money") }}{% endif %}"/>
+                                {% for k, amount in amounts %}
+                                    {% if loop.index0 != 0 %}<br/>{% endif %}
+                                    <input type="radio" name="item_number" id="in{{ k }}" value="{{ k }}"{% if loop.index0 == 0 %} checked="checked"{% endif %}/>
+                                    <label for="in{{ k }}"><span id="in{{ k }}_name">{{ amount['name'] }}</span>
+                                        {% if amount['amount'] > 0 %}
+                                            (<span id="in{{ k }}_amount">{{ amount['amount']|number_format(2, ',', ' ') }}</span> €){# TODO: parametize currency #}
+                                        {% endif %}
+                                    </label>
+                                {% endfor %}
+                            {% else %}
+                                <label for="item_name">{{ _T("Payment reason:", "paypal") }}</label>
+                                <input type="text" name="item_name" id="item_name" value="{% if login.isLogged() %}{{ _T("annual fee") }}{% else %}{{ _T("donation in money") }}{% endif %}"/>
+                            {% endif %}
+                        {% else %}
+                            {{ _T("No predefined amounts have been configured yet.", "paypal") }}
+                        {% endif %}
+                    </div>
+
+                    {% include "components/forms/text.html.twig" with {
+                        id: 'amount',
+                        value: amounts|length > 0 ? amounts|first.amount : 20,
+                        label: _T("Amount"),
+                        required: true
+                    } %}
+                </div>
+            </div>
+
+            <div class="ui basic center aligned fitted segment">
+                <button type="submit" name="valid" class="action ui labeled icon primary button">
+                    <i class="paypal icon"></i> {{ _T("Pay with paypal") }}
+                </button>
+                {# To read more about variables, see https://cms.paypal.com/es/cgi-bin/?cmd=_render-content&content_ID=developer/e_howto_html_Appx_websitestandard_htmlvariables#id08A6HI0709B #}
+                <!-- Paypal required variables -->
+    {% if custom is defined %}
+                <input type="hidden" name="custom" value="{{ custom }}"/>
+    {% endif %}
+                <input type="hidden" name="cmd" value="_xclick"/>
+                <input type="hidden" name="business" value="{{ paypal.getId() }}"/>
+                <input type="hidden" name="lc" value="FR"/>{# language of the login or sign-up page #}{# FIXME: parameter #}
+                <input type="hidden" name="currency_code" value="EUR"/>{# transaction currency #}{# FIXME: parameter? #}
+                <input type="hidden" name="button_subtype" value="services"/>
+                <input type="hidden" name="no_note" value="1"/>
+                <input type="hidden" name="no_shipping" value="1"/>
+                {# <input type="hidden" name="bn" value="PP-BuyNowBF:btn_buynowCC_LG.gif:NonHostedGuest"/><!-- notfound :( --> #}
+                <!-- Paypal dialogs -->
+                <input type="hidden" name="return" value="{{ current_url }}{{ url_for("paypal_success") }}"/>
+                <input type="hidden" name="rm" value="2"/>{# Send POST values back to Galette after payment. Will be sent to return url above #}
+                <input type="hidden" name="charset" value="UTF-8"/>
+                <input type="hidden" name="image_url" value="{{ current_url }}{{ url_for("logo") }}"/>
+                <input type="hidden" name="cancel_return" value="{{ current_url }}{{ url_for("paypal_cancelled") }}"/>
+                <input type="hidden" name="notify_url" value="{{ current_url }}{{ url_for("paypal_notify") }}"/>
+                <input type="hidden" name="cbt" value="{{ _T("Go back to %s's website to complete your inscription.", "paypal")|replace({'%s': preferences.pref_nom}) }}"/>
+            </div>
+        </form>
+    {% endif %}
+{% endblock %}
+
+{% block javascripts %}
+    {% if paypal.isLoaded() and paypal.getId() is not null and paypal.areAmountsLoaded() %}
+<script type="text/javascript">
+    $(function() {
+        $('input[name="item_number"]').change(function(){
+            var _amount = parseFloat($('#' + this.id + '_amount').text());
+            var _name = $('#' + this.id + '_name').text();
+            $('#item_name').val(_name);
+            if ( _amount != '' && !isNaN(_amount) ) {
+                $('#amount').val(_amount);
+            }
+        });
+    {% if amounts|length > 0 %}
+        $('#paypalform').submit(function(e) {
+            var _checked = $('input:checked');
+            if (_checked.length == 0 ) {
+                alert("{{ _T("You have to select an option") }}");
+                return false;
+            } else {
+                var _current_amount = parseFloat($('#amount').val());
+                var _amount = parseFloat($('#' + _checked[0].id + '_amount').text());
+                if ( isNaN(_current_amount) ) {
+                    alert("{{ _T("Please enter an amount.", "paypal")|e('js') }}");
+                    return false;
+                } else if ( !isNaN(_amount) && _current_amount < _amount ) {
+                    alert("{{ _T("The amount you've entered is lower than the minimum amount for the selected option.\nPlease choose another option or change the amount.", "paypal")|e('js') }}");
+                    return false;
+                }
+            }
+            return true;
+        });
+    {% endif %}
+    });
+</script>
+    {% endif %}
+{% endblock %}
