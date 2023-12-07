@@ -7,9 +7,9 @@
  *
  * PHP version 5
  *
- * Copyright © 2011-2021 The Galette Team
+ * Copyright © 2011-2023 The Galette Team
  *
- * This file is part of Galette (http://galette.tuxfamily.org).
+ * This file is part of Galette (https://galette.eu).
  *
  * Galette is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -28,20 +28,19 @@
  * @package   GalettePaypal
  *
  * @author    Johan Cwiklinski <johan@x-tnd.be>
- * @copyright 2011-2021 The Galette Team
+ * @copyright 2011-2023 The Galette Team
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GPL License 3.0 or (at your option) any later version
- * @link      http://galette.tuxfamily.org
- * @since     Available since 0.7dev - 2011-05-31
+ * @link      https://galette.eu
  */
 
 $this->register(
     'Galette Paypal',       //Name
     'Paypal integration',   //Short description
     'Johan Cwiklinski',     //Author
-    '2.0.0',               //Version
+    '2.0.0',                //Version
     '1.0.0',                //Galette compatible version
     'paypal',               //routing name and translation domain
-    '2022-25-29',           //Release date
+    '2023-12-07',           //Release date
     [   //Permissions needed
         'paypal_preferences'        => 'staff',
         'store_paypal_preferences'  => 'staff',
