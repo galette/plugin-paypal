@@ -70,3 +70,8 @@ jobs:
           cd galette-core/galette/plugins/plugin-paypal
           composer require maglnet/composer-require-checker -W
           vendor/bin/composer-require-checker check --config-file=.composer-require-checker.config.json ../../composer.json
+
+      - name: Headers checks
+        run: |
+          cd galette-core/galette/plugins/plugin-paypal
+          ../../vendor/bin/docheader --docheader=../../../.docheader check lib ./*.php

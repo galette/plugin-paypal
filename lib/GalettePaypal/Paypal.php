@@ -1,19 +1,9 @@
 <?php
 
-/* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4: */
-
 /**
- * Paypal Galette plugin
+ * Copyright © 2003-2024 The Galette Team
  *
- * This page can be loaded directly, or via ajax.
- * Via ajax, we do not have a full html page, but only
- * that will be displayed using javascript on another page
- *
- * PHP version 5
- *
- * Copyright © 2011-2023 The Galette Team
- *
- * This file is part of Galette (http://galette.tuxfamily.org).
+ * This file is part of Galette (https://galette.eu).
  *
  * Galette is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -27,15 +17,6 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with Galette. If not, see <http://www.gnu.org/licenses/>.
- *
- * @category  Classes
- * @package   GalettePaypal
- * @author    Johan Cwiklinski <johan@x-tnd.be>
- * @copyright 2011-2023 The Galette Team
- * @license   http://www.gnu.org/licenses/gpl-3.0.html GPL License 3.0 or (at your option) any later version
- * @version   SVN: $Id$
- * @link      http://galette.tuxfamily.org
- * @since     Available since 0.7dev - 2011-06-03
  */
 
 namespace GalettePaypal;
@@ -48,14 +29,7 @@ use Galette\Entity\ContributionsTypes;
 /**
  * Preferences for paypal
  *
- * @category  Classes
- * @name      Paypal
- * @package   Galette
- * @author    Johan Cwiklinski <johan@x-tnd.be>
- * @copyright 2011-2023 The Galette Team
- * @license   http://www.gnu.org/licenses/gpl-3.0.html GPL License 3.0 or (at your option) any later version
- * @link      http://galette.tuxfamily.org
- * @since     Available since 0.7dev - 2011-06-03
+ * @author Johan Cwiklinski <johan@x-tnd.be>
  */
 
 class Paypal
