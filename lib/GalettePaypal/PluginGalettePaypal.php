@@ -56,7 +56,7 @@ class PluginGalettePaypal extends GalettePlugin
                         ]
                     ],
                     [
-                        'label' => _T("Preferences"),
+                        'label' => _T("Settings"),
                         'route' => [
                             'name' => 'paypal_preferences'
                         ]
