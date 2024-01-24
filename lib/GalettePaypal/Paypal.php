@@ -67,14 +67,16 @@ class Paypal
     public const PAYMENT_PENDING = 'Pending';
     public const PAYMENT_COMPLETE = 'Complete';
 
-    private $zdb;
+    private Db $zdb;
 
-    private $prices = array();
-    private $id = null;
-    private $inactives = array();
+    /** @var array<int, array<string,mixed>> */
+    private array $prices;
+    private ?string $id;
+    /** @var array<int, string> */
+    private array $inactives;
 
-    private $loaded = false;
-    private $amounts_loaded = false;
+    private bool $loaded;
+    private bool $amounts_loaded = false;
 
     /**
      * Default constructor
@@ -96,7 +98,7 @@ class Paypal
      *
      * @return void
      */
-    public function load()
+    public function load(): void
     {
         try {
             $results = $this->zdb->selectAll(PAYPAL_PREFIX . self::PREFS_TABLE);
@@ -119,7 +121,7 @@ class Paypal
                 }
             }
             $this->loaded = true;
-            return $this->loadAmounts();
+            $this->loadAmounts();
         } catch (\Exception $e) {
             Analog::log(
                 '[' . get_class($this) . '] Cannot load paypal preferences |' .
@@ -137,7 +139,7 @@ class Paypal
      *
      * @return void
      */
-    private function loadAmounts()
+    private function loadAmounts(): void
     {
         $ct = new ContributionsTypes($this->zdb);
         $this->prices = $ct->getCompleteList();
@@ -200,9 +202,9 @@ class Paypal
     /**
      * Store values in the database
      *
-     * @return void
+     * @return bool
      */
-    public function store()
+    public function store(): bool
     {
         try {
             //store paypal id
@@ -257,7 +259,7 @@ class Paypal
      *
      * @return boolean
      */
-    public function storeAmounts()
+    public function storeAmounts(): bool
     {
         try {
             $update = $this->zdb->update(PAYPAL_PREFIX . self::TABLE);
@@ -296,11 +298,11 @@ class Paypal
     /**
     * Add missing types in paypal table
     *
-    * @param Array $queries Array of items to insert
+    * @param array<string, string> $queries Array of items to insert
     *
-    * @return true on success, false on failure
-    */
-    private function newEntries($queries)
+    * @return void
+     */
+    private function newEntries(array $queries): void
     {
         try {
             $insert = $this->zdb->insert(PAYPAL_PREFIX . self::TABLE);
@@ -320,15 +322,12 @@ class Paypal
                     )
                 );
             }
-
-            return true;
         } catch (\Exception $e) {
             Analog::log(
                 'Unable to store missing types in paypal table.' .
                 $stmt->getMessage() . '(' . $stmt->getDebugInfo() . ')',
                 Analog::WARNING
             );
-            return false;
         }
     }
 
@@ -337,7 +336,7 @@ class Paypal
      *
      * @return string
      */
-    public function getId()
+    public function getId(): string
     {
         return $this->id;
     }
@@ -347,9 +346,9 @@ class Paypal
      *
      * @param Login $login Login instance
      *
-     * @return array
+     * @return array<int, array<string,mixed>>
      */
-    public function getAmounts(Login $login)
+    public function getAmounts(Login $login): array
     {
         $prices = array();
         foreach ($this->prices as $k => $v) {
@@ -365,9 +364,9 @@ class Paypal
     /**
      * Get loaded amounts
      *
-     * @return array
+     * @return array<int, array<string,mixed>>
      */
-    public function getAllAmounts()
+    public function getAllAmounts(): array
     {
         return $this->prices;
     }
@@ -377,7 +376,7 @@ class Paypal
      *
      * @return boolean
      */
-    public function isLoaded()
+    public function isLoaded(): bool
     {
         return $this->loaded;
     }
@@ -387,7 +386,7 @@ class Paypal
      *
      * @return boolean
      */
-    public function areAmountsLoaded()
+    public function areAmountsLoaded(): bool
     {
         return $this->amounts_loaded;
     }
@@ -399,7 +398,7 @@ class Paypal
      *
      * @return void
      */
-    public function setId($id)
+    public function setId(string $id): void
     {
         $this->id = $id;
     }
@@ -407,12 +406,12 @@ class Paypal
     /**
      * Set new prices
      *
-     * @param array $ids     array of identifier
-     * @param array $amounts array of amounts
+     * @param array<int, string> $ids     array of identifier
+     * @param array<int, string> $amounts array of amounts
      *
      * @return void
      */
-    public function setPrices($ids, $amounts)
+    public function setPrices(array $ids, array $amounts): void
     {
         $this->prices = [];
         foreach ($ids as $k => $id) {
@@ -427,7 +426,7 @@ class Paypal
      *
      * @return boolean
      */
-    public function isInactive($id)
+    public function isInactive(int $id): bool
     {
         return in_array($id, $this->inactives);
     }
@@ -435,11 +434,11 @@ class Paypal
     /**
      * Set inactives types
      *
-     * @param array $inactives array of inactives types
+     * @param array<int, string> $inactives array of inactives types
      *
      * @return void
      */
-    public function setInactives($inactives)
+    public function setInactives(array $inactives): void
     {
         $this->inactives = $inactives;
     }
@@ -449,7 +448,7 @@ class Paypal
      *
      * @return void
      */
-    public function unsetInactives()
+    public function unsetInactives(): void
     {
         $this->inactives = array();
     }

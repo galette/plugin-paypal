@@ -69,17 +69,17 @@ class PaypalHistory extends History
     public const STATE_INCOMPLETE = 4;
     public const STATE_ALREADYDONE = 5;
 
-    private $id;
+    private int $id;
 
     /**
      * Default constructor.
      *
-     * @param Db          $zdb         Database
-     * @param Login       $login       Login
-     * @param Preferences $preferences Preferences
-     * @param HistoryList $filters     Filtering
+     * @param Db           $zdb         Database
+     * @param Login        $login       Login
+     * @param Preferences  $preferences Preferences
+     * @param ?HistoryList $filters     Filtering
      */
-    public function __construct(Db $zdb, Login $login, Preferences $preferences, $filters = null)
+    public function __construct(Db $zdb, Login $login, Preferences $preferences, HistoryList $filters = null)
     {
         $this->with_lists = false;
         parent::__construct($zdb, $login, $preferences, $filters);
@@ -88,13 +88,13 @@ class PaypalHistory extends History
     /**
      * Add a new entry
      *
-     * @param string $action   the action to log
-     * @param string $argument the argument
-     * @param string $query    the query (if relevant)
+     * @param array<string>|string $action   the action to log
+     * @param string               $argument the argument
+     * @param string               $query    the query (if relevant)
      *
      * @return bool true if entry was successfully added, false otherwise
      */
-    public function add($action, $argument = '', $query = '')
+    public function add(array|string $action, string $argument = '', string $query = ''): bool
     {
         $request = $action;
         try {
@@ -134,7 +134,7 @@ class PaypalHistory extends History
      *
      * @return string
      */
-    protected function getTableName($prefixed = false)
+    protected function getTableName(bool $prefixed = false): string
     {
         if ($prefixed === true) {
             return PREFIX_DB . PAYPAL_PREFIX . self::TABLE;
@@ -148,7 +148,7 @@ class PaypalHistory extends History
      *
      * @return string
      */
-    protected function getPk()
+    protected function getPk(): string
     {
         return self::PK;
     }
@@ -156,9 +156,9 @@ class PaypalHistory extends History
     /**
      * Gets Paypal history
      *
-     * @return array
+     * @return array<int, object>
      */
-    public function getPaypalHistory()
+    public function getPaypalHistory(): array
     {
         $orig = $this->getHistory();
         $new = array();
@@ -210,9 +210,9 @@ class PaypalHistory extends History
     /**
      * Builds the order clause
      *
-     * @return string SQL ORDER clause
+     * @return array<int, string> SQL ORDER clause
      */
-    protected function buildOrderClause()
+    protected function buildOrderClause(): array
     {
         $order = array();
 

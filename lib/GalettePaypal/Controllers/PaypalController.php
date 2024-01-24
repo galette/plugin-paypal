@@ -65,10 +65,10 @@ use Slim\Psr7\Response;
 class PaypalController extends AbstractPluginController
 {
     /**
-     * @var array
+     * @var array<string, mixed>
      */
     #[Inject("Plugin Galette Paypal")]
-    protected $module_info;
+    protected array $module_info;
 
     /**
      * Main route
@@ -129,15 +129,19 @@ class PaypalController extends AbstractPluginController
     /**
      * Logs page
      *
-     * @param Request     $request  PSR Request
-     * @param Response    $response PSR Response
-     * @param string|null $option   Either order, reset or page
-     * @param mixed       $value    Option value
+     * @param Request         $request  PSR Request
+     * @param Response        $response PSR Response
+     * @param string|null     $option   Either order, reset or page
+     * @param string|int|null $value    Option value
      *
      * @return Response
      */
-    public function logs(Request $request, Response $response, string $option = null, $value = null): Response
-    {
+    public function logs(
+        Request $request,
+        Response $response,
+        string $option = null,
+        string|int $value = null
+    ): Response {
         $paypal_history = new PaypalHistory($this->zdb, $this->login, $this->preferences);
 
         $filters = $this->session->filter_paypal_history ?? new HistoryList();

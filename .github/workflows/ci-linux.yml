@@ -63,7 +63,7 @@ jobs:
       - name: CS
         run: |
           cd galette-core/galette/plugins/plugin-paypal
-          ../../vendor/bin/phpcs -n -p --standard=../../../phpcs-rules.xml lib/ ./*.php
+          ../../vendor/bin/phpcs lib/ ./*.php
 
       - name: Check missing symbols
         run: |

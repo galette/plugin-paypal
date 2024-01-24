@@ -37,6 +37,7 @@
 
 namespace GalettePaypal;
 
+use Galette\Core\Login;
 use Galette\Entity\Adherent;
 use Galette\Core\GalettePlugin;
 
@@ -58,7 +59,7 @@ class PluginGalettePaypal extends GalettePlugin
     /**
      * Extra menus entries
      *
-     * @return array|array[]
+     * @return array<string, string|array<string,mixed>>
      */
     public static function getMenusContents(): array
     {
@@ -93,7 +94,7 @@ class PluginGalettePaypal extends GalettePlugin
     /**
      * Extra public menus entries
      *
-     * @return array|array[]
+     * @return array<int, string|array<string,mixed>>
      */
     public static function getPublicMenusItemsList(): array
     {
@@ -111,7 +112,7 @@ class PluginGalettePaypal extends GalettePlugin
     /**
      * Get dashboards contents
      *
-     * @return array|array[]
+     * @return array<int, string|array<string,mixed>>
      */
     public static function getDashboardsContents(): array
     {
@@ -123,7 +124,7 @@ class PluginGalettePaypal extends GalettePlugin
      *
      * @param Adherent $member Member instance
      *
-     * @return array|array[]
+     * @return array<int, string|array<string,mixed>>
      */
     public static function getListActionsContents(Adherent $member): array
     {
@@ -133,9 +134,9 @@ class PluginGalettePaypal extends GalettePlugin
     /**
      * Get detailed actions contents
      *
-     * @param Adherent $member Memebr instance
+     * @param Adherent $member Member instance
      *
-     * @return array|array[]
+     * @return array<int, string|array<string,mixed>>
      */
     public static function getDetailedActionsContents(Adherent $member): array
     {
@@ -145,7 +146,7 @@ class PluginGalettePaypal extends GalettePlugin
     /**
      * Get batch actions contents
      *
-     * @return array|array[]
+     * @return array<int, string|array<string,mixed>>
      */
     public static function getBatchActionsContents(): array
     {
