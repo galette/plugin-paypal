@@ -1,22 +1,23 @@
 # Woodyx <shiposhouyou@gmail.com>, 2020.
 # Mustafa Wahhudi <mustafawahhudi@gmail.com>, 2021.
 # Johan Cwiklinski <trasher@x-tnd.be>, 2021.
+# ButterflyOfFire <boffire@users.noreply.hosted.weblate.org>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: translations@galette.eu\n"
 "POT-Creation-Date: 2023-12-06 08:23+0100\n"
-"PO-Revision-Date: 2021-11-21 21:15+0000\n"
-"Last-Translator: Johan Cwiklinski <trasher@x-tnd.be>\n"
-"Language-Team: Arabic <https://hosted.weblate.org/projects/galette/paypal-"
-"plugin/ar/>\n"
+"PO-Revision-Date: 2024-01-26 17:01+0000\n"
+"Last-Translator: ButterflyOfFire <boffire@users.noreply.hosted.weblate.org>\n"
+"Language-Team: Arabic <https://hosted.weblate.org/projects/galette/"
+"paypal-plugin/ar/>\n"
 "Language: ar\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
 "&& n%100<=10 ? 3 : n%100>=11 ? 4 : 5;\n"
-"X-Generator: Weblate 4.10-dev\n"
+"X-Generator: Weblate 5.4-dev\n"
 
 #: ../lib/GalettePaypal/Controllers/PaypalController.php:90
 msgid "Paypal payment"
@@ -31,7 +32,7 @@ msgstr ""
 
 #: ../lib/GalettePaypal/Controllers/PaypalController.php:102
 msgid "Our apologies for the annoyance :("
-msgstr ""
+msgstr "نعتذر عن الإزعاج :("
 
 #: ../lib/GalettePaypal/Controllers/PaypalController.php:109
 msgid ""
@@ -116,15 +117,15 @@ msgstr ""
 
 #: ../tempcache/paypal_form.html.twig:73
 msgid "Payment reason"
-msgstr ""
+msgstr "سبب الدفع"
 
 #: ../tempcache/paypal_form.html.twig:80
 msgid "Select an payment reason"
-msgstr ""
+msgstr "اختيار سبب الدفع"
 
 #: ../tempcache/paypal_form.html.twig:176
 msgid "Payment reason:"
-msgstr ""
+msgstr "سبب الدفع:"
 
 #: ../tempcache/paypal_form.html.twig:193
 msgid "No predefined amounts have been configured yet."
@@ -137,7 +138,7 @@ msgstr ""
 
 #: ../tempcache/paypal_form.html.twig:312
 msgid "Please enter an amount."
-msgstr ""
+msgstr "رجاءً إدخلْ مَبلَغا."
 
 #: ../tempcache/paypal_form.html.twig:318
 msgid ""
