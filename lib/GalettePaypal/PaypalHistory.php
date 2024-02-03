@@ -23,6 +23,7 @@ namespace GalettePaypal;
 
 use Analog\Analog;
 use Galette\Core\Db;
+use Galette\Core\Galette;
 use Galette\Core\Login;
 use Galette\Core\History;
 use Galette\Core\Preferences;
@@ -79,7 +80,7 @@ class PaypalHistory extends History
                 'history_date'  => date('Y-m-d H:i:s'),
                 'amount'        => $request['mc_gross'],
                 'comments'      => $request['item_name'],
-                'request'       => serialize($request),
+                'request'       => Galette::jsonEncode($request),
                 'signature'     => $request['verify_sign'],
                 'state'         => self::STATE_NONE
             );
@@ -143,24 +144,11 @@ class PaypalHistory extends History
         if (count($orig) > 0) {
             foreach ($orig as $o) {
                 try {
-                    $oa = unserialize($o['request']);
-                } catch (\ErrorException $err) {
-                    Analog::log(
-                        'Error loading Paypal history entry #' . $o[$this->getPk()] .
-                        ' ' . $err->getMessage(),
-                        Analog::WARNING
-                    );
-
-                    //maybe an unserialization issue, try to fix
-                    $data = preg_replace_callback(
-                        '!s:(\d+):"(.*?)";!',
-                        function ($match) {
-                            return ($match[1] == strlen($match[2])) ?
-                                $match[0] : 's:' . strlen($match[2]) . ':"' . $match[2] . '";';
-                        },
-                        $o['request']
-                    );
-                    $oa = unserialize($data);
+                    if (Galette::isSerialized($o['request'])) {
+                        $oa = unserialize($o['request']);
+                    } else {
+                        $oa = Galette::jsonDecode($o['request']);
+                    }
                 } catch (\Exception $e) {
                     Analog::log(
                         'Error loading Paypal history entry #' . $o[$this->getPk()] .
