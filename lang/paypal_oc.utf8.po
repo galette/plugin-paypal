@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-12-06 08:23+0100\n"
+"POT-Creation-Date: 2024-02-08 22:18+0100\n"
 "PO-Revision-Date: 2020-06-30 21:03+0000\n"
 "Last-Translator: Quentin PAGÈS <quentinantonin@free.fr>\n"
 "Language-Team: Occitan <https://hosted.weblate.org/projects/galette/paypal-"
@@ -16,93 +16,66 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
 "X-Generator: Weblate 4.2-dev\n"
 
-#: ../lib/GalettePaypal/Controllers/PaypalController.php:90
+#: ../lib/GalettePaypal/Controllers/PaypalController.php:68
 msgid "Paypal payment"
 msgstr ""
 
-#: ../lib/GalettePaypal/Controllers/PaypalController.php:101
+#: ../lib/GalettePaypal/Controllers/PaypalController.php:79
 msgid ""
 "<strong>Payment could not work</strong>: An error occurred (that has been "
 "logged) while loading Paypal preferences from database.<br/>Please report "
 "the issue to the staff."
 msgstr ""
 
-#: ../lib/GalettePaypal/Controllers/PaypalController.php:102
+#: ../lib/GalettePaypal/Controllers/PaypalController.php:80
 msgid "Our apologies for the annoyance :("
 msgstr ""
 
-#: ../lib/GalettePaypal/Controllers/PaypalController.php:109
+#: ../lib/GalettePaypal/Controllers/PaypalController.php:87
 msgid ""
 "Paypal id has not been defined. Please ask an administrator to add it from "
 "plugin preferences."
 msgstr ""
 
-#: ../lib/GalettePaypal/Controllers/PaypalController.php:116
+#: ../lib/GalettePaypal/Controllers/PaypalController.php:94
 msgid "Predefined amounts cannot be loaded, that is not a critical error."
 msgstr ""
 
-#: ../lib/GalettePaypal/Controllers/PaypalController.php:228
-msgid "Paypal Settings"
-msgstr ""
-
-#: ../lib/GalettePaypal/Controllers/PaypalController.php:272
-msgid "Paypal preferences has been saved."
-msgstr ""
-
-#: ../lib/GalettePaypal/Controllers/PaypalController.php:278
-msgid "An error occurred saving paypal preferences :("
-msgstr ""
-
-#: ../lib/GalettePaypal/Controllers/PaypalController.php:300
-msgid "Your payment has been aborted!"
-msgstr ""
-
-#: ../lib/GalettePaypal/Controllers/PaypalController.php:325
-msgid "Paypal payment success"
-msgstr ""
-
-#: ../lib/GalettePaypal/Controllers/PaypalController.php:331
-msgid "Your payment has been proceeded!"
-msgstr ""
-
-#: ../lib/GalettePaypal/PluginGalettePaypal.php:71
-msgid "Paypal"
-msgstr "Paypal"
-
-#: ../lib/GalettePaypal/PluginGalettePaypal.php:75
+#: ../lib/GalettePaypal/Controllers/PaypalController.php:148
+#: ../lib/GalettePaypal/PluginGalettePaypal.php:53
 msgid "Paypal History"
 msgstr ""
 
-#: ../lib/GalettePaypal/PluginGalettePaypal.php:102
+#: ../lib/GalettePaypal/Controllers/PaypalController.php:210
+msgid "Paypal Settings"
+msgstr ""
+
+#: ../lib/GalettePaypal/Controllers/PaypalController.php:254
+msgid "Paypal preferences has been saved."
+msgstr ""
+
+#: ../lib/GalettePaypal/Controllers/PaypalController.php:260
+msgid "An error occurred saving paypal preferences :("
+msgstr ""
+
+#: ../lib/GalettePaypal/Controllers/PaypalController.php:282
+msgid "Your payment has been aborted!"
+msgstr ""
+
+#: ../lib/GalettePaypal/Controllers/PaypalController.php:307
+msgid "Paypal payment success"
+msgstr ""
+
+#: ../lib/GalettePaypal/Controllers/PaypalController.php:313
+msgid "Your payment has been proceeded!"
+msgstr ""
+
+#: ../lib/GalettePaypal/PluginGalettePaypal.php:49
+msgid "Paypal"
+msgstr "Paypal"
+
+#: ../lib/GalettePaypal/PluginGalettePaypal.php:80
 msgid "Payment form"
-msgstr ""
-
-#: ../tempcache/paypal_success.html.twig:54
-msgid "Your paypal payment was successful. Some details are shown below:"
-msgstr ""
-
-#: ../tempcache/paypal_success.html.twig:114
-msgid ""
-"Your paypal payment was successful. You may receive a mail from paypal with "
-"details."
-msgstr ""
-
-#: ../tempcache/paypal_preferences.html.twig:71
-msgid "Paypal preferences"
-msgstr ""
-
-#: ../tempcache/paypal_preferences.html.twig:81
-msgid "Paypal identifier:"
-msgstr ""
-
-#: ../tempcache/paypal_preferences.html.twig:81
-msgid ""
-"Enter here one of your Paypal ID or email adress associated within your "
-"paypal account."
-msgstr ""
-
-#: ../tempcache/paypal_preferences.html.twig:163
-msgid "Error: no predefined amounts found."
 msgstr ""
 
 #: ../tempcache/paypal_form.html.twig:66
@@ -141,6 +114,24 @@ msgid ""
 "Please choose another option or change the amount."
 msgstr ""
 
+#: ../tempcache/paypal_preferences.html.twig:71
+msgid "Paypal preferences"
+msgstr ""
+
+#: ../tempcache/paypal_preferences.html.twig:81
+msgid "Paypal identifier:"
+msgstr ""
+
+#: ../tempcache/paypal_preferences.html.twig:81
+msgid ""
+"Enter here one of your Paypal ID or email adress associated within your "
+"paypal account."
+msgstr ""
+
+#: ../tempcache/paypal_preferences.html.twig:163
+msgid "Error: no predefined amounts found."
+msgstr ""
+
 #: ../tempcache/paypal_history.html.twig:131
 msgid "duplicate"
 msgstr ""
@@ -155,4 +146,14 @@ msgstr ""
 
 #: ../tempcache/paypal_history.html.twig:260
 msgid "Show/hide full request"
+msgstr ""
+
+#: ../tempcache/paypal_success.html.twig:54
+msgid "Your paypal payment was successful. Some details are shown below:"
+msgstr ""
+
+#: ../tempcache/paypal_success.html.twig:114
+msgid ""
+"Your paypal payment was successful. You may receive a mail from paypal with "
+"details."
 msgstr ""
