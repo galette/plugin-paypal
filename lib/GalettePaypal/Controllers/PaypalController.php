@@ -145,7 +145,7 @@ class PaypalController extends AbstractPluginController
         $filters->setViewPagination($this->routeparser, $this->view);
 
         $params = [
-            'page_title' => _T("Paypal History"),
+            'page_title' => _T("Paypal History", "paypal"),
             'paypal_history' => $paypal_history,
             'logs' => $logs,
             'module_id' => $this->getModuleId()
