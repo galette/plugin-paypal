@@ -77,6 +77,7 @@ class Paypal
         try {
             $results = $this->zdb->selectAll(PAYPAL_PREFIX . self::PREFS_TABLE);
 
+            /** @var \ArrayObject<string, mixed> $row */
             foreach ($results as $row) {
                 switch ($row->nom_pref) {
                     case 'paypal_id':
@@ -272,7 +273,7 @@ class Paypal
     /**
     * Add missing types in paypal table
     *
-    * @param array<string, string> $queries Array of items to insert
+    * @param array<int, array<string, mixed>> $queries Array of items to insert
     *
     * @return void
      */
@@ -299,6 +300,7 @@ class Paypal
         } catch (\Exception $e) {
             Analog::log(
                 'Unable to store missing types in paypal table.' .
+                //@phpstan-ignore-next-line
                 $stmt->getMessage() . '(' . $stmt->getDebugInfo() . ')',
                 Analog::WARNING
             );
