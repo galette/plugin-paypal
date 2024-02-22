@@ -1,24 +1,25 @@
 # Weblate <noreply@weblate.org>, 2020.
 # Quentin PAGÈS <quentinantonin@free.fr>, 2020.
+# Pèire Bréchet <charrar@free.fr>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: translations@galette.eu\n"
 "POT-Creation-Date: 2024-02-08 22:18+0100\n"
-"PO-Revision-Date: 2020-06-30 21:03+0000\n"
-"Last-Translator: Quentin PAGÈS <quentinantonin@free.fr>\n"
-"Language-Team: Occitan <https://hosted.weblate.org/projects/galette/paypal-"
-"plugin/oc/>\n"
+"PO-Revision-Date: 2024-02-22 21:18+0000\n"
+"Last-Translator: Pèire Bréchet <charrar@free.fr>\n"
+"Language-Team: Occitan <https://hosted.weblate.org/projects/galette/"
+"paypal-plugin/oc/>\n"
 "Language: oc\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 4.2-dev\n"
+"X-Generator: Weblate 5.5-dev\n"
 
 #: ../lib/GalettePaypal/Controllers/PaypalController.php:68
 msgid "Paypal payment"
-msgstr ""
+msgstr "Pagament Paypal"
 
 #: ../lib/GalettePaypal/Controllers/PaypalController.php:79
 msgid ""
