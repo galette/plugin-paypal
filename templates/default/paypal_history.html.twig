@@ -55,9 +55,6 @@
         <tr class="{if $smarty.foreach.eachlog.iteration % 2 eq 0}even{else}odd{/if}">
             <td class="center" data-scope="row">
                 {{ loop.index }}
-                <span class="row-title">
-                    {{ _T("History entry %id")|replace({'%id': loop.index}) }}
-                </span>
             </td>
             <td class="nowrap" data-col-label="{{ _T("Data") }}">
                 {% if log.duplicate is defined %}<img class="img-dup" src="{{ url_for("plugin_res", {"plugin": module_id, "path": "images/warning.png"}) }}" alt="{{ _T("duplicate", "paypal") }}"/>{% endif %}
