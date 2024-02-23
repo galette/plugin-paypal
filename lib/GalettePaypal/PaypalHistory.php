@@ -155,7 +155,6 @@ class PaypalHistory extends History
                         ' ' . $e->getMessage(),
                         Analog::WARNING
                     );
-                    throw $e;
                 }
 
                 $o['raw_request'] = print_r($oa, true);
