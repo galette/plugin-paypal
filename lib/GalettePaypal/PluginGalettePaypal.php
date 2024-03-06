@@ -93,7 +93,15 @@ class PluginGalettePaypal extends GalettePlugin
      */
     public static function getDashboardsContents(): array
     {
-        return [];
+        return [
+            [
+                'label' => _T("Payment form", "paypal"),
+                'route' => [
+                    'name' => 'paypal_form'
+                ],
+                'icon' => 'credit_card'
+            ]
+        ];
     }
 
     /**
