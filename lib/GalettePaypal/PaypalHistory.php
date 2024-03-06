@@ -149,6 +149,16 @@ class PaypalHistory extends History
                     } else {
                         $oa = Galette::jsonDecode($o['request']);
                     }
+
+                    $o['raw_request'] = print_r($oa, true);
+                    $o['request'] = $oa;
+                    if (in_array($oa['verify_sign'], $dedup)) {
+                        $o['duplicate'] = true;
+                    } else {
+                        $dedup[] = $oa['verify_sign'];
+                    }
+
+                    $new[] = $o;
                 } catch (\Exception $e) {
                     Analog::log(
                         'Error loading Paypal history entry #' . $o[$this->getPk()] .
@@ -156,16 +166,6 @@ class PaypalHistory extends History
                         Analog::WARNING
                     );
                 }
-
-                $o['raw_request'] = print_r($oa, true);
-                $o['request'] = $oa;
-                if (in_array($oa['verify_sign'], $dedup)) {
-                    $o['duplicate'] = true;
-                } else {
-                    $dedup[] = $oa['verify_sign'];
-                }
-
-                $new[] = $o;
             }
         }
         return $new;
