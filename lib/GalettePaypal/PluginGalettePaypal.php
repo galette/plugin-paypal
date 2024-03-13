@@ -22,6 +22,7 @@
 namespace GalettePaypal;
 
 use Galette\Core\Login;
+use Galette\Core\Preferences;
 use Galette\Entity\Adherent;
 use Galette\Core\GalettePlugin;
 
