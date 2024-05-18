@@ -1,3 +1,4 @@
 *.exvim*
 dist/
 tempcache/
+tests/coverage/
