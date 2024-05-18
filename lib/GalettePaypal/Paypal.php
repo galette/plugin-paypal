@@ -29,7 +29,7 @@ use Galette\Core\Login;
 use Galette\Entity\ContributionsTypes;
 
 /**
- * Preferences for paypal
+ * Preferences for Paypal
  *
  * @author Johan Cwiklinski <johan@x-tnd.be>
  */
@@ -106,7 +106,7 @@ class Paypal
                 Analog::ERROR
             );
             //consider plugin is not loaded when missing the main preferences
-            //(that includes paypal id)
+            //(that includes Paypal id)
             $this->loaded = false;
         }
     }
@@ -125,7 +125,7 @@ class Paypal
             $results = $this->zdb->selectAll(PAYPAL_PREFIX . self::TABLE);
             $results = $results->toArray();
 
-            //check if all types currently exists in paypal table
+            //check if all types currently exists in Paypal table
             if (count($results) != count($this->prices)) {
                 Analog::log(
                     '[' . get_class($this) . '] There are missing types in ' .
@@ -138,7 +138,7 @@ class Paypal
             foreach ($this->prices as $k => $v) {
                 $_found = false;
                 if (count($results) > 0) {
-                    //for each entry in types, we want to get the associated amount
+                    //for each entry in types, we want one in the Paypal table
                     foreach ($results as $paypal) {
                         if ($paypal['id_type_cotis'] == $k) {
                             $_found = true;
@@ -216,7 +216,7 @@ class Paypal
 
             Analog::log(
                 '[' . get_class($this) .
-                '] Paypal preferences were sucessfully stored',
+                '] Paypal preferences were successfully stored',
                 Analog::INFO
             );
 
@@ -258,7 +258,7 @@ class Paypal
             }
 
             Analog::log(
-                '[' . get_class($this) . '] Paypal amounts were sucessfully stored',
+                '[' . get_class($this) . '] Paypal amounts were successfully stored',
                 Analog::INFO
             );
             return true;
@@ -273,7 +273,7 @@ class Paypal
     }
 
     /**
-    * Add missing types in paypal table
+    * Add missing types in Paypal table
     *
     * @param array<int, array<string, mixed>> $queries Array of items to insert
     *
@@ -314,7 +314,7 @@ class Paypal
      *
      * @return string
      */
-    public function getId(): string
+    public function getId(): ?string
     {
         return $this->id;
     }
@@ -331,7 +331,7 @@ class Paypal
         $prices = array();
         foreach ($this->prices as $k => $v) {
             if (!$this->isInactive($k)) {
-                if ($login->isLogged() || $v['extra'] == 0) {
+                if ($login->isLogged() || $v['extra'] == ContributionsTypes::DONATION_TYPE) {
                     $prices[$k] = $v;
                 }
             }
