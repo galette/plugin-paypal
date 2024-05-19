@@ -35,8 +35,7 @@
             <div class="ui bottom attached accordion-styled segment">
                 <div class="active content field">
                     <div class="field inline">
-                        {% if paypal.areAmountsLoaded() %}
-                            {% if amounts|length > 0 %}
+                        {% if amounts|length > 0 %}
                                 <input type="hidden" name="item_name" id="item_name" value="{% if login.isLogged() %}{{ _T("annual fee") }}{% else %}{{ _T("donation in money") }}{% endif %}"/>
                                 <div class="grouped fields">
                                     {% for k, amount in amounts %}
@@ -52,12 +51,9 @@
                                         </div>
                                     {% endfor %}
                                 </div>
-                            {% else %}
+                        {% else %}
                                 <label for="item_name">{{ _T("Payment reason:", "paypal") }}</label>
                                 <input type="text" name="item_name" id="item_name" value="{% if login.isLogged() %}{{ _T("annual fee") }}{% else %}{{ _T("donation in money") }}{% endif %}"/>
-                            {% endif %}
-                        {% else %}
-                            {{ _T("No predefined amounts have been configured yet.", "paypal") }}
                         {% endif %}
                     </div>
 
@@ -101,7 +97,7 @@
 {% endblock %}
 
 {% block javascripts %}
-    {% if paypal.isLoaded() and paypal.getId() is not null and paypal.areAmountsLoaded() %}
+    {% if paypal.isLoaded() and paypal.getId() is not null %}
 <script type="text/javascript">
     $(function() {
         $('input[name="item_number"]').change(function(){
