@@ -43,12 +43,11 @@
                 } %}
     {% endif %}
 
-    {% if paypal.areAmountsLoaded() and amounts|length > 0 %}
+    {% if paypal.isLoaded() and amounts|length > 0 %}
                 <table class="listing ui celled striped table">
                     <thead>
                         <tr>
                             <th class="listing">{{ _T("Contribution type") }}</th>
-                            <th class="listing">{{ _T("Amount") }}</th>
                             <th class="listing">{{ _T("Inactive") }}</th>
                         </tr>
                     </thead>
@@ -60,7 +59,7 @@
                                 <label for="amount_{{ k }}">{{ amount['name'] }}</label>
                             </td>
                             <td>
-                                <input type="text" name="amounts[]" id="amount_{{ k }}" value="{{ amount['amount']|number_format(2, ',', '') }}"/>
+                                <input type="text" name="amounts[]" id="amount_{{ k }}" value="{{ amount['amount']|number_format(2, ',', '') }}" disabled="disabled"/>
                             </td>
                             <td>
                                 <input type="checkbox" name="inactives[]" id="inactives_{{ k }}"{% if paypal.isInactive(k) %} checked="checked"{% endif %} value="{{ k }}"/>
