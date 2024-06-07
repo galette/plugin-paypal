@@ -1,3 +1,23 @@
+{#
+/**
+ * Copyright © 2003-2024 The Galette Team
+ *
+ * This file is part of Galette (https://galette.eu).
+ *
+ * Galette is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Galette is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Galette. If not, see <http://www.gnu.org/licenses/>.
+ */
+#}
 {% extends 'elements/list.html.twig' %}
 
 {% set nb = logs|length %}
@@ -32,14 +52,11 @@
 
 {% block body %}
     {% for log in logs %}
-        <tr class="{if $smarty.foreach.eachlog.iteration % 2 eq 0}even{else}odd{/if}">
+        <tr class="{{ loop.index is odd ? 'odd' : 'even' }}">
             <td class="center" data-scope="row">
                 {{ loop.index }}
-                <span class="row-title">
-                    {{ _T("History entry %id")|replace({'%id': loop.index}) }}
-                </span>
             </td>
-            <td class="nowrap" data-col-label="{{ _T("Data") }}">
+            <td class="nowrap" data-col-label="{{ _T("Date") }}">
                 {% if log.duplicate is defined %}<img class="img-dup" src="{{ url_for("plugin_res", {"plugin": module_id, "path": "images/warning.png"}) }}" alt="{{ _T("duplicate", "paypal") }}"/>{% endif %}
                 {{ log.history_date|date(_T("Y-m-d H:i:s")) }}
             </td>

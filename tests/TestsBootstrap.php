@@ -1,4 +1,5 @@
-{#
+<?php
+
 /**
  * Copyright © 2003-2024 The Galette Team
  *
@@ -17,5 +18,15 @@
  * You should have received a copy of the GNU General Public License
  * along with Galette. If not, see <http://www.gnu.org/licenses/>.
  */
-#}
-        <link rel="stylesheet" type="text/css" href="{{ url_for("plugin_res", {"plugin": module_id, "path": "galette_paypal.css"}) }}"/>
+
+/**
+ * Bootstrap tests file for Galette Paypal plugin
+ *
+ * @author Johan Cwiklinski <johan@x-tnd.be>
+ */
+
+define('GALETTE_PLUGINS_PATH', __DIR__ . '/../../');
+$basepath = '../../../galette/';
+
+include_once '../../../tests/TestsBootstrap.php';
+require_once __DIR__ . '/../_config.inc.php';

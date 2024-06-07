@@ -1,15 +1,9 @@
 <?php
 
-/* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4: */
-
 /**
- * Paypal history management
+ * Copyright © 2003-2024 The Galette Team
  *
- * PHP version 5
- *
- * Copyright © 2011-2014 The Galette Team
- *
- * This file is part of Galette (http://galette.tuxfamily.org).
+ * This file is part of Galette (https://galette.eu).
  *
  * Galette is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -23,22 +17,15 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with Galette. If not, see <http://www.gnu.org/licenses/>.
- *
- * @category  Classes
- * @package   Galette
- *
- * @author    Johan Cwiklinski <johan@x-tnd.be>
- * @copyright 2011-2014 The Galette Team
- * @license   http://www.gnu.org/licenses/gpl-3.0.html GPL License 3.0 or (at your option) any later version
- * @version   SVN: $Id$
- * @link      http://galette.tuxfamily.org
- * @since     Available since 0.7dev - 2011-07-25
  */
+
+declare(strict_types=1);
 
 namespace GalettePaypal;
 
 use Analog\Analog;
 use Galette\Core\Db;
+use Galette\Core\Galette;
 use Galette\Core\Login;
 use Galette\Core\History;
 use Galette\Core\Preferences;
@@ -48,14 +35,7 @@ use Galette\Filters\HistoryList;
  * This class stores and serve the logo.
  * If no custom logo is found, we take galette's default one.
  *
- * @category  Classes
- * @name      PaypalHistory
- * @package   Galette
- * @author    Johan Cwiklinski <johan@x-tnd.be>
- * @copyright 2009-2014 The Galette Team
- * @license   http://www.gnu.org/licenses/gpl-3.0.html GPL License 3.0 or (at your option) any later version
- * @link      http://galette.tuxfamily.org
- * @since     Available since 0.7dev - 2009-09-13
+ * @author Johan Cwiklinski <johan@x-tnd.be>
  */
 class PaypalHistory extends History
 {
@@ -69,17 +49,17 @@ class PaypalHistory extends History
     public const STATE_INCOMPLETE = 4;
     public const STATE_ALREADYDONE = 5;
 
-    private $id;
+    private int $id;
 
     /**
      * Default constructor.
      *
-     * @param Db          $zdb         Database
-     * @param Login       $login       Login
-     * @param Preferences $preferences Preferences
-     * @param HistoryList $filters     Filtering
+     * @param Db           $zdb         Database
+     * @param Login        $login       Login
+     * @param Preferences  $preferences Preferences
+     * @param ?HistoryList $filters     Filtering
      */
-    public function __construct(Db $zdb, Login $login, Preferences $preferences, $filters = null)
+    public function __construct(Db $zdb, Login $login, Preferences $preferences, HistoryList $filters = null)
     {
         $this->with_lists = false;
         parent::__construct($zdb, $login, $preferences, $filters);
@@ -88,13 +68,13 @@ class PaypalHistory extends History
     /**
      * Add a new entry
      *
-     * @param string $action   the action to log
-     * @param string $argument the argument
-     * @param string $query    the query (if relevant)
+     * @param array<string>|string $action   the action to log
+     * @param string               $argument the argument
+     * @param string               $query    the query (if relevant)
      *
      * @return bool true if entry was successfully added, false otherwise
      */
-    public function add($action, $argument = '', $query = '')
+    public function add(array|string $action, string $argument = '', string $query = ''): bool
     {
         $request = $action;
         try {
@@ -102,7 +82,7 @@ class PaypalHistory extends History
                 'history_date'  => date('Y-m-d H:i:s'),
                 'amount'        => $request['mc_gross'],
                 'comments'      => $request['item_name'],
-                'request'       => serialize($request),
+                'request'       => Galette::jsonEncode($request),
                 'signature'     => $request['verify_sign'],
                 'state'         => self::STATE_NONE
             );
@@ -134,7 +114,7 @@ class PaypalHistory extends History
      *
      * @return string
      */
-    protected function getTableName($prefixed = false)
+    protected function getTableName(bool $prefixed = false): string
     {
         if ($prefixed === true) {
             return PREFIX_DB . PAYPAL_PREFIX . self::TABLE;
@@ -148,7 +128,7 @@ class PaypalHistory extends History
      *
      * @return string
      */
-    protected function getPk()
+    protected function getPk(): string
     {
         return self::PK;
     }
@@ -156,9 +136,9 @@ class PaypalHistory extends History
     /**
      * Gets Paypal history
      *
-     * @return array
+     * @return array<int, object>
      */
-    public function getPaypalHistory()
+    public function getPaypalHistory(): array
     {
         $orig = $this->getHistory();
         $new = array();
@@ -166,42 +146,28 @@ class PaypalHistory extends History
         if (count($orig) > 0) {
             foreach ($orig as $o) {
                 try {
-                    $oa = unserialize($o['request']);
-                } catch (\ErrorException $err) {
-                    Analog::log(
-                        'Error loading Paypal history entry #' . $o[$this->getPk()] .
-                        ' ' . $err->getMessage(),
-                        Analog::WARNING
-                    );
+                    if (Galette::isSerialized($o['request'])) {
+                        $oa = unserialize($o['request']);
+                    } else {
+                        $oa = Galette::jsonDecode($o['request']);
+                    }
 
-                    //maybe an unserialization issue, try to fix
-                    $data = preg_replace_callback(
-                        '!s:(\d+):"(.*?)";!',
-                        function ($match) {
-                            return ($match[1] == strlen($match[2])) ?
-                                $match[0] : 's:' . strlen($match[2]) . ':"' . $match[2] . '";';
-                        },
-                        $o['request']
-                    );
-                    $oa = unserialize($data);
+                    $o['raw_request'] = print_r($oa, true);
+                    $o['request'] = $oa;
+                    if (in_array($oa['verify_sign'], $dedup)) {
+                        $o['duplicate'] = true;
+                    } else {
+                        $dedup[] = $oa['verify_sign'];
+                    }
+
+                    $new[] = $o;
                 } catch (\Exception $e) {
                     Analog::log(
                         'Error loading Paypal history entry #' . $o[$this->getPk()] .
                         ' ' . $e->getMessage(),
                         Analog::WARNING
                     );
-                    throw $e;
                 }
-
-                $o['raw_request'] = print_r($oa, true);
-                $o['request'] = $oa;
-                if (in_array($oa['verify_sign'], $dedup)) {
-                    $o['duplicate'] = true;
-                } else {
-                    $dedup[] = $oa['verify_sign'];
-                }
-
-                $new[] = $o;
             }
         }
         return $new;
@@ -210,9 +176,9 @@ class PaypalHistory extends History
     /**
      * Builds the order clause
      *
-     * @return string SQL ORDER clause
+     * @return array<int, string> SQL ORDER clause
      */
-    protected function buildOrderClause()
+    protected function buildOrderClause(): array
     {
         $order = array();
 

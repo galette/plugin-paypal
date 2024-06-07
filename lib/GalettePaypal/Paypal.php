@@ -1,19 +1,9 @@
 <?php
 
-/* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4: */
-
 /**
- * Paypal Galette plugin
+ * Copyright © 2003-2024 The Galette Team
  *
- * This page can be loaded directly, or via ajax.
- * Via ajax, we do not have a full html page, but only
- * that will be displayed using javascript on another page
- *
- * PHP version 5
- *
- * Copyright © 2011-2023 The Galette Team
- *
- * This file is part of Galette (http://galette.tuxfamily.org).
+ * This file is part of Galette (https://galette.eu).
  *
  * Galette is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -27,16 +17,9 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with Galette. If not, see <http://www.gnu.org/licenses/>.
- *
- * @category  Classes
- * @package   GalettePaypal
- * @author    Johan Cwiklinski <johan@x-tnd.be>
- * @copyright 2011-2023 The Galette Team
- * @license   http://www.gnu.org/licenses/gpl-3.0.html GPL License 3.0 or (at your option) any later version
- * @version   SVN: $Id$
- * @link      http://galette.tuxfamily.org
- * @since     Available since 0.7dev - 2011-06-03
  */
+
+declare(strict_types=1);
 
 namespace GalettePaypal;
 
@@ -46,16 +29,9 @@ use Galette\Core\Login;
 use Galette\Entity\ContributionsTypes;
 
 /**
- * Preferences for paypal
+ * Preferences for Paypal
  *
- * @category  Classes
- * @name      Paypal
- * @package   Galette
- * @author    Johan Cwiklinski <johan@x-tnd.be>
- * @copyright 2011-2023 The Galette Team
- * @license   http://www.gnu.org/licenses/gpl-3.0.html GPL License 3.0 or (at your option) any later version
- * @link      http://galette.tuxfamily.org
- * @since     Available since 0.7dev - 2011-06-03
+ * @author Johan Cwiklinski <johan@x-tnd.be>
  */
 
 class Paypal
@@ -67,14 +43,16 @@ class Paypal
     public const PAYMENT_PENDING = 'Pending';
     public const PAYMENT_COMPLETE = 'Complete';
 
-    private $zdb;
+    private Db $zdb;
 
-    private $prices = array();
-    private $id = null;
-    private $inactives = array();
+    /** @var array<int, array<string,mixed>> */
+    private array $prices;
+    private ?string $id;
+    /** @var array<int, string> */
+    private array $inactives;
 
-    private $loaded = false;
-    private $amounts_loaded = false;
+    private bool $loaded;
+    private bool $amounts_loaded = false;
 
     /**
      * Default constructor
@@ -96,11 +74,12 @@ class Paypal
      *
      * @return void
      */
-    public function load()
+    public function load(): void
     {
         try {
             $results = $this->zdb->selectAll(PAYPAL_PREFIX . self::PREFS_TABLE);
 
+            /** @var \ArrayObject<string, mixed> $row */
             foreach ($results as $row) {
                 switch ($row->nom_pref) {
                     case 'paypal_id':
@@ -119,7 +98,7 @@ class Paypal
                 }
             }
             $this->loaded = true;
-            return $this->loadAmounts();
+            $this->loadAmounts();
         } catch (\Exception $e) {
             Analog::log(
                 '[' . get_class($this) . '] Cannot load paypal preferences |' .
@@ -127,7 +106,7 @@ class Paypal
                 Analog::ERROR
             );
             //consider plugin is not loaded when missing the main preferences
-            //(that includes paypal id)
+            //(that includes Paypal id)
             $this->loaded = false;
         }
     }
@@ -137,7 +116,7 @@ class Paypal
      *
      * @return void
      */
-    private function loadAmounts()
+    private function loadAmounts(): void
     {
         $ct = new ContributionsTypes($this->zdb);
         $this->prices = $ct->getCompleteList();
@@ -146,7 +125,7 @@ class Paypal
             $results = $this->zdb->selectAll(PAYPAL_PREFIX . self::TABLE);
             $results = $results->toArray();
 
-            //check if all types currently exists in paypal table
+            //check if all types currently exists in Paypal table
             if (count($results) != count($this->prices)) {
                 Analog::log(
                     '[' . get_class($this) . '] There are missing types in ' .
@@ -159,7 +138,7 @@ class Paypal
             foreach ($this->prices as $k => $v) {
                 $_found = false;
                 if (count($results) > 0) {
-                    //for each entry in types, we want to get the associated amount
+                    //for each entry in types, we want one in the Paypal table
                     foreach ($results as $paypal) {
                         if ($paypal['id_type_cotis'] == $k) {
                             $_found = true;
@@ -200,9 +179,9 @@ class Paypal
     /**
      * Store values in the database
      *
-     * @return void
+     * @return bool
      */
-    public function store()
+    public function store(): bool
     {
         try {
             //store paypal id
@@ -237,7 +216,7 @@ class Paypal
 
             Analog::log(
                 '[' . get_class($this) .
-                '] Paypal preferences were sucessfully stored',
+                '] Paypal preferences were successfully stored',
                 Analog::INFO
             );
 
@@ -257,7 +236,7 @@ class Paypal
      *
      * @return boolean
      */
-    public function storeAmounts()
+    public function storeAmounts(): bool
     {
         try {
             $update = $this->zdb->update(PAYPAL_PREFIX . self::TABLE);
@@ -279,7 +258,7 @@ class Paypal
             }
 
             Analog::log(
-                '[' . get_class($this) . '] Paypal amounts were sucessfully stored',
+                '[' . get_class($this) . '] Paypal amounts were successfully stored',
                 Analog::INFO
             );
             return true;
@@ -294,13 +273,13 @@ class Paypal
     }
 
     /**
-    * Add missing types in paypal table
+    * Add missing types in Paypal table
     *
-    * @param Array $queries Array of items to insert
+    * @param array<int, array<string, mixed>> $queries Array of items to insert
     *
-    * @return true on success, false on failure
-    */
-    private function newEntries($queries)
+    * @return void
+     */
+    private function newEntries(array $queries): void
     {
         try {
             $insert = $this->zdb->insert(PAYPAL_PREFIX . self::TABLE);
@@ -320,15 +299,13 @@ class Paypal
                     )
                 );
             }
-
-            return true;
         } catch (\Exception $e) {
             Analog::log(
                 'Unable to store missing types in paypal table.' .
+                //@phpstan-ignore-next-line
                 $stmt->getMessage() . '(' . $stmt->getDebugInfo() . ')',
                 Analog::WARNING
             );
-            return false;
         }
     }
 
@@ -337,7 +314,7 @@ class Paypal
      *
      * @return string
      */
-    public function getId()
+    public function getId(): ?string
     {
         return $this->id;
     }
@@ -347,14 +324,14 @@ class Paypal
      *
      * @param Login $login Login instance
      *
-     * @return array
+     * @return array<int, array<string,mixed>>
      */
-    public function getAmounts(Login $login)
+    public function getAmounts(Login $login): array
     {
         $prices = array();
         foreach ($this->prices as $k => $v) {
             if (!$this->isInactive($k)) {
-                if ($login->isLogged() || $v['extra'] == 0) {
+                if ($login->isLogged() || $v['extra'] == ContributionsTypes::DONATION_TYPE) {
                     $prices[$k] = $v;
                 }
             }
@@ -365,9 +342,9 @@ class Paypal
     /**
      * Get loaded amounts
      *
-     * @return array
+     * @return array<int, array<string,mixed>>
      */
-    public function getAllAmounts()
+    public function getAllAmounts(): array
     {
         return $this->prices;
     }
@@ -377,7 +354,7 @@ class Paypal
      *
      * @return boolean
      */
-    public function isLoaded()
+    public function isLoaded(): bool
     {
         return $this->loaded;
     }
@@ -387,7 +364,7 @@ class Paypal
      *
      * @return boolean
      */
-    public function areAmountsLoaded()
+    public function areAmountsLoaded(): bool
     {
         return $this->amounts_loaded;
     }
@@ -399,7 +376,7 @@ class Paypal
      *
      * @return void
      */
-    public function setId($id)
+    public function setId(string $id): void
     {
         $this->id = $id;
     }
@@ -407,12 +384,12 @@ class Paypal
     /**
      * Set new prices
      *
-     * @param array $ids     array of identifier
-     * @param array $amounts array of amounts
+     * @param array<int, string> $ids     array of identifier
+     * @param array<int, string> $amounts array of amounts
      *
      * @return void
      */
-    public function setPrices($ids, $amounts)
+    public function setPrices(array $ids, array $amounts): void
     {
         $this->prices = [];
         foreach ($ids as $k => $id) {
@@ -427,7 +404,7 @@ class Paypal
      *
      * @return boolean
      */
-    public function isInactive($id)
+    public function isInactive(int $id): bool
     {
         return in_array($id, $this->inactives);
     }
@@ -435,11 +412,11 @@ class Paypal
     /**
      * Set inactives types
      *
-     * @param array $inactives array of inactives types
+     * @param array<int, string> $inactives array of inactives types
      *
      * @return void
      */
-    public function setInactives($inactives)
+    public function setInactives(array $inactives): void
     {
         $this->inactives = $inactives;
     }
@@ -449,7 +426,7 @@ class Paypal
      *
      * @return void
      */
-    public function unsetInactives()
+    public function unsetInactives(): void
     {
         $this->inactives = array();
     }
