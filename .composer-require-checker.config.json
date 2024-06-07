@@ -38,6 +38,7 @@
     "GALETTE_DOWNLOADS_URI",
     "GALETTE_EXPORTS_PATH",
     "GALETTE_FILES_PATH",
+    "GALETTE_HOSTED",
     "GALETTE_IMPORTS_PATH",
     "GALETTE_LOGS_PATH",
     "GALETTE_MODE",
@@ -58,6 +59,7 @@
     "GALETTE_MARIADB_MIN",
     "GALETTE_PGSQL_MIN",
     "GALETTE_DISPLAY_VERSION",
+    "GALETTE_TESTS",
     "GALETTE_PHP_MIN",
 
     "// Galette db constants (not detected as they are dynamically declared)",
