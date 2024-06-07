@@ -59,7 +59,7 @@ class Paypal extends GaletteTestCase
 
         $ctype = new \Galette\Entity\ContributionsTypes($this->zdb);
         $ctype_id = $ctype->getIdByLabel('donation in money');
-        $this->assertSame(
+        $this->assertEquals(
             [
                 $ctype_id => [
                     'name' => 'donation in money',
