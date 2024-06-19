@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: translations@galette.eu\n"
 "POT-Creation-Date: 2024-02-08 22:18+0100\n"
-"PO-Revision-Date: 2024-06-18 05:58+0000\n"
+"PO-Revision-Date: 2024-06-20 11:09+0000\n"
 "Last-Translator: Marco Ciampa <ciampix@posteo.net>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/galette/"
 "paypal-plugin/it/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.6-dev\n"
+"X-Generator: Weblate 5.6-rc\n"
 
 #: ../lib/GalettePaypal/Controllers/PaypalController.php:68
 msgid "Paypal payment"
@@ -35,7 +35,7 @@ msgstr ""
 
 #: ../lib/GalettePaypal/Controllers/PaypalController.php:80
 msgid "Our apologies for the annoyance :("
-msgstr "Ci scusiamo per l'inconveniente."
+msgstr "Ci scusiamo per l'inconveniente :("
 
 #: ../lib/GalettePaypal/Controllers/PaypalController.php:87
 msgid ""
