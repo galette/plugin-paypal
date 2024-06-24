@@ -33,7 +33,6 @@ use Galette\Entity\ContributionsTypes;
  *
  * @author Johan Cwiklinski <johan@x-tnd.be>
  */
-
 class Paypal
 {
     public const TABLE = 'types_cotisation_prices';
@@ -98,7 +97,7 @@ class Paypal
                 }
             }
             $this->loaded = true;
-            $this->loadAmounts();
+            $this->loadContributionsTypes();
         } catch (\Exception $e) {
             Analog::log(
                 '[' . get_class($this) . '] Cannot load paypal preferences |' .
@@ -116,7 +115,7 @@ class Paypal
      *
      * @return void
      */
-    private function loadAmounts(): void
+    private function loadContributionsTypes(): void
     {
         $ct = new ContributionsTypes($this->zdb);
         $this->prices = $ct->getCompleteList();
@@ -142,7 +141,6 @@ class Paypal
                     foreach ($results as $paypal) {
                         if ($paypal['id_type_cotis'] == $k) {
                             $_found = true;
-                            $this->prices[$k]['amount'] = (double)$paypal['amount'];
                             break;
                         }
                     }
@@ -162,6 +160,8 @@ class Paypal
             }
             if (count($queries) > 0) {
                 $this->newEntries($queries);
+                $this->loadContributionsTypes();
+                return;
             }
             //amounts should be loaded here
             $this->amounts_loaded = true;
