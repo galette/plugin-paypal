@@ -22,7 +22,7 @@
 
 {% block content %}
     {% if paypal.isLoaded() and paypal.getId() != null %}
-        <form action="{% if constant('GALETTE_MODE') == 'DEV' %}https://www.sandbox.paypal.com/fr/cgi-bin/webscr{% else %}https://www.paypal.com/cgi-bin/webscr{% endif %}" method="post" id="paypalform" class="ui form">
+        <form action="{% if callstatic('\\Galette\\Core\\Galette', 'isDebugEnabled') %}https://www.sandbox.paypal.com/fr/cgi-bin/webscr{% else %}https://www.paypal.com/cgi-bin/webscr{% endif %}" method="post" id="paypalform" class="ui form">
             <div class="ui top attached accordion-styled header">
                 {% if amounts|length == 0 %}
                     {{ _T("Enter payment reason", "paypal") }}
