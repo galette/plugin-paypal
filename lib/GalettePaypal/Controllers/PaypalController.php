@@ -119,8 +119,8 @@ class PaypalController extends AbstractPluginController
     public function logs(
         Request $request,
         Response $response,
-        string $option = null,
-        string|int $value = null
+        ?string $option = null,
+        string|int|null $value = null
     ): Response {
         $paypal_history = new PaypalHistory($this->zdb, $this->login, $this->preferences);
 

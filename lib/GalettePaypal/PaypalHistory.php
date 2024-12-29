@@ -59,7 +59,7 @@ class PaypalHistory extends History
      * @param Preferences  $preferences Preferences
      * @param ?HistoryList $filters     Filtering
      */
-    public function __construct(Db $zdb, Login $login, Preferences $preferences, HistoryList $filters = null)
+    public function __construct(Db $zdb, Login $login, Preferences $preferences, ?HistoryList $filters = null)
     {
         $this->with_lists = false;
         parent::__construct($zdb, $login, $preferences, $filters);
