@@ -90,14 +90,7 @@ class PaypalController extends AbstractPluginController
             );
         }
 
-        if (!$paypal->areAmountsLoaded()) {
-            $this->flash->addMessageNow(
-                'warning',
-                _T("Predefined amounts cannot be loaded, that is not a critical error.", "paypal")
-            );
-        }
-
-            // display page
+        // display page
         $this->view->render(
             $response,
             $this->getTemplate('paypal_form'),
