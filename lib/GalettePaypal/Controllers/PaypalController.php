@@ -376,7 +376,7 @@ class PaypalController extends AbstractPluginController
     {
         $post = $request->getParsedBody();
 
-        //if we've received some informations from paypal website, we can proceed
+        //if we've received some information from Paypal website, we can proceed
         if (isset($post['mc_gross'], $post['item_number'])) {
             if (isset($post['charset'])) {
                 foreach ($post as $key => $value) {
@@ -430,7 +430,7 @@ class PaypalController extends AbstractPluginController
                         'adh'           => $post['custom'],
                         'payment_type'  => PaymentType::PAYPAL
                     );
-                    if ($this->preferences->pref_membership_ext != '') {
+                    if ($this->preferences->pref_membership_ext != '') { //@phpstan-ignore-line
                         $args['ext'] = $this->preferences->pref_membership_ext;
                     }
                     $contrib = new Contribution($this->zdb, $this->login, $args);
