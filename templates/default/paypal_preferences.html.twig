@@ -63,7 +63,9 @@
                                 <input type="text" name="amounts[]" id="amount_{{ k }}" value="{{ amount['amount']|number_format(2, ',', '') }}"/>
                             </td>
                             <td>
-                                <input type="checkbox" name="inactives[]" id="inactives_{{ k }}"{% if paypal.isInactive(k) %} checked="checked"{% endif %} value="{{ k }}"/>
+                                <div class="ui right aligned toggle checkbox">
+                                    <input type="checkbox" name="inactives[]" id="inactives_{{ k }}"{% if paypal.isInactive(k) %} checked="checked"{% endif %} value="{{ k }}"/>
+                                </div>
                             </td>
                         </tr>
         {% endfor %}
