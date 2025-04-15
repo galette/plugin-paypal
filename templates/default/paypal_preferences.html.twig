@@ -49,7 +49,7 @@
                         <tr>
                             <th class="listing">{{ _T("Contribution type") }}</th>
                             <th class="listing">{{ _T("Amount") }}</th>
-                            <th class="listing">{{ _T("Inactive") }}</th>
+                            <th class="listing collapsing">{{ _T("Inactive") }}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -62,7 +62,7 @@
                             <td>
                                 <input type="text" name="amounts[]" id="amount_{{ k }}" value="{{ amount['amount']|number_format(2, ',', '') }}"/>
                             </td>
-                            <td>
+                            <td class="collapsing">
                                 <div class="ui right aligned toggle checkbox">
                                     <input type="checkbox" name="inactives[]" id="inactives_{{ k }}"{% if paypal.isInactive(k) %} checked="checked"{% endif %} value="{{ k }}"/>
                                 </div>
