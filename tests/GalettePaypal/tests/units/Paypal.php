@@ -64,7 +64,8 @@ class Paypal extends GaletteTestCase
                 $ctype_id => [
                     'name' => 'donation in money',
                     'amount' => null,
-                    'extra' => 0
+                    'extra' => '0',
+                    'text_orig' => 'donation in money',
                 ]
             ],
             $amounts
