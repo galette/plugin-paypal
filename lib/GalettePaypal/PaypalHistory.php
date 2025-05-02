@@ -78,14 +78,14 @@ class PaypalHistory extends History
     {
         $request = $action;
         try {
-            $values = array(
+            $values = [
                 'history_date'  => date('Y-m-d H:i:s'),
                 'amount'        => $request['mc_gross'],
                 'comments'      => $request['item_name'],
                 'request'       => Galette::jsonEncode($request),
                 'signature'     => $request['verify_sign'],
                 'state'         => self::STATE_NONE
-            );
+            ];
 
             $insert = $this->zdb->insert($this->getTableName());
             $insert->values($values);
@@ -141,8 +141,8 @@ class PaypalHistory extends History
     public function getPaypalHistory(): array
     {
         $orig = $this->getHistory();
-        $new = array();
-        $dedup = array();
+        $new = [];
+        $dedup = [];
         if (count($orig) > 0) {
             foreach ($orig as $o) {
                 try {

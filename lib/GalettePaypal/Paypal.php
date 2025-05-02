@@ -63,8 +63,8 @@ class Paypal
     {
         $this->zdb = $zdb;
         $this->loaded = false;
-        $this->prices = array();
-        $this->inactives = array();
+        $this->prices = [];
+        $this->inactives = [];
         $this->id = null;
         $this->load();
     }
@@ -134,7 +134,7 @@ class Paypal
                 );
             }
 
-            $queries = array();
+            $queries = [];
             foreach ($this->prices as $k => $v) {
                 $_found = false;
                 if (count($results) > 0) {
@@ -142,7 +142,7 @@ class Paypal
                     foreach ($results as $paypal) {
                         if ($paypal['id_type_cotis'] == $k) {
                             $_found = true;
-                            $this->prices[$k]['amount'] = (double)$paypal['amount'];
+                            $this->prices[$k]['amount'] = (float)$paypal['amount'];
                             break;
                         }
                     }
@@ -154,10 +154,10 @@ class Paypal
                         Analog::INFO
                     );
                     $this->prices[$k]['amount'] = null;
-                    $queries[] = array(
-                          'id'   => $k,
+                    $queries[] = [
+                        'id'   => $k,
                         'amount' => null
-                    );
+                    ];
                 }
             }
             if (count($queries) > 0) {
@@ -185,31 +185,31 @@ class Paypal
     {
         try {
             //store paypal id
-            $values = array(
+            $values = [
                 'nom_pref' => 'paypal_id',
                 'val_pref' => $this->id
-            );
+            ];
             $update = $this->zdb->update(PAYPAL_PREFIX . self::PREFS_TABLE);
             $update->set($values)
                 ->where(
-                    array(
+                    [
                         'nom_pref' => 'paypal_id'
-                    )
+                    ]
                 );
 
             $edit = $this->zdb->execute($update);
 
             //store inactives
-            $values = array(
+            $values = [
                 'nom_pref' => 'paypal_inactives',
                 'val_pref' => implode(',', $this->inactives)
-            );
+            ];
             $update = $this->zdb->update(PAYPAL_PREFIX . self::PREFS_TABLE);
             $update->set($values)
                 ->where(
-                    array(
+                    [
                         'nom_pref' => 'paypal_inactives'
-                    )
+                    ]
                 );
 
             $edit = $this->zdb->execute($update);
@@ -241,19 +241,19 @@ class Paypal
         try {
             $update = $this->zdb->update(PAYPAL_PREFIX . self::TABLE);
             $update->set(
-                array(
+                [
                     'amount'    => ':amount'
-                )
+                ]
             )->where->equalTo(self::PK, ':id');
 
             $stmt = $this->zdb->sql->prepareStatementForSqlObject($update);
 
             foreach ($this->prices as $k => $v) {
                 $stmt->execute(
-                    array(
+                    [
                         'amount'    => (float)$v['amount'],
                         'id'        => $k
-                    )
+                    ]
                 );
             }
 
@@ -284,19 +284,19 @@ class Paypal
         try {
             $insert = $this->zdb->insert(PAYPAL_PREFIX . self::TABLE);
             $insert->values(
-                array(
+                [
                     self::PK    => ':' . self::PK,
                     'amount'    => ':amount'
-                )
+                ]
             );
             $stmt = $this->zdb->sql->prepareStatementForSqlObject($insert);
 
             foreach ($queries as $q) {
                 $stmt->execute(
-                    array(
+                    [
                         self::PK    => $q['id'],
                         'amount'    => $q['amount']
-                    )
+                    ]
                 );
             }
         } catch (\Exception $e) {
@@ -328,7 +328,7 @@ class Paypal
      */
     public function getAmounts(Login $login): array
     {
-        $prices = array();
+        $prices = [];
         foreach ($this->prices as $k => $v) {
             if (!$this->isInactive($k)) {
                 if ($login->isLogged() || $v['extra'] == ContributionsTypes::DONATION_TYPE) {
@@ -428,6 +428,6 @@ class Paypal
      */
     public function unsetInactives(): void
     {
-        $this->inactives = array();
+        $this->inactives = [];
     }
 }

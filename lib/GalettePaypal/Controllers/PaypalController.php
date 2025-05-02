@@ -97,7 +97,7 @@ class PaypalController extends AbstractPluginController
             );
         }
 
-            // display page
+        // display page
         $this->view->render(
             $response,
             $this->getTemplate('paypal_form'),
@@ -425,11 +425,11 @@ class PaypalController extends AbstractPluginController
                      * If no member id is provided, we only send to post contribution
                      * script, Galette does not handle anonymous contributions
                      */
-                    $args = array(
+                    $args = [
                         'type'          => $post['item_number'],
                         'adh'           => $post['custom'],
                         'payment_type'  => PaymentType::PAYPAL
-                    );
+                    ];
                     if ($this->preferences->pref_membership_ext != '') { //@phpstan-ignore-line
                         $args['ext'] = $this->preferences->pref_membership_ext;
                     }
