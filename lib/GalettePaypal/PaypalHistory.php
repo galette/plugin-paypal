@@ -180,12 +180,10 @@ class PaypalHistory extends History
      */
     protected function buildOrderClause(): array
     {
-        $order = array();
+        $order = [];
 
-        switch ($this->filters->orderby) {
-            case HistoryList::ORDERBY_DATE:
-                $order[] = 'history_date ' . $this->filters->ordered;
-                break;
+        if ($this->filters->orderby == HistoryList::ORDERBY_DATE) {
+            $order[] = 'history_date ' . $this->filters->getDirection();
         }
 
         return $order;

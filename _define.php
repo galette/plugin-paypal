@@ -26,7 +26,7 @@ $this->register(
     'Paypal integration',   //Short description
     'Johan Cwiklinski',     //Author
     '2.1.2',                //Version
-    '1.1.0',                //Galette compatible version
+    '1.2.0',                //Galette compatible version
     'paypal',               //routing name and translation domain
     '2024-10-20',           //Release date
     [   //Permissions needed
