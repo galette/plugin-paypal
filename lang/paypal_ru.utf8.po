@@ -1,24 +1,27 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
+# Maksim_220 Кабанов <law820314@gmail.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: translations@galette.eu\n"
 "POT-Creation-Date: 2024-02-08 22:18+0100\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2025-06-03 21:01+0000\n"
+"Last-Translator: Maksim_220 Кабанов <law820314@gmail.com>\n"
+"Language-Team: Russian <https://hosted.weblate.org/projects/galette/"
+"paypal-plugin/ru/>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 5.12-dev\n"
 
 #: ../lib/GalettePaypal/Controllers/PaypalController.php:68
 msgid "Paypal payment"
-msgstr ""
+msgstr "Оплата Paypal"
 
 #: ../lib/GalettePaypal/Controllers/PaypalController.php:79
 msgid ""
@@ -26,86 +29,92 @@ msgid ""
 "logged) while loading Paypal preferences from database.<br/>Please report "
 "the issue to the staff."
 msgstr ""
+"<strong>Оплата не удалась</strong>: При загрузке параметров Paypal из БД "
+"произошла ошибка (которая была зарегистрирована).<br/>Пожалуйста, сообщите "
+"об этом сотрудникам."
 
 #: ../lib/GalettePaypal/Controllers/PaypalController.php:80
 msgid "Our apologies for the annoyance :("
-msgstr ""
+msgstr "Приносим свои извинения за беспокойство :("
 
 #: ../lib/GalettePaypal/Controllers/PaypalController.php:87
 msgid ""
 "Paypal id has not been defined. Please ask an administrator to add it from "
 "plugin preferences."
 msgstr ""
+"Идентификатор Paypal не определен. Пожалуйста, попросите администратора "
+"добавить его из настроек плагина."
 
 #: ../lib/GalettePaypal/Controllers/PaypalController.php:94
 msgid "Predefined amounts cannot be loaded, that is not a critical error."
 msgstr ""
+"Предопределенные суммы не могут быть загружены, это не критическая ошибка."
 
 #: ../lib/GalettePaypal/Controllers/PaypalController.php:148
 #: ../lib/GalettePaypal/PluginGalettePaypal.php:53
 msgid "Paypal History"
-msgstr ""
+msgstr "История Paypal"
 
 #: ../lib/GalettePaypal/Controllers/PaypalController.php:210
 msgid "Paypal Settings"
-msgstr ""
+msgstr "Настройки Paypal"
 
 #: ../lib/GalettePaypal/Controllers/PaypalController.php:254
 msgid "Paypal preferences has been saved."
-msgstr ""
+msgstr "Параметры Paypal сохранены."
 
 #: ../lib/GalettePaypal/Controllers/PaypalController.php:260
 msgid "An error occurred saving paypal preferences :("
-msgstr ""
+msgstr "Произошла ошибка при сохранении предпочтений paypal :("
 
 #: ../lib/GalettePaypal/Controllers/PaypalController.php:282
 msgid "Your payment has been aborted!"
-msgstr ""
+msgstr "Ваш платеж был отменен!"
 
 #: ../lib/GalettePaypal/Controllers/PaypalController.php:307
 msgid "Paypal payment success"
-msgstr ""
+msgstr "Успех оплаты Paypal"
 
 #: ../lib/GalettePaypal/Controllers/PaypalController.php:313
 msgid "Your payment has been proceeded!"
-msgstr ""
+msgstr "Ваш платеж был проведен!"
 
 #: ../lib/GalettePaypal/PluginGalettePaypal.php:49
 msgid "Paypal"
-msgstr ""
+msgstr "Paypal"
 
 #: ../lib/GalettePaypal/PluginGalettePaypal.php:80
 msgid "Payment form"
-msgstr ""
+msgstr "Форма оплаты"
 
 #: ../tempcache/paypal_form.html.twig:66
 msgid "Enter payment reason"
-msgstr ""
+msgstr "Введите причину платежа"
 
 #: ../tempcache/paypal_form.html.twig:73
 msgid "Payment reason"
-msgstr ""
+msgstr "Основание платежа"
 
 #: ../tempcache/paypal_form.html.twig:80
 msgid "Select an payment reason"
-msgstr ""
+msgstr "Выберите причину платежа"
 
 #: ../tempcache/paypal_form.html.twig:176
 msgid "Payment reason:"
-msgstr ""
+msgstr "Причина оплаты:"
 
 #: ../tempcache/paypal_form.html.twig:193
 msgid "No predefined amounts have been configured yet."
-msgstr ""
+msgstr "Никаких предопределенных сумм еще не настроено."
 
 #: ../tempcache/paypal_form.html.twig:268
 #, php-format
 msgid "Go back to %s's website to complete your inscription."
-msgstr ""
+msgstr "Вернитесь на сайт %s, чтобы завершить надпись."
 
 #: ../tempcache/paypal_form.html.twig:312
 msgid "Please enter an amount."
-msgstr ""
+msgstr "Пожалуйста, введите сумму."
 
 #: ../tempcache/paypal_form.html.twig:318
 msgid ""
@@ -113,47 +122,54 @@ msgid ""
 "option.\n"
 "Please choose another option or change the amount."
 msgstr ""
+"Введенная вами сумма меньше минимальной суммы для выбранного варианта.\n"
+"Пожалуйста, выберите другой вариант или измените сумму."
 
 #: ../tempcache/paypal_preferences.html.twig:71
 msgid "Paypal preferences"
-msgstr ""
+msgstr "Предпочтения Paypal"
 
 #: ../tempcache/paypal_preferences.html.twig:81
 msgid "Paypal identifier:"
-msgstr ""
+msgstr "Идентификатор Paypal:"
 
 #: ../tempcache/paypal_preferences.html.twig:81
 msgid ""
 "Enter here one of your Paypal ID or email adress associated within your "
 "paypal account."
 msgstr ""
+"Введите здесь один из ваших ID Paypal или адрес эл. почты, связанный с вашим "
+"счетом paypal."
 
 #: ../tempcache/paypal_preferences.html.twig:163
 msgid "Error: no predefined amounts found."
-msgstr ""
+msgstr "Ошибка: не найдено предопределенных сумм."
 
 #: ../tempcache/paypal_history.html.twig:131
 msgid "duplicate"
-msgstr ""
+msgstr "дубликат"
 
 #: ../tempcache/paypal_history.html.twig:173
 msgid "No request or unable to read request"
-msgstr ""
+msgstr "Нет запроса или невозможно прочитать запрос"
 
 #: ../tempcache/paypal_history.html.twig:217
 msgid "Request"
-msgstr ""
+msgstr "Запрос"
 
 #: ../tempcache/paypal_history.html.twig:260
 msgid "Show/hide full request"
-msgstr ""
+msgstr "Показать/скрыть полный запрос"
 
 #: ../tempcache/paypal_success.html.twig:54
 msgid "Your paypal payment was successful. Some details are shown below:"
 msgstr ""
+"Ваш платеж через paypal прошел успешно. Некоторые детали приведены ниже:"
 
 #: ../tempcache/paypal_success.html.twig:114
 msgid ""
 "Your paypal payment was successful. You may receive a mail from paypal with "
 "details."
 msgstr ""
+"Ваш платеж через paypal прошел успешно. Вы можете получить письмо от paypal "
+"с подробной информацией."
