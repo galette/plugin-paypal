@@ -1,7 +1,7 @@
 --
 -- Table structure for table `galette_paypal_types_cotisation_prices`
 --
-
+DROP TABLE IF EXISTS galette_paypal_types_cotisation_prices;
 CREATE TABLE galette_paypal_types_cotisation_prices (
   id_type_cotis int(10) unsigned NOT NULL,
   amount double NULL,
@@ -12,7 +12,7 @@ CREATE TABLE galette_paypal_types_cotisation_prices (
 --
 -- Table structure for table `galette_paypal_history`
 --
-
+DROP TABLE IF EXISTS galette_paypal_history;
 CREATE TABLE galette_paypal_history (
   id_paypal int(11) NOT NULL auto_increment,
   history_date datetime NOT NULL,
@@ -27,7 +27,7 @@ CREATE TABLE galette_paypal_history (
 --
 -- Table structure for table `galette_paypal_preferences`
 --
-
+DROP TABLE IF EXISTS galette_paypal_preferences;
 CREATE TABLE galette_paypal_preferences (
   id_pref int(10) unsigned NOT NULL auto_increment,
   nom_pref varchar(100) NOT NULL default '',
