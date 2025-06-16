@@ -2,20 +2,3 @@ em[data-emoji=":paypal:"]::before,
 em[data-emoji="paypal"]::before {
     background-image: url(./images/paypal.svg);
 }
-
-.paypalprefs{
-    text-align: center;
-}
-
-#paypal{
-    text-align: center;
-}
-
-.img-dup {
-    float: right;
-}
-
-#paypal_form {
-    margin-left: 20%;
-    margin-right: 20%;
-}
