@@ -39,6 +39,7 @@
 {% endblock %}
 
 {% block header %}
+    {% set no_action = true %}
     {% set columns = [
         {
             'label': '#',
@@ -48,9 +49,19 @@
             'label': _T("Date"), 'order': constant("Galette\\Filters\\HistoryList::ORDERBY_DATE"),
             'collapse': true
         },
-        {'label': _T("Name")},
-        {'label': _T("Subject")},
-        {'label': _T("Amount")}
+        {
+            'label': _T("Name"),
+            'collapse': true
+        },
+        {
+            'label': _T("Subject"),
+            'collapse': true
+        },
+        {
+            'label': _T("Amount"),
+            'collapse': true
+        },
+        {'label': _T("Request", "paypal")}
     ] %}
     {{ parent() }}
 {% endblock %}
@@ -58,7 +69,7 @@
 {% block body %}
     {% for log in logs %}
         <tr>
-            <td class="center collapsing" data-scope="row">
+            <td class="collapsing" data-scope="row">
                 {{ loop.index }}
                 <span class="visually-hidden">
                     {{ _T("History entry %id")|replace({'%id': loop.index}) }}
@@ -73,7 +84,7 @@
                     </span>
                 {% endif %}
             </td>
-            <td data-col-label="{{ _T("Name") }}">
+            <td class="collapsing" data-col-label="{{ _T("Name") }}">
         {% if log.request is iterable %}
             {% if log.request.custom is defined %}
                 <a href="{{ url_for("member", {"id": log.request.custom}) }}">
@@ -86,24 +97,29 @@
                 {{ _T("No request or unable to read request", "paypal") }}
         {% endif %}
             </td>
-            <td data-col-label="{{ _T("Subject") }}">
+            <td class="collapsing" data-col-label="{{ _T("Subject") }}">
         {% if log.request is iterable %}
                 {{ log.request.item_name }}
         {% endif %}
             </td>
-            <td data-col-label="{{ _T("Amount") }}">
+            <td class="collapsing" data-col-label="{{ _T("Amount") }}">
         {% if log.request is iterable%}
                 {{ log.request.mc_gross }}
         {% endif %}
-                    </td>
-                    <td class="info"></td>
-                </tr>
-                <tr class="request">
-                    <th colspan="2">{{ _T("Request", "paypal") }}</th>
-                    <td colspan="4"><pre>{{ log.raw_request }}</pre></td>
-                </tr>
+            </td>
+            <td data-col-label="{{ _T("Request", "paypal") }}">
+                <details class="ui basic styled accordion">
+                    <summary class="title">
+                        <i class="caret down icon" aria-hidden="true"></i> {{ _T("Show/hide full request", "paypal") }}
+                    </summary>
+                    <div class="content">
+                        <pre>{{ log.raw_request }}</pre>
+                    </div>
+                </details>
+            </td>
+        </tr>
     {% else %}
-                <tr><td colspan="6" class="emptylist">{{ _T("logs are empty") }}</td></tr>
+        <tr><td colspan="6" class="emptylist">{{ _T("logs are empty") }}</td></tr>
     {% endfor %}
 {% endblock %}
 
@@ -111,16 +127,6 @@
         <script type="text/javascript">
             $('#nbshow').change(function() {
                 this.form.submit();
-            });
-
-            $(function() {
-                var _elt = $('<a href="#" class="tooltip reqhide" data-html="{{ _T("Show/hide full request", "paypal")|e('js') }}"><i class="search plus grey icon"></i><span class="visually-hidden">{{ _T("Show/hide full request", "paypal")|e('js') }}</span></a>');
-                $('.request').hide().prev('tr').find('td.info').prepend(_elt);
-                $('.reqhide').click(function(event) {
-                    event.preventDefault();
-                    $(this).parents('tr').next('.request').toggle();
-                });
-                _bindFomanticComponents();
             });
         </script>
 {% endblock %}
