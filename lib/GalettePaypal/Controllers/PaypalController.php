@@ -144,12 +144,14 @@ class PaypalController extends AbstractPluginController
         //assign pagination variables to the template and add pagination links
         $paypal_history->setFilters($filters);
         $logs = $paypal_history->getPaypalHistory();
+        $logs_count = $paypal_history->getCount();
         $filters->setViewPagination($this->routeparser, $this->view);
 
         $params = [
             'page_title' => _T("Paypal History", "paypal"),
             'paypal_history' => $paypal_history,
             'logs' => $logs,
+            'nb' => $logs_count,
             'module_id' => $this->getModuleId()
         ];
 
