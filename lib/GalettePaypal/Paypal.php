@@ -35,9 +35,7 @@ use Galette\Entity\ContributionsTypes;
  */
 class Paypal
 {
-    public const TABLE = 'types_cotisation_prices';
-    public const PK = ContributionsTypes::PK;
-    public const PREFS_TABLE = 'preferences';
+    public const TABLE = 'preferences';
 
     public const PAYMENT_PENDING = 'Pending';
     public const PAYMENT_COMPLETE = 'Complete';
@@ -69,14 +67,14 @@ class Paypal
     }
 
     /**
-     * Load preferences form the database and amounts
+     * Load preferences form the database and amounts from core contributions types
      *
      * @return void
      */
     public function load(): void
     {
         try {
-            $results = $this->zdb->selectAll(PAYPAL_PREFIX . self::PREFS_TABLE);
+            $results = $this->zdb->selectAll(PAYPAL_PREFIX . self::TABLE);
 
             /** @var \ArrayObject<string, mixed> $row */
             foreach ($results as $row) {
@@ -111,63 +109,20 @@ class Paypal
     }
 
     /**
-     * Load amounts from database
+     * Load amounts from core contributions types
      *
      * @return void
      */
     private function loadContributionsTypes(): void
     {
-        $ct = new ContributionsTypes($this->zdb);
-        $this->prices = $ct->getCompleteList();
-
         try {
-            $results = $this->zdb->selectAll(PAYPAL_PREFIX . self::TABLE);
-            $results = $results->toArray();
-
-            //check if all types currently exists in Paypal table
-            if (count($results) != count($this->prices)) {
-                Analog::log(
-                    '[' . get_class($this) . '] There are missing types in ' .
-                    'paypal table, Galette will try to create them.',
-                    Analog::INFO
-                );
-            }
-
-            $queries = [];
-            foreach ($this->prices as $k => $v) {
-                $_found = false;
-                if (count($results) > 0) {
-                    //for each entry in types, we want one in the Paypal table
-                    foreach ($results as $paypal) {
-                        if ($paypal['id_type_cotis'] == $k) {
-                            $_found = true;
-                            break;
-                        }
-                    }
-                }
-                if ($_found === false) {
-                    Analog::log(
-                        'The type `' . $v['name'] . '` (' . $k . ') does not exist' .
-                        ', Galette will attempt to create it.',
-                        Analog::INFO
-                    );
-                    $this->prices[$k]['amount'] = null;
-                    $queries[] = [
-                        'id'   => $k,
-                        'amount' => null
-                    ];
-                }
-            }
-            if (count($queries) > 0) {
-                $this->newEntries($queries);
-                $this->loadContributionsTypes();
-                return;
-            }
+            $ct = new ContributionsTypes($this->zdb);
+            $this->prices = $ct->getCompleteList();
             //amounts should be loaded here
             $this->amounts_loaded = true;
         } catch (\Exception $e) {
             Analog::log(
-                '[' . get_class($this) . '] Cannot load paypal amounts' .
+                '[' . get_class($this) . '] Cannot load amounts from core contributions types' .
                 '` | ' . $e->getMessage(),
                 Analog::ERROR
             );
@@ -189,7 +144,7 @@ class Paypal
                 'nom_pref' => 'paypal_id',
                 'val_pref' => $this->id
             ];
-            $update = $this->zdb->update(PAYPAL_PREFIX . self::PREFS_TABLE);
+            $update = $this->zdb->update(PAYPAL_PREFIX . self::TABLE);
             $update->set($values)
                 ->where(
                     [
@@ -204,7 +159,7 @@ class Paypal
                 'nom_pref' => 'paypal_inactives',
                 'val_pref' => implode(',', $this->inactives)
             ];
-            $update = $this->zdb->update(PAYPAL_PREFIX . self::PREFS_TABLE);
+            $update = $this->zdb->update(PAYPAL_PREFIX . self::TABLE);
             $update->set($values)
                 ->where(
                     [
@@ -220,7 +175,7 @@ class Paypal
                 Analog::INFO
             );
 
-            return $this->storeAmounts();
+            return true;
         } catch (\Exception $e) {
             Analog::log(
                 '[' . get_class($this) . '] Cannot store paypal preferences' .
@@ -228,84 +183,6 @@ class Paypal
                 Analog::ERROR
             );
             return false;
-        }
-    }
-
-    /**
-     * Store amounts in the database
-     *
-     * @return boolean
-     */
-    public function storeAmounts(): bool
-    {
-        try {
-            $update = $this->zdb->update(PAYPAL_PREFIX . self::TABLE);
-            $update->set(
-                [
-                    'amount'    => ':amount'
-                ]
-            )->where->equalTo(self::PK, ':id');
-
-            $stmt = $this->zdb->sql->prepareStatementForSqlObject($update);
-
-            foreach ($this->prices as $k => $v) {
-                $stmt->execute(
-                    [
-                        'amount'    => (float)$v['amount'],
-                        'id'        => $k
-                    ]
-                );
-            }
-
-            Analog::log(
-                '[' . get_class($this) . '] Paypal amounts were successfully stored',
-                Analog::INFO
-            );
-            return true;
-        } catch (\Exception $e) {
-            Analog::log(
-                '[' . get_class($this) . '] Cannot store paypal amounts' .
-                '` | ' . $e->getMessage(),
-                Analog::ERROR
-            );
-            return false;
-        }
-    }
-
-    /**
-    * Add missing types in Paypal table
-    *
-    * @param array<int, array<string, mixed>> $queries Array of items to insert
-    *
-    * @return void
-     */
-    private function newEntries(array $queries): void
-    {
-        try {
-            $insert = $this->zdb->insert(PAYPAL_PREFIX . self::TABLE);
-            $insert->values(
-                [
-                    self::PK    => ':' . self::PK,
-                    'amount'    => ':amount'
-                ]
-            );
-            $stmt = $this->zdb->sql->prepareStatementForSqlObject($insert);
-
-            foreach ($queries as $q) {
-                $stmt->execute(
-                    [
-                        self::PK    => $q['id'],
-                        'amount'    => $q['amount']
-                    ]
-                );
-            }
-        } catch (\Exception $e) {
-            Analog::log(
-                'Unable to store missing types in paypal table.' .
-                //@phpstan-ignore-next-line
-                $stmt->getMessage() . '(' . $stmt->getDebugInfo() . ')',
-                Analog::WARNING
-            );
         }
     }
 
