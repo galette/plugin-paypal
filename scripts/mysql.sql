@@ -1,15 +1,4 @@
 --
--- Table structure for table `galette_paypal_types_cotisation_prices`
---
-DROP TABLE IF EXISTS galette_paypal_types_cotisation_prices;
-CREATE TABLE galette_paypal_types_cotisation_prices (
-  id_type_cotis int(10) unsigned NOT NULL,
-  amount double NULL,
-  PRIMARY KEY (id_type_cotis),
-  CONSTRAINT galette_cotisation_price FOREIGN KEY (id_type_cotis) REFERENCES galette_types_cotisation (id_type_cotis) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
 -- Table structure for table `galette_paypal_history`
 --
 DROP TABLE IF EXISTS galette_paypal_history;

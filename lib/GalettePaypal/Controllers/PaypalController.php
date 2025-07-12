@@ -231,32 +231,27 @@ class PaypalController extends AbstractPluginController
         $post = $request->getParsedBody();
         $paypal = new Paypal($this->zdb);
 
-        if (isset($post['amounts'])) {
-            if (isset($post['paypal_id']) && $this->login->isAdmin()) {
-                $paypal->setId($post['paypal_id']);
-            }
-            if (isset($post['amount_id'])) {
-                $paypal->setPrices($post['amount_id'], $post['amounts']);
-            }
-            if (isset($post['inactives'])) {
-                $paypal->setInactives($post['inactives']);
-            } else {
-                $paypal->unsetInactives();
-            }
+        if (isset($post['paypal_id']) && $this->login->isAdmin()) {
+            $paypal->setId($post['paypal_id']);
+        }
+        if (isset($post['inactives'])) {
+            $paypal->setInactives($post['inactives']);
+        } else {
+            $paypal->unsetInactives();
+        }
 
-            $stored = $paypal->store();
-            if ($stored) {
-                $this->flash->addMessage(
-                    'success_detected',
-                    _T('Paypal preferences has been saved.', 'paypal')
-                );
-            } else {
-                $this->session->paypal = $paypal;
-                $this->flash->addMessage(
-                    'error_detected',
-                    _T('An error occurred saving paypal preferences :(', 'paypal')
-                );
-            }
+        $stored = $paypal->store();
+        if ($stored) {
+            $this->flash->addMessage(
+                'success_detected',
+                _T('Paypal preferences has been saved.', 'paypal')
+            );
+        } else {
+            $this->session->paypal = $paypal;
+            $this->flash->addMessage(
+                'error_detected',
+                _T('An error occurred saving paypal preferences :(', 'paypal')
+            );
         }
 
         return $response
