@@ -35,29 +35,25 @@
             <div class="ui bottom attached accordion-styled segment">
                 <div class="active content field">
                     <div class="field inline">
-                        {% if paypal.areAmountsLoaded() %}
-                            {% if amounts|length > 0 %}
+                        {% if amounts|length > 0 %}
                                 <input type="hidden" name="item_name" id="item_name" value="{% if login.isLogged() %}{{ _T("annual fee") }}{% else %}{{ _T("donation in money") }}{% endif %}"/>
                                 <div class="grouped fields">
                                     {% for k, amount in amounts %}
                                         <div class="field">
                                             <div class="ui radio checkbox">
                                                 <input type="radio" name="item_number" id="in{{ k }}" value="{{ k }}"{% if loop.index0 == 0 %} checked="checked"{% endif %}/>
-                                                <label for="in{{ k }}"><span id="in{{ k }}_name">{{ amount['name'] }}</span>
+                                                <label for="in{{ k }}"><span id="in{{ k }}_name" data-amount="{{ amount['amount'] }}">{{ amount['name'] }}</span>
                                                     {% if amount['amount'] > 0 %}
-                                                        (<span id="in{{ k }}_amount">{{ amount['amount']|number_format(2, ',', ' ') }}</span> €){# TODO: parametize currency #}
+                                                        ({{ amount['amount']|format_currency('EUR', {}, galette_lang) }}){# TODO: parametize currency #}
                                                     {% endif %}
                                                 </label>
                                             </div>
                                         </div>
                                     {% endfor %}
                                 </div>
-                            {% else %}
+                        {% else %}
                                 <label for="item_name">{{ _T("Payment reason:", "paypal") }}</label>
                                 <input type="text" name="item_name" id="item_name" value="{% if login.isLogged() %}{{ _T("annual fee") }}{% else %}{{ _T("donation in money") }}{% endif %}"/>
-                            {% endif %}
-                        {% else %}
-                            {{ _T("No predefined amounts have been configured yet.", "paypal") }}
                         {% endif %}
                     </div>
 
@@ -101,38 +97,38 @@
 {% endblock %}
 
 {% block javascripts %}
-    {% if paypal.isLoaded() and paypal.getId() is not null and paypal.areAmountsLoaded() %}
-<script type="text/javascript">
-    $(function() {
-        $('input[name="item_number"]').change(function(){
-            var _amount = parseFloat($('#' + this.id + '_amount').text());
-            var _name = $('#' + this.id + '_name').text();
-            $('#item_name').val(_name);
-            if ( _amount != '' && !isNaN(_amount) ) {
-                $('#amount').val(_amount);
-            }
-        });
-    {% if amounts|length > 0 %}
-        $('#paypalform').submit(function(e) {
-            var _checked = $('input:checked');
-            if (_checked.length == 0 ) {
-                alert("{{ _T("You have to select an option") }}");
-                return false;
-            } else {
-                var _current_amount = parseFloat($('#amount').val());
-                var _amount = parseFloat($('#' + _checked[0].id + '_amount').text());
-                if ( isNaN(_current_amount) ) {
-                    alert("{{ _T("Please enter an amount.", "paypal")|e('js') }}");
-                    return false;
-                } else if ( !isNaN(_amount) && _current_amount < _amount ) {
-                    alert("{{ _T("The amount you've entered is lower than the minimum amount for the selected option.\nPlease choose another option or change the amount.", "paypal")|e('js') }}");
-                    return false;
-                }
-            }
-            return true;
-        });
-    {% endif %}
-    });
-</script>
+    {% if paypal.isLoaded() and paypal.getId() is not null and amounts|length > 0 %}
+        <script type="text/javascript">
+            $(function() {
+                $('input[name="item_number"]').change(function(){
+                    var _amount = parseFloat($('#' + this.id + '_name').data('amount'));
+                    var _name = $('#' + this.id + '_name').text();
+                    $('#item_name').val(_name);
+                    if ( _amount != '' && !isNaN(_amount) ) {
+                        $('#amount').val(_amount);
+                    }
+                });
+                {% if amounts|length > 0 %}
+                    $('#paypalform').submit(function(e) {
+                        var _checked = $('input:checked');
+                        if (_checked.length == 0 ) {
+                            alert("{{ _T("You have to select an option", "paypal") }}");
+                            return false;
+                        } else {
+                            var _current_amount = parseFloat($('#amount').val());
+                            var _amount = parseFloat($('#' + _checked[0].id + '_name').data('amount'));
+                            if ( isNaN(_current_amount) ) {
+                                alert("{{ _T("Please enter an amount.", "paypal")|e('js') }}");
+                                return false;
+                            } else if ( !isNaN(_amount) && _current_amount < _amount ) {
+                                alert("{{ _T("The amount you've entered is lower than the minimum amount for the selected option.\nPlease choose another option or change the amount.", "paypal")|e('js') }}");
+                                return false;
+                            }
+                        }
+                        return true;
+                    });
+                {% endif %}
+            });
+        </script>
     {% endif %}
 {% endblock %}

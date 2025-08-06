@@ -47,12 +47,15 @@
                 } %}
             {% endif %}
 
-            {% if paypal.areAmountsLoaded() and amounts|length > 0 %}
+    {% if paypal.isLoaded() and amounts|length > 0 %}
                 <table class="listing ui celled striped table">
                     <thead>
                         <tr>
                             <th class="listing">{{ _T("Contribution type") }}</th>
-                            <th class="listing">{{ _T("Amount") }}</th>
+                            <th class="listing collapsing">
+                                {{ _T("Amount") }}
+                                <i class="circular small basic question icon tooltip" aria-hidden="true" title="{{ _T("Amounts can be defined in the contributions types settings.", "paypal") }}"></i>
+                            </th>
                             <th class="listing collapsing">{{ _T("Inactive") }}</th>
                         </tr>
                     </thead>
@@ -63,8 +66,8 @@
                                     <input type="hidden" name="amount_id[]" id="amount_id_{{ k }}" value="{{ k }}"/>
                                     <label for="amount_{{ k }}">{{ amount['name'] }}</label>
                                 </td>
-                                <td>
-                                    <input type="text" name="amounts[]" id="amount_{{ k }}" value="{{ amount['amount']|number_format(2, ',', '') }}"/>
+                                <td class="collapsing">
+                                    {{ amount['amount'] }}
                                 </td>
                                 <td class="collapsing">
                                     <div class="ui right aligned toggle checkbox">
