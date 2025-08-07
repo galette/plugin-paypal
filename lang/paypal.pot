@@ -88,7 +88,7 @@ msgid "Payment reason"
 msgstr ""
 
 #: ../tempcache/paypal_form.html.twig:80
-msgid "Select an payment reason"
+msgid "Select a payment reason"
 msgstr ""
 
 #: ../tempcache/paypal_form.html.twig:176

@@ -94,7 +94,7 @@ msgid "Payment reason"
 msgstr "Motiu del pagament"
 
 #: ../tempcache/paypal_form.html.twig:80
-msgid "Select an payment reason"
+msgid "Select a payment reason"
 msgstr "Seleccioneu un motiu de pagament"
 
 #: ../tempcache/paypal_form.html.twig:176

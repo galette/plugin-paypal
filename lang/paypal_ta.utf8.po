@@ -96,7 +96,7 @@ msgid "Payment reason"
 msgstr "கட்டண காரணம்"
 
 #: ../tempcache/paypal_form.html.twig:80
-msgid "Select an payment reason"
+msgid "Select a payment reason"
 msgstr "கட்டண காரணத்தைத் தேர்ந்தெடுக்கவும்"
 
 #: ../tempcache/paypal_form.html.twig:176
