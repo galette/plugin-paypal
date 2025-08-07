@@ -365,9 +365,26 @@ class PaypalController extends AbstractPluginController
     public function notify(Request $request, Response $response): Response
     {
         $post = $request->getParsedBody();
+        $paypal = new Paypal($this->zdb);
+        $paypal_id = $paypal->getId();
 
-        //if we've received some information from Paypal website, we can proceed
-        if (isset($post['mc_gross'], $post['item_number'])) {
+        // Verify IPN
+        $ch = curl_init();
+        $validation_url = \Galette\Core\Galette::isDebugEnabled() ? 'https://ipnpb.sandbox.paypal.com/cgi-bin/webscr' : 'https://ipnpb.paypal.com/cgi-bin/webscr';
+        $validation_message = array_merge(['cmd' => '_notify-validate'], $post);
+        curl_setopt($ch, CURLOPT_URL, $validation_url);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($validation_message));
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $validation_response = curl_exec($ch);
+        curl_close($ch);
+
+        //if we've received legit information from Paypal website, we can proceed
+        if (
+            $validation_response == 'VERIFIED' &&
+            ($paypal_id == $post['receiver_email'] || $paypal_id == $post['receiver_id']) &&
+            isset($post['mc_gross'], $post['item_number'])
+        ) {
             if (isset($post['charset'])) {
                 foreach ($post as $key => $value) {
                     $post[$key] = iconv($post['charset'], 'UTF-8', $value);
