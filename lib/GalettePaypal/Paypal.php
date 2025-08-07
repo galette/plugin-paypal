@@ -25,6 +25,7 @@ namespace GalettePaypal;
 
 use Analog\Analog;
 use Galette\Core\Db;
+use Galette\Core\Galette;
 use Galette\Core\Login;
 use Galette\Entity\ContributionsTypes;
 
@@ -306,5 +307,17 @@ class Paypal
     public function unsetInactives(): void
     {
         $this->inactives = [];
+    }
+
+    /**
+     * Get the URL to use for Paypal
+     *
+     * @return string
+     */
+    public function getFormURL(): string
+    {
+        return Galette::isDebugEnabled()
+            ? 'https://www.sandbox.paypal.com/cgi-bin/webscr'
+            : 'https://www.paypal.com/cgi-bin/webscr';
     }
 }

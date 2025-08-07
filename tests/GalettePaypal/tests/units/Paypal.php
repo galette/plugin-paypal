@@ -74,4 +74,18 @@ class Paypal extends GaletteTestCase
         $this->assertTrue($paypal->areAmountsLoaded());
         $this->assertTrue($paypal->isLoaded());
     }
+
+    /**
+     * Test getFormURL method
+     *
+     * @return void
+     */
+    public function testGetFormURL(): void
+    {
+        $paypal = new \GalettePaypal\Paypal($this->zdb);
+        $this->assertStringContainsString(
+            'paypal.com',
+            $paypal->getFormURL()
+        );
+    }
 }
