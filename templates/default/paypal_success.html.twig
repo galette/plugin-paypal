@@ -18,7 +18,7 @@
  * along with Galette. If not, see <http://www.gnu.org/licenses/>.
  */
 #}
-{% extends 'page.html.twig' %}
+{% extends not login.isLogged() ? "public_page.html.twig" : "page.html.twig" %}
 
 {% block content %}
     {% if post %}
