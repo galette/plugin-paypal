@@ -320,4 +320,76 @@ class Paypal
             ? 'https://www.sandbox.paypal.com/cgi-bin/webscr'
             : 'https://www.paypal.com/cgi-bin/webscr';
     }
+
+    /**
+     * Get the URL for Paypal IPN validation
+     *
+     * @return string
+     */
+    public function getIPNValidationURL(): string
+    {
+        return Galette::isDebugEnabled()
+            ? 'https://ipnpb.sandbox.paypal.com/cgi-bin/webscr'
+            : 'https://ipnpb.paypal.com/cgi-bin/webscr';
+    }
+
+    /**
+     * Validate IPN data
+     *
+     * @param array<string, string> $data POST data received from Paypal
+     *
+     * @return bool
+     */
+    public function validateIPN(array $data): bool
+    {
+        $ch = curl_init();
+        $validation_url = $this->getIPNValidationURL();
+        $validation_message = array_merge(['cmd' => '_notify-validate'], $data);
+        curl_setopt($ch, CURLOPT_URL, $validation_url);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($validation_message));
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $validation_response = curl_exec($ch);
+        curl_close($ch);
+
+        return $validation_response == 'VERIFIED';
+    }
+
+    /**
+     * Validate this is our account
+     *
+     * @param array<string, string> $data POST data received from Paypal
+     *
+     * @return bool
+     */
+    public function validateAccount(array $data): bool
+    {
+        return $this->getId() == $data['receiver_email'] || $this->getId() == $data['receiver_id'];
+    }
+
+    /**
+     * Validate request data
+     *
+     * @param array<string, mixed> $data POST data received from Paypal
+     *
+     * @return bool
+     */
+    public function validateRequest(array $data): bool
+    {
+        return isset($data['mc_gross'], $data['item_number']);
+    }
+
+    /**
+     * Validate Paypal request
+     *
+     * @param array<string, mixed> $data POST data received from Paypal
+     *
+     * @return bool
+     */
+    public function validate(array $data): bool
+    {
+        return $this->validateIPN($data) &&
+            $this->validateAccount($data) &&
+            $this->validateRequest($data);
+    }
 }

@@ -88,4 +88,32 @@ class Paypal extends GaletteTestCase
             $paypal->getFormURL()
         );
     }
+
+    /**
+     * Test IPNValidationURL method
+     *
+     * @return void
+     */
+    public function testGetIPNValidationURL(): void
+    {
+        $paypal = new \GalettePaypal\Paypal($this->zdb);
+        $this->assertStringContainsString(
+            'paypal.com',
+            $paypal->getIPNValidationURL()
+        );
+    }
+
+    /**
+     * Test validateRequest method
+     *
+     * @return void
+     */
+    public function testValidateRequest(): void
+    {
+        $paypal = new \GalettePaypal\Paypal($this->zdb);
+        $this->assertFalse($paypal->validateRequest([]));
+        $this->assertFalse($paypal->validateRequest(['mc_gross' => 10.0]));
+        $this->assertFalse($paypal->validateRequest(['item_number' => 42]));
+        $this->assertTrue($paypal->validateRequest(['mc_gross' => 10.0, 'item_number' => 42]));
+    }
 }
