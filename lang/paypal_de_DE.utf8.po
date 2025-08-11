@@ -4,21 +4,22 @@
 # Tony Leichsenring <tony.leichsenring@googlemail.com>, 2021.
 # Glax <gfreak70@gmail.com>, 2022.
 # Der_Unterhaendler <Lukas.Engelschalk@gmx.de>, 2022.
+# rabbitmc <weblate@sternwelt.org>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: translations@galette.eu\n"
 "POT-Creation-Date: 2025-08-07 16:10+0200\n"
-"PO-Revision-Date: 2023-12-09 18:39+0000\n"
-"Last-Translator: Johan Cwiklinski <trasher@x-tnd.be>\n"
-"Language-Team: German <https://hosted.weblate.org/projects/galette/paypal-"
-"plugin/de/>\n"
+"PO-Revision-Date: 2025-08-12 11:02+0000\n"
+"Last-Translator: rabbitmc <weblate@sternwelt.org>\n"
+"Language-Team: German <https://hosted.weblate.org/projects/galette/"
+"paypal-plugin/de/>\n"
 "Language: de_DE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.3-dev\n"
+"X-Generator: Weblate 5.13-dev\n"
 
 #: ../lib/GalettePaypal/Controllers/PaypalController.php:70
 msgid "Paypal payment"
@@ -104,15 +105,14 @@ msgid "Cannot load the preferences"
 msgstr "PayPal Einstellungen"
 
 #: ../tempcache/paypal_preferences.html.twig:77
-#, fuzzy
-#| msgid "An error occurred saving paypal preferences :("
 msgid "An error occured while loading the preferences from the database."
 msgstr ""
-"Während dem Speichern der PayPal Einstellungen ist ein Fehler aufgetreten :("
+"Während dem Laden der Einstellungen aus der Datenbank ist ein Fehler "
+"aufgetreten."
 
 #: ../tempcache/paypal_preferences.html.twig:81
 msgid "Please, check if the plugin's database has been properly initialized."
-msgstr ""
+msgstr "Prüfe bitte, ob die Datenbank des Plugins korrekt initialisiert wurde."
 
 #: ../tempcache/paypal_preferences.html.twig:96
 msgid "Paypal identifier:"
@@ -126,11 +126,11 @@ msgstr ""
 
 #: ../tempcache/paypal_preferences.html.twig:120
 msgid "Amounts can be defined in the contributions types settings."
-msgstr ""
+msgstr "Beträge können den Beitragstypen Einstellungen definiert werden."
 
 #: ../tempcache/paypal_preferences.html.twig:184
 msgid "Error: no predefined amounts found."
-msgstr ""
+msgstr "Fehler: Keine vordefinierten Beträge gefunden."
 
 #: ../tempcache/paypal_form.html.twig:74
 msgid "Enter payment reason"
@@ -150,7 +150,7 @@ msgstr "Zahlgrund:"
 
 #: ../tempcache/paypal_form.html.twig:215
 msgid "Pay with paypal"
-msgstr ""
+msgstr "Mit Paypal zahlen"
 
 #: ../tempcache/paypal_form.html.twig:271
 #, php-format
