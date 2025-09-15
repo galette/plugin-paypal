@@ -163,8 +163,8 @@ class PaypalHistory extends History
                     $new[] = $o;
                 } catch (\Exception $e) {
                     Analog::log(
-                        'Error loading Paypal history entry #' . $o[$this->getPk()] .
-                        ' ' . $e->getMessage(),
+                        'Error loading Paypal history entry #' . $o[$this->getPk()]
+                        . ' ' . $e->getMessage(),
                         Analog::WARNING
                     );
                 }

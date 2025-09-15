@@ -89,8 +89,8 @@ class Paypal
                     default:
                         //we've got a preference not intended
                         Analog::log(
-                            '[' . get_class($this) . '] unknown preference `' .
-                            $row->nom_pref . '` in the database.',
+                            '[' . get_class($this) . '] unknown preference `'
+                            . $row->nom_pref . '` in the database.',
                             Analog::WARNING
                         );
                 }
@@ -99,8 +99,8 @@ class Paypal
             $this->loadContributionsTypes();
         } catch (\Exception $e) {
             Analog::log(
-                '[' . get_class($this) . '] Cannot load paypal preferences |' .
-                $e->getMessage(),
+                '[' . get_class($this) . '] Cannot load paypal preferences |'
+                . $e->getMessage(),
                 Analog::ERROR
             );
             //consider plugin is not loaded when missing the main preferences
@@ -123,8 +123,8 @@ class Paypal
             $this->amounts_loaded = true;
         } catch (\Exception $e) {
             Analog::log(
-                '[' . get_class($this) . '] Cannot load amounts from core contributions types' .
-                '` | ' . $e->getMessage(),
+                '[' . get_class($this) . '] Cannot load amounts from core contributions types'
+                . '` | ' . $e->getMessage(),
                 Analog::ERROR
             );
             //amounts are not loaded at this point
@@ -171,16 +171,16 @@ class Paypal
             $edit = $this->zdb->execute($update);
 
             Analog::log(
-                '[' . get_class($this) .
-                '] Paypal preferences were successfully stored',
+                '[' . get_class($this)
+                . '] Paypal preferences were successfully stored',
                 Analog::INFO
             );
 
             return true;
         } catch (\Exception $e) {
             Analog::log(
-                '[' . get_class($this) . '] Cannot store paypal preferences' .
-                '` | ' . $e->getMessage(),
+                '[' . get_class($this) . '] Cannot store paypal preferences'
+                . '` | ' . $e->getMessage(),
                 Analog::ERROR
             );
             return false;
@@ -388,8 +388,8 @@ class Paypal
      */
     public function validate(array $data): bool
     {
-        return $this->validateIPN($data) &&
-            $this->validateAccount($data) &&
-            $this->validateRequest($data);
+        return $this->validateIPN($data)
+            && $this->validateAccount($data)
+            && $this->validateRequest($data);
     }
 }

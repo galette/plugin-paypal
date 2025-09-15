@@ -78,8 +78,8 @@ class PaypalController extends AbstractPluginController
         if (!$paypal->isLoaded()) {
             $this->flash->addMessageNow(
                 'error',
-                _T("<strong>Payment could not work</strong>: An error occurred (that has been logged) while loading Paypal preferences from database.<br/>Please report the issue to the staff.", "paypal") .
-                '<br/>' . _T("Our apologies for the annoyance :(", "paypal")
+                _T("<strong>Payment could not work</strong>: An error occurred (that has been logged) while loading Paypal preferences from database.<br/>Please report the issue to the staff.", "paypal")
+                . '<br/>' . _T("Our apologies for the annoyance :(", "paypal")
             );
         }
 
@@ -438,8 +438,8 @@ class PaypalController extends AbstractPluginController
                         $valid = $contrib->check($post, [], []);
                         if ($valid !== true) {
                             Analog::log(
-                                'An error occurred while storing a new contribution from Paypal payment:' .
-                                implode("\n   ", $valid),
+                                'An error occurred while storing a new contribution from Paypal payment:'
+                                . implode("\n   ", $valid),
                                 Analog::ERROR
                             );
                             $ph->setState(PaypalHistory::STATE_ERROR);
