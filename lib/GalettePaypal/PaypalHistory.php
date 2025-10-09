@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright © 2003-2024 The Galette Team
+ * Copyright © 2003-2025 The Galette Team
  *
  * This file is part of Galette (https://galette.eu).
  *
@@ -59,7 +59,7 @@ class PaypalHistory extends History
      * @param Preferences  $preferences Preferences
      * @param ?HistoryList $filters     Filtering
      */
-    public function __construct(Db $zdb, Login $login, Preferences $preferences, HistoryList $filters = null)
+    public function __construct(Db $zdb, Login $login, Preferences $preferences, ?HistoryList $filters = null)
     {
         $this->with_lists = false;
         parent::__construct($zdb, $login, $preferences, $filters);
@@ -78,14 +78,14 @@ class PaypalHistory extends History
     {
         $request = $action;
         try {
-            $values = array(
+            $values = [
                 'history_date'  => date('Y-m-d H:i:s'),
                 'amount'        => $request['mc_gross'],
                 'comments'      => $request['item_name'],
                 'request'       => Galette::jsonEncode($request),
                 'signature'     => $request['verify_sign'],
                 'state'         => self::STATE_NONE
-            );
+            ];
 
             $insert = $this->zdb->insert($this->getTableName());
             $insert->values($values);
@@ -98,7 +98,7 @@ class PaypalHistory extends History
             );
         } catch (\Exception $e) {
             Analog::log(
-                "An error occured trying to add log entry. " . $e->getMessage(),
+                "An error occurred trying to add log entry. " . $e->getMessage(),
                 Analog::ERROR
             );
             return false;
@@ -141,8 +141,8 @@ class PaypalHistory extends History
     public function getPaypalHistory(): array
     {
         $orig = $this->getHistory();
-        $new = array();
-        $dedup = array();
+        $new = [];
+        $dedup = [];
         if (count($orig) > 0) {
             foreach ($orig as $o) {
                 try {
@@ -163,8 +163,8 @@ class PaypalHistory extends History
                     $new[] = $o;
                 } catch (\Exception $e) {
                     Analog::log(
-                        'Error loading Paypal history entry #' . $o[$this->getPk()] .
-                        ' ' . $e->getMessage(),
+                        'Error loading Paypal history entry #' . $o[$this->getPk()]
+                        . ' ' . $e->getMessage(),
                         Analog::WARNING
                     );
                 }
@@ -180,12 +180,10 @@ class PaypalHistory extends History
      */
     protected function buildOrderClause(): array
     {
-        $order = array();
+        $order = [];
 
-        switch ($this->filters->orderby) {
-            case HistoryList::ORDERBY_DATE:
-                $order[] = 'history_date ' . $this->filters->ordered;
-                break;
+        if ($this->filters->orderby == HistoryList::ORDERBY_DATE) {
+            $order[] = 'history_date ' . $this->filters->getDirection();
         }
 
         return $order;

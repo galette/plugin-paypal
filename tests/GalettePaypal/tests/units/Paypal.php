@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright © 2003-2024 The Galette Team
+ * Copyright © 2003-2025 The Galette Team
  *
  * This file is part of Galette (https://galette.eu).
  *
@@ -64,7 +64,8 @@ class Paypal extends GaletteTestCase
                 $ctype_id => [
                     'name' => 'donation in money',
                     'amount' => null,
-                    'extra' => 0
+                    'extra' => '0',
+                    'text_orig' => 'donation in money',
                 ]
             ],
             $amounts
@@ -72,5 +73,47 @@ class Paypal extends GaletteTestCase
         $this->assertCount(7, $paypal->getAllAmounts());
         $this->assertTrue($paypal->areAmountsLoaded());
         $this->assertTrue($paypal->isLoaded());
+    }
+
+    /**
+     * Test getFormURL method
+     *
+     * @return void
+     */
+    public function testGetFormURL(): void
+    {
+        $paypal = new \GalettePaypal\Paypal($this->zdb);
+        $this->assertStringContainsString(
+            'paypal.com',
+            $paypal->getFormURL()
+        );
+    }
+
+    /**
+     * Test IPNValidationURL method
+     *
+     * @return void
+     */
+    public function testGetIPNValidationURL(): void
+    {
+        $paypal = new \GalettePaypal\Paypal($this->zdb);
+        $this->assertStringContainsString(
+            'paypal.com',
+            $paypal->getIPNValidationURL()
+        );
+    }
+
+    /**
+     * Test validateRequest method
+     *
+     * @return void
+     */
+    public function testValidateRequest(): void
+    {
+        $paypal = new \GalettePaypal\Paypal($this->zdb);
+        $this->assertFalse($paypal->validateRequest([]));
+        $this->assertFalse($paypal->validateRequest(['mc_gross' => 10.0]));
+        $this->assertFalse($paypal->validateRequest(['item_number' => 42]));
+        $this->assertTrue($paypal->validateRequest(['mc_gross' => 10.0, 'item_number' => 42]));
     }
 }

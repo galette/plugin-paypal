@@ -18,30 +18,30 @@
  * along with Galette. If not, see <http://www.gnu.org/licenses/>.
  */
 #}
-{% extends 'page.html.twig' %}
+{% extends not login.isLogged() ? "public_page.html.twig" : "page.html.twig" %}
 
 {% block content %}
     {% if post %}
         <p>{{ _T("Your paypal payment was successful. Some details are shown below:", "paypal") }}</p>
-        <table>
+        <table class="ui striped definition table">
             <tr>
-                <th>{{ _T("Label") }}</th>
+                <th class="collapsing">{{ _T("Label") }}</th>
                 <td>{{ post.item_name }}</td>
             </tr>
             <tr>
-                <th>{{ _T("Payment date") }}</th>
+                <th class="collapsing">{{ _T("Payment date") }}</th>
                 <td>{{ post.payment_date }}</td>
             </tr>
             <tr>
-                <th>{{ _T("Payment status") }}</th>
+                <th class="collapsing">{{ _T("Payment status") }}</th>
                 <td>{{ post.payment_status }}</td>
             </tr>
             <tr>
-                <th>{{ _T("Payment type") }}</th>
+                <th class="collapsing">{{ _T("Payment type") }}</th>
                 <td>{{ post.payment_type }}</td>
             </tr>
             <tr>
-                <th>{{ _T("Amount") }}</th>
+                <th class="collapsing">{{ _T("Amount") }}</th>
                 <td>{{ post.mc_gross }} {{ post.mc_currency }}</td>
             </tr>
         </table>

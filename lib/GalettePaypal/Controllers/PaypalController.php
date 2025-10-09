@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright © 2003-2024 The Galette Team
+ * Copyright © 2003-2025 The Galette Team
  *
  * This file is part of Galette (https://galette.eu).
  *
@@ -78,8 +78,8 @@ class PaypalController extends AbstractPluginController
         if (!$paypal->isLoaded()) {
             $this->flash->addMessageNow(
                 'error',
-                _T("<strong>Payment could not work</strong>: An error occurred (that has been logged) while loading Paypal preferences from database.<br/>Please report the issue to the staff.", "paypal") .
-                '<br/>' . _T("Our apologies for the annoyance :(", "paypal")
+                _T("<strong>Payment could not work</strong>: An error occurred (that has been logged) while loading Paypal preferences from database.<br/>Please report the issue to the staff.", "paypal")
+                . '<br/>' . _T("Our apologies for the annoyance :(", "paypal")
             );
         }
 
@@ -90,14 +90,7 @@ class PaypalController extends AbstractPluginController
             );
         }
 
-        if (!$paypal->areAmountsLoaded()) {
-            $this->flash->addMessageNow(
-                'warning',
-                _T("Predefined amounts cannot be loaded, that is not a critical error.", "paypal")
-            );
-        }
-
-            // display page
+        // display page
         $this->view->render(
             $response,
             $this->getTemplate('paypal_form'),
@@ -119,8 +112,8 @@ class PaypalController extends AbstractPluginController
     public function logs(
         Request $request,
         Response $response,
-        string $option = null,
-        string|int $value = null
+        ?string $option = null,
+        string|int|null $value = null
     ): Response {
         $paypal_history = new PaypalHistory($this->zdb, $this->login, $this->preferences);
 
@@ -144,12 +137,14 @@ class PaypalController extends AbstractPluginController
         //assign pagination variables to the template and add pagination links
         $paypal_history->setFilters($filters);
         $logs = $paypal_history->getPaypalHistory();
+        $logs_count = $paypal_history->getCount();
         $filters->setViewPagination($this->routeparser, $this->view);
 
         $params = [
             'page_title' => _T("Paypal History", "paypal"),
             'paypal_history' => $paypal_history,
             'logs' => $logs,
+            'nb' => $logs_count,
             'module_id' => $this->getModuleId()
         ];
 
@@ -236,32 +231,27 @@ class PaypalController extends AbstractPluginController
         $post = $request->getParsedBody();
         $paypal = new Paypal($this->zdb);
 
-        if (isset($post['amounts'])) {
-            if (isset($post['paypal_id']) && $this->login->isAdmin()) {
-                $paypal->setId($post['paypal_id']);
-            }
-            if (isset($post['amount_id'])) {
-                $paypal->setPrices($post['amount_id'], $post['amounts']);
-            }
-            if (isset($post['inactives'])) {
-                $paypal->setInactives($post['inactives']);
-            } else {
-                $paypal->unsetInactives();
-            }
+        if (isset($post['paypal_id']) && $this->login->isAdmin()) {
+            $paypal->setId($post['paypal_id']);
+        }
+        if (isset($post['inactives'])) {
+            $paypal->setInactives($post['inactives']);
+        } else {
+            $paypal->unsetInactives();
+        }
 
-            $stored = $paypal->store();
-            if ($stored) {
-                $this->flash->addMessage(
-                    'success_detected',
-                    _T('Paypal preferences has been saved.', 'paypal')
-                );
-            } else {
-                $this->session->paypal = $paypal;
-                $this->flash->addMessage(
-                    'error_detected',
-                    _T('An error occurred saving paypal preferences :(', 'paypal')
-                );
-            }
+        $stored = $paypal->store();
+        if ($stored) {
+            $this->flash->addMessage(
+                'success_detected',
+                _T('Paypal preferences has been saved.', 'paypal')
+            );
+        } else {
+            $this->session->paypal = $paypal;
+            $this->flash->addMessage(
+                'error_detected',
+                _T('An error occurred saving paypal preferences :(', 'paypal')
+            );
         }
 
         return $response
@@ -375,9 +365,10 @@ class PaypalController extends AbstractPluginController
     public function notify(Request $request, Response $response): Response
     {
         $post = $request->getParsedBody();
+        $paypal = new Paypal($this->zdb);
 
-        //if we've received some informations from paypal website, we can proceed
-        if (isset($post['mc_gross'], $post['item_number'])) {
+        //if we've received legit information from Paypal website, we can proceed
+        if ($paypal->validate($post)) {
             if (isset($post['charset'])) {
                 foreach ($post as $key => $value) {
                     $post[$key] = iconv($post['charset'], 'UTF-8', $value);
@@ -425,12 +416,12 @@ class PaypalController extends AbstractPluginController
                      * If no member id is provided, we only send to post contribution
                      * script, Galette does not handle anonymous contributions
                      */
-                    $args = array(
+                    $args = [
                         'type'          => $post['item_number'],
                         'adh'           => $post['custom'],
                         'payment_type'  => PaymentType::PAYPAL
-                    );
-                    if ($this->preferences->pref_membership_ext != '') {
+                    ];
+                    if ($this->preferences->pref_membership_ext != '') { //@phpstan-ignore-line
                         $args['ext'] = $this->preferences->pref_membership_ext;
                     }
                     $contrib = new Contribution($this->zdb, $this->login, $args);
@@ -447,8 +438,8 @@ class PaypalController extends AbstractPluginController
                         $valid = $contrib->check($post, [], []);
                         if ($valid !== true) {
                             Analog::log(
-                                'An error occurred while storing a new contribution from Paypal payment:' .
-                                implode("\n   ", $valid),
+                                'An error occurred while storing a new contribution from Paypal payment:'
+                                . implode("\n   ", $valid),
                                 Analog::ERROR
                             );
                             $ph->setState(PaypalHistory::STATE_ERROR);

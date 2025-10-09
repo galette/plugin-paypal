@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright © 2003-2024 The Galette Team
+ * Copyright © 2003-2025 The Galette Team
  *
  * This file is part of Galette (https://galette.eu).
  *
@@ -144,6 +144,16 @@ class PluginGalettePaypal extends GalettePlugin
      * @return array<int, string|array<string,mixed>>
      */
     public static function getBatchActionsContents(): array
+    {
+        return [];
+    }
+
+    /**
+     * Get current logged-in user dashboards contents
+     *
+     * @return array<int, string|array<string,mixed>>
+     */
+    public static function getMyDashboardsContents(): array
     {
         return [];
     }

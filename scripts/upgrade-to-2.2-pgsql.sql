@@ -1,0 +1,1 @@
+DROP TABLE galette_paypal_types_cotisation_prices;

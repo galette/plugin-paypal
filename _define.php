@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright © 2003-2024 The Galette Team
+ * Copyright © 2003-2025 The Galette Team
  *
  * This file is part of Galette (https://galette.eu).
  *
@@ -25,10 +25,10 @@ $this->register(
     'Galette Paypal',       //Name
     'Paypal integration',   //Short description
     'Johan Cwiklinski',     //Author
-    '2.1.2',                //Version
-    '1.1.0',                //Galette compatible version
+    '2.2.0',                //Version
+    '1.2.0',                //Galette compatible version
     'paypal',               //routing name and translation domain
-    '2024-10-20',           //Release date
+    '2025-10-09',           //Release date
     [   //Permissions needed
         'paypal_preferences'        => 'staff',
         'store_paypal_preferences'  => 'staff',
