@@ -434,8 +434,7 @@ class PaypalController extends AbstractPluginController
 
                     //all goes well, we can proceed
                     if ($real_contrib) {
-                        $store = false;
-                        $valid = $contrib->check($post, [], []);
+                        $valid = $contrib->setNoCheckLogin()->check($post, [], []);
                         if ($valid !== true) {
                             Analog::log(
                                 'An error occurred while storing a new contribution from Paypal payment:'
@@ -446,8 +445,7 @@ class PaypalController extends AbstractPluginController
                             return $response->withStatus(500, 'Internal error');
                         }
 
-                        $store = $contrib->store();
-                        if ($store === true) {
+                        if ($contrib->store()) {
                             //contribution has been stored :)
                             Analog::log(
                                 'Paypal payment has been successfully registered as a contribution',
