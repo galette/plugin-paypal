@@ -153,7 +153,7 @@ class Paypal
                     ]
                 );
 
-            $edit = $this->zdb->execute($update);
+            $this->zdb->execute($update);
 
             //store inactives
             $values = [
