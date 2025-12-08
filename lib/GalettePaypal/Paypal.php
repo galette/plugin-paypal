@@ -168,7 +168,7 @@ class Paypal
                     ]
                 );
 
-            $edit = $this->zdb->execute($update);
+            $this->zdb->execute($update);
 
             Analog::log(
                 '[' . get_class($this)
@@ -230,7 +230,7 @@ class Paypal
     /**
      * Is the plugin loaded?
      *
-     * @return boolean
+     * @return bool
      */
     public function isLoaded(): bool
     {
@@ -240,7 +240,7 @@ class Paypal
     /**
      * Are amounts loaded?
      *
-     * @return boolean
+     * @return bool
      */
     public function areAmountsLoaded(): bool
     {
@@ -280,7 +280,7 @@ class Paypal
      *
      * @param int $id type identifier
      *
-     * @return boolean
+     * @return bool
      */
     public function isInactive(int $id): bool
     {

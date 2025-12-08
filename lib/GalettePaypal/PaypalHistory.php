@@ -110,7 +110,7 @@ class PaypalHistory extends History
     /**
      * Get table's name
      *
-     * @param boolean $prefixed Whether table name should be prefixed
+     * @param bool $prefixed Whether table name should be prefixed
      *
      * @return string
      */
@@ -194,7 +194,7 @@ class PaypalHistory extends History
      *
      * @param string $sign Verify sign paypal parameter
      *
-     * @return boolean
+     * @return bool
      */
     public function isProcessed(string $sign): bool
     {
@@ -211,9 +211,9 @@ class PaypalHistory extends History
     /**
      * Set payment state
      *
-     * @param integer $state State, one of self::STATE_ constants
+     * @param int $state State, one of self::STATE_ constants
      *
-     * @return boolean
+     * @return bool
      */
     public function setState(int $state): bool
     {
