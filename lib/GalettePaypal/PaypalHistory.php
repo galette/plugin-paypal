@@ -111,8 +111,6 @@ class PaypalHistory extends History
      * Get table's name
      *
      * @param bool $prefixed Whether table name should be prefixed
-     *
-     * @return string
      */
     protected function getTableName(bool $prefixed = false): string
     {
@@ -125,8 +123,6 @@ class PaypalHistory extends History
 
     /**
      * Get table's PK
-     *
-     * @return string
      */
     protected function getPk(): string
     {
@@ -193,8 +189,6 @@ class PaypalHistory extends History
      * Is payment already processed?
      *
      * @param string $sign Verify sign paypal parameter
-     *
-     * @return bool
      */
     public function isProcessed(string $sign): bool
     {
@@ -212,8 +206,6 @@ class PaypalHistory extends History
      * Set payment state
      *
      * @param int $state State, one of self::STATE_ constants
-     *
-     * @return bool
      */
     public function setState(int $state): bool
     {

@@ -55,8 +55,6 @@ class PaypalController extends AbstractPluginController
      *
      * @param Request  $request  PSR Request
      * @param Response $response PSR Response
-     *
-     * @return Response
      */
     public function form(Request $request, Response $response): Response
     {
@@ -106,8 +104,6 @@ class PaypalController extends AbstractPluginController
      * @param Response        $response PSR Response
      * @param string|null     $option   Either order, reset or page
      * @param string|int|null $value    Option value
-     *
-     * @return Response
      */
     public function logs(
         Request $request,
@@ -164,8 +160,6 @@ class PaypalController extends AbstractPluginController
      *
      * @param Request  $request  PSR Request
      * @param Response $response PSR Response
-     *
-     * @return Response
      */
     public function filter(Request $request, Response $response): Response
     {
@@ -190,8 +184,6 @@ class PaypalController extends AbstractPluginController
      *
      * @param Request  $request  PSR Request
      * @param Response $response PSR Response
-     *
-     * @return Response
      */
     public function preferences(Request $request, Response $response): Response
     {
@@ -223,8 +215,6 @@ class PaypalController extends AbstractPluginController
      *
      * @param Request  $request  PSR Request
      * @param Response $response PSR Response
-     *
-     * @return Response
      */
     public function storePreferences(Request $request, Response $response): Response
     {
@@ -264,8 +254,6 @@ class PaypalController extends AbstractPluginController
      *
      * @param Request  $request  PSR Request
      * @param Response $response PSR Response
-     *
-     * @return Response
      */
     public function cancel(Request $request, Response $response): Response
     {
@@ -283,8 +271,6 @@ class PaypalController extends AbstractPluginController
      *
      * @param Request  $request  PSR Request
      * @param Response $response PSR Response
-     *
-     * @return Response
      */
     public function success(Request $request, Response $response): Response
     {
@@ -359,8 +345,6 @@ class PaypalController extends AbstractPluginController
      *
      * @param Request  $request  PSR Request
      * @param Response $response PSR Response
-     *
-     * @return Response
      */
     public function notify(Request $request, Response $response): Response
     {

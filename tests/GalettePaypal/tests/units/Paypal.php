@@ -19,6 +19,8 @@
  * along with Galette. If not, see <http://www.gnu.org/licenses/>.
  */
 
+declare(strict_types=1);
+
 namespace GalettePaypal\tests\units;
 
 use Galette\Tests\GaletteTestCase;
@@ -34,8 +36,6 @@ class Paypal extends GaletteTestCase
 
     /**
      * Cleanup after each test method
-     *
-     * @return void
      */
     public function tearDown(): void
     {
@@ -46,8 +46,6 @@ class Paypal extends GaletteTestCase
 
     /**
      * Test empty
-     *
-     * @return void
      */
     public function testEmpty(): void
     {
@@ -77,8 +75,6 @@ class Paypal extends GaletteTestCase
 
     /**
      * Test getFormURL method
-     *
-     * @return void
      */
     public function testGetFormURL(): void
     {
@@ -91,8 +87,6 @@ class Paypal extends GaletteTestCase
 
     /**
      * Test IPNValidationURL method
-     *
-     * @return void
      */
     public function testGetIPNValidationURL(): void
     {
@@ -105,8 +99,6 @@ class Paypal extends GaletteTestCase
 
     /**
      * Test validateRequest method
-     *
-     * @return void
      */
     public function testValidateRequest(): void
     {
