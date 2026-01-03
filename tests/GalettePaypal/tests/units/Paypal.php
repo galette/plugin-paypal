@@ -21,7 +21,7 @@
 
 namespace GalettePaypal\tests\units;
 
-use Galette\GaletteTestCase;
+use Galette\Tests\GaletteTestCase;
 
 /**
  * Paypal tests
