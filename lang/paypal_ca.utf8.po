@@ -1,13 +1,14 @@
 # Carmella Andrews <26andrewsc@harriscountyschools.org>, 2021.
 # Arnau Isern <arnauisern84@gmail.com>, 2022.
 # Johan Cwiklinski <trasher@x-tnd.be>, 2022, 2023.
+# Laura Quintana Marín <2001lauraquintana@gmail.com>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: translations@galette.eu\n"
 "POT-Creation-Date: 2025-08-07 16:10+0200\n"
-"PO-Revision-Date: 2023-12-09 18:39+0000\n"
-"Last-Translator: Johan Cwiklinski <trasher@x-tnd.be>\n"
+"PO-Revision-Date: 2026-01-28 15:00+0000\n"
+"Last-Translator: Laura Quintana Marín <2001lauraquintana@gmail.com>\n"
 "Language-Team: Catalan <https://hosted.weblate.org/projects/galette/paypal-"
 "plugin/ca/>\n"
 "Language: ca\n"
@@ -15,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.3-dev\n"
+"X-Generator: Weblate 5.16-dev\n"
 
 #: ../lib/GalettePaypal/Controllers/PaypalController.php:70
 msgid "Paypal payment"
@@ -102,10 +103,8 @@ msgid "Cannot load the preferences"
 msgstr "Preferències de Paypal"
 
 #: ../tempcache/paypal_preferences.html.twig:77
-#, fuzzy
-#| msgid "An error occurred saving paypal preferences :("
 msgid "An error occured while loading the preferences from the database."
-msgstr "S'ha produït un error en desar les preferències de PayPal :("
+msgstr "S'ha produït un error en carregar les preferències de la base de dades."
 
 #: ../tempcache/paypal_preferences.html.twig:81
 msgid "Please, check if the plugin's database has been properly initialized."
