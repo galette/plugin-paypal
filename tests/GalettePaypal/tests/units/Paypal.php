@@ -35,16 +35,6 @@ class Paypal extends GaletteTestCase
     protected int $seed = 20240518135530;
 
     /**
-     * Cleanup after each test method
-     */
-    public function tearDown(): void
-    {
-        $delete = $this->zdb->delete(PAYPAL_PREFIX . \GalettePaypal\Paypal::TABLE);
-        $this->zdb->execute($delete);
-        parent::tearDown();
-    }
-
-    /**
      * Test empty
      */
     public function testEmpty(): void
