@@ -2,3 +2,7 @@ em[data-emoji=":paypal:"]::before,
 em[data-emoji="paypal"]::before {
     background-image: url(./images/paypal.svg);
 }
+
+.ui.message.amount-description {
+  margin-left:1.85714em;
+}
