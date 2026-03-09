@@ -23,7 +23,11 @@ declare(strict_types=1);
 
 namespace GalettePaypal;
 
+use DI\Attribute\Inject;
+use Galette\Core\Db;
 use Galette\Core\Login;
+use Galette\Core\Plugins\DashboardProviderInterface;
+use Galette\Core\Plugins\MenuProviderInterface;
 use Galette\Core\Preferences;
 use Galette\Entity\Adherent;
 use Galette\Core\GalettePlugin;
@@ -34,14 +38,17 @@ use Galette\Core\GalettePlugin;
  * @author Johan Cwiklinski <johan@x-tnd.be>
  */
 
-class PluginGalettePaypal extends GalettePlugin
+class PluginGalettePaypal extends GalettePlugin implements MenuProviderInterface, DashboardProviderInterface
 {
+    #[Inject]
+    private readonly Db $zdb; //@phpstan-ignore-line injected from DI
+
     /**
      * Extra menus entries
      *
      * @return array<string, string|array<string,mixed>>
      */
-    public static function getMenusContents(): array
+    public function getMenus(): array
     {
         /** @var Login $login */
         global $login;
@@ -76,7 +83,7 @@ class PluginGalettePaypal extends GalettePlugin
      *
      * @return array<int, string|array<string,mixed>>
      */
-    public static function getPublicMenusItemsList(): array
+    public function getPublicMenus(): array
     {
         return [
             [
@@ -94,7 +101,7 @@ class PluginGalettePaypal extends GalettePlugin
      *
      * @return array<int, string|array<string,mixed>>
      */
-    public static function getDashboardsContents(): array
+    public function getDashboards(): array
     {
         /** @var Login $login */
         global $login;
@@ -127,34 +134,29 @@ class PluginGalettePaypal extends GalettePlugin
     }
 
     /**
-     * Get detailed actions contents
-     *
-     * @param Adherent $member Member instance
-     *
-     * @return array<int, string|array<string,mixed>>
-     */
-    public static function getDetailedActionsContents(Adherent $member): array
-    {
-        return static::getListActionsContents($member);
-    }
-
-    /**
-     * Get batch actions contents
-     *
-     * @return array<int, string|array<string,mixed>>
-     */
-    public static function getBatchActionsContents(): array
-    {
-        return [];
-    }
-
-    /**
      * Get current logged-in user dashboards contents
      *
      * @return array<int, string|array<string,mixed>>
      */
-    public static function getMyDashboardsContents(): array
+    public function getMyDashboards(): array
     {
         return [];
+    }
+
+    /**
+     * Is the plugin fully installed (including database, extra configuration, etc.)?
+     */
+    public function isInstalled(): bool
+    {
+        try {
+            $this->zdb->execute($this->zdb->select(PAYPAL_PREFIX . Paypal::TABLE)->limit(1));
+            $this->zdb->execute($this->zdb->select(PAYPAL_PREFIX . PaypalHistory::TABLE)->limit(1));
+            return true;
+        } catch (\Throwable $e) {
+            if (!$this->zdb->isMissingTableException($e)) {
+                throw $e;
+            }
+        }
+        return false;
     }
 }
