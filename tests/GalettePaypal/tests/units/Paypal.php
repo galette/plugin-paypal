@@ -54,6 +54,7 @@ class Paypal extends GaletteTestCase
                     'amount' => null,
                     'extra' => '0',
                     'text_orig' => 'donation in money',
+                    'description' => '',
                 ]
             ],
             $amounts
