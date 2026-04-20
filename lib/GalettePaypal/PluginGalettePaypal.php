@@ -148,15 +148,8 @@ class PluginGalettePaypal extends GalettePlugin implements MenuProviderInterface
      */
     public function isInstalled(): bool
     {
-        try {
-            $this->zdb->execute($this->zdb->select(PAYPAL_PREFIX . Paypal::TABLE)->limit(1));
-            $this->zdb->execute($this->zdb->select(PAYPAL_PREFIX . PaypalHistory::TABLE)->limit(1));
-            return true;
-        } catch (\Throwable $e) {
-            if (!$this->zdb->isMissingTableException($e)) {
-                throw $e;
-            }
-        }
-        return false;
+        return
+            $this->zdb->tableExists(PAYPAL_PREFIX . Paypal::TABLE)
+            && $this->zdb->tableExists(PAYPAL_PREFIX . PaypalHistory::TABLE);
     }
 }
