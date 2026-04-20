@@ -39,15 +39,15 @@ use Galette\Filters\HistoryList;
  */
 class PaypalHistory extends History
 {
-    public const TABLE = 'history';
-    public const PK = 'id_paypal';
+    public const string TABLE = 'history';
+    public const string PK = 'id_paypal';
 
-    public const STATE_NONE = 0;
-    public const STATE_PROCESSED = 1;
-    public const STATE_DONE = 2;
-    public const STATE_ERROR = 3;
-    public const STATE_INCOMPLETE = 4;
-    public const STATE_ALREADYDONE = 5;
+    public const int STATE_NONE = 0;
+    public const int STATE_PROCESSED = 1;
+    public const int STATE_DONE = 2;
+    public const int STATE_ERROR = 3;
+    public const int STATE_INCOMPLETE = 4;
+    public const int STATE_ALREADYDONE = 5;
 
     private int $id;
 
