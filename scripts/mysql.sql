@@ -1,6 +1,9 @@
 --
--- Table structure for table `galette_paypal_history`
+-- This file is part of Galette Paypal plugin (https://galette.eu).
+-- SPDX-FileCopyrightText: Copyright © 2011-2026 The Galette Team
+-- SPDX-License-Identifier: GPL-3.0-or-later
 --
+
 DROP TABLE IF EXISTS galette_paypal_history;
 CREATE TABLE galette_paypal_history (
   id_paypal int(11) NOT NULL auto_increment,
