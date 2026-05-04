@@ -21,6 +21,7 @@
 
 declare(strict_types=1);
 
+use Galette\Middleware\Authenticate;
 use GalettePaypal\Controllers\PaypalController;
 
 //Constants and classes from plugin
@@ -29,12 +30,12 @@ require_once $module['root'] . '/_config.inc.php';
 $app->get(
     '/preferences',
     [PaypalController::class, 'preferences']
-)->setName('paypal_preferences')->add($authenticate);
+)->setName('paypal_preferences')->add(Authenticate::class);
 
 $app->post(
     '/preferences',
     [PaypalController::class, 'storePreferences']
-)->setName('store_paypal_preferences')->add($authenticate);
+)->setName('store_paypal_preferences')->add(Authenticate::class);
 
 $app->get(
     '/form',
@@ -59,10 +60,10 @@ $app->post(
 $app->get(
     '/logs[/{option:order|reset|page}/{value}]',
     [PaypalController::class, 'logs']
-)->setName('paypal_history')->add($authenticate);
+)->setName('paypal_history')->add(Authenticate::class);
 
 //history filtering
 $app->post(
     '/history/filter',
     [PaypalController::class, 'filter']
-)->setName('filter_paypal_history')->add($authenticate);
+)->setName('filter_paypal_history')->add(Authenticate::class);
