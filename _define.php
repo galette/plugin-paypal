@@ -14,7 +14,7 @@ $this->register(
     desc: 'Paypal integration', //Short description
     author: 'Johan Cwiklinski', //Author
     version: '2.2.1',           //Version
-    compver: '1.2.1',           //Galette compatible version
+    compver: '1.3.0',           //Galette compatible version
     route: 'paypal',            //routing name and translation domain
     date: '2025-12-08',         //Release date
     acls: [                     //Permissions needed
@@ -22,7 +22,8 @@ $this->register(
         'store_paypal_preferences'  => 'staff',
         'paypal_history'            => 'staff',
         'filter_paypal_history'     => 'staff'
-    ]
+    ],
+    dbver: 1.00
 );
 
 $this->setCsrfExclusions([
