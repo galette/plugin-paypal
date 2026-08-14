@@ -1,5 +1,10 @@
 # Galette Paypal plugin
 
+> [!WARNING]
+> PayPal is discontinuing its legacy Website Payments Standard (WPS) integration, with full transaction processing termination scheduled for January 2027.
+> This plugin is **not compatible** with any other integration.
+
+
 [![GitHub license](https://img.shields.io/github/license/galette/galette.svg)](https://github.com/galette/plugin-paypal/blob/master/COPYING)
 
 ### English
