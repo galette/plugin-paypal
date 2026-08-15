@@ -27,5 +27,5 @@ $this->register(
 );
 
 $this->setCsrfExclusions([
-    '/paypal_(success|notify|cancelled)/',
+    '/paypal_success/',
 ]);
