@@ -203,3 +203,116 @@ jobs:
         run: |
           cd galette-core/galette/plugins/plugin-paypal
           ../../vendor/bin/phpunit --test-suffix=.php --bootstrap tests/TestsBootstrap.php --no-coverage --process-isolation tests/GalettePaypal/
+
+  e2e-tests:
+    runs-on: ubuntu-latest
+    name: "E2E Playwright — chromium (postgres:17)"
+    env:
+      DB: pgsql
+      GALETTE_TESTS: 1
+
+    services:
+      db:
+        image: postgres:17
+        env:
+          POSTGRES_USER: galette_tests
+          POSTGRES_PASSWORD: g@l3tte
+          POSTGRES_DB: galette_tests
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd="pg_isready"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=10
+
+    steps:
+      - name: PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.5"
+          tools: composer, pecl
+          coverage: none
+          extensions: apcu, pdo_pgsql
+          ini-values: apc.enable_cli=1
+
+      - name: Build Galette
+        uses: galette/.github/actions/build-galette@main
+        with:
+          php-version: "8.5"
+          enable-assets-cache: true
+
+      - name: Checkout plugin
+        uses: actions/checkout@v7
+        with:
+          path: galette-core/galette/plugins/plugin-paypal
+
+      - name: Initialize test data
+        run: |
+          cd galette-core
+          php tests/init_test_data.php
+
+      - name: Initialize Galette database
+        env:
+          POSTGRES_HOST: localhost
+          POSTGRES_PORT: 5432
+        run: |
+          cd galette-core
+          bin/console galette:install -v \
+            --dbtype=pgsql \
+            --dbhost=localhost \
+            --dbname=galette_tests \
+            --dbuser=galette_tests \
+            --dbpass=g@l3tte \
+            --admin=admin \
+            --password=admin \
+            --no-interaction
+          # GALETTE_TESTS makes the console look for plugins in tests/plugins,
+          # the checked out plugin lives in the regular directory
+          GALETTE_PLUGINS_PATH=$(pwd)/galette/plugins bin/console galette:plugins:install-db --all
+
+      - name: Start PHP built-in server
+        run: |
+          cd galette-core
+          GALETTE_PLUGINS_PATH=$(pwd)/galette/plugins DB=${{ env.DB }} GALETTE_TESTS=1 php -S 0.0.0.0:8090 -t galette/webroot tests/router_e2e.php &
+          timeout 15 bash -c 'until curl -sf http://127.0.0.1:8090/login > /dev/null; do sleep 1; done'
+          CODE=$(curl -s -o /dev/null -w "%{http_code}" "http://127.0.0.1:8090/plugins/paypal/form")
+          if [ "$CODE" != "200" ]; then
+            echo "Paypal route returned $CODE (plugin not initialized/active)."
+            exit 1
+          fi
+          echo "PHP server started"
+
+      - name: Install Playwright browsers
+        run: |
+          cd galette-core
+          npx playwright install --with-deps chromium
+
+      - name: Run Paypal E2E tests
+        run: |
+          cd galette-core
+          npm run test:plugins
+        env:
+          E2E_BASE_URL: http://127.0.0.1:8090
+          E2E_ADMIN_USER: admin
+          E2E_ADMIN_PASS: admin
+
+      - name: Upload Playwright report
+        uses: actions/upload-artifact@v7
+        if: failure()
+        with:
+          name: playwright-report-paypal
+          path: galette-core/playwright-report/
+          retention-days: 7
+
+      - name: Upload test data (logs, photos, etc.)
+        uses: actions/upload-artifact@v7
+        if: failure()
+        with:
+          name: test-data-e2e-paypal
+          path: |
+            galette-core/tests/tests-data/
+            galette-core/galette/data/logs/
+            galette-core/galette/data/photos/
+          retention-days: 7
+          if-no-files-found: ignore
