@@ -1,8 +1,16 @@
 # Galette Paypal plugin
 
-> [!WARNING]
-> PayPal is discontinuing its legacy Website Payments Standard (WPS) integration, with full transaction processing termination scheduled for January 2027.
-> This plugin is **not compatible** with any other integration.
+> [!IMPORTANT]
+> Since version 3.0.0, this plugin relies on **PayPal Standard Checkout** (Orders v2 REST API and
+> webhooks). The legacy Website Payments Standard (WPS) integration, which PayPal stops processing
+> in January 2027, has been removed.
+>
+> Upgrading from an earlier version requires a new configuration: the PayPal account email is no
+> longer enough. From your [PayPal developer dashboard](https://developer.paypal.com/dashboard/),
+> create a REST application and report its **client ID** and **secret** in the plugin settings, then
+> declare a **webhook** on the URL displayed on that same page, subscribed to the
+> `CHECKOUT.ORDER.APPROVED` and `PAYMENT.CAPTURE.COMPLETED` events, and report its identifier as
+> well. Payments are refused until those are filled in.
 
 
 [![GitHub license](https://img.shields.io/github/license/galette/galette.svg)](https://github.com/galette/plugin-paypal/blob/master/COPYING)

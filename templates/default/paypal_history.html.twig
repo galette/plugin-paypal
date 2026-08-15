@@ -8,6 +8,18 @@
 
 {% set filters = paypal_history.filters %}
 
+{% set states = {
+    (constant("GalettePaypal\\PaypalHistory::STATE_NONE")): _T("Unknown", "paypal"),
+    (constant("GalettePaypal\\PaypalHistory::STATE_PROCESSED")): _T("Processed", "paypal"),
+    (constant("GalettePaypal\\PaypalHistory::STATE_DONE")): _T("Processed", "paypal"),
+    (constant("GalettePaypal\\PaypalHistory::STATE_ERROR")): _T("Error", "paypal"),
+    (constant("GalettePaypal\\PaypalHistory::STATE_INCOMPLETE")): _T("Incomplete", "paypal"),
+    (constant("GalettePaypal\\PaypalHistory::STATE_ALREADYDONE")): _T("Already processed", "paypal"),
+    (constant("GalettePaypal\\PaypalHistory::STATE_PENDING")): _T("Awaiting payment", "paypal"),
+    (constant("GalettePaypal\\PaypalHistory::STATE_CAPTURING")): _T("Capture in progress", "paypal"),
+    (constant("GalettePaypal\\PaypalHistory::STATE_PUBLIC")): _T("Public donation", "paypal")
+} %}
+
 {% set form = {
     'order': {
         'name': "paypal_history"
@@ -36,6 +48,10 @@
             'collapse': true
         },
         {
+            'label': _T("Order", "paypal"),
+            'collapse': true
+        },
+        {
             'label': _T("Name"),
             'collapse': true
         },
@@ -45,6 +61,10 @@
         },
         {
             'label': _T("Amount"),
+            'collapse': true
+        },
+        {
+            'label': _T("State", "paypal"),
             'collapse': true
         },
         {'label': _T("Request", "paypal")}
@@ -63,35 +83,25 @@
             </td>
             <td class="collapsing" data-col-label="{{ _T("Date") }}">
                 {{ log.history_date|date(_T("Y-m-d H:i:s")) }}
-                {% if log.duplicate is defined %}
-                    <i class="exclamation circle red icon tooltip" data-html="{{ _T("duplicate", "paypal") }}"></i>
-                    <span class="visually-hidden">
-                        {{ _T("duplicate", "paypal") }}
-                    </span>
-                {% endif %}
+            </td>
+            <td class="collapsing" data-col-label="{{ _T("Order", "paypal") }}">
+                <code>{{ log.order_id }}</code>
             </td>
             <td class="collapsing" data-col-label="{{ _T("Name") }}">
-        {% if log.request is iterable %}
-            {% if log.request.custom is defined %}
-                <a href="{{ url_for("member", {"id": log.request.custom}) }}">
-            {% endif %}
-                {{ log.request.last_name }} {{ log.request.first_name }}
-            {% if log.request.custom is defined%}
-                </a>
-            {% endif %}
+        {% if log.id_adh is not empty %}
+                <a href="{{ url_for("member", {"id": log.id_adh}) }}">{{ log.member_fullname }}</a>
         {% else %}
-                {{ _T("No request or unable to read request", "paypal") }}
+                {{ _T("Anonymous", "paypal") }}
         {% endif %}
             </td>
             <td class="collapsing" data-col-label="{{ _T("Subject") }}">
-        {% if log.request is iterable %}
-                {{ log.request.item_name }}
-        {% endif %}
+                {{ log.comments }}
             </td>
             <td class="collapsing" data-col-label="{{ _T("Amount") }}">
-        {% if log.request is iterable%}
-                {{ log.request.mc_gross }}
-        {% endif %}
+                {{ log.amount|format_currency(log.currency, {}, galette_lang) }}
+            </td>
+            <td class="collapsing" data-col-label="{{ _T("State", "paypal") }}">
+                {{ states[log.state] ?? log.state }}
             </td>
             <td data-col-label="{{ _T("Request", "paypal") }}">
                 <details class="ui basic styled accordion">
@@ -105,7 +115,7 @@
             </td>
         </tr>
     {% else %}
-        <tr><td colspan="6" class="emptylist">{{ _T("logs are empty") }}</td></tr>
+        <tr><td colspan="8" class="emptylist">{{ _T("logs are empty") }}</td></tr>
     {% endfor %}
 {% endblock %}
 

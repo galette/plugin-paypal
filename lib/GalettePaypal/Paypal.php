@@ -12,12 +12,19 @@ namespace GalettePaypal;
 
 use Analog\Analog;
 use Galette\Core\Db;
-use Galette\Core\Galette;
 use Galette\Core\Login;
+use Galette\Core\Preferences;
 use Galette\Entity\ContributionsTypes;
+use GuzzleHttp\Client;
+use GuzzleHttp\ClientInterface;
+use GuzzleHttp\Exception\GuzzleException;
+use Psr\Http\Message\ResponseInterface;
 
 /**
- * Preferences for Paypal
+ * Preferences and Standard Checkout client for Paypal
+ *
+ * Relies on the Orders v2 REST API. The legacy Website Payments Standard
+ * integration (`cmd=_xclick` form and IPN) is discontinued by Paypal.
  *
  * @author Johan Cwiklinski <johan@x-tnd.be>
  */
@@ -25,51 +32,78 @@ class Paypal
 {
     public const string TABLE = 'preferences';
 
-    public const string PAYMENT_PENDING = 'Pending';
-    public const string PAYMENT_COMPLETE = 'Complete';
+    public const string API_LIVE = 'https://api-m.paypal.com';
+    public const string API_SANDBOX = 'https://api-m.sandbox.paypal.com';
 
     private Db $zdb;
+    private Preferences $preferences;
 
     /** @var array<int, array<string,mixed>> */
-    private array $prices;
-    private ?string $id;
+    private array $prices = [];
     /** @var array<int, string> */
-    private array $inactives;
+    private array $inactives = [];
+    /** @var array<int, string> Preferences names actually present in the database */
+    private array $stored_prefs = [];
 
-    private bool $loaded;
+    private string $client_id = '';
+    private string $client_secret = '';
+    private string $webhook_id = '';
+    private bool $sandbox = false;
+    private string $currency = 'EUR';
+
+    private bool $loaded = false;
     private bool $amounts_loaded = false;
+
+    private ?ClientInterface $http_client = null;
+    private ?string $access_token = null;
 
     /**
      * Default constructor
      *
-     * @param Db $zdb Database instance
+     * @param Db          $zdb         Database instance
+     * @param Preferences $preferences Galette preferences
      */
-    public function __construct(Db $zdb)
+    public function __construct(Db $zdb, Preferences $preferences)
     {
         $this->zdb = $zdb;
-        $this->loaded = false;
-        $this->prices = [];
-        $this->inactives = [];
-        $this->id = null;
+        $this->preferences = $preferences;
         $this->load();
     }
 
     /**
-     * Load preferences form the database and amounts from core contributions types
+     * Load preferences from the database and amounts from core contributions types
      */
     public function load(): void
     {
         try {
             $results = $this->zdb->selectAll(PAYPAL_PREFIX . self::TABLE);
 
+            $this->stored_prefs = [];
             /** @var \ArrayObject<string, mixed> $row */
             foreach ($results as $row) {
+                $this->stored_prefs[] = (string)$row->nom_pref;
                 switch ($row->nom_pref) {
-                    case 'paypal_id':
-                        $this->id = $row->val_pref;
+                    case 'paypal_client_id':
+                        $this->client_id = (string)$row->val_pref;
+                        break;
+                    case 'paypal_client_secret':
+                        $this->client_secret = (string)$row->val_pref;
+                        break;
+                    case 'paypal_webhook_id':
+                        $this->webhook_id = (string)$row->val_pref;
+                        break;
+                    case 'paypal_sandbox':
+                        $this->sandbox = (bool)(int)$row->val_pref;
+                        break;
+                    case 'paypal_currency':
+                        if ($row->val_pref != '') {
+                            $this->currency = strtoupper((string)$row->val_pref);
+                        }
                         break;
                     case 'paypal_inactives':
-                        $this->inactives = explode(',', $row->val_pref);
+                        $this->inactives = $row->val_pref == ''
+                            ? []
+                            : explode(',', (string)$row->val_pref);
                         break;
                     default:
                         //we've got a preference not intended
@@ -89,7 +123,6 @@ class Paypal
                 Analog::ERROR
             );
             //consider plugin is not loaded when missing the main preferences
-            //(that includes Paypal id)
             $this->loaded = false;
         }
     }
@@ -120,36 +153,34 @@ class Paypal
      */
     public function store(): bool
     {
+        $values = [
+            'paypal_client_id'      => $this->client_id,
+            'paypal_client_secret'  => $this->client_secret,
+            'paypal_webhook_id'     => $this->webhook_id,
+            'paypal_sandbox'        => $this->sandbox ? '1' : '0',
+            'paypal_currency'       => $this->currency,
+            'paypal_inactives'      => implode(',', $this->inactives)
+        ];
+
         try {
-            //store paypal id
-            $values = [
-                'nom_pref' => 'paypal_id',
-                'val_pref' => $this->id
-            ];
-            $update = $this->zdb->update(PAYPAL_PREFIX . self::TABLE);
-            $update->set($values)
-                ->where(
-                    [
-                        'nom_pref' => 'paypal_id'
-                    ]
-                );
-
-            $this->zdb->execute($update);
-
-            //store inactives
-            $values = [
-                'nom_pref' => 'paypal_inactives',
-                'val_pref' => implode(',', $this->inactives)
-            ];
-            $update = $this->zdb->update(PAYPAL_PREFIX . self::TABLE);
-            $update->set($values)
-                ->where(
-                    [
-                        'nom_pref' => 'paypal_inactives'
-                    ]
-                );
-
-            $this->zdb->execute($update);
+            foreach ($values as $name => $value) {
+                if (in_array($name, $this->stored_prefs, true)) {
+                    $update = $this->zdb->update(PAYPAL_PREFIX . self::TABLE);
+                    $update
+                        ->set(['val_pref' => $value])
+                        ->where(['nom_pref' => $name]);
+                    $this->zdb->execute($update);
+                } else {
+                    //preference does not exist yet, add it
+                    $insert = $this->zdb->insert(PAYPAL_PREFIX . self::TABLE);
+                    $insert->values([
+                        'nom_pref' => $name,
+                        'val_pref' => $value
+                    ]);
+                    $this->zdb->execute($insert);
+                    $this->stored_prefs[] = $name;
+                }
+            }
 
             Analog::log(
                 '[' . get_class($this)
@@ -169,11 +200,128 @@ class Paypal
     }
 
     /**
-     * Get Paypal identifier
+     * Is the plugin loaded?
      */
-    public function getId(): ?string
+    public function isLoaded(): bool
     {
-        return $this->id;
+        return $this->loaded;
+    }
+
+    /**
+     * Are amounts loaded?
+     */
+    public function areAmountsLoaded(): bool
+    {
+        return $this->amounts_loaded;
+    }
+
+    /**
+     * Has the plugin everything it needs to talk to Paypal?
+     */
+    public function isConfigured(): bool
+    {
+        return $this->loaded
+            && $this->client_id !== ''
+            && $this->client_secret !== ''
+            && $this->webhook_id !== '';
+    }
+
+    /**
+     * Get Paypal REST application client identifier
+     */
+    public function getClientId(): string
+    {
+        return $this->client_id;
+    }
+
+    /**
+     * Set Paypal REST application client identifier
+     *
+     * @param string $client_id Client identifier
+     */
+    public function setClientId(string $client_id): void
+    {
+        $this->client_id = trim($client_id);
+    }
+
+    /**
+     * Get Paypal REST application client secret
+     */
+    public function getClientSecret(): string
+    {
+        return $this->client_secret;
+    }
+
+    /**
+     * Set Paypal REST application client secret
+     *
+     * @param string $client_secret Client secret
+     */
+    public function setClientSecret(string $client_secret): void
+    {
+        $this->client_secret = trim($client_secret);
+    }
+
+    /**
+     * Get the identifier of the webhook declared on Paypal side
+     */
+    public function getWebhookId(): string
+    {
+        return $this->webhook_id;
+    }
+
+    /**
+     * Set the identifier of the webhook declared on Paypal side
+     *
+     * @param string $webhook_id Webhook identifier
+     */
+    public function setWebhookId(string $webhook_id): void
+    {
+        $this->webhook_id = trim($webhook_id);
+    }
+
+    /**
+     * Are we running against Paypal sandbox?
+     */
+    public function isSandbox(): bool
+    {
+        return $this->sandbox;
+    }
+
+    /**
+     * Set sandbox mode
+     *
+     * @param bool $sandbox Sandbox mode
+     */
+    public function setSandbox(bool $sandbox): void
+    {
+        $this->sandbox = $sandbox;
+    }
+
+    /**
+     * Get currency payments are made in
+     */
+    public function getCurrency(): string
+    {
+        return $this->currency;
+    }
+
+    /**
+     * Set currency payments are made in
+     *
+     * @param string $currency ISO 4217 currency code
+     */
+    public function setCurrency(string $currency): void
+    {
+        $currency = strtoupper(trim($currency));
+        if (preg_match('/^[A-Z]{3}$/', $currency) !== 1) {
+            Analog::log(
+                '[' . get_class($this) . '] Invalid currency code `' . $currency . '`',
+                Analog::WARNING
+            );
+            return;
+        }
+        $this->currency = $currency;
     }
 
     /**
@@ -207,47 +355,7 @@ class Paypal
     }
 
     /**
-     * Is the plugin loaded?
-     */
-    public function isLoaded(): bool
-    {
-        return $this->loaded;
-    }
-
-    /**
-     * Are amounts loaded?
-     */
-    public function areAmountsLoaded(): bool
-    {
-        return $this->amounts_loaded;
-    }
-
-    /**
-     * Set paypal identifier
-     *
-     * @param string $id identifier
-     */
-    public function setId(string $id): void
-    {
-        $this->id = $id;
-    }
-
-    /**
-     * Set new prices
-     *
-     * @param array<int, string> $ids     array of identifier
-     * @param array<int, string> $amounts array of amounts
-     */
-    public function setPrices(array $ids, array $amounts): void
-    {
-        $this->prices = [];
-        foreach ($ids as $k => $id) {
-            $this->prices[$id]['amount'] = $amounts[$k];
-        }
-    }
-
-    /**
-     * Check if the specified contribution is active
+     * Check if the specified contribution type is inactive
      *
      * @param int $id type identifier
      */
@@ -275,74 +383,373 @@ class Paypal
     }
 
     /**
-     * Get the URL to use for Paypal
+     * Get Paypal REST API base URL
      */
-    public function getFormURL(): string
+    public function getApiBaseUrl(): string
     {
-        return Galette::isDebugEnabled()
-            ? 'https://www.sandbox.paypal.com/cgi-bin/webscr'
-            : 'https://www.paypal.com/cgi-bin/webscr';
+        return $this->sandbox ? self::API_SANDBOX : self::API_LIVE;
     }
 
     /**
-     * Get the URL for Paypal IPN validation
-     */
-    public function getIPNValidationURL(): string
-    {
-        return Galette::isDebugEnabled()
-            ? 'https://ipnpb.sandbox.paypal.com/cgi-bin/webscr'
-            : 'https://ipnpb.paypal.com/cgi-bin/webscr';
-    }
-
-    /**
-     * Validate IPN data
+     * Set the HTTP client to use; mainly intended for tests
      *
-     * @param array<string, string> $data POST data received from Paypal
+     * @param ClientInterface $client HTTP client
      */
-    public function validateIPN(array $data): bool
+    public function setHttpClient(ClientInterface $client): void
     {
-        $ch = curl_init();
-        $validation_url = $this->getIPNValidationURL();
-        $validation_message = array_merge(['cmd' => '_notify-validate'], $data);
-        curl_setopt($ch, CURLOPT_URL, $validation_url);
-        curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($validation_message));
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        $validation_response = curl_exec($ch);
-        curl_close($ch);
-
-        return $validation_response == 'VERIFIED';
+        $this->http_client = $client;
     }
 
     /**
-     * Validate this is our account
-     *
-     * @param array<string, string> $data POST data received from Paypal
+     * Get the HTTP client to use
      */
-    public function validateAccount(array $data): bool
+    private function getHttpClient(): ClientInterface
     {
-        return $this->getId() == $data['receiver_email'] || $this->getId() == $data['receiver_id'];
+        if ($this->http_client === null) {
+            $this->http_client = new Client(['timeout' => 30]);
+        }
+        return $this->http_client;
     }
 
     /**
-     * Validate request data
+     * Get an OAuth2 access token, using client credentials
      *
-     * @param array<string, mixed> $data POST data received from Paypal
+     * The token is kept for the current request only; Galette does not need to
+     * store it, as a payment involves a couple of calls at most.
      */
-    public function validateRequest(array $data): bool
+    private function getAccessToken(): ?string
     {
-        return isset($data['mc_gross'], $data['item_number']);
+        if ($this->access_token !== null) {
+            return $this->access_token;
+        }
+
+        if ($this->client_id === '' || $this->client_secret === '') {
+            Analog::log(
+                '[' . get_class($this) . '] Paypal REST credentials are missing',
+                Analog::ERROR
+            );
+            return null;
+        }
+
+        try {
+            $response = $this->getHttpClient()->request(
+                'POST',
+                $this->getApiBaseUrl() . '/v1/oauth2/token',
+                [
+                    'auth'          => [$this->client_id, $this->client_secret],
+                    'form_params'   => ['grant_type' => 'client_credentials'],
+                    'headers'       => ['Accept' => 'application/json']
+                ]
+            );
+        } catch (GuzzleException $e) {
+            Analog::log(
+                '[' . get_class($this) . '] Cannot get Paypal access token | ' . $e->getMessage(),
+                Analog::ERROR
+            );
+            return null;
+        }
+
+        $data = $this->decode($response);
+        if (!isset($data['access_token'])) {
+            Analog::log(
+                '[' . get_class($this) . '] Paypal did not return any access token',
+                Analog::ERROR
+            );
+            return null;
+        }
+
+        $this->access_token = (string)$data['access_token'];
+        return $this->access_token;
     }
 
     /**
-     * Validate Paypal request
+     * Create a Paypal order and get the URL the payer must be redirected to
      *
-     * @param array<string, mixed> $data POST data received from Paypal
+     * @param array<string, mixed> $metadata   member_id (optional), item_id and item_name
+     * @param string               $amount     Amount, as a decimal string
+     * @param string               $return_url URL Paypal sends the payer back to
+     * @param string               $cancel_url URL Paypal sends the payer to on cancellation
+     *
+     * @return ?array{id: string, payer_action: string}
      */
-    public function validate(array $data): bool
+    public function createOrder(
+        array $metadata,
+        string $amount,
+        string $return_url,
+        string $cancel_url
+    ): ?array {
+        $token = $this->getAccessToken();
+        if ($token === null) {
+            return null;
+        }
+
+        $body = [
+            'intent' => 'CAPTURE',
+            'purchase_units' => [
+                [
+                    'amount' => [
+                        'currency_code' => $this->currency,
+                        'value'         => $this->formatAmount($amount)
+                    ],
+                    'description'   => mb_substr((string)$metadata['item_name'], 0, 127),
+                    'custom_id'     => sprintf(
+                        '%s:%s',
+                        $metadata['member_id'] ?? '',
+                        $metadata['item_id']
+                    )
+                ]
+            ],
+            'payment_source' => [
+                'paypal' => [
+                    'experience_context' => [
+                        'brand_name'            => mb_substr($this->preferences->pref_nom, 0, 127),
+                        'shipping_preference'   => 'NO_SHIPPING',
+                        'user_action'           => 'PAY_NOW',
+                        'return_url'            => $return_url,
+                        'cancel_url'            => $cancel_url
+                    ]
+                ]
+            ]
+        ];
+
+        $order = $this->call('POST', '/v2/checkout/orders', $body, $token);
+        if ($order === null || !isset($order['id'])) {
+            return null;
+        }
+
+        $payer_action = null;
+        foreach ($order['links'] ?? [] as $link) {
+            if (($link['rel'] ?? '') === 'payer-action') {
+                $payer_action = (string)$link['href'];
+                break;
+            }
+        }
+
+        if ($payer_action === null) {
+            Analog::log(
+                '[' . get_class($this) . '] Paypal order ' . $order['id']
+                . ' has no payer-action link',
+                Analog::ERROR
+            );
+            return null;
+        }
+
+        return [
+            'id'            => (string)$order['id'],
+            'payer_action'  => $payer_action
+        ];
+    }
+
+    /**
+     * Retrieve an existing order
+     *
+     * @param string $order_id Paypal order identifier
+     *
+     * @return ?array<string, mixed>
+     */
+    public function getOrder(string $order_id): ?array
     {
-        return $this->validateIPN($data)
-            && $this->validateAccount($data)
-            && $this->validateRequest($data);
+        $token = $this->getAccessToken();
+        if ($token === null) {
+            return null;
+        }
+
+        return $this->call('GET', '/v2/checkout/orders/' . rawurlencode($order_id), null, $token);
+    }
+
+    /**
+     * Capture an approved order
+     *
+     * When the order has already been captured - which happens when both the
+     * payer return and the webhook are processed - the existing order is
+     * returned instead of an error.
+     *
+     * @param string $order_id Paypal order identifier
+     *
+     * @return ?array<string, mixed>
+     */
+    public function captureOrder(string $order_id): ?array
+    {
+        $token = $this->getAccessToken();
+        if ($token === null) {
+            return null;
+        }
+
+        $captured = $this->call(
+            'POST',
+            '/v2/checkout/orders/' . rawurlencode($order_id) . '/capture',
+            [],
+            $token,
+            ['ORDER_ALREADY_CAPTURED']
+        );
+
+        if ($captured === null) {
+            return null;
+        }
+
+        if (isset($captured['galette_already_captured'])) {
+            //order was captured by the concurrent code path, get its current state
+            return $this->getOrder($order_id);
+        }
+
+        return $captured;
+    }
+
+    /**
+     * Verify a webhook notification actually comes from Paypal
+     *
+     * @param array<string, string> $headers Relevant `paypal-*` request headers
+     * @param string                $body    Raw request body
+     */
+    public function verifyWebhookSignature(array $headers, string $body): bool
+    {
+        if ($this->webhook_id === '') {
+            Analog::log(
+                '[' . get_class($this) . '] No webhook identifier configured, '
+                . 'notification cannot be verified',
+                Analog::ERROR
+            );
+            return false;
+        }
+
+        $required = [
+            'paypal-auth-algo',
+            'paypal-cert-url',
+            'paypal-transmission-id',
+            'paypal-transmission-sig',
+            'paypal-transmission-time'
+        ];
+        foreach ($required as $header) {
+            if (!isset($headers[$header]) || $headers[$header] === '') {
+                Analog::log(
+                    '[' . get_class($this) . '] Missing `' . $header . '` header on notification',
+                    Analog::ERROR
+                );
+                return false;
+            }
+        }
+
+        $event = json_decode($body, true);
+        if (!is_array($event)) {
+            Analog::log(
+                '[' . get_class($this) . '] Notification body is not valid JSON',
+                Analog::ERROR
+            );
+            return false;
+        }
+
+        $token = $this->getAccessToken();
+        if ($token === null) {
+            return false;
+        }
+
+        $result = $this->call(
+            'POST',
+            '/v1/notifications/verify-webhook-signature',
+            [
+                'auth_algo'         => $headers['paypal-auth-algo'],
+                'cert_url'          => $headers['paypal-cert-url'],
+                'transmission_id'   => $headers['paypal-transmission-id'],
+                'transmission_sig'  => $headers['paypal-transmission-sig'],
+                'transmission_time' => $headers['paypal-transmission-time'],
+                'webhook_id'        => $this->webhook_id,
+                'webhook_event'     => $event
+            ],
+            $token
+        );
+
+        return ($result['verification_status'] ?? null) === 'SUCCESS';
+    }
+
+    /**
+     * Perform an authenticated call on Paypal REST API
+     *
+     * @param string                $method         HTTP method
+     * @param string                $path           Path, relative to the API base URL
+     * @param ?array<string, mixed> $body           JSON body to send, if any
+     * @param string                $token          OAuth2 access token
+     * @param array<int, string>    $accepted_issue Paypal issues that must not be
+     *                                              treated as errors
+     *
+     * @return ?array<string, mixed>
+     */
+    private function call(
+        string $method,
+        string $path,
+        ?array $body,
+        string $token,
+        array $accepted_issue = []
+    ): ?array {
+        $options = [
+            'headers' => [
+                'Authorization' => 'Bearer ' . $token,
+                'Content-Type'  => 'application/json',
+                'Accept'        => 'application/json'
+            ],
+            'http_errors' => false
+        ];
+        if ($body !== null) {
+            $options['json'] = $body;
+        }
+
+        try {
+            $response = $this->getHttpClient()->request(
+                $method,
+                $this->getApiBaseUrl() . $path,
+                $options
+            );
+        } catch (GuzzleException $e) {
+            Analog::log(
+                '[' . get_class($this) . '] Paypal call to ' . $path . ' failed | '
+                . $e->getMessage(),
+                Analog::ERROR
+            );
+            return null;
+        }
+
+        $data = $this->decode($response);
+        $status = $response->getStatusCode();
+
+        if ($status >= 200 && $status < 300) {
+            return $data;
+        }
+
+        foreach ($data['details'] ?? [] as $detail) {
+            if (in_array($detail['issue'] ?? '', $accepted_issue, true)) {
+                return ['galette_already_captured' => true];
+            }
+        }
+
+        Analog::log(
+            '[' . get_class($this) . '] Paypal call to ' . $path . ' returned '
+            . $status . ' | ' . json_encode($data),
+            Analog::ERROR
+        );
+        return null;
+    }
+
+    /**
+     * Decode a JSON response body
+     *
+     * @param ResponseInterface $response HTTP response
+     *
+     * @return array<string, mixed>
+     */
+    private function decode(ResponseInterface $response): array
+    {
+        $decoded = json_decode((string)$response->getBody(), true);
+        return is_array($decoded) ? $decoded : [];
+    }
+
+    /**
+     * Format an amount the way Paypal expects it
+     *
+     * Paypal takes decimal strings, there is no minor unit conversion to do.
+     *
+     * @param string $amount Amount
+     */
+    public function formatAmount(string $amount): string
+    {
+        return number_format((float)str_replace(',', '.', $amount), 2, '.', '');
     }
 }

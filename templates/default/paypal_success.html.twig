@@ -7,31 +7,5 @@
 {% extends not login.isLogged() ? "public_page.html.twig" : "page.html.twig" %}
 
 {% block content %}
-    {% if post %}
-        <p>{{ _T("Your paypal payment was successful. Some details are shown below:", "paypal") }}</p>
-        <table class="ui striped definition table">
-            <tr>
-                <th class="collapsing">{{ _T("Label") }}</th>
-                <td>{{ post.item_name }}</td>
-            </tr>
-            <tr>
-                <th class="collapsing">{{ _T("Payment date") }}</th>
-                <td>{{ post.payment_date }}</td>
-            </tr>
-            <tr>
-                <th class="collapsing">{{ _T("Payment status") }}</th>
-                <td>{{ post.payment_status }}</td>
-            </tr>
-            <tr>
-                <th class="collapsing">{{ _T("Payment type") }}</th>
-                <td>{{ post.payment_type }}</td>
-            </tr>
-            <tr>
-                <th class="collapsing">{{ _T("Amount") }}</th>
-                <td>{{ post.mc_gross }} {{ post.mc_currency }}</td>
-            </tr>
-        </table>
-    {% else %}
-        <p>{{ _T("Your paypal payment was successful. You may receive a mail from paypal with details.", "paypal") }}</p>
-    {% endif %}
+    <p>{{ _T("Your paypal payment was successful. You may receive a mail from paypal with details.", "paypal") }}</p>
 {% endblock %}

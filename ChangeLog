@@ -1,3 +1,14 @@
+* 2026-08-15 - 3.0.0
+- Website Payments Standard (discontinued by PayPal in January 2027) is replaced
+  by Standard Checkout, using the Orders v2 REST API and webhooks
+- IPN handling is removed, notifications are now signed and verified
+- New required settings: REST application client ID and secret, webhook identifier
+- The PayPal account identifier setting is removed, it cannot authenticate API calls
+- Sandbox mode is now an explicit setting, it no longer depends on GALETTE_DEBUG
+- Currency is configurable, it was hardcoded to euros
+- Payments are recorded as soon as the order is created, which makes abandoned
+  payments visible and prevents a payment from being registered twice
+
 * 2025-12-08 - 2.2.1
 
 * 2025-10-09 - 2.2.0

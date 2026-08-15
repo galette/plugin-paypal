@@ -29,20 +29,32 @@ $app->get(
     [PaypalController::class, 'form']
 )->setName('paypal_form');
 
+$app->post(
+    '/form',
+    [PaypalController::class, 'formCheckout']
+)->setName('paypal_formCheckout');
+
+//Paypal sends the payer back here once the payment is approved
+$app->get(
+    '/return',
+    [PaypalController::class, 'returnUrl']
+)->setName('paypal_return');
+
+$app->get(
+    '/success',
+    [PaypalController::class, 'success']
+)->setName('paypal_success');
+
 $app->get(
     '/cancel',
     [PaypalController::class, 'cancel']
 )->setName('paypal_cancelled');
 
+//server to server notification, used when the payer never comes back
 $app->post(
-    '/success',
-    [PaypalController::class, 'success']
-)->setName('paypal_success');
-
-$app->post(
-    '/notify',
-    [PaypalController::class, 'notify']
-)->setName('paypal_notify');
+    '/webhook',
+    [PaypalController::class, 'webhook']
+)->setName('paypal_webhook');
 
 $app->get(
     '/logs[/{option:order|reset|page}/{value}]',

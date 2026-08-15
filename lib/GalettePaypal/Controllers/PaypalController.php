@@ -45,20 +45,13 @@ class PaypalController extends AbstractPluginController
      */
     public function form(Request $request, Response $response): Response
     {
-        $paypal = new Paypal($this->zdb);
-
-        $current_url = $this->preferences->getURL();
+        $paypal = new Paypal($this->zdb, $this->preferences);
 
         $params = [
             'paypal' => $paypal,
             'amounts' => $paypal->getAmounts($this->login),
-            'page_title' => _T('Paypal payment', 'paypal'),
-            'current_url' => rtrim($current_url, '/')
+            'page_title' => _T('Paypal payment', 'paypal')
         ];
-
-        if ($this->login->isLogged() && !$this->login->isSuperAdmin()) {
-            $params['custom'] = $this->login->id;
-        }
 
         if (!$paypal->isLoaded()) {
             $this->flash->addMessageNow(
@@ -66,12 +59,10 @@ class PaypalController extends AbstractPluginController
                 _T("<strong>Payment could not work</strong>: An error occurred (that has been logged) while loading Paypal preferences from database.<br/>Please report the issue to the staff.", "paypal")
                 . '<br/>' . _T("Our apologies for the annoyance :(", "paypal")
             );
-        }
-
-        if ($paypal->getId() == null) {
+        } elseif (!$paypal->isConfigured()) {
             $this->flash->addMessageNow(
                 'error',
-                _T("Paypal id has not been defined. Please ask an administrator to add it from plugin preferences.", "paypal")
+                _T("Paypal has not been configured yet. Please ask an administrator to fill in the API credentials from plugin preferences.", "paypal")
             );
         }
 
@@ -82,6 +73,414 @@ class PaypalController extends AbstractPluginController
             $params
         );
         return $response;
+    }
+
+    /**
+     * Create the Paypal order and send the payer to Paypal
+     *
+     * @param Request  $request  PSR Request
+     * @param Response $response PSR Response
+     */
+    public function formCheckout(Request $request, Response $response): Response
+    {
+        $post = $request->getParsedBody();
+        $paypal = new Paypal($this->zdb, $this->preferences);
+
+        if (!$paypal->isConfigured()) {
+            return $this->backToForm(
+                $response,
+                _T("Paypal has not been configured yet. Please ask an administrator to fill in the API credentials from plugin preferences.", "paypal")
+            );
+        }
+
+        $amounts = $paypal->getAmounts($this->login);
+        $item_id = (int)($post['item_id'] ?? 0);
+
+        if (!isset($amounts[$item_id])) {
+            return $this->backToForm(
+                $response,
+                _T("You have to select an option", "paypal")
+            );
+        }
+
+        //the amount is never trusted from the browser alone: it must at least
+        //match the amount defined for the selected contribution type
+        $amount = (float)str_replace(',', '.', (string)($post['amount'] ?? ''));
+        $minimum = (float)$amounts[$item_id]['amount'];
+
+        if ($amount <= 0) {
+            return $this->backToForm(
+                $response,
+                _T("Please enter an amount.", "paypal")
+            );
+        }
+
+        if ($amount < $minimum) {
+            return $this->backToForm(
+                $response,
+                _T("The amount you've entered is lower than the minimum amount for the selected option. Please choose another option or change the amount.", "paypal")
+            );
+        }
+
+        $member_id = null;
+        if ($this->login->isLogged() && !$this->login->isSuperAdmin()) {
+            $member_id = (int)$this->login->id;
+        }
+
+        $order = $paypal->createOrder(
+            [
+                'member_id' => $member_id,
+                'item_id'   => $item_id,
+                'item_name' => $amounts[$item_id]['name']
+            ],
+            (string)$amount,
+            $this->getAbsoluteUrl('paypal_return'),
+            $this->getAbsoluteUrl('paypal_cancelled')
+        );
+
+        if ($order === null) {
+            return $this->backToForm(
+                $response,
+                _T("An error occurred creating the payment. Please report the issue to the staff.", "paypal")
+            );
+        }
+
+        $ph = new PaypalHistory($this->zdb, $this->login, $this->preferences);
+        if (
+            !$ph->addPending(
+                $order['id'],
+                (float)$paypal->formatAmount((string)$amount),
+                $paypal->getCurrency(),
+                $member_id,
+                $item_id,
+                (string)$amounts[$item_id]['name']
+            )
+        ) {
+            return $this->backToForm(
+                $response,
+                _T("An error occurred creating the payment. Please report the issue to the staff.", "paypal")
+            );
+        }
+
+        return $response
+            ->withStatus(301)
+            ->withHeader('Location', $order['payer_action']);
+    }
+
+    /**
+     * Paypal sends the payer back here once the payment has been approved
+     *
+     * @param Request  $request  PSR Request
+     * @param Response $response PSR Response
+     */
+    public function returnUrl(Request $request, Response $response): Response
+    {
+        $order_id = (string)($request->getQueryParams()['token'] ?? '');
+
+        if ($order_id === '') {
+            return $this->backToForm(
+                $response,
+                _T("Paypal did not provide any payment reference.", "paypal")
+            );
+        }
+
+        $paypal = new Paypal($this->zdb, $this->preferences);
+        $ph = new PaypalHistory($this->zdb, $this->login, $this->preferences);
+        $entry = $ph->loadByOrderId($order_id);
+
+        if ($entry === null) {
+            Analog::log(
+                'Paypal payer came back with an unknown order: ' . $order_id,
+                Analog::ERROR
+            );
+            return $this->backToForm(
+                $response,
+                _T("This payment is unknown to Galette. Please report the issue to the staff.", "paypal")
+            );
+        }
+
+        if (!$ph->claim($order_id)) {
+            //the webhook got there first; nothing left to do
+            return $response
+                ->withStatus(301)
+                ->withHeader('Location', $this->routeparser->urlFor('paypal_success'));
+        }
+
+        if ($this->processOrder($paypal, $ph, $entry, $order_id)) {
+            $this->flash->addMessage(
+                'success_detected',
+                _T('Your payment has been proceeded!', 'paypal')
+            );
+            return $response
+                ->withStatus(301)
+                ->withHeader('Location', $this->routeparser->urlFor('paypal_success'));
+        }
+
+        return $this->backToForm(
+            $response,
+            _T("Your payment could not be registered. Please report the issue to the staff.", "paypal")
+        );
+    }
+
+    /**
+     * Webhook; acts as a safety net when the payer never comes back
+     *
+     * @param Request  $request  PSR Request
+     * @param Response $response PSR Response
+     */
+    public function webhook(Request $request, Response $response): Response
+    {
+        $body = (string)$request->getBody();
+        $paypal = new Paypal($this->zdb, $this->preferences);
+
+        $headers = [];
+        foreach (
+            [
+                'paypal-auth-algo',
+                'paypal-cert-url',
+                'paypal-transmission-id',
+                'paypal-transmission-sig',
+                'paypal-transmission-time'
+            ] as $header
+        ) {
+            $headers[$header] = $request->getHeaderLine($header);
+        }
+
+        if (!$paypal->verifyWebhookSignature($headers, $body)) {
+            Analog::log(
+                'Paypal notification signature could not be verified!',
+                Analog::ERROR
+            );
+            return $response->withStatus(403);
+        }
+
+        $event = json_decode($body, true);
+        if (!is_array($event)) {
+            return $response->withStatus(400);
+        }
+
+        $order_id = $this->getOrderId($event);
+        if ($order_id === null) {
+            Analog::log(
+                'Paypal event ignored: ' . ($event['event_type'] ?? 'unknown type'),
+                Analog::DEBUG
+            );
+            return $response->withStatus(200);
+        }
+
+        $ph = new PaypalHistory($this->zdb, $this->login, $this->preferences);
+        $entry = $ph->loadByOrderId($order_id);
+
+        if ($entry === null) {
+            //we never trust the payload alone: no local order, no contribution
+            Analog::log(
+                'Paypal notification received for an unknown order: ' . $order_id,
+                Analog::WARNING
+            );
+            return $response->withStatus(200);
+        }
+
+        if (!$ph->claim($order_id)) {
+            Analog::log(
+                'A Paypal notification has been received, but the order is already handled!',
+                Analog::INFO
+            );
+            return $response->withStatus(200);
+        }
+
+        if (!$this->processOrder($paypal, $ph, $entry, $order_id)) {
+            return $response->withStatus(500, 'Internal error');
+        }
+
+        return $response->withStatus(200);
+    }
+
+    /**
+     * Capture an order and register the matching contribution
+     *
+     * Called both from the payer return and from the webhook; the caller must
+     * hold the lock taken by PaypalHistory::claim().
+     *
+     * @param Paypal               $paypal   Paypal instance
+     * @param PaypalHistory        $ph       History entry, already claimed
+     * @param array<string, mixed> $entry    History entry values
+     * @param string               $order_id Paypal order identifier
+     */
+    private function processOrder(
+        Paypal $paypal,
+        PaypalHistory $ph,
+        array $entry,
+        string $order_id
+    ): bool {
+        $order = $paypal->captureOrder($order_id);
+
+        if ($order === null) {
+            Analog::log(
+                'Unable to capture Paypal order ' . $order_id,
+                Analog::ERROR
+            );
+            $ph->setState(PaypalHistory::STATE_ERROR);
+            return false;
+        }
+
+        $capture = $this->getCapture($order);
+        $ph->setOutcome($order, $capture['id'] ?? null);
+
+        if (($capture['status'] ?? null) !== 'COMPLETED') {
+            Analog::log(
+                'Paypal order ' . $order_id . ' has not been captured: '
+                . ($capture['status'] ?? 'no capture found'),
+                Analog::WARNING
+            );
+            $ph->setState(PaypalHistory::STATE_ERROR);
+            return false;
+        }
+
+        $member_id = $entry['id_adh'] === null ? null : (int)$entry['id_adh'];
+        if ($member_id === null) {
+            /**
+             * Galette does not handle anonymous contributions: the payment is
+             * kept in the history, but no contribution is created.
+             */
+            Analog::log(
+                'A Paypal payment has been successfully stored as a public donation',
+                Analog::INFO
+            );
+            $ph->setState(PaypalHistory::STATE_PUBLIC);
+            return true;
+        }
+
+        return $this->recordContribution($ph, $member_id, (int)$entry['id_type_cotis'], (float)$entry['amount']);
+    }
+
+    /**
+     * Create the contribution matching a completed payment
+     *
+     * @param PaypalHistory $ph        History entry, already claimed
+     * @param int           $member_id Member identifier
+     * @param int           $type_id   Contribution type identifier
+     * @param float         $amount    Paid amount
+     */
+    private function recordContribution(
+        PaypalHistory $ph,
+        int $member_id,
+        int $type_id,
+        float $amount
+    ): bool {
+        $args = [
+            'type'          => $type_id,
+            'adh'           => $member_id,
+            'payment_type'  => PaymentType::PAYPAL
+        ];
+        if ($this->preferences->pref_membership_ext != '') { //@phpstan-ignore-line
+            $args['ext'] = $this->preferences->pref_membership_ext;
+        }
+        $contrib = new Contribution($this->zdb, $this->login, $args);
+
+        $values = [
+            ContributionsTypes::PK  => $type_id,
+            Adherent::PK            => $member_id,
+            'type_paiement_cotis'   => PaymentType::PAYPAL,
+            'montant_cotis'         => $amount
+        ];
+
+        $valid = $contrib->setNoCheckLogin()->check($values, [], []);
+        if ($valid !== true) {
+            Analog::log(
+                'An error occurred while storing a new contribution from Paypal payment: '
+                . implode("\n   ", $valid),
+                Analog::ERROR
+            );
+            $ph->setState(PaypalHistory::STATE_ERROR);
+            return false;
+        }
+
+        if (!$contrib->store()) {
+            Analog::log(
+                'An error occurred while storing a new contribution from Paypal payment',
+                Analog::ERROR
+            );
+            $ph->setState(PaypalHistory::STATE_ERROR);
+            return false;
+        }
+
+        Analog::log(
+            'Paypal payment has been successfully registered as a contribution',
+            Analog::INFO
+        );
+        $ph->setContribution((int)$contrib->id);
+        $ph->setState(PaypalHistory::STATE_PROCESSED);
+
+        return true;
+    }
+
+    /**
+     * Get the order identifier carried by a webhook event, if it is one we handle
+     *
+     * @param array<string, mixed> $event Decoded webhook event
+     */
+    private function getOrderId(array $event): ?string
+    {
+        $resource = $event['resource'] ?? [];
+
+        switch ($event['event_type'] ?? '') {
+            case 'CHECKOUT.ORDER.APPROVED':
+                return isset($resource['id']) ? (string)$resource['id'] : null;
+            case 'PAYMENT.CAPTURE.COMPLETED':
+                //a capture links back to its order through its `up` link
+                foreach ($resource['links'] ?? [] as $link) {
+                    if (($link['rel'] ?? '') === 'up' && isset($link['href'])) {
+                        $parts = explode('/', rtrim((string)$link['href'], '/'));
+                        return end($parts) ?: null;
+                    }
+                }
+                return null;
+            default:
+                return null;
+        }
+    }
+
+    /**
+     * Extract the capture out of a captured order
+     *
+     * @param array<string, mixed> $order Paypal order
+     *
+     * @return array<string, mixed>
+     */
+    private function getCapture(array $order): array
+    {
+        foreach ($order['purchase_units'] ?? [] as $unit) {
+            foreach ($unit['payments']['captures'] ?? [] as $capture) {
+                return $capture;
+            }
+        }
+        return [];
+    }
+
+    /**
+     * Build an absolute URL for a plugin route
+     *
+     * @param string $route_name Route name
+     */
+    private function getAbsoluteUrl(string $route_name): string
+    {
+        return rtrim($this->preferences->getURL(), '/')
+            . $this->routeparser->urlFor($route_name);
+    }
+
+    /**
+     * Send the payer back to the payment form, with an explanation
+     *
+     * @param Response $response PSR Response
+     * @param string   $message  Message to display
+     */
+    private function backToForm(Response $response, string $message): Response
+    {
+        $this->flash->addMessage('error_detected', $message);
+
+        return $response
+            ->withStatus(301)
+            ->withHeader('Location', $this->routeparser->urlFor('paypal_form'));
     }
 
     /**
@@ -178,14 +577,14 @@ class PaypalController extends AbstractPluginController
             $paypal = $this->session->paypal;
             $this->session->paypal = null;
         } else {
-            $paypal = new Paypal($this->zdb);
+            $paypal = new Paypal($this->zdb, $this->preferences);
         }
 
-        $amounts = $paypal->getAllAmounts();
         $params = [
             'page_title'    => _T('Paypal Settings', 'paypal'),
             'paypal'        => $paypal,
-            'amounts'       => $amounts
+            'amounts'       => $paypal->getAllAmounts(),
+            'webhook_url'   => $this->getAbsoluteUrl('paypal_webhook')
         ];
 
         // display page
@@ -206,11 +605,24 @@ class PaypalController extends AbstractPluginController
     public function storePreferences(Request $request, Response $response): Response
     {
         $post = $request->getParsedBody();
-        $paypal = new Paypal($this->zdb);
+        $paypal = new Paypal($this->zdb, $this->preferences);
 
-        if (isset($post['paypal_id']) && $this->login->isAdmin()) {
-            $paypal->setId($post['paypal_id']);
+        if ($this->login->isAdmin()) {
+            if (isset($post['paypal_client_id'])) {
+                $paypal->setClientId($post['paypal_client_id']);
+            }
+            if (isset($post['paypal_client_secret'])) {
+                $paypal->setClientSecret($post['paypal_client_secret']);
+            }
+            if (isset($post['paypal_webhook_id'])) {
+                $paypal->setWebhookId($post['paypal_webhook_id']);
+            }
+            if (isset($post['paypal_currency'])) {
+                $paypal->setCurrency($post['paypal_currency']);
+            }
+            $paypal->setSandbox(isset($post['paypal_sandbox']));
         }
+
         if (isset($post['inactives'])) {
             $paypal->setInactives($post['inactives']);
         } else {
@@ -261,62 +673,9 @@ class PaypalController extends AbstractPluginController
      */
     public function success(Request $request, Response $response): Response
     {
-        $paypal_request = $request->getParsedBody();
-        if (isset($paypal_request['charset'])) {
-            foreach ($paypal_request as $key => $value) {
-                $paypal_request[$key] = iconv($paypal_request['charset'], 'UTF-8', $value);
-            }
-        }
-
         $params = [
-            'page_title'    => _T('Paypal payment success', 'paypal'),
-            'post'          => $paypal_request,
+            'page_title'    => _T('Paypal payment success', 'paypal')
         ];
-
-        $this->flash->addMessage(
-            'success_detected',
-            _T('Your payment has been proceeded!', 'paypal')
-        );
-
-        /*print_r($paypal_request);
-        Array
-        (
-            [mc_gross] => 10.00
-            [protection_eligibility] => Ineligible
-            [payer_id] => 9EQBXB6VP6TQS
-            [tax] => 0.00
-            [payment_date] => 14:53:16 Jun 08, 2011 PDT
-            [payment_status] => Pending
-            [charset] => windows-1252
-            [first_name] => Test
-            [mc_fee] => 0.64
-            [notify_version] => 3.1
-            [custom] =>
-            [payer_status] => verified
-            [business] => asso_1307082004_biz@x-tnd.be
-            [quantity] => 1
-            [payer_email] => member_1307082133_per@x-tnd.be
-            [verify_sign] => AGpFW7lEeJ4C3fJFmc0C7AHLr-I2AOJDPv4h16f.LTWzTPmEMGaw-Z.K
-            [txn_id] => 37S45593SX696710D
-            [payment_type] => instant
-            [last_name] => User
-            [receiver_email] => asso_1307082004_biz@x-tnd.be
-            [payment_fee] =>
-            [receiver_id] => 7ZPFDK9375A6C
-            [pending_reason] => paymentreview
-            [txn_type] => web_accept
-            [item_name] => cotisation annuelle réduite
-            [mc_currency] => EUR
-            [item_number] =>
-            [residence_country] => US
-            [test_ipn] => 1
-            [handling_amount] => 0.00
-            [transaction_subject] => cotisation annuelle réduite
-            [payment_gross] =>
-            [shipping] => 0.00
-            [merchant_return_link] => Go back to %s Website to complete your inscription. (not tra
-        )
-        */
 
         // display page
         $this->view->render(
@@ -325,131 +684,5 @@ class PaypalController extends AbstractPluginController
             $params
         );
         return $response;
-    }
-
-    /**
-     * Notify
-     *
-     * @param Request  $request  PSR Request
-     * @param Response $response PSR Response
-     */
-    public function notify(Request $request, Response $response): Response
-    {
-        $post = $request->getParsedBody();
-        $paypal = new Paypal($this->zdb);
-
-        //if we've received legit information from Paypal website, we can proceed
-        if ($paypal->validate($post)) {
-            if (isset($post['charset'])) {
-                foreach ($post as $key => $value) {
-                    $post[$key] = iconv($post['charset'], 'UTF-8', $value);
-                }
-            }
-
-            $ph = new PaypalHistory($this->zdb, $this->login, $this->preferences);
-            $ph->add($post);
-
-            $s = null;
-            foreach ($post as $k => $v) {
-                if ($s !== null) {
-                    $s .= ' | ';
-                }
-                $s .= $k . '=' . $v;
-            }
-
-            Analog::log($s, Analog::DEBUG);
-
-            //are we working on a real contribution?
-            $real_contrib = false;
-            if (
-                isset($post['custom'])
-                && is_numeric($post['custom'])
-                && $post['payment_status'] == 'Completed'
-            ) {
-                $real_contrib = true;
-            }
-
-            if ($ph->isProcessed($post['verify_sign'])) {
-                Analog::log(
-                    'A paypal payment notification has been received, but it is already processed!',
-                    Analog::WARNING
-                );
-                $ph->setState(PaypalHistory::STATE_ALREADYDONE);
-            } else {
-                //we'll now try to add the relevant cotisation
-                if ($post['payment_status'] == 'Completed') {
-                    /**
-                     * We will use the following parameters:
-                     * - mc_gross: the amount
-                     * - custom: member id
-                     * - item_number: contribution type id
-                     *
-                     * If no member id is provided, we only send to post contribution
-                     * script, Galette does not handle anonymous contributions
-                     */
-                    $args = [
-                        'type'          => $post['item_number'],
-                        'adh'           => $post['custom'],
-                        'payment_type'  => PaymentType::PAYPAL
-                    ];
-                    if ($this->preferences->pref_membership_ext != '') { //@phpstan-ignore-line
-                        $args['ext'] = $this->preferences->pref_membership_ext;
-                    }
-                    $contrib = new Contribution($this->zdb, $this->login, $args);
-                    $post = [
-                        ContributionsTypes::PK  => $post['item_number'],
-                        Adherent::PK            => $post['custom'],
-                        'type_paiement_cotis'   => PaymentType::PAYPAL,
-                        'montant_cotis'         => $post['mc_gross']
-                    ];
-
-                    //all goes well, we can proceed
-                    if ($real_contrib) {
-                        $valid = $contrib->setNoCheckLogin()->check($post, [], []);
-                        if ($valid !== true) {
-                            Analog::log(
-                                'An error occurred while storing a new contribution from Paypal payment:'
-                                . implode("\n   ", $valid),
-                                Analog::ERROR
-                            );
-                            $ph->setState(PaypalHistory::STATE_ERROR);
-                            return $response->withStatus(500, 'Internal error');
-                        }
-
-                        if ($contrib->store()) {
-                            //contribution has been stored :)
-                            Analog::log(
-                                'Paypal payment has been successfully registered as a contribution',
-                                Analog::INFO
-                            );
-                            $ph->setState(PaypalHistory::STATE_PROCESSED);
-                        } else {
-                            //something went wrong :'(
-                            Analog::log(
-                                'An error occurred while storing a new contribution from Paypal payment',
-                                Analog::ERROR
-                            );
-                            $ph->setState(PaypalHistory::STATE_ERROR);
-                            return $response->withStatus(500, 'Internal error');
-                        }
-                    }
-                    return $response->withStatus(200);
-                } else {
-                    Analog::log(
-                        'A paypal payment notification has been received, but is not completed!',
-                        Analog::WARNING
-                    );
-                    $ph->setState(PaypalHistory::STATE_INCOMPLETE);
-                    return $response->withStatus(500, 'Incomplete request');
-                }
-            }
-            return $response->withStatus(200);
-        } else {
-            Analog::log(
-                'Paypal notify URL call without required arguments!',
-                Analog::ERROR
-            );
-            return $response->withStatus(500, 'Missing required arguments');
-        }
     }
 }

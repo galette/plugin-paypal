@@ -24,12 +24,53 @@
         {% endif %}
         <div class="ui segment">
             {% if login.isAdmin() %}
+                <div class="inline field">
+                    <label>{{ _T("Paypal webhook endpoint URL", "paypal") }} :</label>
+                    <code>{{ webhook_url }}</code>
+                </div>
+                <div class="inline field">
+                    <label>{{ _T("Paypal webhook events", "paypal") }} :</label>
+                    <code>CHECKOUT.ORDER.APPROVED</code>, <code>PAYMENT.CAPTURE.COMPLETED</code>
+                </div>
+
                 {% include "components/forms/text.html.twig" with {
-                    id: 'paypal_id',
-                    value: paypal.getId(),
-                    label: _T("Paypal identifier:", "paypal"),
+                    id: 'paypal_client_id',
+                    value: paypal.getClientId(),
+                    label: _T("Paypal client identifier", "paypal"),
                     required: true,
-                    tip: _T("Enter here one of your Paypal ID or email adress associated within your paypal account.", "paypal")
+                    tip: _T("Enter here the client ID of the REST application created from your Paypal developer dashboard.", "paypal")
+                } %}
+
+                {% include "components/forms/text.html.twig" with {
+                    id: 'paypal_client_secret',
+                    value: paypal.getClientSecret(),
+                    label: _T("Paypal client secret", "paypal"),
+                    required: true,
+                    tip: _T("Enter here the secret of the REST application created from your Paypal developer dashboard.", "paypal")
+                } %}
+
+                {% include "components/forms/text.html.twig" with {
+                    id: 'paypal_webhook_id',
+                    value: paypal.getWebhookId(),
+                    label: _T("Paypal webhook identifier", "paypal"),
+                    required: true,
+                    tip: _T("Enter here the identifier of the webhook you declared on the above URL. It is required to check notifications authenticity.", "paypal")
+                } %}
+
+                {% include "components/forms/text.html.twig" with {
+                    id: 'paypal_currency',
+                    value: paypal.getCurrency(),
+                    label: _T("Currency", "paypal"),
+                    required: true,
+                    tip: _T("Three letters ISO 4217 currency code, such as EUR or CHF.", "paypal")
+                } %}
+
+                {% include "components/forms/checkbox.html.twig" with {
+                    id: 'paypal_sandbox',
+                    value: 1,
+                    checked: paypal.isSandbox(),
+                    label: _T("Sandbox mode", "paypal"),
+                    tip: _T("Use Paypal sandbox rather than the real thing. Credentials from your sandbox application are then required.", "paypal")
                 } %}
             {% endif %}
 
@@ -49,8 +90,7 @@
                         {% for k, amount in amounts %}
                             <tr>
                                 <td>
-                                    <input type="hidden" name="amount_id[]" id="amount_id_{{ k }}" value="{{ k }}"/>
-                                    <label for="amount_{{ k }}">{{ amount['name'] }}</label>
+                                    <label for="inactives_{{ k }}">{{ amount['name'] }}</label>
                                 </td>
                                 <td class="collapsing">
                                     {{ amount['amount'] }}

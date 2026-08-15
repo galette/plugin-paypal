@@ -13,19 +13,15 @@ $this->register(
     name: 'Galette Paypal',     //Name
     desc: 'Paypal integration', //Short description
     author: 'Johan Cwiklinski', //Author
-    version: '2.2.1',           //Version
+    version: '3.0.0',           //Version
     compver: '1.3.0',           //Galette compatible version
     route: 'paypal',            //routing name and translation domain
-    date: '2025-12-08',         //Release date
+    date: '2026-08-15',         //Release date
     acls: [                     //Permissions needed
         'paypal_preferences'        => 'staff',
         'store_paypal_preferences'  => 'staff',
         'paypal_history'            => 'staff',
         'filter_paypal_history'     => 'staff'
     ],
-    dbver: 1.00
+    dbver: 3.00
 );
-
-$this->setCsrfExclusions([
-    '/paypal_success/',
-]);
