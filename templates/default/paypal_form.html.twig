@@ -30,7 +30,7 @@
                                                 <input type="radio" name="item_number" id="in{{ k }}" value="{{ k }}"{% if loop.index0 == 0 %} checked="checked"{% endif %}/>
                                                 <label for="in{{ k }}"><span id="in{{ k }}_name" data-amount="{{ amount['amount'] }}">{{ amount['name'] }}</span>
                                                     {% if amount['amount'] > 0 %}
-                                                        ({{ amount['amount']|format_currency('EUR', {}, galette_lang) }}){# TODO: parametize currency #}
+                                                        ({{ amount['amount']|format_currency('EUR', {}, i18n.getWebID()) }}){# TODO: parametize currency #}
                                                     {% endif %}
                                                 </label>
                                             </div>
