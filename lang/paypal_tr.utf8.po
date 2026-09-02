@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"Report-Msgid-Bugs-To: translations@galette.eu\n"
+"Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-08-07 16:10+0200\n"
 "PO-Revision-Date: 2026-02-06 16:01+0000\n"
 "Last-Translator: Kehribar <103407696+dpentx@users.noreply.github.com>\n"

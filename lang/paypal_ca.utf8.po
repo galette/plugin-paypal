@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"Report-Msgid-Bugs-To: translations@galette.eu\n"
+"Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-08-07 16:10+0200\n"
 "PO-Revision-Date: 2026-01-28 15:00+0000\n"
 "Last-Translator: Laura Quintana Marín <2001lauraquintana@gmail.com>\n"
@@ -104,7 +104,8 @@ msgstr "Preferències de Paypal"
 
 #: ../tempcache/paypal_preferences.html.twig:77
 msgid "An error occurred while loading the preferences from the database."
-msgstr "S'ha produït un error en carregar les preferències de la base de dades."
+msgstr ""
+"S'ha produït un error en carregar les preferències de la base de dades."
 
 #: ../tempcache/paypal_preferences.html.twig:81
 msgid "Please, check if the plugin's database has been properly initialized."
