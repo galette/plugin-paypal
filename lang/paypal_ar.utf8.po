@@ -99,7 +99,7 @@ msgstr "تفضيلات بايبال"
 #: ../tempcache/paypal_preferences.html.twig:77
 #, fuzzy
 #| msgid "An error occurred saving paypal preferences :("
-msgid "An error occured while loading the preferences from the database."
+msgid "An error occurred while loading the preferences from the database."
 msgstr "حدث خطأ اثناء حفظ تفضيلات بايبال :("
 
 #: ../tempcache/paypal_preferences.html.twig:81

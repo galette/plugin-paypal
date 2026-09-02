@@ -98,8 +98,8 @@ msgid "Cannot load the preferences"
 msgstr "Cannot load the preferences"
 
 #: ../tempcache/paypal_preferences.html.twig:77
-msgid "An error occured while loading the preferences from the database."
-msgstr "An error occured while loading the preferences from the database."
+msgid "An error occurred while loading the preferences from the database."
+msgstr "An error occurred while loading the preferences from the database."
 
 #: ../tempcache/paypal_preferences.html.twig:81
 msgid "Please, check if the plugin's database has been properly initialized."

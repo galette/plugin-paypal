@@ -106,7 +106,7 @@ msgid "Cannot load the preferences"
 msgstr "No se pueden cargas las preferencias"
 
 #: ../tempcache/paypal_preferences.html.twig:77
-msgid "An error occured while loading the preferences from the database."
+msgid "An error occurred while loading the preferences from the database."
 msgstr "Ocurrió un error al cargar las preferencias desde la base de datos."
 
 #: ../tempcache/paypal_preferences.html.twig:81

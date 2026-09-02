@@ -86,7 +86,7 @@ msgid "Cannot load the preferences"
 msgstr ""
 
 #: ../tempcache/paypal_preferences.html.twig:77
-msgid "An error occured while loading the preferences from the database."
+msgid "An error occurred while loading the preferences from the database."
 msgstr ""
 
 #: ../tempcache/paypal_preferences.html.twig:81
