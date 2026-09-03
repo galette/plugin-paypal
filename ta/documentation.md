@@ -1,5 +1,5 @@
 ---
-title: Documentation
+title: ஆவணமாக்கல்
 description: Paypal integration
 ---
 
@@ -9,12 +9,12 @@ description: Paypal integration
 > integration, with full transaction processing termination scheduled for
 > January 2027. This plugin is **not compatible** with any other integration.
 
-This plugin provides:
+இந்த சொருகி வழங்குகிறது:
 
-* possibility to associate an amount to a contribution type,
-* create a Paypal payment form,
-* an history,
-* automatic transaction storage once validated.
+* ஒரு தொகையை ஒரு பங்களிப்பு வகையுடன் இணைப்பதற்கான சாத்தியம்,
+* பேபால் கட்டண படிவத்தை உருவாக்கவும்,
+* ஒரு வரலாறு,
+* தானியங்கி பரிவர்த்தனை சேமிப்பு ஒரு முறை சரிபார்க்கப்பட்டது.
 
 ![Paypal plugin preferences](images/preferences.png)
 
@@ -24,20 +24,21 @@ This plugin provides:
 
 > **Warning**
 > 
-> Due to the way Paypal payments are handled, especially the payment
-> confirmation, your instance must be publicly accessible.
+> பேபால் கொடுப்பனவுகள் கையாளப்படும் விதம் காரணமாக, குறிப்பாக கட்டண
+> உறுதிப்படுத்தல், உங்கள் நிகழ்வு பகிரங்கமாக அணுகக்கூடியதாக இருக்க வேண்டும்.
 
-## Installation
+## நிறுவல்
 
-First of all, download the plugin:
+முதலில், சொருகி பதிவிறக்கவும்:
 
 * [Get latest Paypal
   plugin!](https://github.com/galette-plugins/plugin-paypal/releases/latest)
 * [Get Paypal plugin nightly
   build!](https://github.com/galette-plugins/plugin-paypal/releases/tag/nightly)
 
-Extract the downloaded archive in Galette `plugins` directory. For example,
-under linux (replacing `{url}` and `{version}` with correct values):
+பதிவிறக்கம் செய்யப்பட்ட காப்பகத்தைக் கேலட் `செருகுநிரல்கள்` கோப்பகத்தில்
+பிரித்தெடுக்கவும். எடுத்துக்காட்டாக, லினக்சின் கீழ் (`{url}` மற்றும் `{version}`
+ஆகியவற்றை சரியான மதிப்புகளுடன் மாற்றுகிறது):
 
 ```bash
 $ cd /var/www/html/galette/plugins
@@ -45,32 +46,32 @@ $ wget {url}
 $ tar xjvf galette-plugin-paypal-{version}.tar.bz2
 ```
 
-## Database initialisation
+## தரவுத்தள துவக்கம்
 
-In order to work, this plugin requires several tables in the database. See
-[Galette plugins management
-interface](https://doc.galette.eu/en/master/plugins/index.html#plugins-managment).
+வேலை செய்ய, இந்தச் சொருகி தரவுத்தளத்தில் பல அட்டவணைகள் தேவை. காண்க [கேலட்
+செருகுநிரல்கள் மேலாண்மை
+இடைமுகம்](https://doc.galette.eu/en/master/plugins/index.html#plugins-managment).
 
-And this is finished; Paypal plugin is installed :)
+இது முடிந்தது; பேபால் சொருகி நிறுவப்பட்டுள்ளது :)
 
-## Plugin configuration
+## சொருகி உள்ளமைவு
 
-Once plugin has been installed, a `Paypal` group is added to the menu, with some
-new entries:
+சொருகி நிறுவப்பட்டதும், சில புதிய உள்ளீடுகளுடன் `பேபால்` குழு பட்டியலில்
+சேர்க்கப்படுகிறது:
 
-* `Payment form`: the payment form itself, which is accessible as a public page,
-* `Preferences`: plugin preferences, accessible for administrators and staff
-  members.
+* `கட்டண படிவம்`: கட்டண படிவமே, இது ஒரு பொது பக்கமாக அணுகக்கூடியது,
+* `விருப்பத்தேர்வுகள்`: சொருகி விருப்பத்தேர்வுகள், நிர்வாகிகள் மற்றும்
+  ஊழியர்களுக்கு அணுகக்கூடியவை.
 
-In order to work properly, you need to fill a very important value: your Paypal
-account code. You can either use the email address associated with your Paypal
-account (but you will need to change it in Galette if it changes on Paypal) or
-your merchant identifier. To find your merchant identifier, log in to Paypal and
-you will find it in your account preferences. Changing identifier is only
-allowed for administrators.
+சரியாக வேலை செய்ய, நீங்கள் மிக முக்கியமான மதிப்பை நிரப்ப வேண்டும்: உங்கள் பேபால்
+கணக்குக் குறியீடு. உங்கள் பேபால் கணக்குடன் தொடர்புடைய மின்னஞ்சல் முகவரியை
+நீங்கள் பயன்படுத்தலாம் (ஆனால் பேபால் மாற்றினால் அதை கேலட்டில் மாற்ற வேண்டும்)
+அல்லது உங்கள் வணிகர் அடையாளங்காட்டி. உங்கள் வணிகர் அடையாளம் காண, பேபாலில்
+உள்நுழைக, அதை உங்கள் கணக்கு விருப்பங்களில் காண்பீர்கள். அடையாளங்காட்டியை
+மாற்றுவது நிர்வாகிகளுக்கு மட்டுமே அனுமதிக்கப்படுகிறது.
 
-Preferences screen also permit to edit amount related to contributions types,
-and to hide some types.
+பங்களிப்பு வகைகள் தொடர்பான தொகையைத் திருத்தவும், சில வகைகளை மறைக்கவும்
+விருப்பத்தேர்வுகள் திரை அனுமதிக்கிறது.
 
 After that, any user can choose the contribution type, adjust the amount and pay
 from his Paypal account. If the user is a logged in member, and if the
