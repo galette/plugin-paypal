@@ -1,5 +1,5 @@
 ---
-title: Documentation
+title: Документація
 description: Paypal integration
 ---
 
@@ -9,12 +9,12 @@ description: Paypal integration
 > integration, with full transaction processing termination scheduled for
 > January 2027. This plugin is **not compatible** with any other integration.
 
-This plugin provides:
+Це розширення надає:
 
-* possibility to associate an amount to a contribution type,
-* create a Paypal payment form,
-* an history,
-* automatic transaction storage once validated.
+* можливість пов'язати суму з типом внеску,
+* створити форму оплати Paypal,
+* історія,
+* автоматичне зберігання переказів після перевірки.
 
 ![Paypal plugin preferences](images/preferences.png)
 
@@ -24,20 +24,20 @@ This plugin provides:
 
 > **Warning**
 > 
-> Due to the way Paypal payments are handled, especially the payment
-> confirmation, your instance must be publicly accessible.
+> Через спосіб обробки платежів Paypal, особливо підтвердження платежу, ваш
+> зразок повинен бути прилюдним.
 
-## Installation
+## Встановлення
 
-First of all, download the plugin:
+Перш за все, завантажте плагін:
 
 * [Get latest Paypal
   plugin!](https://github.com/galette-plugins/plugin-paypal/releases/latest)
 * [Get Paypal plugin nightly
   build!](https://github.com/galette-plugins/plugin-paypal/releases/tag/nightly)
 
-Extract the downloaded archive in Galette `plugins` directory. For example,
-under linux (replacing `{url}` and `{version}` with correct values):
+Розпакуйте завантажений архів у каталог Galette `plugins`. Наприклад, під Linux
+(замінивши `{url}` і `{version}` на правильні значення):
 
 ```bash
 $ cd /var/www/html/galette/plugins
@@ -45,32 +45,33 @@ $ wget {url}
 $ tar xjvf galette-plugin-paypal-{version}.tar.bz2
 ```
 
-## Database initialisation
+## Ініціалізація бази даних
 
-In order to work, this plugin requires several tables in the database. See
-[Galette plugins management
-interface](https://doc.galette.eu/en/master/plugins/index.html#plugins-managment).
+Для роботи цього плагіна потрібно кілька таблиць у базі даних. Перегляньте
+[Інтерфейс керування плагінами
+Galette](https://doc.galette.eu/en/master/plugins/index.html#plugins-managment).
 
-And this is finished; Paypal plugin is installed :)
+Усе завершено. Розширення "PayPal" установлено :)
 
-## Plugin configuration
+## Конфігурація розширення
 
-Once plugin has been installed, a `Paypal` group is added to the menu, with some
-new entries:
+Після встановлення розширення до меню додається група `Paypal` з деякими новими
+записами:
 
-* `Payment form`: the payment form itself, which is accessible as a public page,
-* `Preferences`: plugin preferences, accessible for administrators and staff
-  members.
+* `Форма оплати`: сама форма оплати, яка доступна як загальнодоступна сторінка,
+* `Налаштування`: налаштування розширення, доступні для адміністраторів та
+  співробітників.
 
-In order to work properly, you need to fill a very important value: your Paypal
-account code. You can either use the email address associated with your Paypal
-account (but you will need to change it in Galette if it changes on Paypal) or
-your merchant identifier. To find your merchant identifier, log in to Paypal and
-you will find it in your account preferences. Changing identifier is only
-allowed for administrators.
+Для правильної роботи вам необхідно заповнити дуже важливе значення: код вашого
+Paypal-рахунку. Ви можете використовувати або адресу електронної пошти,
+пов'язаний з вашим обліковим записом Paypal (але ви повинні будете змінити його
+в Galette, якщо він зміниться на Paypal) або ваш ідентифікатор торговця. Щоб
+знайти ідентифікатор продавця, увійдіть в систему Paypal, і Ви знайдете його в
+налаштуваннях вашого облікового запису. Зміна ідентифікатора дозволено тільки
+адміністраторам.
 
-Preferences screen also permit to edit amount related to contributions types,
-and to hide some types.
+Екран налаштувань також дозволяє редагувати суму, пов’язану з видами внесків, і
+приховувати деякі види.
 
 After that, any user can choose the contribution type, adjust the amount and pay
 from his Paypal account. If the user is a logged in member, and if the
