@@ -1,5 +1,5 @@
 ---
-title: Documentation
+title: Dokumentacija
 description: Paypal integration
 ---
 
@@ -9,12 +9,12 @@ description: Paypal integration
 > integration, with full transaction processing termination scheduled for
 > January 2027. This plugin is **not compatible** with any other integration.
 
-This plugin provides:
+Ta vtičnik ponuja:
 
-* possibility to associate an amount to a contribution type,
-* create a Paypal payment form,
-* an history,
-* automatic transaction storage once validated.
+* možnost povezave zneska z vrsto prispevka,
+* ustvarite obrazec za plačilo prek PayPala,
+* zgodovina,
+* samodejno shranjevanje transakcij po potrditvi.
 
 ![Paypal plugin preferences](images/preferences.png)
 
@@ -24,20 +24,20 @@ This plugin provides:
 
 > **Warning**
 > 
-> Due to the way Paypal payments are handled, especially the payment
-> confirmation, your instance must be publicly accessible.
+> Zaradi načina obdelave plačil prek PayPala, zlasti potrditve plačila, mora
+> biti vaš primerek javno dostopen.
 
-## Installation
+## Namestitev
 
-First of all, download the plugin:
+Najprej prenesite vtičnik:
 
 * [Get latest Paypal
   plugin!](https://github.com/galette-plugins/plugin-paypal/releases/latest)
 * [Get Paypal plugin nightly
   build!](https://github.com/galette-plugins/plugin-paypal/releases/tag/nightly)
 
-Extract the downloaded archive in Galette `plugins` directory. For example,
-under linux (replacing `{url}` and `{version}` with correct values):
+Razširite prenesen arhiv v imenik Galette `plugins`. Na primer v Linuxu
+(zamenjajte `{url}` in `{version}` s pravilnimi vrednostmi):
 
 ```bash
 $ cd /var/www/html/galette/plugins
@@ -45,32 +45,30 @@ $ wget {url}
 $ tar xjvf galette-plugin-paypal-{version}.tar.bz2
 ```
 
-## Database initialisation
+## Inicializacija baze podatkov
 
-In order to work, this plugin requires several tables in the database. See
-[Galette plugins management
-interface](https://doc.galette.eu/en/master/plugins/index.html#plugins-managment).
+Za delovanje ta vtičnik potrebuje več tabel v bazi podatkov. Glejte [Vmesnik za
+upravljanje vtičnikov
+Galette](https://doc.galette.eu/en/master/plugins/index.html#plugins-managment).
 
-And this is finished; Paypal plugin is installed :)
+In to je končano; vtičnik Paypal je nameščen :)
 
-## Plugin configuration
+## Konfiguracija vtičnika
 
-Once plugin has been installed, a `Paypal` group is added to the menu, with some
-new entries:
+Ko je vtičnik nameščen, se v meni doda skupina »Paypal« z nekaj novimi vnosi:
 
-* `Payment form`: the payment form itself, which is accessible as a public page,
-* `Preferences`: plugin preferences, accessible for administrators and staff
-  members.
+* „Plačilni obrazec“: sam plačilni obrazec, ki je dostopen kot javna stran,
+* `Nastavitve`: nastavitve vtičnikov, dostopne skrbnikom in članom osebja.
 
-In order to work properly, you need to fill a very important value: your Paypal
-account code. You can either use the email address associated with your Paypal
-account (but you will need to change it in Galette if it changes on Paypal) or
-your merchant identifier. To find your merchant identifier, log in to Paypal and
-you will find it in your account preferences. Changing identifier is only
-allowed for administrators.
+Za pravilno delovanje morate vnesti zelo pomembno vrednost: kodo svojega Paypal
+računa. Uporabite lahko e-poštni naslov, povezan z vašim Paypal računom (vendar
+ga boste morali spremeniti v Galette, če se spremeni v Paypalu), ali pa svojo
+identifikacijsko številko trgovca. Če želite najti svojo identifikacijsko
+številko trgovca, se prijavite v Paypal in jo boste našli v nastavitvah računa.
+Spreminjanje identifikacijske številke je dovoljeno samo skrbnikom.
 
-Preferences screen also permit to edit amount related to contributions types,
-and to hide some types.
+Zaslon z nastavitvami omogoča tudi urejanje zneskov, povezanih z vrstami
+prispevkov, in skrivanje nekaterih vrst.
 
 After that, any user can choose the contribution type, adjust the amount and pay
 from his Paypal account. If the user is a logged in member, and if the
