@@ -12,7 +12,7 @@ description: Paypal integration
 A [Galette](https://galette.eu) plugin to let members pay their membership fees
 and donations through Paypal.
 
-This plugin provides:
+Этот плагин дает:
 
 * possibility to associate an amount to a contribution type,
 * create a Paypal payment form,
