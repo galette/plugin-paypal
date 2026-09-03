@@ -1,5 +1,5 @@
 ---
-title: Documentation
+title: Documentazione
 description: Paypal integration
 ---
 
@@ -9,12 +9,12 @@ description: Paypal integration
 > integration, with full transaction processing termination scheduled for
 > January 2027. This plugin is **not compatible** with any other integration.
 
-This plugin provides:
+Questo componente aggiuntivo fornisce:
 
-* possibility to associate an amount to a contribution type,
-* create a Paypal payment form,
-* an history,
-* automatic transaction storage once validated.
+* possibilità di associare un ammontare ad un tipo di contribuzione,
+* creare un modulo di pagamento Paypal,
+* una cronologia,
+* salvataggio delle transazioni automatico una volta convalidato.
 
 ![Paypal plugin preferences](images/preferences.png)
 
@@ -24,20 +24,20 @@ This plugin provides:
 
 > **Warning**
 > 
-> Due to the way Paypal payments are handled, especially the payment
-> confirmation, your instance must be publicly accessible.
+> Per il modo in cui i pagamenti Paypal sono gestiti, specialmente la conferma
+> di pagamento, la tua istanza deve essere accessibile pubblicamente.
 
-## Installation
+## Installazione
 
-First of all, download the plugin:
+Prima di tutto, scaricare il plugin:
 
 * [Get latest Paypal
   plugin!](https://github.com/galette-plugins/plugin-paypal/releases/latest)
 * [Get Paypal plugin nightly
   build!](https://github.com/galette-plugins/plugin-paypal/releases/tag/nightly)
 
-Extract the downloaded archive in Galette `plugins` directory. For example,
-under linux (replacing `{url}` and `{version}` with correct values):
+Estrarre l'archivio scaricato nella directory `plugins` di Galette. Ad esempio,
+su Linux (sostituendo `{url}` e `{version}` con i valori corretti):
 
 ```bash
 $ cd /var/www/html/galette/plugins
@@ -45,32 +45,33 @@ $ wget {url}
 $ tar xjvf galette-plugin-paypal-{version}.tar.bz2
 ```
 
-## Database initialisation
+## Inizializzazione database
 
-In order to work, this plugin requires several tables in the database. See
-[Galette plugins management
-interface](https://doc.galette.eu/en/master/plugins/index.html#plugins-managment).
+Per funzionare, questo plugin richiede diverse tabelle nel database. Vedere
+[Interfaccia di gestione dei plugin
+Galette](https://doc.galette.eu/en/master/plugins/index.html#plugins-managment).
 
-And this is finished; Paypal plugin is installed :)
+Completato; il componente aggiuntivo Paypal è installato :)
 
-## Plugin configuration
+## Configurazione componente aggiuntivo
 
-Once plugin has been installed, a `Paypal` group is added to the menu, with some
-new entries:
+Una volta che il componente aggiuntivo è stato installato, verrà aggiunto un
+gruppo `Paypal` al menu, con alcune nuove voci:
 
-* `Payment form`: the payment form itself, which is accessible as a public page,
-* `Preferences`: plugin preferences, accessible for administrators and staff
-  members.
+* `Forma di pagamento`: la forma di pagamento, accessibile da una pagina
+  pubblica,
+* `Preferenze`: le preferenze relative ai componenti aggiuntivi, accessibile
+  agli amministratori e membri dello staff.
 
-In order to work properly, you need to fill a very important value: your Paypal
-account code. You can either use the email address associated with your Paypal
-account (but you will need to change it in Galette if it changes on Paypal) or
-your merchant identifier. To find your merchant identifier, log in to Paypal and
-you will find it in your account preferences. Changing identifier is only
-allowed for administrators.
+Per poter funzionare correttamente, devi inserire un dato molto importante: il
+tuo codice account Paypal. Puoi usare l'indirizzo email associato all'account
+Paypal (ma dovrai cambiarlo in Galette se lo cambi su Paypal) o il tuo
+identificatore commerciante. Per trovare il tuo identificatore, accedi a Paypal
+e lo troverai nelle preferenze dell'account. Solo gli amministratori possono
+cambiare l'identificatore.
 
-Preferences screen also permit to edit amount related to contributions types,
-and to hide some types.
+Nelle preferenze è possibile modificare gli ammontare delle contribuzioni, e
+nasconderne alcuni tipologie.
 
 After that, any user can choose the contribution type, adjust the amount and pay
 from his Paypal account. If the user is a logged in member, and if the
