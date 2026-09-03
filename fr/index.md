@@ -5,19 +5,19 @@ description: Paypal integration
 
 > **Warning**
 > 
-> PayPal is discontinuing its legacy Website Payments Standard (WPS)
-> integration, with full transaction processing termination scheduled for
-> January 2027. This plugin is **not compatible** with any other integration.
+> PayPal met fin à son intégration historique de paiement (WPS), la fermeture
+> complète est prévue pour janvier 2027. Ce plugin est **non compatible** avec
+> toute autre intégration.
 
 A [Galette](https://galette.eu) plugin to let members pay their membership fees
 and donations through Paypal.
 
-This plugin provides:
+Ce plugin fournit :
 
-* possibility to associate an amount to a contribution type,
-* create a Paypal payment form,
-* an history,
-* automatic transaction storage once validated.
+* la possibilité d'associer un montant à un type de contribution,
+* la création d'un formulaire de paiement,
+* un historique,
+* le stockage des transactions une fois validées.
 
 * [documentation](documentation.html)
 * [bugs and features](https://bugs.galette.eu/projects/galette-plugin-paypa)
