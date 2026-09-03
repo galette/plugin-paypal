@@ -1,5 +1,5 @@
 ---
-title: Documentation
+title: Dokumentation
 description: Paypal integration
 ---
 
@@ -29,7 +29,7 @@ This plugin provides:
 
 ## Installation
 
-First of all, download the plugin:
+Als erstes, Lade das Plugin herunter:
 
 * [Get latest Paypal
   plugin!](https://github.com/galette-plugins/plugin-paypal/releases/latest)
@@ -45,10 +45,10 @@ $ wget {url}
 $ tar xjvf galette-plugin-paypal-{version}.tar.bz2
 ```
 
-## Database initialisation
+## Datenbank Initialisierung
 
-In order to work, this plugin requires several tables in the database. See
-[Galette plugins management
+Damit es Funktioniert, benötigt dieses Plugin verschiedene Tabellen in der
+Datenbank. Weiteres sehen sie hier [Galette plugins management
 interface](https://doc.galette.eu/en/master/plugins/index.html#plugins-managment).
 
 And this is finished; Paypal plugin is installed :)
