@@ -9,7 +9,7 @@ description: Paypal integration
 > integration, with full transaction processing termination scheduled for
 > January 2027. This plugin is **not compatible** with any other integration.
 
-This plugin provides:
+Bu eklenti şunları sağlar:
 
 * possibility to associate an amount to a contribution type,
 * create a Paypal payment form,
@@ -27,17 +27,17 @@ This plugin provides:
 > Due to the way Paypal payments are handled, especially the payment
 > confirmation, your instance must be publicly accessible.
 
-## Installation
+## Kurulum
 
-First of all, download the plugin:
+Öncelikle, eklentiyi indirin:
 
 * [Get latest Paypal
   plugin!](https://github.com/galette-plugins/plugin-paypal/releases/latest)
 * [Get Paypal plugin nightly
   build!](https://github.com/galette-plugins/plugin-paypal/releases/tag/nightly)
 
-Extract the downloaded archive in Galette `plugins` directory. For example,
-under linux (replacing `{url}` and `{version}` with correct values):
+İndirilen arşivi Galette `plugins` dizinine çıkarın. Örneğin, Linux altında
+(`{url}` ve `{version}` değerlerini doğru değerlerle değiştirerek):
 
 ```bash
 $ cd /var/www/html/galette/plugins
@@ -45,11 +45,11 @@ $ wget {url}
 $ tar xjvf galette-plugin-paypal-{version}.tar.bz2
 ```
 
-## Database initialisation
+## Veritabanı başlatma
 
-In order to work, this plugin requires several tables in the database. See
-[Galette plugins management
-interface](https://doc.galette.eu/en/master/plugins/index.html#plugins-managment).
+Çalışabilmesi için, bu eklenti veritabanında birkaç tablo gerektirir. Bkz.
+[Galette eklenti yönetim
+arayüzü](https://doc.galette.eu/en/master/plugins/index.html#plugins-managment).
 
 And this is finished; Paypal plugin is installed :)
 
