@@ -12,12 +12,12 @@ description: Paypal integration
 A [Galette](https://galette.eu) plugin to let members pay their membership fees
 and donations through Paypal.
 
-This plugin provides:
+Ta vtičnik ponuja:
 
-* possibility to associate an amount to a contribution type,
-* create a Paypal payment form,
-* an history,
-* automatic transaction storage once validated.
+* možnost povezave zneska z vrsto prispevka,
+* ustvarite obrazec za plačilo prek PayPala,
+* zgodovina,
+* samodejno shranjevanje transakcij po potrditvi.
 
 * [documentation](documentation.html)
 * [bugs and features](https://bugs.galette.eu/projects/galette-plugin-paypa)
